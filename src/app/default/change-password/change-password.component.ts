@@ -12,19 +12,11 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-  public parent: string;
   submitted: boolean = false;
   public parentURL: string = "";
   public subURL: string = "";
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public loginService: LoginService) {
-
-    let navigation = this.router.getCurrentNavigation();
-    console.log(navigation)
-    const state = navigation.extras.state as {
-      parent: string
-    };
-    this.parent = state.parent;
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -53,7 +45,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   close() {
-    this.router.navigate([this.parent]);
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details`])
   }
 
   onSubmit() {

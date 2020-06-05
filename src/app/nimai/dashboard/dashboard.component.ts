@@ -75,18 +75,6 @@ export class DashboardComponent implements OnInit {
           this.titleService.loading.next(false);
         }
       )
-  }
-
-  redirectTo(redirectVal){
-    console.log('1111');
-    
-    const navigationExtras: NavigationExtras = {
-      state: {
-        parent: this.parentURL + '/dsb/business-details'
-      }
-    };
-    this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/dsb/"+redirectVal], navigationExtras);
-    }
-  
+  }  
 
 }

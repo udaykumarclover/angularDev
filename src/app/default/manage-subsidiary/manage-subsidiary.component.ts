@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import * as $ from '../../../assets/js/jquery.min';
+import * as $ from 'src/assets/js/jquery.min';
+import { manageSub } from 'src/assets/js/commons'
 
 
 @Component({
@@ -17,13 +18,6 @@ export class ManageSubsidiaryComponent implements OnInit {
   public subURL: string = "";
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
-
-    let navigation = this.router.getCurrentNavigation();
-    console.log(navigation)
-    const state = navigation.extras.state as {
-      parent: string
-    };
-    this.parent = state.parent;
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -43,27 +37,29 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   ngOnInit() {
+    manageSub();
   }
 
   close() {
-    this.router.navigate([this.parent]);
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+    $("#addsub").hide();
   }
 
-  onSubmit(){
+  addSubsidiary() {
+    $("#addsub").show();
+  }
+
+  onSubmit() {
 
     this.submitted = true;
-
-    if(this.manageSubForm.invalid){
+    if (this.manageSubForm.invalid) {
       return;
     }
     this.submitted = false;
-    $('.modal1').hide();
-    $('.modal2').show();
-  }
-
-  onThanks(){
-    $('.modal2').hide();
-    this.router.navigate([this.parent]);
+    $('#authemaildiv').slideUp();
+    $('#paradiv').slideDown();
+    $('#okbtn').show();
+    $('#btninvite').hide();
   }
 
 }
