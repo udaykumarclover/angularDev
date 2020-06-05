@@ -10,7 +10,7 @@ import { ForgotPasswordComponent } from './default/forgot-password/forgot-passwo
 import { PagenotfoundComponent } from './default/pagenotfound/pagenotfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
-//import { ResetPasswordComponent } from './default/reset-password/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './default/reset-password/reset-password/reset-password.component';
 import { LoaderServiceService } from './services/loader/loader-service.service';
 import { LoaderInterceptorService } from './services/interceptors/loader/loader-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,8 +29,8 @@ import { CustomerLoginComponent } from './default/popups/customer-login/customer
     LoginComponent,
     ForgotPasswordComponent,
     PagenotfoundComponent,
-    //ResetPasswordComponent,
-    CustomerLoginComponent 
+    ResetPasswordComponent,
+    CustomerLoginComponent,
     
   ],
   imports: [
