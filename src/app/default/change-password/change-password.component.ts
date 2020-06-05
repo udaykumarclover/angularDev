@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { MustMatch } from 'src/app/beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ChangePasswordComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public loginService: LoginService) {
 
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation)
@@ -35,6 +36,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePasswordForm = this.formBuilder.group({
+    userId: sessionStorage.getItem('userID'),
     oldpassword: new FormControl('', Validators.required),
     newPassword: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', [Validators.required])
@@ -55,6 +57,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.changePasswordForm.value)
     this.submitted = true;
     if (this.changePasswordForm.invalid) {
       return;
@@ -62,15 +65,39 @@ export class ChangePasswordComponent implements OnInit {
     this.submitted = false;
     $('.modal1').hide();
 
-    const navigationExtras: NavigationExtras = {
-      state: {
-        title: 'Congraulations! Your Password has been successfully Changed !',
-        message: 'Kindly login with new Password',
-        parent: 'login'
-      }
-    };
-    this.router.navigate(['/login/success'], navigationExtras)
-      .then(success => console.log('navigation success?', success))
-      .catch(console.error);
+    // let data={
+    //   userId: sessionStorage.getItem('userID'),
+    //   oldPassword: this.changePasswordForm.get('oldpassword').value,
+    //   newPassword: this.changePasswordForm.get('newPassword').value,
+    //   retypePassword: this.changePasswordForm.get('confirmPassword').value
+    // }
+
+    this.loginService.changePassword(this.changePasswordForm.value).
+      subscribe(
+        (response) => {
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Congraulations! Your Password has been successfully Changed !',
+              message: 'Kindly login with new Password',
+              parent: 'login'
+            }
+          };
+          this.router.navigate(['/login/success'], navigationExtras)
+            .then(success => console.log('navigation success?', success))
+            .catch(console.error);
+        },
+        (error) => {
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Old Password is incorrect !',
+              message: 'Kindly check the password and try again!',
+              parent: this.subURL + '/' + this.parentURL + '/business-details'
+            }
+          };
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/error`], navigationExtras)
+            .then(success => console.log('navigation ?', success))
+            .catch(console.error);
+        }
+      )
   }
 }
