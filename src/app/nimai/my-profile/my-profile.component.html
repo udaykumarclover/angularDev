@@ -1,0 +1,488 @@
+<div class="content">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="card myprofile">
+               <div class="card-header card-header-icon" data-background-color="blue">
+                  <i class="fas fa-user"></i>
+               </div>
+               <div class="card-content">
+                  <h4 class="card-title">
+                     My Profile <small>Account Vefified
+                        <img src="https://image.flaticon.com/icons/svg/929/929440.svg"
+                           style="width:18px !important; vertical-align: text-bottom;" /></small>
+                  </h4>
+                     <div class="row">
+                        <p class="col-md-12"><strong>Personal Detais</strong><small> <a 
+                           (click)="redirectOn('personal-details')">Edit <i class="far fa-edit"></i></a></small></p>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">First Name</span>
+                              <span class="labeltext">{{this.personalDetails.firstName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Last Name</span>
+                              <span class="labeltext">{{this.personalDetails.lastName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email ID</span>
+                              <span class="labeltext">{{this.personalDetails.emailAddress}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Mobile No.</span>
+                              <span class="labeltext">{{this.personalDetails.mobileNum}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Landline No.</span>
+                              <span class="labeltext">{{this.personalDetails.landLinenumber}}</span>
+                              <span class="labeltext" *ngIf="!this.personalDetails.landLinenumber">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Country</span>
+                              <span class="labeltext">{{this.personalDetails.countryName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isBank">
+                           <div class="inputDiv">
+                              <span class="customspan">Minimum Value of LC (USD)</span>
+                              <span class="labeltext">{{this.personalDetails.minLCVal}}</span>
+                              <span class="labeltext" *ngIf="!this.personalDetails.minLCVal">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isBank">
+                           <div class="inputDiv">
+                              <span class="customspan">Countries Interested</span>
+                              <span class="labeltext" *ngFor="let valuebe of this.personalDetails.blacklistedGoods">
+                                 {{valuebe.blackListGoods}}
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isBank">
+                           <div class="inputDiv">
+                              <span class="customspan">Countries Black Listed Goods</span>
+                              <span class="labeltext" *ngFor="let valuebe1 of this.personalDetails.interestedCountry">
+                                 {{valuebe1.countriesIntrested}}
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isReferrer">
+                           <div class="inputDiv">
+                              <span class="customspan">Company Name</span>
+                              <span class="labeltext">{{this.personalDetails.companyName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isReferrer">
+                           <div class="inputDiv">
+                              <span class="customspan">Designation</span>
+                              <span class="labeltext">{{this.personalDetails.designation}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isReferrer">
+                           <div class="inputDiv">
+                              <span class="customspan">Business Type</span>
+                              <span class="labeltext">{{this.personalDetails.businessType}}</span>
+                           </div>
+                        </div>
+                     </div>
+                     <p class="dash"><strong>Business Detais</strong><small>
+                           <a (click)="redirectOn('business-details')" >Edit <i
+                                 class="far fa-edit"></i></a></small></p>
+                     <div class="row">
+                        <div class="col-md-3" *ngIf="isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Registration Type</span>
+                              <span class="labeltext">{{this.bd.registrationType}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Company Name</span>
+                              <span class="labeltext">{{this.bd.comapanyName}}</span>
+                           </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="isCustomer">
+                           <table class="table table-bordered" *ngFor="let detail of this.bd.ownerMasterBean">
+                              <tr>
+                              <tr>
+                                 <th>MD/CEO/Owner’s First Name</th>
+                                 <th>MD/CEO/Owner’s Last Name</th>
+                                 <th>Designation</th>
+                              </tr>
+                              <tr>
+                                 <td>
+                                    {{detail.ownerFirstName}}
+                                 </td>
+                                 <td>
+                                    {{detail.ownerLastName}}
+                                 </td>
+                                 <td>
+                                    {{detail.designation}}
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Bank Name</span>
+                              <span class="labeltext">{{this.bd.bankName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Branch Name</span>
+                              <span class="labeltext">{{this.bd.branchName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Swift Code</span>
+                              <span class="labeltext">{{this.bd.swiftCode}}</span>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <h4 class="headingProfile col-md-12">
+                           Registered Address Details
+                        </h4>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Country</span>
+                              <span class="labeltext">{{this.bd.registeredCountry}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">State</span>
+                              <span class="labeltext">{{this.bd.provinceName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">City</span>
+                              <span class="labeltext">{{this.bd.city}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Address Line 1</span>
+                              <span class="labeltext">{{this.bd.address1}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Address Line 2</span>
+                              <span class="labeltext">{{this.bd.address2}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Address Line 3/ Landmark</span>
+                              <span class="labeltext">{{this.bd.address3}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Pincode</span>
+                              <span class="labeltext">{{this.bd.pincode}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Telephone</span>
+                              <span class="labeltext">{{this.bd.telephone}}</span>
+                           </div>
+                        </div>
+                     </div>
+                     <p class="dash"><strong>KYC Detais</strong><small>
+                           <a (click)="redirectOn('kyc-details')">Edit <i
+                                 class="far fa-edit"></i></a></small></p>
+                     <div class="clearfix"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<footer class="footer">
+   <div class="container-fluid">
+      <nav class="pull-left">
+      </nav>
+      <p class="copyright pull-right">
+         &copy;
+         <script>document.write(new Date().getFullYear())</script> Nimai Management Consultants
+      </p>
+   </div>
+</footer>
+
+
+<!-- <div id="myModal5" class="modal fade" role="dialog">
+   <div class="modal-dialog modal-md  editProfileDiv">
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2>Edit Personal Details</h2>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="row">
+                     <form [formGroup]="personalDetailsForm" (ngSubmit)="onSubmitPerDetails();">
+                        <div class="">
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text" formControlName="firstName"
+                                    (keydown)="validateRegexFields($event, 'alpha')" class="has-value">
+                                 <label>First Name</label>
+                                 <div *ngIf="submitted && perDetails.firstName.errors?.required">
+                                    First Name is required
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text" formControlName="lastName"
+                                    (keydown)="validateRegexFields($event, 'alpha')" class="has-value">
+                                 <label>Last Name</label>
+                                 <div *ngIf="submitted && perDetails.lastName.errors?.required">
+                                    Last Name is required
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text" formControlName="emailId" class=" has-value">
+                                 <label>Email ID</label>
+                                 <div *ngIf="submitted && perDetails.emailId.errors?.required">
+                                    Email is required
+                                 </div>
+                                 <div *ngIf="perDetails.emailId.touched && perDetails.emailId.errors?.pattern">
+                                    Invalid Email id
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text" formControlName="mobileNo" class=" has-value" maxlength="12"
+                                    (keypress)="validateRegexFields($event, 'number')">
+                                 <label>Mobile No.</label>
+                                 <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
+                                    Mobile No is required
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text" formControlName="landLineNo" maxlength="12"
+                                    (keypress)="validateRegexFields($event, 'number')" class=" has-value">
+                                 <label>Landline No.</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv selectdiv">
+                                 <select formControlName="country">
+                                    <option value="">Select</option>
+                                    <option value="India">India</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="BanglaDesh">Bangladesh</option>
+                                 </select>
+                                 <label>Select Country</label>
+                                 <div *ngIf="submitted && perDetails.country.errors?.required">
+                                    Select a Country
+                                 </div>
+                              </div>
+                           </div>
+                           <span *ngIf="isReferrer">
+                           <div class="col-md-4" >
+                              <div class="inputDiv">
+                                  <input type="text" formControlName="companyName">
+                                  <label>Company Name</label>                                            
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="inputDiv">
+                                  <input type="text" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                  <label>Designation</label>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="inputDiv">
+                                  <input type="text" formControlName="businessType">
+                                  <label>Business Type</label>
+                              </div>
+                          </div>
+                        </span>
+                        </div>
+                        <button type="submit" class="btn btn-info pull-right">Update Profile</button>
+                        <div class="clearfix"></div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div id="myModal6" class="modal fade" role="dialog">
+   <div class="modal-dialog modal-md  editProfileDiv">
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2>Edit Business Details</h2>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="">
+                     <form [formGroup]="changePasswordForm">
+                        <div class="row">
+                           <div class="col-md-4 selection">
+                              <div class="row">
+                                 <label class="customlabel">Registration Type</label>
+                                 <div class="radio-group">
+                                    <input checked="checked" type="radio" id="option-one" name="selector">
+                                    <label for="option-one">Exporter</label>
+                                    <input type="radio" id="option-two" name="selector">
+                                    <label for="option-two">Importer</label>
+                                    <input type="radio" id="option-three" name="selector">
+                                    <label for="option-three">Both</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>Company Name</label>
+                              </div>
+                           </div>
+                           <div class="clearfix"></div>
+                           <div class="field_wrapper col-md-12">
+                              <div>
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                       <div class="inputDiv">
+                                          <input type="text">
+                                          <label>MD/CEO/Owner’s First Name</label>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <div class="inputDiv">
+                                          <input type="text">
+                                          <label>MD/CEO/Owner’s Last Name</label>
+                                       </div>
+                                    </div>
+                                    <a href="javascript:void(0);" class="add_button" title="Add field"><i
+                                          class="fas fa-plus-circle"></i></a>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="clearfix"></div>
+                           <h4 class="card-title col-md-12"
+                              style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                              Registered Address Details
+                           </h4>
+                           <div class="col-md-4">
+                              <div class="inputDiv selectdiv">
+                                 <select name='country'>
+                                    <option value='0'>Select</option>
+                                    <option value='1'>India</option>
+                                    <option value='2'>Bangladesh</option>
+                                    <option value='3'>Kenya</option>
+                                    <option value='4'>Nigeria</option>
+                                    <option value='5'>UAE </option>
+                                    <option value='6'>Qatar</option>
+                                 </select>
+                                 <label>Select Country</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv selectdiv">
+                                 <select name='state'>
+                                    <option value='0'>Select</option>
+                                    <option value='1'>Andhra Pradesh</option>
+                                    <option value='2'>Arunachal Pradesh</option>
+                                    <option value='3'>Assam</option>
+                                    <option value='4'>Bihar</option>
+                                    <option value='6'>Chhattisgarh</option>
+                                    <option value='7'>Goa</option>
+                                    <option value='8'>Gujarat</option>
+                                    <option value='9'>Gujarat</option>
+                                    <option value='10'>Madhya Pradesh</option>
+                                    <option value='11'>Maharashtra</option>
+                                 </select>
+                                 <label>Select Province/State</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>City</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>Address Line 1</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>Address Line 2</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>Address Line 3/Landmark</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>Pincode/Zipcode</label>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="inputDiv">
+                                 <input type="text">
+                                 <label>Telephone</label>
+                              </div>
+                           </div>
+                        </div>
+                        <a href="#" class="btn btn-info pull-right">
+                           Save</a>
+
+                        <div class="clearfix"></div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div id="myModal4" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md editProfileDiv">
+         <div class="modal-content">
+            <div class="modal-body">
+               <div class="text-center innerSuccessdiv">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="45px" height="45px" fill="#ccc">
+                     <path
+                        d="M467 61H45C20.218 61 0 81.196 0 106v300c0 24.72 20.128 45 45 45h422c24.72 0 45-20.128 45-45V106c0-24.72-20.128-45-45-45zm-6.214 30L256.954 294.833 51.359 91h409.427zM30 399.788V112.069l144.479 143.24L30 399.788zM51.213 421l144.57-144.57 50.657 50.222c5.864 5.814 15.327 5.795 21.167-.046L317 277.213 460.787 421H51.213zM482 399.787L338.213 256 482 112.212v287.575z" />
+                  </svg>
+                  <div class="form-group"></div>
+                  <div class="inputDiv">
+                     <input type="text">
+                     <label>Your Email ID</label>
+                  </div>
+                  <button type="submit" class="btn btn-info">Submit</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div> -->

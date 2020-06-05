@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+    <!-- <div class="wrapper"> -->
+
+    <!-- <div class="main-panel"> -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title"> Personal Details </h4>
+                            <form [formGroup]="personalDetailsForm" (ngSubmit)="submit();">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                            <label>First Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                            <label>Last Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="emailId">
+                                            <label>Email ID</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
+                                            <label>Mobile No.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="landLineNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
+                                            <label>Landline No.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- <div class="inputDiv " > selectdiv -->
+                                        <div class="inputDiv selectdiv">
+                                            <select formControlName="country">
+                                                <option value="">Select</option>
+                                                <option value="India">India</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="BanglaDesh">Bangladesh</option>
+                                            </select>
+                                            <label>Select Country</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="isReferrer">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="companyName">
+                                            <label>Company Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="isReferrer">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <label>Designation</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="isReferrer">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="businessType">
+                                            <label>Business Type</label>
+                                        </div>
+                                    </div>
+                                    
+ 
+                                     <div class="col-md-3 bankfields" *ngIf="isBank">
+                                        <div class="inputDiv">
+                                           <input type="text" formControlName="minLCVal">
+                                           <label>Minimum Value of LC (USD)</label>
+                                           <div *ngIf="submitted && suf.minLCVal.errors" class="invalid-feedback">
+                                              <div *ngIf="suf.minLCVal.errors.required">
+                                                 Minimum LC value is required
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </div>
+                                     <div class="col-md-3 bankfields" *ngIf="isBank">
+                                        <div class="inputDiv multiselect-dropdown ">
+                                            <label class="dropdownlabel">Countries Interested</label>
+                                            <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                        </div>
+                                     </div>
+                                     <div class="col-md-3 bankfields" *ngIf="isBank">
+                                        <div class="inputDiv">
+                                            <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                        </div>
+                                     </div>
+                                    <input type="hidden" formControlName="subscriberType">
+                                    <input type="hidden" formControlName="userId">
+                                    <input type="hidden" formControlName="bankType">
+                                </div>
+                                <button type="submit" class="btn btn-info pull-right">Update Profile</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+    <!-- </div> -->
+    <!-- </div> -->
+
+    
+
+
+
+
+    
+</body>
+
+</html>

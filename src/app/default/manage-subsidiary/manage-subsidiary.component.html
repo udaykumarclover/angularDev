@@ -1,0 +1,52 @@
+<div id="myModal" class="modal1">
+    <!-- <div class="modal-dialog modal-md emaildiv"> -->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="col-md-12 arrow_box">
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="manageSubForm" (ngSubmit)="onSubmit()">
+        <h2>Manage Your Subsidiary by providing detail</h2>
+        <div class="row">
+          <!--<p><strong>Enter Email ID here</strong></p> -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="inputDiv">
+                  <input type="text" formControlName="emailId" >
+                  <label>Enter emai address</label>
+                  <div *ngIf="submitted && manageSubDetails.emailId.errors?.required">
+                    Email is required
+                  </div>
+                  <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.email">
+                    Invalid Email id
+                </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-info pull-right" type="submit">Submit</button>
+          </div>
+          <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
+        </div>    
+      </form>
+    </div>
+    </div>
+    <!-- </div> -->
+  </div>
+
+  <div id="myModal" class="modal2" style="display:none">
+    <!-- <div class="modal-dialog modal-md emaildiv"> -->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="col-md-12 arrow_box">
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h2>Thankyou for providing detail!</h2>  
+        <div>
+        </div>
+    </div>
+    </div>
+    <!-- </div> -->
+  </div>

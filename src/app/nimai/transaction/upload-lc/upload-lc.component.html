@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+    <!-- <div class="wrapper"> -->
+
+    <!-- <div class="main-panel"> -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-business-time"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">New Transaction</h4>
+                            <!-- <form [formGroup]="newTransactionForm" (ngSubmit)="submit();"> -->
+                            <div class="row" [formGroup]="lcDetailForm" [hidden]="previewShow">
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="tabbable-panel">
+                                                    <div class="tabbable-line">
+                                                        <ul class="nav nav-tabs ">
+                                                            <li class="active">
+                                                                <a href="#tab_default_1" data-toggle="tab">
+                                                                    LC Details </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#tab_default_2" data-toggle="tab">
+                                                                    Tenor </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#tab_default_3" data-toggle="tab">
+                                                                    Applicant & Beneficiary </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#tab_default_4" data-toggle="tab">
+                                                                    Others </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="tab_default_1">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text"
+                                                                                formControlName="lCIssuanceBank">
+                                                                            <label>LC Issuance Bank</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text"
+                                                                                formControlName="lCIssuanceBranch">
+                                                                            <label>Issuance Branch</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text"
+                                                                                formControlName="swiftCode">
+                                                                            <label>Swift Code</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv selectdiv">
+                                                                            <select formControlName="lCIssuanceCountry">
+                                                                                <!-- <option value="">Select Country</option> -->
+                                                                                <option value="INDIA">India</option>
+                                                                                <option value="AUSTRALIA">Australia
+                                                                                </option>
+                                                                                <option value="BANGLADESH">Bangladesh
+                                                                                </option>
+                                                                            </select>
+                                                                            <label>Select Country</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                    <div class="col-md-12 selections">
+                                                                        <div class="row">
+                                                                            <label
+                                                                                class="customlabel">Requirement</label>
+                                                                            <div class="radio-group">
+                                                                                <input checked="checked" type="radio"
+                                                                                    id="option-one" name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="confirmation"
+                                                                                    (click)="tenor.selectors('confirmation')">
+                                                                                <label
+                                                                                    for="option-one">Confirmation</label>
+                                                                                <input type="radio" id="option-two"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="discounting"
+                                                                                    (click)="tenor.selectors('discounting')">
+                                                                                <label
+                                                                                    for="option-two">Discounting</label>
+                                                                                <input type="radio" id="option-three"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="confirmAndDiscount"
+                                                                                    (click)="tenor.selectors('confirmAndDiscount')">
+                                                                                <label for="option-three">Confirmation
+                                                                                    and Discounting</label>
+                                                                                <input type="radio" id="option-four"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="refinance"
+                                                                                    (click)="tenor.selectors('refinance')">
+                                                                                <label
+                                                                                    for="option-four">Refinancing</label>
+                                                                                <input type="radio" id="option-five"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="banker"
+                                                                                    (click)="tenor.selectors('banker')">
+                                                                                <label for="option-five">Banker's
+                                                                                    Acceptance</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <div class="col-md-3">
+                                                                            <div class="inputDiv">
+                                                                                <input type="text"
+                                                                                    formControlName="lCValue">
+                                                                                <label>LC Value</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="inputDiv selectdiv">
+                                                                                <select formControlName="lCCurrency">
+                                                                                    <!-- <option value="">Select</option> -->
+                                                                                    <option value="INR">INR</option>
+                                                                                    <option value="USD">USD</option>
+                                                                                    <option value="EURO">EURO</option>
+                                                                                </select>
+                                                                                <label>Select Currency</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <mat-form-field>
+                                                                                <mat-label>LC Issuance Date</mat-label>
+                                                                                <input matInput
+                                                                                    [matDatepicker]="lcIssuDt"
+                                                                                    formControlName="lCIssuingDate">
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="lcIssuDt">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #lcIssuDt>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+
+                                                                        <div class="col-md-3" [hidden]="refinancing">
+                                                                            <mat-form-field>
+                                                                                <mat-label>Last Shipment Date
+                                                                                </mat-label>
+                                                                                <input matInput
+                                                                                    [matDatepicker]="lastShipDt"
+                                                                                    formControlName="lastShipmentDate">
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="lastShipDt">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #lastShipDt>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="col-md-3" [hidden]="refinancing">
+
+                                                                            <mat-form-field>
+                                                                                <mat-label>Negotiation Date
+                                                                                </mat-label>
+                                                                                <input matInput [matDatepicker]="negDt"
+                                                                                    formControlName="negotiationDate">
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="negDt">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #negDt>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+
+                                                                        </div>
+                                                                        <div 
+                                                                            class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
+                                                                            <div class="inputDiv selectdiv">
+                                                                                <select formControlName="typeOfGoods">
+                                                                                    <option value=""> Select</option>
+                                                                                    <option value="Gold"> Gold</option>
+                                                                                    <option value="Plastic">Plastic</option>
+                                                                                    <option value="Drugs">Drugs</option>
+                                                                                    <option value="Diamonds">Diamonds</option>
+                                                                                </select>
+                                                                                <label>Types of Good</label>
+                                                                            </div>
+                                                                        </div>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_2">
+                                                                <app-tenor-payment #tenor [LcDetail]="lcDetailForm">
+                                                                </app-tenor-payment>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_3">
+                                                                <app-applicant-beneficiary [LcDetail]="lcDetailForm">
+                                                                </app-applicant-beneficiary>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_4">
+                                                                <app-others [LcDetail]="lcDetailForm"></app-others>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row" [hidden]="!previewShow">
+                                <p class="col-md-12"><strong>Preview</strong></p>
+                                <div class="col-md-6 ">
+
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="2">LC Details</th>
+                                            </tr>
+                                            <tr>
+                                                <td nowrap="">LC Issuing Bank</td>
+                                                <td>{{lc.lCIssuanceBank}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Branch</td>
+                                                <td>{{lc.lCIssuanceBranch}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Swift Code</td>
+                                                <td>{{lc.swiftCode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country</td>
+                                                <td>{{lc.lCIssuanceCountry}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Requirement</td>
+                                                <td>{{lc.selector}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>LC Value</td>
+                                                <td>{{lc.lCValue}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>LC Issuing Date</td>
+                                                <td>{{lc.lCIssuingDate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>LC Expiry Date</td>
+                                                <td>{{lc.lCExpiryDate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>LSD</td>
+                                                <td>{{lc.lastShipmentDate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Goods</td>
+                                                <td>{{lc.typeOfGoods}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="2">Tenor of Deferred Payment</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Period for which confirmation is required</td>
+                                                <td>{{lc.paymentPeriod}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Payments terms to be seller as per LC</td>
+                                                <td>{{lc.paymentTerms}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Start Date</td>
+                                                <td>{{lc.lCIssuingDate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>End Date</td>
+                                                <td>{{lc.lCExpiryDate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+
+
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="2">Applicant</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Applicant</td>
+                                                <td>{{lc.applicantName}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="2">Beneficiary</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Beneficiary</td>
+                                                <td>{{lc.beneName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bank</td>
+                                                <td>{{lc.beneBankName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Swift Code</td>
+                                                <td>{{lc.beneSwiftCode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bank Country</td>
+                                                <td>{{lc.beneCountry}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="2">Others</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Port of Loading</td>
+                                                <td>{{lc.loadingPort}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Port of Discharge</td>
+                                                <td>{{lc.dischargePort}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Charges on</td>
+                                                <td>{{lc.chargesType}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Validity</td>
+                                                <td>{{lc.validity}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pro Forma</td>
+                                                <td><a href="#">View</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
+                                << Prev</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="next()"
+                                        *ngIf="isNext">Next
+                                        >></button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="save()"
+                                        *ngIf="isSave">Next >></button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="preview()"
+                                        *ngIf="isPreview">Preview Details</button>
+                                        <button type="button" class="btn btn-info pull-right" (click)="confirm()"
+                                        *ngIf="isConfirm">Confirm</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="edit()"
+                                        *ngIf="isEdit">Edit</button>                                    
+                                    <div class="clearfix"></div>
+                                    <!-- </form> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</body>
+
+</html>

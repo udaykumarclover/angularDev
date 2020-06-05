@@ -1,0 +1,161 @@
+<div class="row" [hidden]="!confirmation" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" formControlName="paymentPeriod">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6">
+        <div class="inputDiv">
+            <input  formControlName="paymentTerms">
+            <label>Payment terms to seller as per
+                LC</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv" > 
+            <input type="text" readonly="" formControlName="tenorEndDate" class="has-value" value="20-04-2020">
+            <label>Start Date</label>
+        </div>
+    </div>
+    <div class="col-md-4 ">
+        <div class="selection"><label class="customlabel">End Date</label>
+        </div>
+        <div class="radio">
+            <label for="rdmaturity">
+                <input type="radio" id="rdmaturity" name="optionsRadios" formControlName="tenorEndDate" checked="true"><span
+                    class="circle"></span><span class="check"></span><span class="circle"></span><span
+                    class="check"></span>
+                Date of Maturity <i class="fas fa-info-circle" aria-hidden="true"></i>
+            </label>
+        </div>
+        <div class="radio">
+            <label for="rdNegotiation">
+                <input type="radio" name="optionsRadios" id="rdNegotiation" formControlName="tenorEndDate" checked="true"><span
+                    class="circle"></span><span class="check"></span><span class="circle"></span><span
+                    class="check"></span>
+                Negotiation Date
+            </label>
+        </div>
+
+    </div>
+</div>
+
+<div class="row" [hidden]="!discount" [formGroup]="LcDetail">
+    <div class="col-md-4">
+       <div class="inputDiv">
+          <input type="text" formControlName="paymentPeriod">
+          <label>Period for which discounting is required (Days)</label>
+       </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6">
+      <div class="inputDiv">
+        <textarea rows="4" formControlName="paymentTerms"></textarea>
+        <label>Payment terms to seller as per LC</label>
+      </div>
+    </div> 
+    <div class="col-md-6">
+      <div class="inputDiv">
+        <textarea rows="4"></textarea>
+        <label>Remarks</label>
+      </div>
+    </div>
+ </div>
+
+ <!-- refinancing -->
+ <div class="row" [hidden]="!refinancing" [formGroup]="LcDetail">
+    <div class="col-md-4">
+       <div class="inputDiv">
+          <input type="text" >
+          <label>Original Tenor of LC (Days)</label>
+       </div>
+    </div>
+    <div class="col-md-4">
+       <div class="inputDiv">
+          <input type="text" formControlName="paymentPeriod">
+          <label>Period for which refinancing is required (Days)</label>
+       </div>
+    </div> 
+
+    <div class="clearfix"></div>
+   
+    <div class="col-md-12">
+     <div class="selection maturitydate">
+        <p><strong>LC Maturity Date <i class="fas fa-info-circle" aria-hidden="true"></i></strong></p>
+    </div>
+     <ul class="list-unstyled list-inline">
+        <li>
+           <div class="radio">
+<label for="rdmaturity">
+<input type="radio" value="rdmaturity" id="rdmaturity" name="optionsRadios" checked="checked"><span class="circle"></span><span class="check"></span><span class="circle"></span><span class="check"></span>
+<div class="inputDiv" style="    margin: -15px 0 0 0;"><input type="text" value="20/04/2020" name="">
+</div> 
+</label>
+</div>
+        </li>
+        <li>
+            <div class="radio">
+<label for="rdNegotiation">
+<input type="radio" value="rdNegotiation" name="optionsRadios" id="rdNegotiation"><span class="circle"></span><span class="check"></span><span class="circle"></span><span class="check"></span>
+Multiple Dates 
+</label>
+</div>
+        </li>
+        <li class="multipledate" style="width: 400px; display: none;">
+           <input type="file" class="filestyle" name="" id="filestyle-0" tabindex="-1" style="position: absolute; clip: rect(0px, 0px, 0px, 0px);"><div class="bootstrap-filestyle input-group"><div class="form-group is-empty"><input type="text" class="form-control " placeholder="Upload Document (only pdf, jpeg, png)" disabled=""><span class="material-input"></span></div> <span class="group-span-filestyle input-group-btn" tabindex="0"><label for="filestyle-0" class="btn btn-default "><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> <span class="buttonText">Choose file</span></label></span></div>
+        </li>
+        
+     </ul>
+      
+
+<style type="text/css">
+.list-inline>li{
+display: inline-block;
+padding-right: 5px;
+padding-left: 5px;
+vertical-align: top;
+}
+</style>
+    </div> 
+
+    <div class="clearfix"></div>
+    <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+    <div class="col-md-4">
+       <div class="inputDiv">
+          <input type="text">
+          <label>LC Number</label>
+       </div>
+    </div>
+    <div class="col-md-4">
+       <div class="inputDiv">
+        
+
+<input type="text">
+          <label>Beneficiary Bank Name</label>
+       </div>
+    </div>
+    <div class="col-md-4">
+       <div class="inputDiv">
+          <input type="text">
+          <label>Swift Code</label>
+       </div>
+    </div>
+    <div class="col-md-4">
+      <div class="inputDiv selectdiv">
+
+<select name="country" style="color: transparent;">
+<option value="" style="color: rgb(0, 0, 0);">Select</option>
+<option value="1" style="color: rgb(0, 0, 0);">India</option>
+<option value="2" style="color: rgb(0, 0, 0);">Bangladesh</option>
+<option value="3" style="color: rgb(0, 0, 0);">Kenya</option>
+<option value="4" style="color: rgb(0, 0, 0);">Nigeria</option>
+<option value="5" style="color: rgb(0, 0, 0);">UAE </option>
+<option value="6" style="color: rgb(0, 0, 0);">Qatar</option>
+</select> 
+<label>Country</label>
+</div>
+    </div>   
+ </div>

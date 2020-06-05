@@ -1,0 +1,161 @@
+<div class="row" [formGroup]="LcDetail">
+    <div class="col-md-6">
+        <div class="row">
+            <p class="col-md-12"><strong>Loading Goods</strong></p>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="country" formControlName="loadingCountry">
+
+                        <option value="INDIA">
+                            India</option>
+                        <option value="BANGLADESH">
+                            Bangladesh</option>
+                        <option value="KENYA">
+                            Kenya</option>
+                        <option value="NIGERIA">
+                            Nigeria</option>
+                        <option value="UAE">UAE
+                        </option>
+                        <option value="QATAR">
+                            Qatar</option>
+                    </select>
+                    <label>Country of Port of
+                        Loading</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="IndiaPort" formControlName="loadingPort">
+
+                        <option value="JNP">
+                            Jawaharlal Nehru Port</option>
+                        <option value="MP">
+                            Mumbai Port </option>
+                        <option value="GP">
+                            GUJRAT Port </option>
+                        <option value="SPMP">Dr.
+                            Syama Prasad Mukherjee Port
+                        </option>
+                        <option value="RPMP">Dr.
+                            Rama Prasad Mukherjee Port
+                        </option>
+                    </select>
+                    <label>Port of Loading</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <p class="col-md-12"><strong>Discharge Goods</strong></p>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="country" formControlName="dischargeCountry">
+
+                        <option value="INDIA">
+                            India</option>
+                        <option value="BANGLADESH">
+                            Bangladesh</option>
+                        <option value="KENYA">
+                            Kenya</option>
+                        <option value="NIGERIA">
+                            Nigeria</option>
+                        <option value="UAE">UAE
+                        </option>
+                        <option value="QATAR">
+                            Qatar</option>
+                    </select>
+                    <label>Country of Port of
+                        Discharge</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="Banglaport" formControlName="dischargePort">
+
+                        <option value="POC">
+                            Port of Chittagong</option>
+                        <option value="POM">
+                            Port of Mongla</option>
+                        <option value="POD">
+                            Port of Dhaka</option>
+                        <option value="POP">
+                            Port of Payra</option>
+                    </select>
+                    <label>Port of Discharge</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12 ">
+        <div class="selection">
+            <p class=""><strong>Charges are
+                    on</strong></p>
+        </div>
+        <ul class="list-unstyled list-inline">
+            <li>
+                <div class="radio">
+                    <label for="rdmaturity">
+                        <input type="radio" id="rdmaturity" formControlName="chargesType" name="chargesType"
+                            value="Applicant" checked="true"><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                        Vitafoams Products Ltd.
+                        Kenya (Applicant)
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="radio">
+                    <label for="rdNegotiation">
+                        <input type="radio" name="chargesType" id="rdNegotiation" formControlName="chargesType"
+                            value="Beneficiary" checked="true"><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                        Aerotech General Trading LLC
+                        (Beneficiary)
+                    </label>
+                </div>
+            </li>
+        </ul>
+
+
+
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-4">
+        <mat-form-field>
+            <mat-label>Validity</mat-label>
+            <input matInput [matDatepicker]="validity" formControlName="validity">
+            <mat-datepicker-toggle matSuffix [for]="validity">
+            </mat-datepicker-toggle>
+            <mat-datepicker #validity>
+            </mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-5">
+        <p><strong>Pro Forma</strong></p>
+        <input type="file" class="filestyle pull-left" name="" id="filestyle-0" tabindex="-1"
+            style="position: absolute; clip: rect(0px, 0px, 0px, 0px);">
+        <div class="bootstrap-filestyle input-group">
+            <div class="form-group is-empty"><input type="text" class="form-control " formControlName="lcProForma"
+                    placeholder="Upload Document (only pdf, jpeg, png)" disabled=""><span class="material-input"></span>
+            </div> <span class="group-span-filestyle input-group-btn" tabindex="0"><label for="filestyle-0"
+                    class="btn btn-default "><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span>
+                    <span class="buttonText">Choose
+                        file</span></label></span>
+        </div>
+
+    </div>
+    <div class="col-md-2">
+
+    </div>
+
+</div>

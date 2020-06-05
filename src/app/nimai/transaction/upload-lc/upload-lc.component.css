@@ -1,0 +1,52 @@
+
+
+
+
+.selections input[type=radio] {
+	position: absolute;
+	visibility: hidden;
+	display: none;
+}
+
+.selections label {
+	color: #9a929e;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	padding: 5px 20px;
+	margin: 0;
+}
+
+.selections input[type=radio]:checked+label {
+	color: #fff;
+	background: #00bcd4;
+}
+
+.selections label+input[type=radio]+label {
+	border-left: solid 0px #00bcd4;
+}
+
+.selections .radio-group {
+    border: solid 1px #ddd;
+    display: inline-block;
+    margin: 10px 15px 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.selections .customlabel {
+    font-size: 10px;
+    color: #aaa !important;
+    font-weight: 400 !important;
+    clear: both;
+    font-family: roboto;
+    display: block;
+    position: absolute;
+    top: -12px;
+}
+
+::ng-deep .mat-input-element {
+    caret-color: #00b5de;
+}
