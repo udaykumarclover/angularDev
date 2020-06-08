@@ -29,6 +29,7 @@ import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.componen
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
 import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
 import { ReferComponent } from 'src/app/default/refer/refer.component';
+import { TransactionDetailsComponent } from 'src/app/nimai/transaction/transaction-details/transaction-details.component';
 
 
 const routes: Routes = [
@@ -104,6 +105,12 @@ const routes: Routes = [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]
+      },
+      {
+        path: "transaction-detail", component: TransactionDetailsComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
       }
     ]
   },
@@ -125,6 +132,7 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
+    TransactionDetailsComponent
 
   ],
   imports: [
@@ -153,6 +161,7 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
+    TransactionDetailsComponent
 
     
   ]

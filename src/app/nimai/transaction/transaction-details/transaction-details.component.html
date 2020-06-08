@@ -1,0 +1,135 @@
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-icon" data-background-color="blue">
+              <i class="fas fa-concierge-bell"></i>
+            </div>
+            <div class="card-content">
+              <h4 class="card-title">Transaction Details</h4>
+              <!-- <form> -->
+              <div class="row" [hidden]="hasRecord">
+                <div class="col-12">
+                  <table class="table">
+                    <thead>
+                      <th>
+                        <p>No Request available. </p>
+                      </th>
+                    </thead>
+  
+                  </table>
+                </div>
+              </div>
+              <div class="row" [hidden]="!hasRecord">
+                <div class="col-md-12">
+                  <mat-form-field>
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+                  </mat-form-field>
+  
+                  <div class="mat-elevation-z8 table-responsive table-bordered material-datatables"  cellspacing="0" width="100%" style="width:100%">
+                    <table mat-table [dataSource]="dataSource" matSort>
+  
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="id" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
+                        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                      </ng-container>
+  
+                      <!-- Progress Column -->
+                      <ng-container matColumnDef="beneficiary" sticky >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary </th>
+                        <td mat-cell *matCellDef="let row"> {{row.beneficiary}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="bcountry" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                        <td mat-cell *matCellDef="let row"> {{row.bcountry}} </td>
+                      </ng-container>
+  
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="applicant" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant </th>
+                        <td mat-cell *matCellDef="let row"> {{row.applicant}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="acountry" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                        <td mat-cell *matCellDef="let row"> {{row.acountry}} </td>
+                      </ng-container>
+  
+                      <!-- Color Column -->
+                     
+                      <ng-container matColumnDef="txnID" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Txn ID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.txnID}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="dateTime" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date&Time </th>
+                        <td mat-cell *matCellDef="let row"> {{row.dateTime | date: 'dd-MM-yyyy'}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="validity" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Validity&nbsp;&nbsp; </th>
+                        <td mat-cell *matCellDef="let row"> {{row.validity | date: 'dd-MM-yyyy'}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ib">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> IB &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <td mat-cell *matCellDef="let row"> {{row.ib}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+                        <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ccy">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ccy </th>
+                        <td mat-cell *matCellDef="let row"> {{row.ccy}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="goods">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
+                        <td mat-cell *matCellDef="let row"> {{row.goods}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="requirement">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
+                        <td mat-cell *matCellDef="let row"> {{row.requirement}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="receivedQuotes">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Received Quotes </th>
+                        <td mat-cell *matCellDef="let row"> {{row.receivedQuotes}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="star" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef="let row"></th>
+                        <td mat-cell *matCellDef="let row">
+                          <!-- <div class="dropdown pull-right" >
+                            <a href="javascript:void" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                              <i class="fas fa-ellipsis-v" aria-hidden="false"></i>
+                            </a>
+                            <ul class="dropdown dropdown-menu">
+                              <li><a href="javascript:void()" (click)="showQuotePage(row.requirement,0,row)"class="handle">View<div class="ripple-container"></div></a></li> 
+                              <li><a href="javascript:void()" (click)="showQuotePage(row.requirement,1,row)" class="handle">Edit</a></li>
+                            </ul>
+                          </div> -->
+                        </td>
+                      </ng-container>
+                      
+  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                      </tr>
+                    </table>
+  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <!-- </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-banker></app-banker>
+  <app-confirm-and-discount></app-confirm-and-discount>
+  <app-confirmation></app-confirmation>
+  <app-discounting></app-discounting>
+  <app-refinancing></app-refinancing>
