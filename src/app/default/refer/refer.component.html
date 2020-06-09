@@ -137,7 +137,9 @@
         <div class="modal-content">
             <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
-                    <h2>Refer</h2>
+                    <h2>Refer
+                        <button type="button" class="close" (click)="close()">&times;</button>
+                    </h2>
                     <div class="padnew">
                         <div class="row">
                             <div class="col-md-12">
@@ -221,7 +223,7 @@
                                     once invitee complete the signup process.
                                 </p>
                                 <div class="clearfix"></div>
-                                <button type="submit" id="btninvite" class="btn btn-info pull-right">Invite
+                                <button type="submit" [disabled]="!referForm.valid" id="btninvite" class="btn btn-info pull-right">Invite
                                     User</button>
                                 <a (click)="close()" id="okbtn" class="btn btn-info pull-right">Ok</a>
                             </div>

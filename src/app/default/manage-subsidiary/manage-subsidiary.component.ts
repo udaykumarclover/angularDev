@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as $ from 'src/assets/js/jquery.min';
 import { manageSub } from 'src/assets/js/commons'
+import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -47,6 +48,7 @@ export class ManageSubsidiaryComponent implements OnInit {
 
   addSubsidiary() {
     $("#addsub").show();
+    this.manageSubForm.reset();
   }
 
   onSubmit() {
@@ -56,10 +58,25 @@ export class ManageSubsidiaryComponent implements OnInit {
       return;
     }
     this.submitted = false;
-    $('#authemaildiv').slideUp();
-    $('#paradiv').slideDown();
-    $('#okbtn').show();
-    $('#btninvite').hide();
+
+    const fg = {
+      email: this.manageSubForm.get('emailId').value,
+      event: 'ADD_SUBSIDIARY'
+    }
+
+    this.fps.sendForgetPasswordEmail(fg)
+      .subscribe(
+        (response) => {
+          $('#authemaildiv').slideUp();
+          $('#paradiv').slideDown();
+          $('#okbtn').show();
+          $('#btninvite').hide();
+          this.manageSubForm.reset();
+        },
+        (error) => {
+          alert("service not working!!")
+        }
+      )
   }
 
 }

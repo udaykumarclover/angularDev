@@ -122,13 +122,13 @@
                                 </a>
                              </li>
                              <li *ngIf="isCustomer || isBank">
-                                <a [routerLink]="['transaction-detail']">
+                                <a [routerLink]="['transaction-details']">
                                    <i class="fas fa-tasks"></i>
                                    <p> Transaction Details </p>
                                 </a>
                              </li>
                              <li *ngIf="isCustomer || isBank">
-                                <a [routerLink]="['inbox']">
+                                <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
                                    <p> <span class="sidebar-normal"> Drafts <span class="badge">4</span>
                                       </span> 

@@ -25,6 +25,9 @@ import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.componen
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
 import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
 import { ReferComponent } from 'src/app/default/refer/refer.component';
+import { ActiveTransactionComponent } from 'src/app/nimai/bankTransaction/active-transaction/active-transaction.component';
+import { TrasactionDetailsComponent } from 'src/app/nimai/bankTransaction/trasaction-details/trasaction-details.component';
+import { DraftTransactionComponent } from 'src/app/nimai/bankTransaction/draft-transaction/draft-transaction.component';
 
 
 const routes: Routes = [
@@ -76,6 +79,27 @@ const routes: Routes = [
         ]
       },
       {
+        path: "active-transaction", component: ActiveTransactionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "transaction-details", component: TrasactionDetailsComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "draft-transaction", component: DraftTransactionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
         path: "change-password", component: ChangePasswordComponent, children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
@@ -109,6 +133,9 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
+    ActiveTransactionComponent,
+    TrasactionDetailsComponent,
+    DraftTransactionComponent,
   ],
   imports: [
     CommonModule,
@@ -131,6 +158,9 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
+    ActiveTransactionComponent,
+    TrasactionDetailsComponent,
+    DraftTransactionComponent,
   ]
 })
 export class BankModule { }

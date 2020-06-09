@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as $ from 'src/assets/js/jquery.min';
 import { manageSub } from 'src/assets/js/commons'
-import  { ValidateRegex } from 'src/app/beans/Validations';
+import { ValidateRegex } from 'src/app/beans/Validations';
+import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ReferComponent implements OnInit {
   public subURL: string = "";
   CompanyName: any;
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -54,6 +55,7 @@ export class ReferComponent implements OnInit {
 
   addRefer() {
     $("#addsub").show();
+    this.referForm.reset();
   }
 
   onSubmit() {
@@ -64,20 +66,36 @@ export class ReferComponent implements OnInit {
     }
     this.submitted = false;
     this.CompanyName = this.referForm.get('compName').value;
-    $('#authemaildiv').slideUp();
-    $('#paradiv').slideDown();
-    $('#okbtn').show();
-    $('#btninvite').hide();
+
+    const fg = {
+      email: this.referForm.get('emailId').value,
+      event: 'ADD_REFER'
+    }
+
+    this.fps.sendForgetPasswordEmail(fg)
+      .subscribe(
+        (response) => {
+          $('#authemaildiv').slideUp();
+          $('#paradiv').slideDown();
+          $('#okbtn').show();
+          $('#btninvite').hide();
+          this.referForm.reset();
+        },
+        (error) => {
+          alert("service not working!!")
+        }
+      )
+
   }
 
-  validateRegexFields(event, type){
-    if(type == "number"){
+  validateRegexFields(event, type) {
+    if (type == "number") {
       ValidateRegex.validateNumber(event);
     }
-    else if(type == "alpha"){
+    else if (type == "alpha") {
       ValidateRegex.alphaOnly(event);
     }
-    else if(type == "alphaNum"){
+    else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
     }
   }

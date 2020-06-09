@@ -112,7 +112,9 @@
     <div class="modal-content">
       <form [formGroup]="manageSubForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
-          <h2>Add Subsidiary</h2>
+          <h2>Add Subsidiary
+        <button type="button" class="close" (click)="close()">&times;</button>
+          </h2>
           <div class="padnew">
             <div class="row">
               <div class="col-md-12">
@@ -139,7 +141,7 @@
                   You've successfully invited a subsidiary to join TradeEnabler.
                 </p>
                 <div class="clearfix"></div>
-                <button type="submit" id="btninvite" class="btn btn-info pull-right">Invite User</button>
+                <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
                 <a (click)="close()" id="okbtn" class="btn btn-info pull-right">Ok</a>
               </div>
             </div>

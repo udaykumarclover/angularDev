@@ -30,6 +30,7 @@ import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/man
 import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
 import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { TransactionDetailsComponent } from 'src/app/nimai/transaction/transaction-details/transaction-details.component';
+import { DraftTransactionComponent } from 'src/app/nimai/transaction/draft-transaction/draft-transaction.component';
 
 
 const routes: Routes = [
@@ -82,6 +83,18 @@ const routes: Routes = [
         ]
       },
       {
+        path: "transaction-details", component: TransactionDetailsComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "draft-transaction", component: DraftTransactionComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
         path: "my-profile", component: MyProfileComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },
@@ -106,12 +119,7 @@ const routes: Routes = [
           { path: "error", component: ErrorPopupComponent }
         ]
       },
-      {
-        path: "transaction-detail", component: TransactionDetailsComponent, children: [
-          { path: "success", component: SuccessPopupComponent },
-          { path: "error", component: ErrorPopupComponent }
-        ]
-      }
+      
     ]
   },
 
@@ -132,7 +140,8 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    DraftTransactionComponent
 
   ],
   imports: [
@@ -161,7 +170,8 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    DraftTransactionComponent
 
     
   ]
