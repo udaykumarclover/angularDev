@@ -1,5 +1,3 @@
-// reset-password.component.ts Back up 
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';

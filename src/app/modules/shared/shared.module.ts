@@ -19,6 +19,8 @@ import { LoaderComponent } from 'src/app/default/popups/loader/loader/loader.com
 import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.component';
 import { ResetPasswordComponent } from 'src/app/default/reset-password/reset-password/reset-password.component';
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
+import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
+import { ReferComponent } from 'src/app/default/refer/refer.component';
 
 
 
@@ -35,7 +37,9 @@ import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/man
     LoaderComponent,
     MyProfileComponent,
     ResetPasswordComponent,
-    ManageSubsidiaryComponent
+    ChangePasswordComponent,
+    ManageSubsidiaryComponent,
+    ReferComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +64,9 @@ import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/man
     LoaderComponent,
     MyProfileComponent,
     ResetPasswordComponent,
-    ManageSubsidiaryComponent
+    ChangePasswordComponent,
+    ManageSubsidiaryComponent,
+    ReferComponent
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,

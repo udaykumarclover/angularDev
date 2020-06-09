@@ -1,0 +1,238 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title"> <span id="changetext"> Refer</span>
+                            <ul class="pull-right list-unstyled list-inline statusbar">
+                                <li>
+                                    <label>Total References <span class="">12</span></label>
+                                </li>
+                                <li><label>Total Earning <span>USD $892</span></label></li>
+                                <li>
+                                    <a class="btn btn-info pull-right" (click)="addRefer()">+ Refer</a>
+                                </li>
+
+                            </ul>
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive material-datatables" id="transactionID" cellspacing="0"
+                                    width="100%" style="width:100%">
+                                    <table class="table table-hover" id="datatables">
+                                        <thead>
+                                            <tr>
+                                                <th class="disabled-sorting text-center">#</th>
+                                                <th style="min-width: 100px;">Date & Time</th>
+                                                <th style="min-width: 120px;">First Name</th>
+                                                <th style="min-width: 120px;">Last Name</th>
+                                                <th style="min-width: 100px;">Country</th>
+                                                <th style="min-width: 150px;">Company</th>
+                                                <th style="min-width: 180px;">Email</th>
+                                                <th style="min-width: 100px;">Mobile</th>
+                                                <th style="min-width: 120px;">Plan Purchased</th>
+                                                <th style="min-width: 120px;">Billing Amount</th>
+                                                <th style="min-width: 100px;">Earning</th>
+                                                <th style="min-width: 120px;">Purchase Type</th>
+                                                <th style="min-width: 100px;" nowrap
+                                                    class="disabled-sorting text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>Bangladesh</td>
+                                                <td>Al Muqadi Mah Trading LLC</td>
+                                                <td>john.doe@compname.com</td>
+                                                <td nowrap>+880-8765432109</td>
+                                                <td>Gold</td>
+                                                <td>USD $999</td>
+                                                <td>USD $99</td>
+                                                <td>New</td>
+                                                <td>Active</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td nowrap>14-06-2019<br> 14:25:30 GMT</td>
+                                                <td>Jake</td>
+                                                <td>Weary</td>
+                                                <td>Bangladesh</td>
+                                                <td>Aerotech General Trading LLC</td>
+                                                <td>jake.weary@comname.com</td>
+                                                <td nowrap>+880-89654321098</td>
+                                                <td>Silver</td>
+                                                <td>USD $499</td>
+                                                <td>USD $49</td>
+                                                <td>Renewal</td>
+                                                <td>Active</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td nowrap>15-06-2019<br> 09:33:30 GMT</td>
+                                                <td>Justin</td>
+                                                <td>Case</td>
+                                                <td>Bangladesh</td>
+                                                <td>KDS Group</td>
+                                                <td>justin.case@comname.com</td>
+                                                <td nowrap>+880-6543218908</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Pending</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td nowrap>16-06-2019<br> 13:16:09 GMT</td>
+                                                <td>John </td>
+                                                <td>Norman</td>
+                                                <td>Bangladesh</td>
+                                                <td>Beximco Pvt Ltd</td>
+                                                <td>john.normal@comname.com</td>
+                                                <td nowrap>+880-9892675688</td>
+                                                <td>Gold</td>
+                                                <td>USD $999</td>
+                                                <td>USD $99</td>
+                                                <td>New</td>
+                                                <td>Active</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td nowrap>14-08-2019<br> 14:25:30 GMT</td>
+                                                <td>Niles</td>
+                                                <td>Down</td>
+                                                <td>Bangladesh</td>
+                                                <td>Walton</td>
+                                                <td>niles.down@comname.com</td>
+                                                <td nowrap>+880-9860234568</td>
+                                                <td>Silver</td>
+                                                <td>USD $499</td>
+                                                <td>USD $49</td>
+                                                <td>New</td>
+                                                <td>Active</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addsub" class="popupnew modal fade in" role="dialog" style="display:none;">
+    <div class="modal-dialog emaildiv">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <h2>Refer
+                        <button type="button" class="close" (click)="close()">&times;</button>
+                    </h2>
+                    <div class="padnew">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="authemaildiv">
+                                    <p>Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.
+                                    </p>
+                                    <div class="form-group"></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                    <input type="text" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                    <label>First Name</label>
+                                                    <div *ngIf="submitted && referDetails.firstName.errors?.required">
+                                                        First Name is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                    <input type="text" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                    <label>Last Name</label>
+                                                    <div *ngIf="submitted && referDetails.lastName.errors?.required">
+                                                        Last Name is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                    <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
+                                                    <label>Mobile No.</label>
+                                                    <div *ngIf="submitted && referDetails.mobileNo.errors?.required">
+                                                        Mobile No is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                    <input type="text" formControlName="emailId">
+                                                    <label>Email ID</label>
+                                                    <div *ngIf="submitted && referDetails.emailId.errors?.required">
+                                                        Email is required
+                                                    </div>
+                                                    <div *ngIf="referDetails.emailId.touched && referDetails.emailId.errors?.email">
+                                                        Invalid Email id
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+                                                    <select formControlName="country">
+                                                        <option value=''>Select</option>
+                                                        <option value='1'>India</option>
+                                                        <option value='2'>Bangladesh</option>
+                                                        <option value='3'>Kenya</option>
+                                                        <option value='4'>Nigeria</option>
+                                                        <option value='5'>UAE </option>
+                                                        <option value='6'>Qatar</option>
+                                                    </select>
+                                                    <label>Country</label>
+                                                    <div *ngIf="submitted && referDetails.country.errors?.required">
+                                                        Country is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                    <input type="text" formControlName="compName">
+                                                    <label>Company Name</label>
+                                                    <div *ngIf="submitted && referDetails.compName.errors?.required">
+                                                        Company Name is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p id="paradiv">
+                                    You've successfully invited <b>{{CompanyName}}</b> to join TradeEnabler. You will be notified
+                                    once invitee complete the signup process.
+                                </p>
+                                <div class="clearfix"></div>
+                                <button type="submit" [disabled]="!referForm.valid" id="btninvite" class="btn btn-info pull-right">Invite
+                                    User</button>
+                                <a (click)="close()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

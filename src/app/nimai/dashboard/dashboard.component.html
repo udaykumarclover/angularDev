@@ -128,7 +128,7 @@
                                 </a>
                              </li>
                              <li *ngIf="isCustomer || isBank">
-                                <a [routerLink]="['inbox']">
+                                <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
                                    <p> <span class="sidebar-normal"> Drafts <span class="badge">4</span>
                                       </span> 
@@ -147,22 +147,7 @@
     <div class="main-panel">
       <nav class="navbar navbar-transparent navbar-absolute">
         <div class="container-fluid">
-          <!-- <div class="navbar-minimize">
-            <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-              <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-              <i class="material-icons visible-on-sidebar-mini">view_list</i>
-            </button>
-          </div> -->
-          <!-- <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"> {{title}} </a>
-          </div> -->
-          <div class="collapse navbar-collapse">
+           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown dduser">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -172,9 +157,9 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a [routerLink]="['my-profile']">My Profile</a></li>
-                  <li><a (click)="redirectTo('manage-sub')">Manage Subsidiary</a></li>
-                  <!-- <li><a (click)="redirectTo('change-password')">Change Password</a></li> -->
-                  <li><a>Change Password</a></li>
+                  <li><a [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
+                  <li><a [routerLink]="['refer']">Refer</a></li>
+                  <li><a [routerLink]="['change-password']">Change Password</a></li>
                   <li><a href="preComingSoon.html">Support</a></li>
                   <li><a [routerLink]="['/']" id="btnLogin">Logout</a></li>
                 </ul>   

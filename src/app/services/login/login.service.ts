@@ -26,4 +26,8 @@ export class LoginService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiUAM/passwordPolicy/usertoken/` + token, null, { headers: { 'content-type': 'application/json' } })
   }
 
+  public changePassword(data: any): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiUAM/passwordPolicy/changePassword/` + data, null, { headers: { 'content-type': 'application/json' } })
+  }
+
 }

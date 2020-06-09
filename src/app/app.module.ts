@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './default/login/login.component';
 import { ForgotPasswordComponent } from './default/forgot-password/forgot-password.component';
 import { PagenotfoundComponent } from './default/pagenotfound/pagenotfound.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
 //import { ResetPasswordComponent } from './default/reset-password/reset-password/reset-password.component';
 import { LoaderServiceService } from './services/loader/loader-service.service';
@@ -44,6 +44,7 @@ import { CustomerLoginComponent } from './default/popups/customer-login/customer
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
     SharedModule
   ],
   providers: [MatDatepickerModule,

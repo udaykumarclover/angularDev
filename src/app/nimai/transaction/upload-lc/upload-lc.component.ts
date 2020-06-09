@@ -291,38 +291,66 @@ export class UploadLCComponent implements OnInit {
     this.lcDetailForm = this.fb.group({
       selector: ['confirmation'],
       userId: sessionStorage.getItem('userID'),
+      requirementType: [''],
       lCIssuanceBank: [''],
       lCIssuanceBranch: [''],
-      requirementType: [''],
       swiftCode: [''],
       lCIssuanceCountry: [''],
-      lCIssuingDate: [''],
-      lCExpiryDate: [''],
+  
       lCValue: [''],
       lCCurrency: [''],
+      lCIssuingDate: [''], 
       lastShipmentDate: [''],
       negotiationDate: [''],
-      typeOfGoods: [''],
+      goodsType:[''],
+  
+  
+      // For Confirmation 
       paymentPeriod: [''],
       paymentTerms: [''],
+      tenorStartDate:[''],
       tenorEndDate: ['20-05-2020'],
-      applicantName: [''],
-      applicantCountry: [''],
-      beneName: [''],
-      beneBankCountry: [''],
-      beneBankName: [''],
-      beneSwiftCode: [''],
-      beneCountry: [''],
-      loadingCountry: [''],
-      loadingPort: [''],
-      dischargeCountry: [''],
-      dischargePort: [''],
+  
+      // For Discounting 
+      discountingPeriod:[''],
+      remarks:[''],
+  
+      //For Refinancing
+      originalTenorDays:[''],
+      refinancingPeriod:[''],
+      lcMaturityDate:[''],
+    lcNumber:[''],
+    lastBeneBank:[''],
+    lastBeneSwiftCode:[''],
+    lastBankCountry:[''],
+  
+      
+      applicantName:[''],
+      applicantCountry:[''],
+  
+      beneName:[''],
+      beneBankCountry:[''],
+      beneBankName:[''],
+      beneSwiftCode:[''],
+      beneCountry:[''],
+  
+      loadingCountry:[''],
+      loadingPort:[''],
+      dischargeCountry:[''],
+      dischargePort:[''],
+  
       chargesType: ['Beneficiary'],
-      validity: [''],
-      insertedDate: this.date,
-      insertedBy: "ADMIN",
-      modifiedDate: this.date,
-      lcProForma:'TEST'
+      validity:[''],
+      lcProForma:'TEST',
+  
+      lCExpiryDate:[''],    
+      
+      insertedDate:this.date,
+      insertedBy:sessionStorage.getItem('userID'),
+      modifiedDate:this.date,
+      modifiedBy:sessionStorage.getItem('userID'),
+      transactionflag:[''],
+      transactionStatus:['']
     })
   }
 

@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-icon" data-background-color="blue">
-                            <i class="fas fa-business-time"></i>
+                            <i class="fas fa-concierge-bell"></i>
                         </div>
                         <div class="card-content">
                             <h4 class="card-title">New Transaction</h4>
@@ -36,15 +36,15 @@
                                                         <ul class="nav nav-tabs ">
                                                             <li class="active">
                                                                 <a href="#tab_default_1" data-toggle="tab">
-                                                                    LC Details </a>
+                                                                    Applicant & Beneficiary </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#tab_default_2" data-toggle="tab">
-                                                                    Tenor </a>
+                                                                    LC Details </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#tab_default_3" data-toggle="tab">
-                                                                    Applicant & Beneficiary </a>
+                                                                    Tenor </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#tab_default_4" data-toggle="tab">
@@ -53,6 +53,10 @@
                                                         </ul>
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="tab_default_1">
+                                                                <app-applicant-beneficiary [LcDetail]="lcDetailForm">
+                                                                </app-applicant-beneficiary>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_2">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
@@ -196,15 +200,17 @@
                                                                             </mat-form-field>
 
                                                                         </div>
-                                                                        <div 
+                                                                        <div
                                                                             class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
                                                                             <div class="inputDiv selectdiv">
-                                                                                <select formControlName="typeOfGoods">
+                                                                                <select formControlName="goodsType">
                                                                                     <option value=""> Select</option>
                                                                                     <option value="Gold"> Gold</option>
-                                                                                    <option value="Plastic">Plastic</option>
+                                                                                    <option value="Plastic">Plastic
+                                                                                    </option>
                                                                                     <option value="Drugs">Drugs</option>
-                                                                                    <option value="Diamonds">Diamonds</option>
+                                                                                    <option value="Diamonds">Diamonds
+                                                                                    </option>
                                                                                 </select>
                                                                                 <label>Types of Good</label>
                                                                             </div>
@@ -215,13 +221,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="tab-pane" id="tab_default_2">
+                                                            <div class="tab-pane" id="tab_default_3">
                                                                 <app-tenor-payment #tenor [LcDetail]="lcDetailForm">
                                                                 </app-tenor-payment>
-                                                            </div>
-                                                            <div class="tab-pane" id="tab_default_3">
-                                                                <app-applicant-beneficiary [LcDetail]="lcDetailForm">
-                                                                </app-applicant-beneficiary>
                                                             </div>
                                                             <div class="tab-pane" id="tab_default_4">
                                                                 <app-others [LcDetail]="lcDetailForm"></app-others>
@@ -284,7 +286,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Goods</td>
-                                                <td>{{lc.typeOfGoods}}</td>
+                                                <td>{{lc.goodsType}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -393,10 +395,10 @@
                                         *ngIf="isSave">Next >></button>
                                     <button type="button" class="btn btn-info pull-right" (click)="preview()"
                                         *ngIf="isPreview">Preview Details</button>
-                                        <button type="button" class="btn btn-info pull-right" (click)="confirm()"
+                                    <button type="button" class="btn btn-info pull-right" (click)="confirm()"
                                         *ngIf="isConfirm">Confirm</button>
                                     <button type="button" class="btn btn-info pull-right" (click)="edit()"
-                                        *ngIf="isEdit">Edit</button>                                    
+                                        *ngIf="isEdit">Edit</button>
                                     <div class="clearfix"></div>
                                     <!-- </form> -->
                         </div>

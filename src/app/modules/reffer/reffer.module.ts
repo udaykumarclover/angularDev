@@ -24,6 +24,8 @@ import { BankerComponent } from 'src/app/nimai/bankTransaction/newTransaction/qu
 import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.component';
 import { ResetPasswordComponent } from 'src/app/default/reset-password/reset-password/reset-password.component';
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
+import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
+import { ReferComponent } from 'src/app/default/refer/refer.component';
 
 
 const routes: Routes = [
@@ -81,10 +83,22 @@ const routes: Routes = [
                 ]
             },
             {
+                path: "change-password", component: ChangePasswordComponent, children: [
+                    { path: "success", component: SuccessPopupComponent },
+                    { path: "error", component: ErrorPopupComponent }
+                ]
+            },
+            {
                 path: "manage-sub", component: ManageSubsidiaryComponent, children: [
                     { path: "success", component: SuccessPopupComponent },
                     { path: "error", component: ErrorPopupComponent }
                 ]
+            },
+            {
+              path: "refer", component: ReferComponent, children: [
+                { path: "success", component: SuccessPopupComponent },
+                { path: "error", component: ErrorPopupComponent }
+              ]
             }
         ]
     },

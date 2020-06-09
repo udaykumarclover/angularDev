@@ -9,9 +9,15 @@ import { environment } from 'src/environments/environment';
 export class NewTransactionService {
 
 
-  constructor(public httpClient:HttpClient) { }
+  constructor(public httpClient: HttpClient) { }
 
-  public getAllNewTransaction():Observable<any[]>{
-    return this.httpClient.get<any[]>(`${environment.domain}/nimaiTransaction/getAllTransactionDetails`,{headers:{'content-types':'application/json'}});
+  public getAllNewTransaction(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${environment.domain}/nimaiTransaction/getAllTransactionDetails`, { headers: { 'content-types': 'application/json' } });
   }
+
+
+  public getTransactionDetailByUserId(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailByUserId`, data, { headers: { 'content-types': 'application/json' } })
+  }
+
 }

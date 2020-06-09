@@ -2163,3 +2163,20 @@ letter-spacing: 0.2px;
 padding: 5px 15px;
 margin: 0;
 }
+
+.popupnew .modal-content .modal-body{
+  padding: 0;
+}
+
+.popupnew .emaildiv h2 {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 15px;
+    margin: 0 0 20px;
+    background: #00bcd4;
+    color: #fff;
+}
+
+.popupnew .emaildiv .padnew{
+      padding: 0px 25px 10px;
+}

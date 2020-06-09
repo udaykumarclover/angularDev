@@ -9,7 +9,7 @@ import { ApplicantBeneficiaryComponent } from 'src/app/nimai/transaction/upload-
 import { OthersComponent } from 'src/app/nimai/transaction/upload-lc/others/others.component';
 import { SuccessPopupComponent } from 'src/app/default/popups/success-popup/success-popup.component';
 import { ErrorPopupComponent } from 'src/app/default/popups/error-popup/error-popup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
 import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatIconModule } from '@angular/material';
@@ -28,6 +28,10 @@ import { BankerComponent } from 'src/app/nimai/transaction/transactionTypes/bank
 import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.component';
 import { ResetPasswordComponent } from 'src/app/default/reset-password/reset-password/reset-password.component';
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
+import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
+import { ReferComponent } from 'src/app/default/refer/refer.component';
+import { TransactionDetailsComponent } from 'src/app/nimai/transaction/transaction-details/transaction-details.component';
+import { DraftTransactionComponent } from 'src/app/nimai/transaction/draft-transaction/draft-transaction.component';
 
 
 const routes: Routes = [
@@ -80,6 +84,18 @@ const routes: Routes = [
         ]
       },
       {
+        path: "transaction-details", component: TransactionDetailsComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "draft-transaction", component: DraftTransactionComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
         path: "my-profile", component: MyProfileComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },
@@ -93,11 +109,24 @@ const routes: Routes = [
         ]
       },
       {
+        path: "change-password", component: ChangePasswordComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
         path: "manage-sub", component: ManageSubsidiaryComponent, children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]
-      }
+      },
+      {
+        path: "refer", component: ReferComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      
     ]
   },
 
@@ -118,6 +147,8 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
+    TransactionDetailsComponent,
+    DraftTransactionComponent
 
   ],
   imports: [
@@ -133,7 +164,8 @@ const routes: Routes = [
     SharedModule,
     MatTableModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   exports: [
     UploadLCComponent,
@@ -146,6 +178,8 @@ const routes: Routes = [
     ConfirmAndDiscountComponent,
     RefinancingComponent,
     BankerComponent,
+    TransactionDetailsComponent,
+    DraftTransactionComponent
 
     
   ]

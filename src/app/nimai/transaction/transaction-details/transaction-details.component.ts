@@ -12,11 +12,11 @@ import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
 
 @Component({
-  selector: 'app-active-transaction',
-  templateUrl: './active-transaction.component.html',
-  styleUrls: ['./active-transaction.component.css']
+  selector: 'app-transaction-details',
+  templateUrl: './transaction-details.component.html',
+  styleUrls: ['./transaction-details.component.css']
 })
-export class ActiveTransactionComponent implements OnInit {
+export class TransactionDetailsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime','validity', 'ib','amount', 'ccy', 'goods', 'requirement','receivedQuotes','star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
@@ -38,10 +38,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   public getAllnewTransactions() {
-    const data={
-      userId:sessionStorage.getItem('userID')
-    }
-    this.nts.getTransactionDetailByUserId(data).subscribe(
+    this.nts.getAllNewTransaction().subscribe(
       (response) => {
         const flt = JSON.parse(JSON.stringify(response)).data;
         if (flt) {
@@ -79,7 +76,6 @@ export class ActiveTransactionComponent implements OnInit {
           goods: '',
           requirement:'',
           receivedQuotes:'',
-          data:null
         }
         bean.id = '' + (index);
         bean.beneficiary = dt.beneName;
@@ -93,8 +89,7 @@ export class ActiveTransactionComponent implements OnInit {
         bean.ccy = dt.lCCurrency;
         bean.goods = dt.lCValue;
         bean.requirement = dt.requirementType;
-        bean.receivedQuotes='0';
-        bean.data=dt;      
+        bean.receivedQuotes='0'        
         this.ntData.push(bean);
 
 
