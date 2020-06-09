@@ -6,7 +6,7 @@ import { Login } from 'src/app/beans/login';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router, NavigationExtras } from '@angular/router';
 import * as $ from '../../../assets/js/jquery.min';
-import { loads, selectpickercall } from '../../../assets/js/commons';
+import { loads, selectpickercall, loadLogin } from '../../../assets/js/commons';
 import { InterestedCountry } from 'src/app/beans/interestedcountry';
 import { BlackListedGoods } from 'src/app/beans/blacklistedgoods';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    loadLogin();
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
@@ -389,6 +390,8 @@ export class LoginComponent implements OnInit {
 
     this.blgValue = this.signupForm.get('blacklistedGC').value;
     this.intCountriesValue = this.signupForm.get('countriesInt').value;
+    console.log(this.intCountriesValue+"========"+this.blgValue);
+    
     this.blg = [];
     this.intCountries = [];
 

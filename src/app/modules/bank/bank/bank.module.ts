@@ -80,12 +80,6 @@ const routes: Routes = [
         ]
       },
       {
-        path: "change-password", component: ResetPasswordComponent, children: [
-          { path: "success", component: SuccessPopupComponent },
-          { path: "error", component: ErrorPopupComponent }
-        ]
-      },
-      {
         path: "active-transaction", component: ActiveTransactionComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },

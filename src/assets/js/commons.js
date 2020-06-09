@@ -313,3 +313,130 @@ export function manageSub(){
         });
         });   
 }
+
+export function loadLogin() {
+    $('#signUp').click(function () {
+        $('#container').addClass('right-panel-active');
+    });
+
+    $('#signIn').click(function () {
+        $('#container').removeClass('right-panel-active');
+    });
+
+    $('#btnForgot').click(function () {
+        $('#logindiv').slideUp();
+        $('#ForgotPassworddiv').slideDown();
+    });
+
+    $('#btnLogin').click(function () {
+        $('#ForgotPassworddiv').slideUp();
+        $('#logindiv').slideDown();
+    });
+
+    $(function () {
+        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+            $(this).parent().toggleClass('is-focused');
+        });
+        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+            $(this).toggleClass('ng-invalid');
+        });
+        $('.inputDiv input').focusout(function () {
+            var text_val = $(this).val();
+            if (text_val === "") {
+                $(this).removeClass('has-value');
+            } else {
+                $(this).addClass('has-value');
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('.selection').hide();
+        $('.referrerdiv').hide();
+        $('.bankfields').hide();
+        $('select').css('color', 'transparent');
+        $('select option').css('color', '#000');
+        $('select').change(function () {
+            if ($(this).val() !== "") {
+                $(this).css('color', '#000');
+                $(this).addClass('has-value');
+            } else {
+                $(this).css('color', 'transparent');
+                $(this).removeClass('has-value');
+            }
+        });
+
+        var radioValue = $("input[name='radio']:checked").val();
+        if (radioValue == "bank") {
+            $('.selection').slideDown();
+            $('.bankfields').slideDown();
+        } else {
+            $('.selection').slideUp();
+            $('.bankfields').slideUp();
+        }
+        if (radioValue == "referrer") {
+            $('.referrerdiv').slideDown();
+        } else {
+            $('.referrerdiv').slideUp();
+        }
+        $(".radio-tile-group input[name='radio']").click(function () {
+            debugger;
+            var radioValue = $("input[name='radio']:checked").val();
+            if (radioValue == "bank") {
+                $('.selection').slideDown();
+                $('.bankfields').slideDown();
+                $('.rc-anchor-normal').css('margin', '5px auto 5px');
+                $('.loginbody a').css('margin', '5px 0 0');
+            } else {
+                $('.selection').slideUp();
+                $('.bankfields').slideUp();
+            }
+            if (radioValue == "referrer") {
+                $('.referrerdiv').slideDown();
+            } else {
+                $('.referrerdiv').slideUp();
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    $('.textddlV').hide();
+    $('.countryddl').change(function () {
+        $('.textddlV').show();
+        var textddl = ($(this).val());
+        if (textddl == "India") {
+
+            $('.textddlV').attr('data-original-title', '32 Banks are listed in this country to fund LCs');
+            $("[data-toggle='tooltip']").tooltip('show');
+        }
+
+        else if (textddl == "Bangladesh") {
+            $('.textddlV').attr('data-original-title', '28 Banks are listed in this country to fund LCs');
+            $("[data-toggle='tooltip']").tooltip('show');
+        }
+
+        else if (textddl == "Kenya") {
+            $('.textddlV').attr('data-original-title', '52 Banks are listed in this country to fund LCs');
+            $("[data-toggle='tooltip']").tooltip('show');
+        }
+
+        else if (textddl == "Nigeria") {
+            $('.textddlV').attr('data-original-title', '54 Banks are listed in this country to fund LCs');
+            $("[data-toggle='tooltip']").tooltip('show');
+        }
+
+        else if (textddl == "UAE") {
+            $('.textddlV').attr('data-original-title', '44 Banks are listed in this country to fund LCs');
+            $("[data-toggle='tooltip']").tooltip('show');
+        }
+
+        else if (textddl == "Qatar") {
+            $('.textddlV').attr('data-original-title', '12 Banks are listed in this country to fund LCs');
+            $("[data-toggle='tooltip']").tooltip('show');
+        }
+        else {
+            $('.textddlV').hide();
+        }
+    });
+}
