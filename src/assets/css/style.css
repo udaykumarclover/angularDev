@@ -204,7 +204,7 @@ body:after{
 .loginbody .overlay {
 	
 	background: #00B4DB;  /* fallback for old browsers */
-	background: linear-gradient(to right, rgba(0, 131, 176, 0.47058823529411764), rgba(0, 180, 219, 0.3803921568627451));
+	background: linear-gradient(to right, #0083B0, #00B4DB);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -384,16 +384,15 @@ body:after{
 
 }
 
-.loginbody .inputDiv .ng-invalid + label + .invalid-feedback {
-	  display: block;
+.loginbody .inputDiv .invalid-feedback {
+	display: block;
     position: absolute;
     top: -15px;
     right: 2px;
-    background: #ffffff;
     color: #ff0330;
     padding: 2px 5px;
     border-radius: 5px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 400;
 }
 
@@ -806,11 +805,11 @@ body:after{
 }
 .rc-anchor-normal .rc-anchor-content {
   height: 74px;
-  width: 206px;
+  width: 145px;
   float: left;
 }
 .rc-anchor-normal .rc-anchor-checkbox-label {
-  width: 152px;
+  width: 93px;
 }
 .rc-anchor-checkbox {
   margin: 0 12px 2px 12px;
@@ -847,7 +846,7 @@ body:after{
   vertical-align: top;
 }
 .rc-anchor-logo-portrait {
-  margin: 10px 0 0 26px;
+  margin: 10px 0 0 0;
   width: 58px;
   -webkit-user-select: none;
   -moz-user-select: none;

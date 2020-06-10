@@ -379,7 +379,7 @@ export function loadLogin() {
             $('.referrerdiv').slideUp();
         }
         $(".radio-tile-group input[name='radio']").click(function () {
-            debugger;
+            // debugger;
             var radioValue = $("input[name='radio']:checked").val();
             if (radioValue == "bank") {
                 $('.selection').slideDown();
