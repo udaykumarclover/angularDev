@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
 
   public submitted = false;
   public submittedSignup = false;
+  public forgPassSubmitted: boolean = false;
 
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService) {
 
@@ -96,9 +97,11 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.submitted = true;
+    this.validate();
     if (this.loginForm.invalid) {
       return;
     }
+    this.submitted = false;
 
     let loginData: Login = {
       userId: this.loginForm.get('username').value,
@@ -273,6 +276,13 @@ export class LoginComponent implements OnInit {
 
 
   forgotPassword(): void {
+    this.forgPassSubmitted = true;
+    this.forPassValidate();
+    if(this.forgotPasswordForm.invalid){
+      return;
+    }
+    this.forgPassSubmitted = false;
+
     const fg ={
       email:this.forgotPasswordForm.get('email').value,
       event:'FORGOT_PASSWORD'
@@ -522,6 +532,17 @@ export class LoginComponent implements OnInit {
     };
     this.router.navigate(['/login/custPopup'], navigationExtras);
     }
+
+  forPassValidate() {
+    this.forgotPasswordForm.get('email').setValidators(Validators.required);
+    this.forgotPasswordForm.get('email').updateValueAndValidity();
+  }
+
+  clearInvalidationText() {
+    this.Removevalidate();
+    this.forgotPasswordForm.get('email').clearValidators();
+    this.forgotPasswordForm.get('email').updateValueAndValidity();
+  }
 
 }
 

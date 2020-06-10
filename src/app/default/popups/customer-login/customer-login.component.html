@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" formControlName="batchId" (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="10" formControlName="batchId" (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Batch ID</label>
                 <div *ngIf="submitted && custLogDetails.batchId.errors?.required">
                   Batch Id is required
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" formControlName="empId" (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="10" formControlName="empId" (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Employee ID</label>
                 <div *ngIf="submitted && custLogDetails.empId.errors?.required">
                   Employee ID is required
@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" formControlName="custName" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="15" formControlName="custName" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Name</label>
                 <div *ngIf="submitted && custLogDetails.custName.errors?.required">
                   Name is required

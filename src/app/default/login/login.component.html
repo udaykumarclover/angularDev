@@ -102,7 +102,7 @@
                                        </div> -->
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                             <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
                                              <label>First Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.firstName.errors" class="invalid-feedback">
@@ -114,7 +114,7 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                             <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
                                              <label>Last Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.lastName.errors" class="invalid-feedback">
@@ -181,7 +181,7 @@
                                        </div>
                                        <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="companyName">
+                                             <input type="text" maxlength="30" formControlName="companyName">
                                              <label>Company Name</label>
                                              <div *ngIf="submittedSignup && suf.companyName.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.companyName.errors.required">
@@ -210,7 +210,7 @@
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="minLCVal">
+                                             <input type="text" maxlength="15" formControlName="minLCVal" (keypress)="validateRegexFields($event, 'number')">
                                              <label>Minimum Value of LC</label>
                                              <img src="assets/images/cash.png" style="height: 14px;width: 10px;" />
                                              <div *ngIf="submittedSignup && suf.minLCVal.errors" class="invalid-feedback">
@@ -240,7 +240,7 @@
                                        </div>
                                        <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="designation">
+                                             <input type="text" maxlength="30" formControlName="designation">
                                              <label>Designation</label>
                                              <div *ngIf="submittedSignup && suf.designation.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.designation.errors.required">
@@ -268,7 +268,7 @@
                                           </div>
                                        </div>
                     
-                                       <div class="col-md-12">
+                                       <!-- <div class="col-md-12">
                                           <div class="rc-anchor rc-anchor-normal rc-anchor-light form-group">
                                              <div class="rc-anchor-content">
                                                 <div class="rc-inline-block">
@@ -304,7 +304,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                       </div>
+                                       </div> -->
                                        <div class="clearfix"></div>
                                        <div class="checkbox">
                                           <label>
@@ -315,7 +315,7 @@
                     
                                        <button type="submit" class="btnclass" style="margin: 5px 0px 0px;">Sign Up</button>
                                        <p style="font-size: 12px;font-weight: 400;">Already have an account? 
-                                          <a href="javascript:void()" class="ghost" style="display: inline-block;" id="signIn">Login</a>
+                                          <a (click)="clearInvalidationText();" class="ghost" style="display: inline-block;cursor: pointer;" id="signIn">Login</a>
                                        </p>
                                     </div>
                                  </div>
@@ -351,7 +351,7 @@
                                        </div>
                                     </div>
                                     <button type="submit" class="btnclass">Login</button>
-                                    <a href="javascript:void()" id="btnForgot" class="extralink">Forgot your password?</a>
+                                    <a (click)="clearInvalidationText()" id="btnForgot" class="extralink">Forgot your password?</a>
                                  </div>
                               </div>
                            </div>
@@ -366,14 +366,14 @@
                                        <input type="email" formControlName="email">
                                        <label>Email</label>
                                        <img src="assets/images/user.png" />
-                                       <div *ngIf="submitted && fpf.email.errors" class="invalid-feedback">
+                                       <div *ngIf="forgPassSubmitted && fpf.email.errors" class="invalid-feedback">
                                           <div *ngIf="fpf.email.errors.required">
                                              Email address is required
                                           </div>
                                        </div>
                                     </div>
                                     <button class="btnclass">Submit</button>
-                                    <a href="javascript:void()" class="extralink" id="btnLogin">Return to Login</a>
+                                    <a (click)="clearInvalidationText()" class="extralink" id="btnLogin">Return to Login</a>
                                  </div>
                               </div>
                            </div>

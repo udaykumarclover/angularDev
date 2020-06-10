@@ -60,22 +60,22 @@
                                                                 <div class="row">
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
-                                                                            <input type="text"
+                                                                            <input type="text" maxlength="30"
                                                                                 formControlName="lCIssuanceBank">
                                                                             <label>LC Issuance Bank</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
-                                                                            <input type="text"
+                                                                            <input type="text" maxlength="30"
                                                                                 formControlName="lCIssuanceBranch">
                                                                             <label>Issuance Branch</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
-                                                                            <input type="text"
-                                                                                formControlName="swiftCode">
+                                                                            <input type="text" maxlength="11"
+                                                                                formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNum')">
                                                                             <label>Swift Code</label>
                                                                         </div>
                                                                     </div>
@@ -140,8 +140,8 @@
                                                                     <div class="">
                                                                         <div class="col-md-3">
                                                                             <div class="inputDiv">
-                                                                                <input type="text"
-                                                                                    formControlName="lCValue">
+                                                                                <input type="text" maxlength="15"
+                                                                                    formControlName="lCValue" (keypress)="validateRegexFields($event, 'number')">
                                                                                 <label>LC Value</label>
                                                                             </div>
                                                                         </div>

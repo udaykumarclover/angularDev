@@ -64,7 +64,7 @@
                                     <!-- Bank Details-->
                                     <div class="col-md-3" *ngIf="!isCustomer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="bankNbfcName">
+                                            <input type="text" maxlength="30" formControlName="bankNbfcName">
                                             <label>Bank Name</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.bankNbfcName.errors?.required">
                                                 Bank name is required
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-md-3" *ngIf="!isCustomer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="branchName">
+                                            <input type="text" maxlength="30" formControlName="branchName">
                                             <label>Branch Name</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.branchName.errors?.required">
                                                 Branch name is required
@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="col-md-3" *ngIf="!isCustomer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <input type="text" maxlength="11" formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNum')">
                                             <label>Swift Code</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.swiftCode.errors?.required">
                                                 Swift code is required
@@ -127,19 +127,19 @@
                                                 <input type="hidden" formControlName="ownerID">
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
-                                                        <input type="text" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                        <input type="text" maxlength="15" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'alpha')">
                                                         <label>MD/CEO/Owner’s First Name </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
-                                                        <input type="text" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                        <input type="text" maxlength="15" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'alpha')">
                                                         <label>MD/CEO/Owner’s Last Name</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
-                                                        <input type="text" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                                        <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')">
                                                         <label>Designation</label>
                                                     </div>
                                                 </div>
@@ -196,7 +196,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="city">
+                                            <input type="text" maxlength="15" formControlName="city" (keydown)="validateRegexFields($event, 'alpha')">
                                             <label>City</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.city.errors?.required">
                                                 City is required
@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="addressLine1">
+                                            <input type="text" maxlength="30" formControlName="addressLine1">
                                             <label>Address Line 1</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine1.errors?.required">
                                                 Address is required
@@ -237,7 +237,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="addressLine2">
+                                            <input type="text" maxlength="30" formControlName="addressLine2">
                                             <label>Address Line 2</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors?.required">
                                                 Address is required
@@ -246,7 +246,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="addressLine3">
+                                            <input type="text" maxlength="30" formControlName="addressLine3">
                                             <label>Address Line 3 / Landmark</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors?.required">
                                                 Landmark is required
