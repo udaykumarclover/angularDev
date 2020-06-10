@@ -3,7 +3,7 @@
     </p>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" formControlName="applicantName">
+            <input type="text" maxlength="15" formControlName="applicantName" (keydown)="validateRegexFields($event, 'alpha')">
             <label>Applicant's Name </label>
         </div>
     </div>
@@ -34,7 +34,7 @@
         <strong>Beneficiary</strong></p>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" formControlName="beneName">
+            <input type="text" maxlength="15" formControlName="beneName" (keydown)="validateRegexFields($event, 'alpha')">
             <label>Beneficiary's Name</label>
         </div>
     </div>
@@ -64,13 +64,13 @@
     <div class="col-md-4">
         <div class="inputDiv">
 
-            <input type="text" formControlName="beneBankName">
+            <input type="text" maxlength="30" formControlName="beneBankName">
             <label>Bank Name</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" formControlName="beneSwiftCode">
+            <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
             <label>Swift Code</label>
         </div>
     </div>

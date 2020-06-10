@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { signup } from 'src/app/beans/signup';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import * as $ from '../../../assets/js/jquery.min';
@@ -28,6 +28,7 @@ export class PersonalDetailsComponent implements OnInit {
   public isReferrer: boolean = false;
   public isBank: boolean = false;
   public username: string = "";
+  public submitted:boolean = false;
 
   interestedCountryList = this.countryService();
   blackListedGoodsList = this.goodsService();
@@ -52,12 +53,12 @@ export class PersonalDetailsComponent implements OnInit {
       subscriberType: [''],
       bankType: [''],
 
-      firstName: [''],
-      lastName: [''],
-      emailId: [''],
-      mobileNo: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
+      mobileNo: ['', Validators.required],
       landLineNo: [''],
-      country: [''],
+      country: ['', Validators.required],
 
       companyName: [''],
       designation: [''],
@@ -90,12 +91,12 @@ export class PersonalDetailsComponent implements OnInit {
 
   }
 
-
+  get perDetails() {
+    return this.personalDetailsForm.controls;
+  }
 
   ngOnInit() {
     $(document).ready(function () {
-
-
 
     })
 
@@ -114,6 +115,11 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   submit(): void {
+    this.submitted = true;
+    if(this.personalDetailsForm.invalid) {
+      return;
+    }
+    this.submitted = false;
     this.titleService.loading.next(true);
     let userID: string = this.personalDetailsForm.get('userId').value;
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)

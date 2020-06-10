@@ -151,7 +151,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                    <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
                                                     <label>First Name</label>
                                                     <div *ngIf="submitted && referDetails.firstName.errors?.required">
                                                         First Name is required
@@ -160,7 +160,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                    <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
                                                     <label>Last Name</label>
                                                     <div *ngIf="submitted && referDetails.lastName.errors?.required">
                                                         Last Name is required
@@ -169,7 +169,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
+                                                    <input type="text" maxlength="12" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
                                                     <label>Mobile No.</label>
                                                     <div *ngIf="submitted && referDetails.mobileNo.errors?.required">
                                                         Mobile No is required
@@ -207,7 +207,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" formControlName="compName">
+                                                    <input type="text" maxlength="30" formControlName="compName">
                                                     <label>Company Name</label>
                                                     <div *ngIf="submitted && referDetails.compName.errors?.required">
                                                         Company Name is required

@@ -32,7 +32,7 @@ export class NewTransactionComponent implements OnInit, AfterViewInit {
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
-  public hasRecord: boolean = false;
+  public hasRecord:boolean = false;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -43,7 +43,7 @@ export class NewTransactionComponent implements OnInit, AfterViewInit {
     this.nts.getAllNewTransaction().subscribe(
       (response) => {
         const flt = JSON.parse(JSON.stringify(response)).data;
-        if (flt) {
+        if(flt){
           this.hasRecord = true;
         }
         this.filteredData(flt);
