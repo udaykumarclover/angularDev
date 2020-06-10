@@ -28,19 +28,19 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                            <input type="text" formControlName="firstName" maxlength="15" (keydown)="validateRegexFields($event, 'alpha')">
                                             <label>First Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                            <input type="text" formControlName="lastName" maxlength="15" (keydown)="validateRegexFields($event, 'alpha')">
                                             <label>Last Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="emailId">
+                                            <input type="text" formControlName="emailId" maxlength="25">
                                             <label>Email ID</label>
                                         </div>
                                     </div>
@@ -70,19 +70,19 @@
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="companyName">
+                                            <input type="text" formControlName="companyName" maxlength="15">
                                             <label>Company Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <input type="text" formControlName="designation" maxlength="15" (keypress)="validateRegexFields($event, 'alphaNum')">
                                             <label>Designation</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="businessType">
+                                            <input type="text" formControlName="businessType" maxlength="15">
                                             <label>Business Type</label>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
  
                                      <div class="col-md-3 bankfields" *ngIf="isBank">
                                         <div class="inputDiv">
-                                           <input type="text" formControlName="minLCVal">
+                                           <input type="text" formControlName="minLCVal" maxlength="6ng s ">
                                            <label>Minimum Value of LC (USD)</label>
                                            <div *ngIf="submitted && suf.minLCVal.errors" class="invalid-feedback">
                                               <div *ngIf="suf.minLCVal.errors.required">

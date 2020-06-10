@@ -3,6 +3,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import * as $ from '../../../../../assets/js/jquery.min';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
+import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -14,7 +15,7 @@ export class ConfirmationComponent implements OnInit {
   public data: TransactionBean;
   public title: string = "";
   public tab = 'tab1';
-  constructor(public titleService: TitleService) {
+  constructor(public titleService: TitleService, public ts: NewTransactionService) {
     this.data = {
       transactionId: "",
       userId: "",
@@ -115,21 +116,35 @@ export class ConfirmationComponent implements OnInit {
         this.tab = 'tab1'
         setTimeout(() => {
           $('input').attr('readonly', false);
-        }, 200);
+        }, 100);
         this.title = 'Edit';
       }
         break;
 
       case 'submit': {
-        this.tab ='tab3';
+        this.ts.updateCustomerTransaction(this.data).subscribe(
+          (response) => {
+            this.tab = 'tab3';
+          },
+          error => {
+            alert('error')
+          }
+        )
+
 
       }
         break;
+      case 'ok': {
+
+        this.closed();
+        this.tab = 'tab1';
+      }
+        break;
       case 'preview': {
-       this.tab ='tab2';
-       setTimeout(() => {
-        $('input').attr('readonly', true);
-      }, 200);      
+        this.tab = 'tab2';
+        setTimeout(() => {
+          $('input').attr('readonly', true);
+        }, 200);
       }
         break;
     }

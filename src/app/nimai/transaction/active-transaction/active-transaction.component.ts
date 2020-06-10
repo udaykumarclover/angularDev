@@ -17,7 +17,7 @@ import { Tflag } from 'src/app/beans/Tflag';
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime','validity', 'ib','amount', 'ccy', 'goods', 'requirement','receivedQuotes','star'];
+  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsType', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
 

@@ -6,15 +6,38 @@
 }
 
 html,body{
-	height: 100%;
+	height: 100%;font-family: 'Montserrat', sans-serif;
 }
 
 .loginbody {
-	background: #f6f5f7; height: 100%;
-	font-family: 'Roboto', sans-serif; 
-	background: url(../images/bg.jpg) no-repeat;
+	background: #f6f5f7;	
+    height: 100%;	
+    font-family: 'Montserrat', sans-serif;	
+    background: url(../images/world.jpg) no-repeat;	
 	background-size: cover;
 	background-size: 100% 100%;
+}
+
+.textddlV {
+    margin-right: 10px;    
+    position: absolute;    
+    top: -11px;    
+    margin: 0 !important;    
+    left: 83px;
+}
+
+.loginbody:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;background-color: rgba(0, 169, 209, 0.25882352941176473);
+}
+
+.loginbody form { 
+	padding: 0 30px;
+	height: 100%;
+	text-align: center;
 }
 
 .content-a {
@@ -106,13 +129,14 @@ body:after{
 }
 
 .loginbody .maindiv {
-	background-color: #ffffffd4;
-	border-radius: 10px;
-	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-	position: relative;
-	overflow: hidden; 
-	max-width: 100%;
-	min-height: 605px;
+	background-color: rgba(255, 255, 255, 0.84);
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    min-height: 530px;
+    z-index: 9;
 }
 
 .loginbody .form-container {
@@ -130,8 +154,8 @@ body:after{
 }
 
 .loginbody .right-panel-active .sign-in-container {
-	transform: translateX(100%);
-	z-index: -1;
+	transform: translateX(200%);
+	z-index: -2;
 }
 
 .loginbody .sign-up-container {
@@ -143,9 +167,10 @@ body:after{
 
 .loginbody .right-panel-active .sign-up-container {
 	transform: translateX(0%);
-	opacity: 1;
-	z-index: 5;
-	animation: show 0.6s;
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+    position: relative;
 }
 
 @keyframes show {
@@ -179,7 +204,7 @@ body:after{
 .loginbody .overlay {
 	
 	background: #00B4DB;  /* fallback for old browsers */
-	background: linear-gradient(to right, rgba(0, 131, 176, 0.47058823529411764), rgba(0, 180, 219, 0.3803921568627451));
+	background: linear-gradient(to right, #0083B0, #00B4DB);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -243,11 +268,11 @@ body:after{
 	width: 40px;
 }
 
-.loginbody input,
-.loginbody select {
+.loginbody input,.loginbody select {
+
 	background-color: #eee;
 	border: none;
-	padding: 10px 0px 4px;
+	padding: 10px 0px 4px 23px !important;
 	width: 100%;
 	font-size: 12px;
 	font-weight: 500;
@@ -255,13 +280,13 @@ body:after{
 	border-radius: 0px;
 	background: none;
 	height: 31px;
-	 border: 0;
-    background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
-    background-size: 0 2px, 100% 1px;
-    background-repeat: no-repeat;
-    background-position: center bottom, center calc(100% - 1px);
-    background-color: rgba(0, 0, 0, 0);
-    transition: background 0s ease-out;
+	border: 0;
+	background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
+	background-size: 0 2px, 100% 1px;
+	background-repeat: no-repeat;
+	background-position: center bottom, center calc(100% - 1px);
+	background-color: rgba(0, 0, 0, 0);
+	transition: background 0s ease-out;
 }
 
 .loginbody input:focus,
@@ -292,27 +317,51 @@ body:after{
 
 .loginbody .inputDiv label {
 	position: absolute;
-	top: 15px;
-	left: 5px;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
-	font-size: 13px;
-	letter-spacing: 0.2px;
-	color: #525252;
-	font-weight: 500;
-	pointer-events: none;
-	-webkit-transition: all 0.15s ease-out 0s;
-	transition: all 0.15s ease-out 0s;
+    top: 18px;
+    left: 22px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-29%);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: #353535;
+    font-weight: 500;
+    pointer-events: none;
+    -webkit-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+}
+
+.loginbody .inputDiv img{
+	position: absolute;
+    left: 0;
+    width: 13px;
+    top: 13px;
 }
 
 .loginbody .inputDiv input:focus+label,
 .loginbody .inputDiv input.has-value+label,
 .loginbody .inputDiv select:focus+label,
 .loginbody .inputDiv select.has-value+label {
-	top: 0px;
-	font-size: 9px;
-	color: #525252;
-	left: 1px;
+	top: -2px;
+    font-size: 9px;
+    color: #aaa;
+    left: 1px;
+}
+
+.bootstrap-select > .dropdown-toggle{
+	padding-left: 23px !important;
+	padding-top: 11px;
+}
+
+
+
+.bootstrap-select.btn-group .dropdown-toggle .filter-option 
+{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 12px !important;
+	font-weight: 400;
+	letter-spacing: 0.2px;
+	text-transform: capitalize;
+	color: #333 !important;
 }
 
 .loginbody .inputDiv.is-focused input, .loginbody .inputDiv.is-focused select, .loginbody .inputDiv.is-focused textarea {
@@ -335,16 +384,15 @@ body:after{
 
 }
 
-.loginbody .inputDiv .ng-invalid + label + .invalid-feedback {
-	  display: block;
+.loginbody .inputDiv .invalid-feedback {
+	display: block;
     position: absolute;
     top: -15px;
     right: 2px;
-    background: #ffffff;
     color: #ff0330;
     padding: 2px 5px;
     border-radius: 5px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 400;
 }
 
@@ -757,11 +805,11 @@ body:after{
 }
 .rc-anchor-normal .rc-anchor-content {
   height: 74px;
-  width: 206px;
+  width: 145px;
   float: left;
 }
 .rc-anchor-normal .rc-anchor-checkbox-label {
-  width: 152px;
+  width: 93px;
 }
 .rc-anchor-checkbox {
   margin: 0 12px 2px 12px;
@@ -798,7 +846,7 @@ body:after{
   vertical-align: top;
 }
 .rc-anchor-logo-portrait {
-  margin: 10px 0 0 26px;
+  margin: 10px 0 0 0;
   width: 58px;
   -webkit-user-select: none;
   -moz-user-select: none;
