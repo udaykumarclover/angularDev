@@ -162,12 +162,14 @@
                                                    style="font-size: 11px !important;"></i></a>
                                              <select formControlName="country" class="countryddl">
                                                 <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
+                                                <!-- <option value=''>Select</option>
                                                 <option value='India'>India</option>
                                                 <option value='Bangladesh'>Bangladesh</option>
                                                 <option value='Kenya'>Kenya</option>
                                                 <option value='Nigeria'>Nigeria</option>
                                                 <option value='UAE'>UAE </option>
-                                                <option value='Qatar'>Qatar</option>
+                                                <option value='Qatar'>Qatar</option> -->
                                              </select>
                                              <label>Select Country</label>
                                              <img src="assets/images/world.png" />
@@ -308,7 +310,7 @@
                                        <div class="clearfix"></div>
                                        <div class="checkbox">
                                           <label>
-                                             <input type="checkbox" name="terms">
+                                             <input type="checkbox" id="isCheckedForTerms">
                                              I agree to terms of service and privacy policy
                                           </label>
                                        </div>

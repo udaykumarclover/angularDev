@@ -76,9 +76,10 @@
                                         <div class="inputDiv selectdiv">
                                             <select formControlName="country">
                                                 <option value="">Select</option>
-                                                <option value="India">India</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                                                
+                                                <!-- <option value="India">India</option>
                                                 <option value="Australia">Australia</option>
-                                                <option value="BanglaDesh">Bangladesh</option>
+                                                <option value="BanglaDesh">Bangladesh</option> -->
                                             </select>
                                             <label>Select Country</label>
                                             <div *ngIf="submitted && perDetails.country.errors?.required">

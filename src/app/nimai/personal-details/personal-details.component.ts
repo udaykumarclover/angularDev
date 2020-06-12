@@ -44,6 +44,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   public parentURL: string = "";
   public subURL: string = "";
+  resp: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     this.getPersonalDetails(sessionStorage.getItem('userID'));
@@ -111,6 +112,10 @@ export class PersonalDetailsComponent implements OnInit {
         }
       };
     });
+
+    this.resp = JSON.parse(sessionStorage.getItem('countryData'));
+    console.log(JSON.parse(sessionStorage.getItem('countryData')));
+    
 
   }
 

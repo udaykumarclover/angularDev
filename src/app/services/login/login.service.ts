@@ -30,4 +30,8 @@ export class LoginService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiUAM/passwordPolicy/changePassword/` + data, null, { headers: { 'content-type': 'application/json' } })
   }
 
+  public getCountryMasterData(): Observable<any[]>{
+    return this.httpClient.get<any[]>(`${environment.domain}/nimaiTransaction/getcountryData`, { headers: { 'content-types': 'application/json' } });
+  }
+
 }

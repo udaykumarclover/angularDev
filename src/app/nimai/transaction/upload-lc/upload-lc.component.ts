@@ -339,7 +339,7 @@ export class UploadLCComponent implements OnInit {
       dischargeCountry:[''],
       dischargePort:[''],
   
-      chargesType: ['Beneficiary'],
+      chargesType: [''],
       validity:[''],
       lcProForma:'TEST',
   
