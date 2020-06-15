@@ -52,3 +52,7 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.innerSuccessdiv h3 {
+    margin-top: 0px;
+}

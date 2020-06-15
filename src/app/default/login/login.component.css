@@ -43,6 +43,17 @@
     font-size: 12px;
 }
 
+.checkbox label + a{
+    display: inline-block;
+    cursor: pointer;
+    padding-left: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.selection .list-inline>li{
+    vertical-align: middle;
+}   
+
 .loginbody .inputDiv label {
     position: absolute;
     -webkit-transform: translateY(-50%);
@@ -100,4 +111,16 @@
     text-decoration: none !important;    
     letter-spacing: 0.1px;
     cursor: pointer;
+}
+
+.selection .customlabel {
+    font-size: 12px !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+    clear: both;
+    font-family: Montserrat;
+    display: block;
+    position: absolute;
+    top: -12px;
+
 }

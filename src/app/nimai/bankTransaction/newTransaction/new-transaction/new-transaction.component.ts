@@ -56,25 +56,27 @@ export class NewTransactionComponent implements OnInit, AfterViewInit {
   }
 
   filteredData(data: NTBean[]): void {
-    let bean = {
-      id: '',
-      beneficiary: '',
-      applicant: '',
-      country: '',
-      txnID: '',
-      dateTime: '',
-      validity: '',
-      ib: '',
-      ccy: '',
-      goods: '',
-      requirement: '',
-      action: ''
-    }
+
     this.ntData = [];
     let index = 0;
     if (data.length > 0)
       for (let dt of data) {
-        bean.id = '' + (index++);
+        let bean = {
+          id: '',
+          beneficiary: '',
+          applicant: '',
+          country: '',
+          txnID: '',
+          dateTime: '',
+          validity: '',
+          ib: '',
+          ccy: '',
+          goods: '',
+          requirement: '',
+          action: ''
+        }
+        index++;
+        bean.id = '' + (index);
         bean.beneficiary = dt.beneName;
         bean.applicant = dt.applicantName;
         bean.country = dt.applicantCountry;

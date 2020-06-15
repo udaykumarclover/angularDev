@@ -156,6 +156,7 @@ body:after{
 .loginbody .right-panel-active .sign-in-container {
 	transform: translateX(200%);
 	z-index: -2;
+	display: none;
 }
 
 .loginbody .sign-up-container {
@@ -356,12 +357,12 @@ body:after{
 
 .bootstrap-select.btn-group .dropdown-toggle .filter-option 
 {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 12px !important;
-	font-weight: 400;
-	letter-spacing: 0.2px;
-	text-transform: capitalize;
-	color: #333 !important;
+	font-family: 'Montserrat', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.2px !important;
+    text-transform: capitalize;
+    color: #353535 !important;
 }
 
 .loginbody .inputDiv.is-focused input, .loginbody .inputDiv.is-focused select, .loginbody .inputDiv.is-focused textarea {
@@ -490,7 +491,7 @@ body:after{
 }
 
 .loginbody .radio-tile-group .input-container .radio-button:checked+.radio-tile .radio-tile-label {
-	color: white;
+	color: white !important;
 	background-color: #00bcd4;
 }
 
@@ -1051,4 +1052,8 @@ body:after{
 .multiselect-dropdown .dropdown-btn span a {
     display: inline-block !important;
     margin: 0;
+}
+
+#ForgotPassworddiv{
+	display: none;
 }

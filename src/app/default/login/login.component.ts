@@ -195,8 +195,8 @@ export class LoginComponent implements OnInit {
             this.updateValidation();
             const navigationExtras: NavigationExtras = {
               state: {
-                title: saveResponse,
-                message: 'Soon you will receive an email containing credentials so you can securely activate your account. Kindly follow the instuctions mentioned in the email to proceed further.',
+                title: 'Congratulations, Your account has been successfully created!',
+                message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
                 parent: 'login'
               }
             };

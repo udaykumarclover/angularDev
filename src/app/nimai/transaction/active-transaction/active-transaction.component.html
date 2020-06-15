@@ -14,7 +14,7 @@
                   <table class="table">
                     <thead>
                       <th>
-                        <p>No Request available. </p>
+                        <p>No active transactions are available. </p>
                       </th>
                     </thead>
   
@@ -25,7 +25,7 @@
                 <div class="col-md-12">
                   <mat-form-field>
                     <mat-label>Filter</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. CU">
                   </mat-form-field>
   
                   <div class="mat-elevation-z8 table-responsive table-bordered material-datatables"  cellspacing="0" width="100%" style="width:100%">
@@ -33,7 +33,7 @@
   
                       <!-- ID Column -->
                       <ng-container matColumnDef="id" sticky>
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SNo. </th>
                         <td mat-cell *matCellDef="let row"> {{row.id}} </td>
                       </ng-container>
   
@@ -64,7 +64,7 @@
                         <td mat-cell *matCellDef="let row"> {{row.txnID}} </td>
                       </ng-container>
                       <ng-container matColumnDef="dateTime" sticky>
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date&Time </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Time </th>
                         <td mat-cell *matCellDef="let row"> {{row.dateTime | date: 'dd-MM-yyyy'}} </td>
                       </ng-container>
                       <ng-container matColumnDef="validity" sticky>
@@ -80,19 +80,19 @@
                         <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
                       </ng-container>
                       <ng-container matColumnDef="ccy">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ccy </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CCY </th>
                         <td mat-cell *matCellDef="let row"> {{row.ccy}} </td>
                       </ng-container>
-                      <ng-container matColumnDef="goods">
+                      <ng-container matColumnDef="goodsType">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
-                        <td mat-cell *matCellDef="let row"> {{row.goods}} </td>
+                        <td mat-cell *matCellDef="let row"> {{row.goodsType}} </td>
                       </ng-container>
                       <ng-container matColumnDef="requirement">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
                         <td mat-cell *matCellDef="let row"> {{row.requirement}} </td>
                       </ng-container>
                       <ng-container matColumnDef="receivedQuotes">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Received Quotes </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quotes </th>
                         <td mat-cell *matCellDef="let row"> {{row.receivedQuotes}}</td>
                       </ng-container>
                       <ng-container matColumnDef="star" stickyEnd>
