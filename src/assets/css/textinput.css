@@ -998,12 +998,12 @@ vertical-align: top;
 }
 
 .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark {
-       position: absolute;
-    display: inline-block;
-    left: 15px;
-    font-size: 16px;
-    color: #00bcd4;
-    top: 10px;
+  position: absolute;
+  display: inline-block;
+  left: 4px;
+  font-size: 16px;
+  color: #00bcd4;
+  top: 8px;
 }
 
 .dropdown-menu li a:hover, .dropdown-menu li a:focus, .dropdown-menu li a:active {
