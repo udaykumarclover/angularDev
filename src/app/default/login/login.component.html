@@ -134,6 +134,9 @@
                                                    Official Email ID is required
                                                 </div>
                                              </div>
+                                             <div *ngIf="suf.officialMailId.touched && suf.officialMailId.errors?.email" class="invalid-feedback">
+                                                Invalid Email id
+                                              </div>
                                           </div>
                                        </div>
                                        <div class="col-md-4">
@@ -207,6 +210,11 @@
                                                 <option value="7">Qatar</option>
                                                 <option value="8">Namibia</option> -->
                                              </select>
+                                             <div *ngIf="submittedSignup && suf.countriesInt.errors" class="invalid-feedback">
+                                                <div *ngIf="suf.countriesInt.errors.required">
+                                                   Black listed goods is required
+                                                </div>
+                                             </div>
                                              <img src="assets/images/countries.png" />
                                           </div>
                                        </div>
@@ -215,11 +223,11 @@
                                              <input type="text" maxlength="15" formControlName="minLCVal" (keypress)="validateRegexFields($event, 'number')">
                                              <label>Minimum Value of LC</label>
                                              <img src="assets/images/cash.png" style="height: 14px;width: 10px;" />
-                                             <div *ngIf="submittedSignup && suf.minLCVal.errors" class="invalid-feedback">
+                                             <!-- <div *ngIf="submittedSignup && suf.minLCVal.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.minLCVal.errors.required">
                                                    Minimum LC value is required
                                                 </div>
-                                             </div>
+                                             </div> -->
                                           </div>
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
@@ -237,6 +245,11 @@
                                                 <option value="8">Frozen Mear </option>
                                                 <option value="9">Diamonds</option> -->
                                              </select>
+                                             <div *ngIf="submittedSignup && suf.blacklistedGC.errors" class="invalid-feedback">
+                                                <div *ngIf="suf.blacklistedGC.errors.required">
+                                                   Black listed goods is required
+                                                </div>
+                                             </div>
                                              <img src="assets/images/blacklisted.png" />
                                           </div>
                                        </div>
@@ -310,9 +323,12 @@
                                        <div class="clearfix"></div>
                                        <div class="checkbox">
                                           <label>
-                                             <input type="checkbox" id="isCheckedForTerms">
+                                             <input type="checkbox" id="isCheckedForTerms" (change)="acceptTerms()">
                                              I agree to terms of service and privacy policy
                                           </label>
+                                          <div id="checkboxError" style="display:none;color:#ff0330;font-size: 11px;font-weight: 400;">
+                                             Kindly accept terms of service and privacy policy!
+                                          </div>
                                        </div>
                     
                                        <button type="submit" class="btnclass" style="margin: 5px 0px 0px;">Sign Up</button>
@@ -334,7 +350,7 @@
                                     <h1>Login</h1>
                                     <span></span>
                                     <div class="inputDiv">
-                                       <input type="text" class="has-value" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()">
+                                       <input oninput="this.value = this.value.toUpperCase()" type="text" class="has-value" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()">
                                        <label>User ID</label>
                                        <img src="assets/images/user.png" />
                                        <div *ngIf="submitted && lf.username.errors" class="invalid-feedback" >
@@ -373,6 +389,9 @@
                                              Email address is required
                                           </div>
                                        </div>
+                                       <div *ngIf="fpf.email.touched && fpf.email.errors?.email" class="invalid-feedback">
+                                          Invalid Email id
+                                        </div>
                                     </div>
                                     <button class="btnclass">Submit</button>
                                     <a (click)="clearInvalidationText()" class="extralink" id="btnLogin">Return to Login</a>

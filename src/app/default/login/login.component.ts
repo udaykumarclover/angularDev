@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   resp: any;
 
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService) {
-
+    $('#checkboxError').hide();
   }
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.forgotPasswordForm = this.fb.group({
-      email: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]]
     })
 
 
@@ -146,7 +146,7 @@ export class LoginComponent implements OnInit {
   signUp() {
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
     var isChecked = element.checked;
-    if(isChecked){
+    $('#checkboxError').hide();
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
@@ -161,6 +161,9 @@ export class LoginComponent implements OnInit {
       if (subscriptionType == 'bank' && selector == 'underwriter') {
         this.validateCommons();
         this.validateBank();
+        if (this.signupForm.invalid) {
+          return;
+        }
       } else {
         this.validateCommons();
         if (this.signupForm.invalid) {
@@ -168,6 +171,10 @@ export class LoginComponent implements OnInit {
         }
       }
 
+    }
+    if(!isChecked){
+    $('#checkboxError').show();
+      return;
     }
 
     this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
@@ -225,19 +232,7 @@ export class LoginComponent implements OnInit {
           .catch(console.error);
 
       })
-    }
-    else{
-      const navigationExtras: NavigationExtras = {
-        state: {
-          title: "Kindly accept terms of service and privacy policy!",
-          message: '',
-          parent: 'login'
-        }
-      };
-      this.router.navigate(['/login/error'], navigationExtras)
-        .then(success => console.log('navigation success?', success))
-        .catch(console.error);
-    }
+    
   }
 
   public sugnUpView() {
@@ -275,6 +270,8 @@ export class LoginComponent implements OnInit {
 
 
   bankAsEvent(value: string) {
+    this.clearSignupValidation();
+    this.updateValidation();
     if (value === 'c') {
       this.isBank = false;
       this.isReferrer = false;
@@ -325,7 +322,7 @@ export class LoginComponent implements OnInit {
           console.log(responserror)
           const navigationExtras: NavigationExtras = {
             state: {
-              title: JSON.parse(JSON.stringify(error)).error.errMessage,
+              title: responserror.error.message,
               message: '',
               parent: 'login'
             }
@@ -342,7 +339,7 @@ export class LoginComponent implements OnInit {
   validateCommons() {
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
-    this.signupForm.get('officialMailId').setValidators(Validators.required);
+    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.email]);
     this.signupForm.get('mobileNo').setValidators(Validators.required);
     this.signupForm.get('country').setValidators(Validators.required);
     this.removeBankValidation();
@@ -351,7 +348,7 @@ export class LoginComponent implements OnInit {
   }
 
   validateBank() {
-    this.signupForm.get('minLCVal').setValidators(Validators.required);
+    // this.signupForm.get('minLCVal').setValidators(Validators.required);
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
     this.updateValidation();
@@ -552,7 +549,7 @@ export class LoginComponent implements OnInit {
     }
 
   forPassValidate() {
-    this.forgotPasswordForm.get('email').setValidators(Validators.required);
+    this.forgotPasswordForm.get('email').setValidators([Validators.required, Validators.email]);
     this.forgotPasswordForm.get('email').updateValueAndValidity();
   }
 
@@ -560,6 +557,8 @@ export class LoginComponent implements OnInit {
     this.Removevalidate();
     this.forgotPasswordForm.get('email').clearValidators();
     this.forgotPasswordForm.get('email').updateValueAndValidity();
+    $('#checkboxError').hide();
+    $("#isCheckedForTerms"). prop("checked", false);
   }
 
   getCountryData(){
@@ -573,6 +572,10 @@ export class LoginComponent implements OnInit {
         },
         (error) => {}
       )
+  }
+
+  acceptTerms(){
+    $('#checkboxError').hide();
   }
 
 }
