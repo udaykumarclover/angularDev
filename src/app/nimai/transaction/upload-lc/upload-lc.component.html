@@ -160,7 +160,7 @@
                                                                         <div class="col-md-3">
                                                                             <mat-form-field>
                                                                                 <mat-label>LC Issuance Date</mat-label>
-                                                                                <input matInput
+                                                                                <input autocomplete="off" matInput
                                                                                     [matDatepicker]="lcIssuDt"
                                                                                     formControlName="lCIssuingDate">
                                                                                 <mat-datepicker-toggle matSuffix
@@ -175,7 +175,7 @@
                                                                             <mat-form-field>
                                                                                 <mat-label>Last Shipment Date
                                                                                 </mat-label>
-                                                                                <input matInput
+                                                                                <input autocomplete="off" matInput
                                                                                     [matDatepicker]="lastShipDt"
                                                                                     formControlName="lastShipmentDate">
                                                                                 <mat-datepicker-toggle matSuffix
@@ -190,7 +190,7 @@
                                                                             <mat-form-field>
                                                                                 <mat-label>Negotiation Date
                                                                                 </mat-label>
-                                                                                <input matInput [matDatepicker]="negDt"
+                                                                                <input autocomplete="off" matInput [matDatepicker]="negDt"
                                                                                     formControlName="negotiationDate">
                                                                                 <mat-datepicker-toggle matSuffix
                                                                                     [for]="negDt">
@@ -204,7 +204,6 @@
                                                                             class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType">
-                                                                                    <option value=""> Select</option>
                                                                                     <option value="Gold"> Gold</option>
                                                                                     <option value="Plastic">Plastic
                                                                                     </option>
