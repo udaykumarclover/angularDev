@@ -10,7 +10,7 @@ export function loadFilestyle(){
             });
         });
     });
-    
+   
     $(document).ready(function() {
         var upload_number = 2;
         $('#attachMore').click(function() {
@@ -440,3 +440,4 @@ export function loadLogin() {
         }
     });
 }
+   
