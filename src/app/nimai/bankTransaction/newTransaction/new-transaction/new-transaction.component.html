@@ -8,8 +8,7 @@
           </div>
           <div class="card-content">
             <h4 class="card-title">New Requests</h4>
-            <!-- <form> -->
-            <div class="row" [hidden]="hasRecord">
+            <div class="row" *ngIf="!bankDetail">
               <div class="col-12">
                 <table class="table">
                   <thead>
@@ -21,96 +20,1746 @@
                 </table>
               </div>
             </div>
-            <div class="row" [hidden]="!hasRecord">
-              <div class="col-md-12">
-                <mat-form-field>
-                  <mat-label>Filter</mat-label>
-                  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
-                </mat-form-field>
-
-                <div class="mat-elevation-z8 table-responsive material-datatables"  cellspacing="0" width="100%" style="width:100%">
-                  <table mat-table [dataSource]="dataSource" matSort>
-
-                    <!-- ID Column -->
-                    <ng-container matColumnDef="id">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
-                      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-                    </ng-container>
-
-                    <!-- Progress Column -->
-                    <ng-container matColumnDef="beneficiary">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary </th>
-                      <td mat-cell *matCellDef="let row"> {{row.beneficiary}} </td>
-                    </ng-container>
-
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="applicant">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant </th>
-                      <td mat-cell *matCellDef="let row"> {{row.applicant}} </td>
-                    </ng-container>
-
-                    <!-- Color Column -->
-                    <ng-container matColumnDef="country">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-                      <td mat-cell *matCellDef="let row"> {{row.country}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="txnID">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Txn ID </th>
-                      <td mat-cell *matCellDef="let row"> {{row.txnID}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="dateTime">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date & Time </th>
-                      <td mat-cell *matCellDef="let row"> {{row.dateTime | date: 'dd-MM-yyyy'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="validity">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Validity </th>
-                      <td mat-cell *matCellDef="let row"> {{row.validity | date: 'dd-MM-yyyy'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="ib">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> IB </th>
-                      <td mat-cell *matCellDef="let row"> {{row.ib}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="amount">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
-                      <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="ccy">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ccy </th>
-                      <td mat-cell *matCellDef="let row"> {{row.ccy}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="goods">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
-                      <td mat-cell *matCellDef="let row"> {{row.goods}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="requirement">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
-                      <td mat-cell *matCellDef="let row"> {{row.requirement}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                      <td mat-cell *matCellDef="let row"> <button class="btn btn-info" (click)="showQuotePage(row.action)">PLACE QUOTE</button> </td>
-                    </ng-container>
-                    
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                    </tr>
-                  </table>
-
-                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%">
+                    <table class="table" id="datatables">
+                      <thead>
+                        <tr>
+                          <th class="disabled-sorting text-center">#</th>
+                          <th style="min-width: 150px;">Beneficiary</th>
+                          <th>Country</th>
+                          <th style="min-width: 150px;" nowrap>Applicant</th>
+                          <th>Country</th>
+                          <th>Txn ID</th>
+                          <th style="min-width: 130px;">Date & Time</th>
+                          <th style="min-width: 130px;">Validity</th>
+                          <th nowrap>IB</th>
+                          <th style="min-width: 80px;" nowrap>Amount</th>
+                          <th style="min-width: 80px;" nowrap>Ccy</th>
+                          <th style="min-width: 80px;" nowrap>Goods</th>
+                          <th nowrap style="min-width: 130px;">Requirement</th>
+                          <th class="disabled-sorting text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngFor="let data of bankDetail; let i = index">
+                        <tr>
+                          <td><span class="hightable" data-placement="right" data-toggle="tooltip" data-placement="auto"
+                              title="This transaction is placed by the bank on behalf of their customer">{{i+1}}</span></td>
+                          <td>{{data.beneName}}</td>
+                          <td>{{data.beneBankCountry}}</td>
+                          <td>{{data.applicantName}}</td>
+                          <td>{{data.applicantCountry}}</td>
+                          <td>{{data.transactionId}}</td>
+                          <td>{{data.insertedDate | date: 'dd-MM-yyyy'}}</td>
+                          <td>{{data.validity | date: 'dd-MM-yyyy'}}</td>
+                          <td>{{data.lCIssuanceBank}}</td>
+                          <td>{{data.lCValue}}</td>
+                          <td>{{data.lCCurrency}}</td>
+                          <td>{{data.goodsType}}</td>
+                          <td>{{data.requirementType}}</td>
+                          <td class="text-center">
+                            <button type="button" rel="tooltip" class="btn btn-info handleDis btn-round"
+                              data-original-title="" title="">
+                              Place Quote
+                            </button>
+                            <a class="handleReopen" data-toggle="tooltip" data-placement="auto"
+                              title="This transaction has been reopen by the customer. You can modify your previous quote by clicking place Quote button"
+                              style="margin-right: 10px;"><i class="fas fa-lock-open"
+                                style=" font-size: 11px !important;"></i></a>
+                            <a class="handleDetail">Detail</a>                            
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="clearfix"></div>
-            <!-- </form> -->
+              <div class="clearfix"></div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<app-banker></app-banker>
-<app-confirm-and-discount></app-confirm-and-discount>
-<app-confirmation></app-confirmation>
-<app-discounting></app-discounting>
-<app-refinancing></app-refinancing>
+
+
+<div id="menu-barnew" class="offcanvas">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                  <td><input type="text" name="" readonly placeholder="122.22"></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td><input type="text" name="" readonly placeholder="377.22"></td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                    <select class="halfright" style="color: #333 !important;">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges</td>
+                  <td>
+                    <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                    <select class="halfright" style="color: #333 !important;">
+                      <option value="USD">USD</option>
+                    </select>
+                    <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><input type="text" name="" placeholder="28/03/2020"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                Preview
+                <div class="ripple-container"></div>
+              </button>
+              <a class="pull-right linkbtn" style="margin-right: 5px;">Save
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                  <td>122.22</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td>377.22</td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    $500 USD
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges</td>
+                  <td>USD $500 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+              <a id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menu-bar">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1" [formGroup]="placeQuoteFrom">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                  <td><input type="text" name="" readonly placeholder="122.22"></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td><input type="text" name="" readonly placeholder="377.22"></td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                    <select class="halfright" style="color: #333 !important;">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges</td>
+                  <td>
+                    <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                    <select class="halfright" style="color: #333 !important;">
+                      <option value="USD">USD</option>
+                    </select>
+                    <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><input type="text" name="" placeholder="28/03/2020"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                Preview
+                <div class="ripple-container"></div>
+              </button>
+              <a class="pull-right linkbtn" style="margin-right: 5px;">Save
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                  <td>122.22</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td>377.22</td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    $500 USD
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges</td>
+                  <td>USD $500 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+              <a id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menubarDiscounting">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Discounting Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark<br> (Libor/Euribor)<br>
+
+                  </td>
+                  <td><input type="text" name="" readonly placeholder="2.4780">
+                    <span class="pull-right percent">%</span>
+                    <textarea rows="3" placeholder="1 Month Libor, 3 Months Euribor, etc."></textarea></td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfauto">
+                      <option value="Fixed">Fixed</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" name="" placeholder="0.00" class="halfleft" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfauto halfwidthdiv">
+                      <option value="Fixed">%</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" class="" placeholder="0.00" />
+                    <span class="pull-right percent">%</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Discounting Handling Charges</td>
+                  <td>
+                    <input type="text" name="" placeholder="0.00" class="halfleft" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    <input type="text" name="" placeholder="0.00" class="halfleft" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+
+                  </td>
+                  <td>
+                    <input type="text" name="" placeholder="0.00" class="halfleft" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                    <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><input type="text" name="" placeholder="28/03/2020"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                Preview
+                <div class="ripple-container"></div>
+              </button>
+              <a class="pull-right linkbtn" style="margin-right: 5px;">Save
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Discounting Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)
+                  </td>
+                  <td>2.8740%<br><small>3 Months Euribor</small></td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    USD $200
+                  </td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    0.125%
+                  </td>
+                </tr>
+                <tr>
+                  <td>Document Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+                  </td>
+                  <td>
+                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+              <a id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menubarConfDis">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1" style="max-height: 503px;overflow: auto;">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Discounting Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                  <td><input type="text" name="" readonly placeholder="0.00"></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td><input type="text" name="" readonly placeholder="0.00"></td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)<br>
+
+                  </td>
+                  <td><input type="text" name="" readonly placeholder="2.8750"><span class="pull-right percent">%</span>
+                    <textarea rows="3" placeholder="1 Month Libor, 3 Months Euribor, etc."></textarea></td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfauto">
+                      <option value="Fixed">Fixed</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfautoc halfwidthdiv">
+                      <option value="%">%</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" name="" placeholder="0.00" class="halfleft" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Document Handling Charges</td>
+                  <td>
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+
+                  </td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                    <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><input type="text" name="" placeholder="28/03/2020"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                Preview
+                <div class="ripple-container"></div>
+              </button>
+              <a class="pull-right linkbtn" style="margin-right: 5px;">Save
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Discounting Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)
+                  </td>
+                  <td>2.8740%<br><small>3 Months Euribor</small></td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    USD $200
+                  </td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    0.125%
+                  </td>
+                </tr>
+                <tr>
+                  <td>Document Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+                  </td>
+                  <td>
+                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+              <a id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="menubarRefinancing">
+  <!--<h3>SlideReveal
+     <small><span class="glyphicon glyphicon-info-sign"></span> Press <kbd>ESC</kbd> to close</small>
+     </h3>-->
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before
+              submitting it or click cancel if do not want to quote again for this transaction.</p>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Refinancing Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="1.23"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)<br>
+
+                  </td>
+                  <td><input type="text" name="" placeholder="2.4780">
+                    <span class="pull-right percent">%</span>
+                    <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea></td>
+                </tr>
+                <tr>
+                  <td>Document Transaction Charges</td>
+                  <td>
+                    <input class="halfleft" type="text" name="" placeholder="200.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    <input class="halfleft" type="text" name="" placeholder="500.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+
+                  </td>
+                  <td>
+                    <input class="halfleft" type="text" name="" placeholder="50.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                    <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><input type="text" name="" placeholder="28/03/2020"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                Preview
+                <div class="ripple-container"></div>
+              </button>
+              <a class="pull-right linkbtn" style="margin-right: 5px;">Save
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Refinancing Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)<br>
+                  </td>
+                  <td>2.8740%<br><small>3 Months Euribor</small></td>
+                </tr>
+                <tr>
+                  <td>Document Transaction Charges</td>
+                  <td>
+                    USD $200
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+                  </td>
+                  <td>
+                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+              <a id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menubarBanker">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Banker's Acceptance Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)<br>
+
+                  </td>
+                  <td><input type="text" name="" readonly placeholder="2.4780"><span class="pull-right percent">%</span>
+                    <textarea rows="3" placeholder="1 Month Libor, 3 Months Euribor, etc."></textarea></td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfauto">
+                      <option value="Fixed">Fixed</option>
+                    </select>
+                  </td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfauto halfwidthdiv">
+                      <option value="%">%</option>
+                    </select>
+                  </td>
+                  <td>
+
+                    <input class="" type="text" name="" placeholder="0.00" />
+
+                    <span class="pull-right percent">%</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Document Handling Charges</td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+
+                  </td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                    <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><input type="text" name="" placeholder="28/03/2020"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                Preview
+                <div class="ripple-container"></div>
+              </button>
+              <a class="pull-right linkbtn" style="margin-right: 5px;">Save
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Banker's Acceptance Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)
+                  </td>
+                  <td>2.8740%<br><small>3 Months Euribor</small></td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    USD $200
+                  </td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    0.125%
+                  </td>
+                </tr>
+                <tr>
+                  <td>Document Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+                  </td>
+                  <td>
+                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+              <a id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menubarDetail">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Details</h4>
+        <div class="tab-content" style="height: 552px;overflow: auto;padding-bottom: 30px;">
+          <div class="tab-pane active" id="pill1">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>CU20BANCON1101</th>
+                </tr>
+                <tr>
+                  <th colspan="2">LC Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Issuing Bank(IB)</td>
+                  <td>Grameen Bank
+                  </td>
+                </tr>
+                <tr>
+                  <td>Branch </td>
+                  <td>Dhaka
+                  </td>
+                </tr>
+                <tr>
+                  <td>Swift Code</td>
+                  <td>GB78123456
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+                <tr>
+                  <td>Requirement</td>
+                  <td>Confirmation
+                  </td>
+                </tr>
+                <tr>
+                  <td>Amount</td>
+                  <td>USD $7520
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ccy</td>
+                  <td>USD</td>
+                </tr>
+                <tr>
+                  <td>LC Issuing Date</td>
+                  <td>02/06/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last Shipment Date(LSD)
+                  </td>
+                  <td>12/07/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>Negotiation Date
+                  </td>
+                  <td>25/06/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>Goods</td>
+                  <td>Matress
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Tenor </th>
+                </tr>
+                <tr>
+                  <td>Usance(Days)
+                  </td>
+                  <td>60 days</td>
+                </tr>
+                <tr>
+                  <td>Payment terms to seller as per LC
+                  </td>
+                  <td>Payment should be credited to the seller's account before last shipment date
+                  </td>
+                </tr>
+                <tr>
+                  <td>Start Date</td>
+                  <td>02/06/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>End Date</td>
+                  <td>Date of Maturity</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Applicant</th>
+                </tr>
+                <tr>
+                  <td>Applicant</td>
+                  <td>Vitafoams Products Ltd
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Beneficiary</th>
+                </tr>
+                <tr>
+                  <td>Beneficiary </td>
+                  <td>Al Muqadi Mah Trading LLC
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Beneficiary Bank</th>
+                </tr>
+                <tr>
+                  <td>Country of Beneficiary Bank
+                  </td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Bank Name
+
+                  </td>
+                  <td>Dutch-Bangla Bank
+                  </td>
+                </tr>
+                <tr>
+                  <td>Swift Code
+                  </td>
+                  <td>DB78123578
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Others</th>
+                </tr>
+                <tr>
+                  <td>Port of Loading </td>
+                  <td>Jawaharlal Nehru Port
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country
+                  </td>
+                  <td>India
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>Port of Discharge
+                  </td>
+                  <td>Port of Chittagong
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country
+                  </td>
+                  <td>Bangladesh
+
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Charges are on
+
+                  </td>
+                  <td>Al Muqadi Mah Trading LLC (Beneficiary)
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pro Forma</td>
+                  <td><a>View</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="pill2">
+            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables
+            for real-time schemas.
+            <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+          </div>
+          <div class="tab-pane" id="pill3">
+            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate
+            one-to-one customer service with robust ideas.
+            <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="menubarDetail1">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Details</h4>
+        <div class="tab-content" style="height: 552px;overflow: auto;padding-bottom: 30px;">
+          <div class="tab-pane active" id="pill1">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>CU20BANCON1101</th>
+                </tr>
+                <tr>
+                  <th colspan="2">LC Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Issuing Bank(IB)</td>
+                  <td>Grameen Bank
+                  </td>
+                </tr>
+                <tr>
+                  <td>Branch </td>
+                  <td>Dhaka
+                  </td>
+                </tr>
+                <tr>
+                  <td>Swift Code</td>
+                  <td>GB78123456
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+                <tr>
+                  <td>Requirement</td>
+                  <td>Confirmation
+                  </td>
+                </tr>
+                <tr>
+                  <td>Amount</td>
+                  <td>USD $7520
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ccy</td>
+                  <td>USD</td>
+                </tr>
+                <tr>
+                  <td>LC Issuing Date</td>
+                  <td>02/06/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last Shipment Date(LSD)
+                  </td>
+                  <td>12/07/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>Negotiation Date
+                  </td>
+                  <td>25/06/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>Goods</td>
+                  <td>Matress
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Tenor </th>
+                </tr>
+                <tr>
+                  <td>Usance(Days)
+                  </td>
+                  <td>60 days</td>
+                </tr>
+                <tr>
+                  <td>Payment terms to seller as per LC
+                  </td>
+                  <td>Payment should be credited to the seller's account before last shipment date
+                  </td>
+                </tr>
+                <tr>
+                  <td>Start Date</td>
+                  <td>02/06/2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>End Date</td>
+                  <td>Date of Maturity</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Applicant</th>
+                </tr>
+                <tr>
+                  <td>Applicant</td>
+                  <td>Vitafoams Products Ltd
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Beneficiary</th>
+                </tr>
+                <tr>
+                  <td>Beneficiary </td>
+                  <td>Al Muqadi Mah Trading LLC
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Beneficiary Bank</th>
+                </tr>
+                <tr>
+                  <td>Country of Beneficiary Bank
+                  </td>
+                  <td>Bangladesh
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Bank Name
+
+                  </td>
+                  <td>Dutch-Bangla Bank
+                  </td>
+                </tr>
+                <tr>
+                  <td>Swift Code
+                  </td>
+                  <td>DB78123578
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th colspan="2">Others</th>
+                </tr>
+                <tr>
+                  <td>Port of Loading </td>
+                  <td>Jawaharlal Nehru Port
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country
+                  </td>
+                  <td>India
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>Port of Discharge
+                  </td>
+                  <td>Port of Chittagong
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country
+                  </td>
+                  <td>Bangladesh
+
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Charges are on
+
+                  </td>
+                  <td>Al Muqadi Mah Trading LLC (Beneficiary)
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pro Forma</td>
+                  <td><a>View</a></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Note: This transaction is placed by Dutch-Bangla Bank Ltd on behalf of their customer
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="pill2">
+            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables
+            for real-time schemas.
+            <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+          </div>
+          <div class="tab-pane" id="pill3">
+            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate
+            one-to-one customer service with robust ideas.
+            <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menubarReopen">
+  <div class="popupcontent">
+    <div class="card">
+      <div class="card-content">
+        <h4>Place Quote (Reopen)</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before
+              submitting it or click cancel if do not want to quote again for this transaction.</p>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.25"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                  <td>
+                    <select>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td>
+                    <select>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Discounting Charges p.a.</td>
+                  <td><input type="text" name="" placeholder="0.25"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>Libor</td>
+                  <td><input type="text" name="" placeholder="0.25"><span class="pull-right percent">%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    Negotitation Charges
+                    <select class="halfauto">
+                      <option value="Flat">Flat</option>
+                    </select>
+                  </td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="50.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Discounting Handling Charges</td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="65.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges</td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Transaction Charges</td>
+                  <td>
+
+                    <input class="halfleft" type="text" name="" placeholder="90.00" />
+
+                    <select class="halfright">
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>12th Feb 2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                Submit
+                <div class="ripple-container"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Confirmation Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Discounting Charges p.a.</td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                  <td>1.23%</td>
+                </tr>
+                <tr>
+                  <td>Applicable Benchmark (Libor/Euribor)
+                  </td>
+                  <td>2.8740%<br><small>3 Months Euribor</small></td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    USD $200
+                  </td>
+                </tr>
+                <tr>
+                  <td>Negotiation Charges</td>
+                  <td>
+                    0.125%
+                  </td>
+                </tr>
+                <tr>
+                  <td>Document Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Minimum Handling Charges</td>
+                  <td>
+                    USD $500
+                  </td>
+                </tr>
+                <tr>
+                  <td>Other Charges<br>
+                  </td>
+                  <td>
+                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td>28/03/2020</td>
+                </tr>
+                <tr>
+                  <th>Total Quote</th>
+                  <th>USD $65287</th>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date,
+                      actual quote from the bank may differ to that extent.</small></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-right">
+                    <button type="submit" class="btn btn-info" id="btnEdit">
+                      Edit
+                      <div class="ripple-container"></div>
+                    </button>
+                    <button type="submit" class="btn btn-info pull-right" id="btnpreview">
+                      Submit
+                      <div class="ripple-container"></div>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current
+                      rank.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="posfix">
+              <a href="active-transactions.html" class="btn btn-info">
+                OK
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
