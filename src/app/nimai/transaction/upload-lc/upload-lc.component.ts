@@ -67,6 +67,8 @@ export class UploadLCComponent implements OnInit {
 
 
   public next() {
+    console.log('111');
+    
     this.previewShow = false;
     this.titleService.loading.next(true);
 
@@ -333,7 +335,8 @@ export class UploadLCComponent implements OnInit {
       beneBankName:[''],
       beneSwiftCode:[''],
       beneCountry:[''],
-  
+      contactPer:[''],
+      contactPerEmail:[''],
       loadingCountry:[''],
       loadingPort:[''],
       dischargeCountry:[''],
