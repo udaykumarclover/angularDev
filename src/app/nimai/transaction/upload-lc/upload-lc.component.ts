@@ -69,16 +69,24 @@ export class UploadLCComponent implements OnInit {
     const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
      inputList.forEach((input: HTMLElement) => {
          input.addEventListener('focus', () => {
+           //console.log("(<HTMLInputElement>event---",(<HTMLInputElement>event.target).id)
+           if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id==="")
+           {
+            // console.log("if*************")
              if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
               input.className="ng-valid ng-dirty ng-touched"   
              else 
               input.className="ng-valid ng-dirty ng-touched has-value"
+           }  
          });
             input.addEventListener('blur', () => {
+              if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id==="")
+              {
               if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
                 input.className="ng-valid ng-dirty ng-touched"   
               else
               input.className="ng-valid ng-dirty ng-touched has-value"
+              }
          });
      });
      const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
