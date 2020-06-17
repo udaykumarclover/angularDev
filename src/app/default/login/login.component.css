@@ -50,6 +50,9 @@
     font-size: 12px;
     font-weight: 500;
 }
+.selection .list-inline>li{
+    vertical-align: middle;
+}   
 
 .loginbody .inputDiv label {
     position: absolute;

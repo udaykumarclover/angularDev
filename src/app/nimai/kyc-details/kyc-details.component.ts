@@ -69,7 +69,7 @@ export class KycDetailsComponent implements OnInit {
             state: {
               title: 'Thank you for submitting the KYC documents.',
               message: 'Currently we are reviewing your account. You will be notified on registered email address once we complete the review.',
-              parent: this.subURL + '/' + this.parentURL + '/kyc-details'
+              parent: this.subURL + '/' + this.parentURL + '/account-review'
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)

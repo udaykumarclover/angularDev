@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-draft-transaction',
   templateUrl: './draft-transaction.component.html',
