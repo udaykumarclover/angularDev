@@ -10,7 +10,7 @@
             <li>
                 <div class="radio">
                     <label for="rdApplicant">
-                        <input type="radio" value="rdApplicant" id="rdApplicant" name="optionsRadiosYou"
+                        <input type="radio" value="Applicant" id="rdApplicant" formControlName="userType"
                             checked="true"><span class="circle"></span><span class="check"></span>
                         Applicant
                     </label>
@@ -19,7 +19,7 @@
             <li>
                 <div class="radio">
                     <label for="rdBeneficiary">
-                        <input type="radio" value="rdBeneficiary" name="optionsRadiosYou" id="rdBeneficiary"><span
+                        <input type="radio" value="Beneficiary" formControlName="userType" id="rdBeneficiary"><span
                             class="circle"></span><span class="check"></span>
                         Beneficiary
                     </label>
@@ -31,11 +31,11 @@
     <div id="divApplicant">
         <p class="col-md-12"><strong>Applicant Details</strong>
         </p>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
 
                 <select name='country' formControlName="applicantCountry">
-                    <option value=''>Select</option>
+                   
                     <option value='India'>India</option>
                     <option value='Bangladesh'>Bangladesh</option>
                     <option value='Kenya'>Kenya</option>
@@ -46,7 +46,7 @@
                 <label>Country</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
                 <input type="text" maxlength="15" formControlName="applicantName" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Applicant's Name </label>
@@ -57,11 +57,11 @@
         <p class="col-md-12"><strong>Beneficiary Details</strong>
         </p>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
 
                 <select name='country' formControlName="beneCountry">
-                    <option value=''>Select</option>
+                    
                     <option value='India'>India</option>
                     <option value='Bangladesh'>Bangladesh</option>
                     <option value='Kenya'>Kenya</option>
@@ -72,21 +72,21 @@
                 <label>Country</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
                 <input type="text" maxlength="15" formControlName="beneName" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Beneficiary's Name</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="contactPer" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="15" formControlName="beneContactPerson" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Contact Person</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="contactPerEmail">
+                <input type="text" formControlName="beneContactPersonEmail">
                 <label>Contact Person's Email</label>
             </div>
         </div>
@@ -94,29 +94,29 @@
 
         <div class="clearfix"></div>
         <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
 
                 <select name='country' formControlName="beneBankCountry">
-                    <option value=''>Select</option>
-                    <option value='1'>India</option>
-                    <option value='2'>Bangladesh</option>
-                    <option value='3'>Kenya</option>
-                    <option value='4'>Nigeria</option>
-                    <option value='5'>UAE </option>
-                    <option value='6'>Qatar</option>
+                    
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
                 </select>
                 <label>Country of Beneficiary Bank</label>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
                 <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Swift Code</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
 
                 <input type="text" maxlength="30" formControlName="beneBankName">
@@ -127,7 +127,7 @@
     <div id="divBene">
         <p class="col-md-12"><strong>Beneficiary Details</strong>
         </p>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
                 <select name='country' formControlName="beneCountry">
@@ -142,7 +142,7 @@
                 <label>Country</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
                 <input type="text" maxlength="15" formControlName="beneName" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Beneficiary's Name </label>
@@ -152,29 +152,28 @@
         <div class="clearfix"></div>
     
         <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
                 <select name='country' formControlName="beneBankCountry">
-                    <option value=''>Select</option>
-                    <option value='1'>India</option>
-                    <option value='2'>Bangladesh</option>
-                    <option value='3'>Kenya</option>
-                    <option value='4'>Nigeria</option>
-                    <option value='5'>UAE </option>
-                    <option value='6'>Qatar</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
                 </select>
                 <label>Country of Beneficiary Bank</label>
             </div>
         </div>
     
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
                 <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Swift Code</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
                 <input type="text" maxlength="30" formControlName="beneBankName">
@@ -185,36 +184,35 @@
         <p class="col-md-12"><strong>Applicant Details</strong>
         </p>
     
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
                 <select name='country' formControlName="applicantCountry">
-                    <option value=''>Select</option>
-                    <option value='1'>India</option>
-                    <option value='2'>Bangladesh</option>
-                    <option value='3'>Kenya</option>
-                    <option value='4'>Nigeria</option>
-                    <option value='5'>UAE </option>
-                    <option value='6'>Qatar</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
                 </select>
                 <label>Country</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
                 <input type="text" maxlength="15" formControlName="applicantName" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Applicant's Name</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="contactPer" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="15" formControlName="applicantContactPerson" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Contact Person</label>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="contactPerEmail">
+                <input type="text" formControlName="applicantContactPersonEmail">
                 <label>Contact Person's Email</label>
             </div>
         </div>

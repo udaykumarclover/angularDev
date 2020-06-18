@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output,ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
 import * as $ from '../../../../assets/js/jquery.min';
@@ -44,7 +44,7 @@ export class UploadLCComponent implements OnInit {
 
 
   // rds: refinance Data Service
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService) {
+  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
     this.setForm();
     this.lc = this.lcDetailForm.value;
     this.titleService.changeTitle(this.title);
@@ -66,7 +66,54 @@ export class UploadLCComponent implements OnInit {
 
     })
   }
-
+  ngAfterViewInit() {
+    // document.getElementsByTagName('input') : to gell all Docuement imputs
+    const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
+     inputList.forEach((input: HTMLElement) => {
+         input.addEventListener('focus', () => {
+             if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+              input.className="ng-valid ng-dirty ng-touched"   
+             else 
+              input.className="ng-valid ng-dirty ng-touched has-value"
+         });
+            input.addEventListener('blur', () => {
+              if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+                input.className="ng-valid ng-dirty ng-touched"   
+              else
+              input.className="ng-valid ng-dirty ng-touched has-value"
+         });
+     });
+     const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
+     selectList.forEach((select: HTMLElement) => {
+      select.addEventListener('focus', () => {
+        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+          select.className="ng-valid ng-dirty ng-touched"   
+        else 
+          select.className="ng-valid ng-dirty ng-touched has-value"
+      });
+      select.addEventListener('blur', () => {
+        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+          select.className="ng-valid ng-dirty ng-touched"   
+        else 
+          select.className="ng-valid ng-dirty ng-touched has-value"
+      });
+  });
+    const textareaList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('textarea'));
+    textareaList.forEach((textarea: HTMLElement) => {
+      textarea.addEventListener('focus', () => {
+      if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+      textarea.className="ng-valid ng-dirty ng-touched"   
+      else 
+      textarea.className="ng-valid ng-dirty ng-touched has-value"
+    });
+    textarea.addEventListener('blur', () => {
+      if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+      textarea.className="ng-valid ng-dirty ng-touched"   
+      else 
+      textarea.className="ng-valid ng-dirty ng-touched has-value"
+    });
+  });
+ }
 
   public next() {
     console.log('111');
@@ -154,7 +201,7 @@ export class UploadLCComponent implements OnInit {
       this.isSave = false;
       this.isPreview = false;
 
-    } else {
+    } else {  
       this.isPrev = true;
       this.isNext = true;
       this.isSave = false;
@@ -180,6 +227,7 @@ export class UploadLCComponent implements OnInit {
       .subscribe(
         (response) => {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
+          sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
           this.titleService.loading.next(false);
         },
@@ -217,7 +265,7 @@ export class UploadLCComponent implements OnInit {
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
     data.transactionID = this.transactionID;
-    console.log(data)
+
 
     this.upls.updateLc(data).subscribe(
         (response) => {
@@ -236,7 +284,7 @@ export class UploadLCComponent implements OnInit {
     this.titleService.loading.next(true);
     this.loading = true;
     let body = {
-      transactionId: this.transactionID,
+      transactionId: sessionStorage.getItem("transactionID"),
       userId: sessionStorage.getItem('userID')
     }
     this.upls.confirmLc(body)
@@ -365,8 +413,8 @@ export class UploadLCComponent implements OnInit {
       beneBankName:[''],
       beneSwiftCode:[''],
       beneCountry:[''],
-      contactPer:[''],
-      contactPerEmail:[''],
+      
+     
       loadingCountry:[''],
       loadingPort:[''],
       dischargeCountry:[''],
@@ -383,7 +431,12 @@ export class UploadLCComponent implements OnInit {
       modifiedDate:this.date,
       modifiedBy:sessionStorage.getItem('userID'),
       transactionflag:[''],
-      transactionStatus:['']
+      transactionStatus:[''],
+      userType:[''],
+      applicantContactPerson:[''],
+      applicantContactPersonEmail:[''],
+      beneContactPerson:[''],
+      beneContactPersonEmail:['']
     })
   }
 
