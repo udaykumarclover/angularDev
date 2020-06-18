@@ -66,4 +66,9 @@ export interface LcDetail {
     transactionflag: string;
     transactionStatus: string;
 
+    userType:string;
+    applicantContactPerson:string;
+    applicantContactPersonEmail:string;
+    beneContactPerson:string;
+    beneContactPersonEmail:string;
 }

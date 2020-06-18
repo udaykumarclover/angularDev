@@ -10,7 +10,7 @@
             <li>
                 <div class="radio">
                     <label for="rdApplicant">
-                        <input type="radio" value="rdApplicant" id="rdApplicant" name="optionsRadiosYou"
+                        <input type="radio" value="Applicant" id="rdApplicant" formControlName="userType"
                             checked="true"><span class="circle"></span><span class="check"></span>
                         Applicant
                     </label>
@@ -19,7 +19,7 @@
             <li>
                 <div class="radio">
                     <label for="rdBeneficiary">
-                        <input type="radio" value="rdBeneficiary" name="optionsRadiosYou" id="rdBeneficiary"><span
+                        <input type="radio" value="Beneficiary" formControlName="userType" id="rdBeneficiary"><span
                             class="circle"></span><span class="check"></span>
                         Beneficiary
                     </label>
@@ -80,13 +80,13 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="contactPer" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="15" formControlName="beneContactPerson" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Contact Person</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="contactPerEmail">
+                <input type="text" formControlName="beneContactPersonEmail">
                 <label>Contact Person's Email</label>
             </div>
         </div>
@@ -206,13 +206,13 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="contactPer" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="15" formControlName="applicantContactPerson" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Contact Person</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="contactPerEmail">
+                <input type="text" formControlName="applicantContactPersonEmail">
                 <label>Contact Person's Email</label>
             </div>
         </div>
