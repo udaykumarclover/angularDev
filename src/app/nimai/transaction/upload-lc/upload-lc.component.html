@@ -401,7 +401,9 @@
                                     <button type="button" class="btn btn-info pull-right" (click)="save()"
                                         *ngIf="isSave">Next >></button>
                                     <button type="button" class="btn btn-info pull-right" (click)="preview()"
-                                        *ngIf="isPreview">Preview Details</button>
+                                        *ngIf="isPreview">Save & Preview</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="update()"
+                                        *ngIf="showUpdateButton">Update & Preview</button>
                                     <button type="button" class="btn btn-info pull-right" (click)="confirm()"
                                         *ngIf="isConfirm">Confirm</button>
                                     <button type="button" class="btn btn-info pull-right" (click)="edit()"

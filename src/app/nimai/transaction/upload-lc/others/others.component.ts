@@ -14,10 +14,13 @@ export class OthersComponent implements OnInit {
   
 
   constructor(public rds:DataServiceService) {
+
     
    }
 
   ngOnInit() {
+    
+
   }
 
 }

@@ -19,4 +19,8 @@ export class UploadLcService {
   public confirmLc(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/confirmLC`, body,{headers:{'content-type':'application/json'}})
   }
+
+  public updateLc(body:any):Observable<any>{
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/confirmLC`, body,{headers:{'content-type':'application/json'}})
+  }
 }

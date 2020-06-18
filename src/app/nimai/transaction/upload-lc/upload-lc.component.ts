@@ -39,6 +39,8 @@ export class UploadLCComponent implements OnInit {
   public transactionID: string = null;
   public subURL: string = "";
   public parentURL: string = "";
+  showUpdateButton: boolean = false;
+  isUpdate: boolean = false;
 
 
   // rds: refinance Data Service
@@ -98,12 +100,18 @@ export class UploadLCComponent implements OnInit {
 
     }
     this.counter++;
-
     if (this.saveCount == this.counter) {
       this.isPrev = true;
       this.isNext = false;
-      this.isSave = true;
-      this.isPreview = false;
+      this.isSave = false;
+      if(this.isUpdate){
+        this.showUpdateButton = true;
+        this.isPreview = false;
+      }
+      else{
+        this.showUpdateButton = false;
+        this.isPreview = true;
+      }
     } else {
       this.isPrev = true;
     }
@@ -171,13 +179,6 @@ export class UploadLCComponent implements OnInit {
     this.upls.saveLc(data)
       .subscribe(
         (response) => {
-          this.isPrev = true;
-          this.isNext = false;
-          this.isSave = false;
-          this.isPreview = true;
-          this.previewShow = false;
-          this.isEdit = false;
-          this.isConfirm = false;
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
           this.loading = false;
           this.titleService.loading.next(false);
@@ -191,16 +192,44 @@ export class UploadLCComponent implements OnInit {
 
   public preview() {
     this.titleService.loading.next(true);
+    this.save();
     this.lc = this.lcDetailForm.value;
     this.previewShow = true;
     this.isPrev = false;
     this.isNext = false;
     this.isSave = false;
     this.isPreview = false;
+    this.showUpdateButton = false;
     this.isEdit = true;
     this.isConfirm = true;
     this.titleService.loading.next(false);
+    
+  }
 
+  public update(){
+    this.loading = true;
+    this.titleService.loading.next(true);
+    let data = this.lcDetailForm.value;
+    data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
+    data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
+    data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
+    data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
+    data.requirementType = data.selector;
+    data.tenorEndDate = data.lastShipmentDate;
+    data.transactionID = this.transactionID;
+    console.log(data)
+
+    this.upls.updateLc(data).subscribe(
+        (response) => {
+          // this.transactionID = JSON.parse(JSON.stringify(response)).data;
+          this.loading = false;
+          this.titleService.loading.next(false);
+        },
+        (error) => {
+          this.loading = false;
+          this.titleService.loading.next(false);
+        }
+      )
   }
 
   public confirm() {
@@ -246,6 +275,7 @@ export class UploadLCComponent implements OnInit {
   }
 
   public edit() {
+    this.isUpdate = true;
     this.isEdit = false;
     this.isConfirm = false;
     this.previewShow = false;
