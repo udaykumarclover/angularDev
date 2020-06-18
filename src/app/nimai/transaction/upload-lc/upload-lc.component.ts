@@ -432,7 +432,7 @@ export class UploadLCComponent implements OnInit {
       modifiedBy:sessionStorage.getItem('userID'),
       transactionflag:[''],
       transactionStatus:[''],
-      userType:[''],
+      userType:['Applicant'],
       applicantContactPerson:[''],
       applicantContactPersonEmail:[''],
       beneContactPerson:[''],
