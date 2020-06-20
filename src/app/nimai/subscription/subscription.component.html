@@ -39,6 +39,20 @@
                                         <a href="javascript:void()" (click)="choosePlan(plan)" class="plan-button">Choose Plan</a>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="plan">
+                                        <h3 class="plan-title">Platinum ++ </h3>
+                                        <p class="plan-price"></p>
+                                        <ul class="plan-features">
+                                            <li class="plan-feature">Unlimited <span class="plan-feature-name">Transaction Credits</span></li>
+                                            <li class="plan-feature">Unlimited <span class="plan-feature-name">Subsidiaries</span></li>
+                                            <li class="plan-feature">24x7 <span class="plan-feature-name">Customer Support</span></li>
+                                            <li class="plan-feature">1 <span class="plan-feature-name">Year Validity</span></li>
+                                            <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - Yes</span></li>  
+                                        </ul>
+                                        <a href="javascript:void()" (click)="payNow('unlimited')" class="plan-button">Choose Plan</a>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -195,9 +209,9 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="green box paymentpage col-md-12 form-group">
-                                        <span><a href="#">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@tradeenabler.com</b>
+                                        <span><a href="">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@tradeenabler.com</b>
                                         </span>
-                                        <a href="kyc-details.html" class="btn btn-info pull-right">Next</a>
+                                        <a (click)="nextModule()" class="btn btn-info pull-right">Next</a>
                                     </div>
                                 </div>
                             </form>

@@ -15,9 +15,9 @@ import  { ValidateRegex } from '../../../beans/Validations';
   selector: 'app-upload-lc',
   templateUrl: './upload-lc.component.html',
   styleUrls: ['./upload-lc.component.css'],
-  host: {
-    '(document:click)': 'onClick($event)',
-  },
+  // host: {
+  //   '(document:click)': 'onClick($event)',
+  // },
 })
 export class UploadLCComponent implements OnInit {
 
@@ -71,10 +71,10 @@ export class UploadLCComponent implements OnInit {
     
   
   }
-onClick(event) {
-    if (!this.el.nativeElement.contains(event.target)) // or some similar check
-      alert('Your LC Transaction details will be lost, Kindly save!');
-   }
+// onClick(event) {
+//     if (!this.el.nativeElement.contains(event.target)) // or some similar check
+//       alert('Your LC Transaction details will be lost, Kindly save!');
+//    }
 
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
