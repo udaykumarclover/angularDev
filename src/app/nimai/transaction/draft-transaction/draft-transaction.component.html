@@ -10,12 +10,16 @@
                 <div class="card-content">
                     <h4 class="card-title">Saved Transactions</h4>
                     <form>
+                        
                         <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12" *ngIf="noData">
+                            No drafts available!
+                        </div>
+                        <div class="col-md-12" *ngIf="!noData">
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>
-                                    <tr>
+                                    <tr *ngFor="let list of draftData">
                                         <td>
                                             <div class="checkbox">
                                                 <label>
@@ -24,48 +28,9 @@
                                             </div>
                                         </td>
                                         <td>Draft</td>
-                                        <td>Confirmation and Discounting</td>
-                                        <td>08-01-2020 18:23:45 GMT</td>
-                                        <td><button style="margin: 0;" type="button" class="btn btn-info">Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                <input type="checkbox" name="optionsCheckboxes">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>Draft</td>
-                                        <td>Refinancing</td>
-                                        <td>08-01-2020 18:23:45 GMT</td>
-                                        <td><button style="margin: 0;" type="button" class="btn btn-info">Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                <input type="checkbox" name="optionsCheckboxes">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>Draft</td>
-                                        <td>(no requirement)</td>
-                                        <td>08-01-2020 18:23:45 GMT</td>
-                                        <td><button style="margin: 0;" type="button" class="btn btn-info">Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                <input type="checkbox" name="optionsCheckboxes">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>Draft</td>
-                                        <td>Discounting</td>
-                                        <td>08-01-2020 18:23:45 GMT</td>
-                                        <td><button style="margin: 0;" type="button" class="btn btn-info">Edit</button></td>
+                                        <td>{{list.requirementType}}</td>
+                                        <td>{{list.modifiedDate}}</td>
+                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="editDraft()">Edit</button></td>
                                     </tr>
 
                                     </tbody>

@@ -65,12 +65,13 @@ export class SubscriptionComponent implements OnInit {
     const sd = this;
     // this.titleService.loading.next(true);
     $(document).ready(function () {
-      $('.selection').show();
       if(planType == "unlimited"){
         $("#option-two"). prop("checked", true);
         $('.green').show();
+        $('.selection').hide();
       }else{
         $('.red').show();
+        $('.selection').show();
       }
       $('input[type="radio"]').click(function () {
         sd.loading = true;

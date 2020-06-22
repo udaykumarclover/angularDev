@@ -100,7 +100,7 @@
                           </ul>
                        </div>
                     </li>
-                    <li>
+                    <li *ngIf="isCustomer || isBank">
                        <a data-toggle="collapse" href="#transactionPages" aria-expanded="true">
                           <i class="far fa-image"></i>
                           <p>Transaction  Details 
