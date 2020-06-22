@@ -54,6 +54,12 @@ const routes: Routes = [
   { path: "page-not-found", component: PagenotfoundComponent }
 ];
 
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+
+//Code By Ashwini Page Reload Issue
 @NgModule({
   imports: [RouterModule.forRoot(routes,  { useHash: true })],
   exports: [RouterModule]

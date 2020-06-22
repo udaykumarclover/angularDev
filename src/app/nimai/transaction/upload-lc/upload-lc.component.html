@@ -327,6 +327,10 @@
                                                 <td>Applicant</td>
                                                 <td>{{lc.applicantName}}</td>
                                             </tr>
+                                            <tr>
+                                                <td>Country</td>
+                                                <td>{{lc.applicantCountry}}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
 
@@ -339,6 +343,10 @@
                                             <tr>
                                                 <td>Beneficiary</td>
                                                 <td>{{lc.beneName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country</td>
+                                                <td>{{lc.beneCountry}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Bank</td>
@@ -385,15 +393,16 @@
                                 </div>
 
                             </div>
-                            <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
-                                << Prev</button>
+                            <!-- <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
+                                << Prev</button> -->
                                     <button type="button" class="btn btn-info pull-right" (click)="next()"
-                                        *ngIf="isNext">Next
-                                        >></button>
+                                        *ngIf="isNext">Next >></button>
                                     <button type="button" class="btn btn-info pull-right" (click)="save()"
                                         *ngIf="isSave">Next >></button>
                                     <button type="button" class="btn btn-info pull-right" (click)="preview()"
-                                        *ngIf="isPreview">Preview Details</button>
+                                        *ngIf="isPreview">Save & Preview</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="update()"
+                                        *ngIf="showUpdateButton">Update & Preview</button>
                                     <button type="button" class="btn btn-info pull-right" (click)="confirm()"
                                         *ngIf="isConfirm">Confirm</button>
                                     <button type="button" class="btn btn-info pull-right" (click)="edit()"

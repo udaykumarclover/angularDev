@@ -13,7 +13,7 @@ export class SubscriptionDetailsService {
   constructor(private httpClient: HttpClient) { }
 
   getSubscriptionDetails(): Observable<any> {
-    return this.httpClient.get(`${environment.domain}/nimaiSPlan/list`,
+    return this.httpClient.get(`${environment.domain}/nimaiSPlan/getSPlans`,
       { headers: { 'content-type': 'application/json' } });
   }
 
