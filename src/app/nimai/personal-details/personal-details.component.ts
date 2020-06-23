@@ -44,9 +44,16 @@ export class PersonalDetailsComponent implements OnInit {
 
   public parentURL: string = "";
   public subURL: string = "";
+  public hasValue=false;
   resp: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
+    if(sessionStorage.getItem('userID'))
+    {
+      this.hasValue=true;
+    }else{
+      this.hasValue=false;
+    }
     this.getPersonalDetails(sessionStorage.getItem('userID'));
     this.personalDetailsForm = this.fb.group({
 
@@ -56,7 +63,7 @@ export class PersonalDetailsComponent implements OnInit {
 
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
+      emailId: ['', Validators.required],
       mobileNo: ['', Validators.required],
       landLineNo: [''],
       country: ['', Validators.required],
@@ -65,9 +72,9 @@ export class PersonalDetailsComponent implements OnInit {
       designation: [''],
       businessType: [''],
 
-      countriesInt: [''],
+      countriesInt: ['',Validators.required],
       minLCVal: [''],
-      blacklistedGC: ['']
+      blacklistedGC: ['',Validators.required]
 
     })
     this.titleService.changeTitle(this.title);
@@ -120,7 +127,10 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   submit(): void {
+   // alert("submit")
     this.submitted = true;
+    console.log("this.personalDetailsForm.controls",this.personalDetailsForm.controls)
+    console.log("this.personalDetailsForm.invalid-------",this.personalDetailsForm.invalid)
     if(this.personalDetailsForm.invalid) {
       return;
     }
@@ -138,11 +148,13 @@ export class PersonalDetailsComponent implements OnInit {
               parent: this.subURL + "/" + this.parentURL + '/personal-details'  // need to check
             }
           };
+          console.log(`/${this.subURL}/${this.parentURL}/personal-details`)
           this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
         },
         (error) => {
+          console.log("error---",error)
           this.titleService.loading.next(false);
           const navigationExtras: NavigationExtras = {
             state: {
@@ -209,6 +221,7 @@ export class PersonalDetailsComponent implements OnInit {
 
           setTimeout(() => {
             selectpickercall();
+            loads();
             //$('.selectpicker').selectpicker('val', ['India', 'USA']);
           }, 200);
 
@@ -394,11 +407,16 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   validateRegexFields(event, type) {
+    //console.log("event--",event)
     if (type == "number") {
       ValidateRegex.validateNumber(event);
     }
     else if (type == "alpha") {
-      ValidateRegex.alphaOnly(event);
+      //ValidateRegex.alphaOnly(event);
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }
     }
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);

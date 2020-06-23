@@ -38,9 +38,10 @@ export class DashboardComponent implements OnInit {
       this.isCustomer = false;
       this.isBank = true;
     }
-
+  
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
+      console.log("this.parentURL",this.parentURL)
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit {
   //   alert("1")
   // }
   ngOnInit() {
-    if (this.router.url==="/cst/dsb/personal-details" || this.router.url==="/cst/dsb/business-details" || this.router.url==="/cst/dsb/subscription" || this.router.url==="/cst/dsb/kyc-details" )
+    if (this.router.url===`/${this.parentURL}/dsb/personal-details` || this.router.url===`/${this.parentURL}/dsb/business-details` || this.router.url===`/${this.parentURL}/dsb/subscription` || this.router.url===`/${this.parentURL}/dsb/kyc-details`)
     {      
       this.accountPages="in"
       this.isCollapsed=""
