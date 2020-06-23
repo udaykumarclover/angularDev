@@ -45,6 +45,7 @@ export class UploadLCComponent implements OnInit {
   showUpdateButton: boolean = false;
   isUpdate: boolean = false;
   draftData: any;
+  dateToPass: any;
 
 
   // rds: refinance Data Service
@@ -62,7 +63,8 @@ export class UploadLCComponent implements OnInit {
     console.log(navigation);
     if(navigation.extras.state){
       console.log("..."+ navigation.extras.state.redirectedFrom);
-      this.callDraftTransaction();
+      var trnsactionID = navigation.extras.state.trnsactionID;
+      this.callDraftTransaction(trnsactionID);
     }
 
     this.setForm();
@@ -248,6 +250,15 @@ export class UploadLCComponent implements OnInit {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
           sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
+          this.lc = this.lcDetailForm.value;
+          this.previewShow = true;
+          this.isPrev = false;
+          this.isNext = false;
+          this.isSave = false;
+          this.isPreview = false;
+          this.showUpdateButton = false;
+          this.isEdit = true;
+          this.isConfirm = true;
           this.titleService.loading.next(false);
         },
         (error) => {
@@ -260,15 +271,15 @@ export class UploadLCComponent implements OnInit {
   public preview() {
     this.titleService.loading.next(true);
     this.save();
-    this.lc = this.lcDetailForm.value;
-    this.previewShow = true;
-    this.isPrev = false;
-    this.isNext = false;
-    this.isSave = false;
-    this.isPreview = false;
-    this.showUpdateButton = false;
-    this.isEdit = true;
-    this.isConfirm = true;
+    // this.lc = this.lcDetailForm.value;
+    // this.previewShow = true;
+    // this.isPrev = false;
+    // this.isNext = false;
+    // this.isSave = false;
+    // this.isPreview = false;
+    // this.showUpdateButton = false;
+    // this.isEdit = true;
+    // this.isConfirm = true;
     this.titleService.loading.next(false);
     
   }
@@ -323,6 +334,8 @@ export class UploadLCComponent implements OnInit {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+          this.isUpdate = false;
+
         },
         (error) => {
           this.titleService.loading.next(false);
@@ -477,15 +490,17 @@ export class UploadLCComponent implements OnInit {
     }
   }
 
-  callDraftTransaction(){
+  callDraftTransaction(trnsactionID){
     const param = {
-      userId: sessionStorage.getItem('userID')
+      transactionId: trnsactionID
     }
+    this.isUpdate = true;
     
-    this.upls.getCustDraftTransaction(param).subscribe(
+    this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
-         this.draftData = JSON.parse(JSON.stringify(response)).data[13];
+         this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);
+        this.dateToPass = new Date(this.draftData.lCIssuingDate);
          
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
@@ -497,7 +512,7 @@ export class UploadLCComponent implements OnInit {
       
           lCValue: this.draftData.lCValue,
           lCCurrency: this.draftData.lCCurrency,
-          lCIssuingDate: this.draftData.lCIssuingDate, 
+          lCIssuingDate: (this.draftData.lCIssuingDate) ? this.dateFormat(this.draftData.lCIssuingDate) : '',
           lastShipmentDate: this.draftData.lastShipmentDate,
           negotiationDate: this.draftData.negotiationDate,
           goodsType:this.draftData.goodsType,

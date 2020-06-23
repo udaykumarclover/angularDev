@@ -43,10 +43,11 @@ export class DraftTransactionComponent implements OnInit {
       )
   }
 
-  editDraft(){
+  editDraft(trnsactionID){
     const navigationExtras: NavigationExtras = {
       state: {
-        redirectedFrom: "draftTransaction"
+        redirectedFrom: "draftTransaction",
+        trnsactionID: trnsactionID
       }
     };
     this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
