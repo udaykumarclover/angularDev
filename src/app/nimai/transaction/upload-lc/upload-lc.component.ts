@@ -316,7 +316,7 @@ export class UploadLCComponent implements OnInit {
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
-              message: 'Your LC Transaction has been successfully placed.',
+              message: 'Your Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
               parent: this.subURL+"/"+this.parentURL + '/new-transaction'
             }
           };
@@ -418,7 +418,7 @@ export class UploadLCComponent implements OnInit {
       originalTenorDays:[''],
       refinancingPeriod:[''],
       lcMaturityDate:[''],
-    lcNumber:[''],
+      lcNumber:[''],
     lastBeneBank:[''],
     lastBeneSwiftCode:[''],
     lastBankCountry:[''],
