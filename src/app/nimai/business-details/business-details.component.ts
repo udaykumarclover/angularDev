@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
@@ -25,11 +25,18 @@ export class BusinessDetailsComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   public perDetailsSubmit = false;
+  public hasValue=false;
   resp: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute) {
+  constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
+  
+    if(sessionStorage.getItem('userID'))
+    {
+      this.hasValue=true;
+    }else{
+      this.hasValue=false;
+    }
     this.getBusinessDetails(sessionStorage.getItem('userID'));
-
     let navigation = this.router.getCurrentNavigation();
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -53,8 +60,8 @@ export class BusinessDetailsComponent implements OnInit {
       provinceName: [''],
       city: ['', Validators.required],
       addressLine1: ['', Validators.required],
-      addressLine2: ['', Validators.required],
-      addressLine3: ['', Validators.required],
+      addressLine2: [''],
+      addressLine3: [''],
       pincode: ['', Validators.required],
       telephone: ['', Validators.required],
 
@@ -101,8 +108,11 @@ export class BusinessDetailsComponent implements OnInit {
 
   }
 
-
+  validateCommons(){
+    this.businessDetailsForm.get('companyName').setValidators(Validators.required);
+  }
   submit(): void {
+    this.validateCommons();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
 
@@ -118,13 +128,14 @@ export class BusinessDetailsComponent implements OnInit {
         this.titleService.loading.next(false);
         const navigationExtras: NavigationExtras = {
           state: {
-            title: 'Congraulations! Your Business Details has been successfully submitted !',
+            title: 'Congratulations! Your Business Details has been successfully submitted!',
             message: '',
             parent: this.subURL + '/' + this.parentURL + '/business-details'
 
           }
         };
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
+        
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
           .then(success => console.log('navigation success?', success))
           .catch(console.error);
       },

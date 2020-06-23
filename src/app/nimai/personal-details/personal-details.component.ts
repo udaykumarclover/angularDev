@@ -44,9 +44,16 @@ export class PersonalDetailsComponent implements OnInit {
 
   public parentURL: string = "";
   public subURL: string = "";
+  public hasValue=false;
   resp: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
+    if(sessionStorage.getItem('userID'))
+    {
+      this.hasValue=true;
+    }else{
+      this.hasValue=false;
+    }
     this.getPersonalDetails(sessionStorage.getItem('userID'));
     this.personalDetailsForm = this.fb.group({
 
@@ -65,9 +72,9 @@ export class PersonalDetailsComponent implements OnInit {
       designation: [''],
       businessType: [''],
 
-      countriesInt: [''],
+      countriesInt: ['',Validators.required],
       minLCVal: [''],
-      blacklistedGC: ['']
+      blacklistedGC: ['',Validators.required]
 
     })
     this.titleService.changeTitle(this.title);
@@ -209,6 +216,7 @@ export class PersonalDetailsComponent implements OnInit {
 
           setTimeout(() => {
             selectpickercall();
+            loads();
             //$('.selectpicker').selectpicker('val', ['India', 'USA']);
           }, 200);
 
@@ -398,7 +406,11 @@ export class PersonalDetailsComponent implements OnInit {
       ValidateRegex.validateNumber(event);
     }
     else if (type == "alpha") {
-      ValidateRegex.alphaOnly(event);
+      //ValidateRegex.alphaOnly(event);
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }
     }
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
