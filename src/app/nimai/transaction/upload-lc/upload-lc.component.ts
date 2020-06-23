@@ -41,6 +41,7 @@ export class UploadLCComponent implements OnInit {
   public parentURL: string = "";
   showUpdateButton: boolean = false;
   isUpdate: boolean = false;
+  draftData: any;
 
 
   // rds: refinance Data Service
@@ -55,6 +56,16 @@ export class UploadLCComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+
+    let navigation = this.router.getCurrentNavigation();
+    console.log(navigation);
+    if(navigation.extras.state){
+      console.log("..."+ navigation.extras.state.redirectedFrom);
+      this.callDraftTransaction();
+    }
+
+    this.setForm();
+    this.lc = this.lcDetailForm.value;    
   }
 
   ngOnInit() {
@@ -295,7 +306,7 @@ export class UploadLCComponent implements OnInit {
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
-              message: 'Your LC Transaction has been successfully placed.',
+              message: 'Your Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
               parent: this.subURL+"/"+this.parentURL + '/new-transaction'
             }
           };
@@ -397,7 +408,7 @@ export class UploadLCComponent implements OnInit {
       originalTenorDays:[''],
       refinancingPeriod:[''],
       lcMaturityDate:[''],
-    lcNumber:[''],
+      lcNumber:[''],
     lastBeneBank:[''],
     lastBeneSwiftCode:[''],
     lastBankCountry:[''],
@@ -430,11 +441,11 @@ export class UploadLCComponent implements OnInit {
       modifiedBy:sessionStorage.getItem('userID'),
       transactionflag:[''],
       transactionStatus:[''],
-      userType:[''],
-    applicantContactPerson:[''],
-    applicantContactPersonEmail:[''],
-    beneContactPerson:[''],
-    beneContactPersonEmail:['']
+      userType:['Applicant'],
+      applicantContactPerson:[''],
+      applicantContactPersonEmail:[''],
+      beneContactPerson:[''],
+      beneContactPersonEmail:['']
     })
   }
 
@@ -454,6 +465,91 @@ export class UploadLCComponent implements OnInit {
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
     }
+  }
+
+  callDraftTransaction(){
+    const param = {
+      userId: sessionStorage.getItem('userID')
+    }
+    
+    this.upls.getCustDraftTransaction(param).subscribe(
+      (response) => {
+         this.draftData = JSON.parse(JSON.stringify(response)).data[13];
+         console.log(this.draftData);
+         
+        this.lcDetailForm.patchValue({
+          userId: this.draftData.userId,
+          selector: this.draftData.requirementType,
+          lCIssuanceBank: this.draftData.lCIssuanceBank,
+          lCIssuanceBranch: this.draftData.lCIssuanceBranch,
+          swiftCode: this.draftData.swiftCode,
+          lCIssuanceCountry: this.draftData.lCIssuanceCountry,
+      
+          lCValue: this.draftData.lCValue,
+          lCCurrency: this.draftData.lCCurrency,
+          lCIssuingDate: this.draftData.lCIssuingDate, 
+          lastShipmentDate: this.draftData.lastShipmentDate,
+          negotiationDate: this.draftData.negotiationDate,
+          goodsType:this.draftData.goodsType,
+      
+      
+          // For Confirmation 
+          paymentPeriod: this.draftData.paymentPeriod,
+          paymentTerms: this.draftData.paymentTerms,
+          tenorStartDate:this.draftData.tenorStartDate,
+          tenorEndDate: this.draftData.tenorEndDate,
+      
+          // For Discounting 
+          discountingPeriod:this.draftData.discountingPeriod,
+          remarks:this.draftData.remarks,
+      
+          //For Refinancing
+          originalTenorDays:this.draftData.originalTenorDays,
+          refinancingPeriod:this.draftData.refinancingPeriod,
+          lcMaturityDate:this.draftData.lcMaturityDate,
+          lcNumber:this.draftData.lcNumber,
+          lastBeneBank:this.draftData.lastBeneBank,
+          lastBeneSwiftCode:this.draftData.lastBeneSwiftCode,
+          lastBankCountry:this.draftData.lastBankCountry,
+      
+          
+          applicantName:this.draftData.applicantName,
+          applicantCountry:this.draftData.applicantCountry,
+      
+          beneName:this.draftData.beneName,
+          beneBankCountry:this.draftData.beneBankCountry,
+          beneBankName:this.draftData.beneBankName,
+          beneSwiftCode:this.draftData.beneSwiftCode,
+          beneCountry:this.draftData.beneCountry,
+          
+         
+          loadingCountry:this.draftData.loadingCountry,
+          loadingPort:this.draftData.loadingPort,
+          dischargeCountry:this.draftData.dischargeCountry,
+          dischargePort:this.draftData.dischargePort,
+      
+          chargesType: this.draftData.chargesType,
+          validity:this.draftData.validity,
+          lcProForma:this.draftData.lcProForma,
+      
+          lCExpiryDate:this.draftData.lCExpiryDate,    
+          
+          insertedDate: this.draftData.insertedDate,
+          insertedBy: this.draftData.insertedBy,
+          modifiedDate: this.draftData.modifiedDate,
+          modifiedBy: this.draftData.modifiedBy,
+          transactionflag: this.draftData.transactionflag,
+          transactionStatus: this.draftData.transactionStatus,
+          userType:this.draftData.userType,
+          applicantContactPerson:this.draftData.applicantContactPerson,
+          applicantContactPersonEmail:this.draftData.applicantContactPersonEmail,
+          beneContactPerson:this.draftData.beneContactPerson,
+          beneContactPersonEmail:this.draftData.beneContactPersonEmail,
+        });
+    // this.lc = this.lcDetailForm.value;
+      },(error) =>{
+      }
+      )
   }
 
 }

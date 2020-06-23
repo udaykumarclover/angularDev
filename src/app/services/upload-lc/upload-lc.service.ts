@@ -23,4 +23,8 @@ export class UploadLcService {
   public updateLc(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/updateDraft`, body,{headers:{'content-type':'application/json'}})
   }
+
+  public getCustDraftTransaction(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getDraftTransaction`,data, { headers: { 'content-type': 'application/json' } });
+  }
 }

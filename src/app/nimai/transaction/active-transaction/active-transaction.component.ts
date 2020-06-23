@@ -105,7 +105,7 @@ export class ActiveTransactionComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.getAllnewTransactions();
 
   }
   ngAfterViewInit() {

@@ -17,14 +17,14 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
   ngOnInit() {
     $('#divBene').hide();
-      $("input[name='optionsRadiosYou']").click(function () {
+      $("input[name='userType']").click(function () {
          
-         var radioValue = $("input[name='optionsRadiosYou']:checked").val();
-         if (radioValue == "rdBeneficiary") {
+         var radioValue = $("input[name='userType']:checked").val();
+         if (radioValue == "Beneficiary") {
             $('#divApplicant').hide();
             $('#divBene').show();
          }
-         else if (radioValue == "rdApplicant") {
+         else if (radioValue == "Applicant") {
             $('#divApplicant').show();
             $('#divBene').hide();
          }

@@ -19,7 +19,11 @@ export class DashboardComponent implements OnInit {
   public isBank: boolean = false;
   public parentURL: string = "";
   public subURL: string = "";
-
+  public accountPages:string="";
+  public transactionpages:string="";
+  public isCollapsed:string="collapsed";
+  public areaExpandedacc:boolean=false;
+  public areaExpandedtra:boolean=false;
   constructor(public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
@@ -44,6 +48,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.router.url==="/cst/dsb/personal-details" || this.router.url==="/cst/dsb/business-details" || this.router.url==="/cst/dsb/subscription" || this.router.url==="/cst/dsb/kyc-details" )
+    {      
+      this.accountPages="in"
+      this.isCollapsed=""
+      this.areaExpandedacc=!this.areaExpandedacc
+    }else if (this.router.url==="/cst/dsb/new-transaction" || this.router.url==="/cst/dsb/active-transaction" || this.router.url==="/cst/dsb/transaction-details" || this.router.url==="/cst/dsb/draft-transaction" ){
+      this.transactionpages="in"
+      this.isCollapsed=""
+      this.areaExpandedtra=!this.areaExpandedtra
+    }
 
     this.searchForm = this.fb.group({
       searchText: ['']

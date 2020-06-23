@@ -4,7 +4,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { Subscription } from 'src/app/beans/subscription';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class SubscriptionComponent implements OnInit {
   public timeStamp = new Date();
   public parentURL: string = "";
   public subURL: string = "";
-  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder) {
+  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -58,31 +58,36 @@ export class SubscriptionComponent implements OnInit {
     this.isOrder = true;
   }
 
-  public payNow() {
+  public payNow(planType) {
     this.isNew = false;
     this.isOrder = false;
     this.isPayment = true;
     const sd = this;
-    this.titleService.loading.next(true);
+    // this.titleService.loading.next(true);
     $(document).ready(function () {
       $('.selection').show();
-      $('.red').show();
+      if(planType == "unlimited"){
+        $("#option-two"). prop("checked", true);
+        $('.green').show();
+      }else{
+        $('.red').show();
+      }
       $('input[type="radio"]').click(function () {
         sd.loading = true;
         var inputValue = $(this).attr("value");
         if (inputValue == 'red') {
           $('.red').slideDown();
           $('.green').slideUp();
-          this.titleService.loading.next(false);
+          // this.titleService.loading.next(false);
         }
         else {
-          this.titleService.loading.next(false);
+          // this.titleService.loading.next(false);
           $('.red').slideUp();
           $('.green').slideDown();
         }
       });
     });
-    this.titleService.loading.next(false);
+    // this.titleService.loading.next(false);
   }
 
   public payment() {
@@ -123,6 +128,9 @@ export class SubscriptionComponent implements OnInit {
           this.titleService.loading.next(false);
         }
       )
+  }
+  nextModule(){
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
   }
 
 }

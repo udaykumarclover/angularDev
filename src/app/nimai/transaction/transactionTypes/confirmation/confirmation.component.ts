@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Tflag } from 'src/app/beans/Tflag';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import * as $ from '../../../../../assets/js/jquery.min';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
+import { ActiveTransactionComponent } from 'src/app/nimai/active-transaction/active-transaction.component';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent implements OnInit {
+  @ViewChild(ActiveTransactionComponent, { static: true }) activeTransaction: ActiveTransactionComponent;
 
   public isActive: boolean = false;
   public data: TransactionBean;
@@ -138,6 +140,7 @@ export class ConfirmationComponent implements OnInit {
 
         this.closed();
         this.tab = 'tab1';
+        this.activeTransaction.ngOnInit();
       }
         break;
       case 'preview': {
