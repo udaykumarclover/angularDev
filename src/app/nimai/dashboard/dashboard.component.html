@@ -27,10 +27,10 @@
          Tip 3: you can change the color of the sidebar with data-background-color="white | black"
          -->
       <div class="logo">
-        <a href="#" class="simple-text logo-mini">
+        <a href="#" [routerLink]="['/']" class="simple-text logo-mini">
           <i class="fas fa-industry"></i>
         </a>
-        <a href="#" class="simple-text logo-normal">
+        <a href="#" [routerLink]="['/']" class="simple-text logo-normal">
           NIMAI
         </a>
       </div>
@@ -51,25 +51,25 @@
                              <li [routerLinkActive]="['active']">
                                 <a [routerLink]="['personal-details']">
                                    <i class="fas fa-user"></i>
-                                   <p> Personal Detail </p>
+                                   <p> Personal Details </p>
                                 </a>
                              </li>
                              <li [routerLinkActive]="['active']" > 
                                 <a [routerLink]="['business-details']">
                                    <i class="fas fa-business-time"></i>
-                                   <p> Business Detail </p>
+                                   <p> Business Details </p>
                                 </a>
                              </li>
                              <li [routerLinkActive]="['active']">
                                 <a [routerLink]="['subscription']" *ngIf="!isReferrer">
                                 <i class="fas fa-file-invoice-dollar"></i>
-                                <p> Subscription Detail </p>
+                                <p> Subscription Details </p>
                                 </a>
                              </li>
                              <li [routerLinkActive]="['active']">
                                 <a [routerLink]="['kyc-details']">
                                    <i class="fas fa-user-check"></i>
-                                   <p> KYC Detail </p>
+                                   <p> KYC Details </p>
                                 </a>
                              </li>
                              <!-- <li *ngIf="isCustomer">

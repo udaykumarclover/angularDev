@@ -92,16 +92,21 @@ export class UploadLCComponent implements OnInit {
     const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
      inputList.forEach((input: HTMLElement) => {
          input.addEventListener('focus', () => {
+          if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id===""){
              if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
               input.className="ng-valid ng-dirty ng-touched"   
              else 
               input.className="ng-valid ng-dirty ng-touched has-value"
+          }   
          });
             input.addEventListener('blur', () => {
+              if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id==="")
+              {
               if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
                 input.className="ng-valid ng-dirty ng-touched"   
               else
               input.className="ng-valid ng-dirty ng-touched has-value"
+              }
          });
      });
      const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
@@ -327,7 +332,7 @@ export class UploadLCComponent implements OnInit {
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
-              message: 'Your Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
+              message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
               parent: this.subURL+"/"+this.parentURL + '/new-transaction'
             }
           };
