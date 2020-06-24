@@ -32,7 +32,7 @@
                         </tr>
                         <tr>
                            <td>Requirement</td>
-                           <td><input type="text" [(ngModel)]="data.requirementType"></td>
+                           <td><input type="text" readonly="readonly" [(ngModel)]="data.requirementType"></td>
                         </tr>
                         <tr>
                            <td>Amount</td>
@@ -70,7 +70,7 @@
                            <td>Start Date</td>
                            <td>
                               <select style="color: rgb(51, 51, 51);">
-                                 <option value="data.startDate" style="color: rgb(0, 0, 0);">{{data.startDate}}
+                                 <option [(ngModel)]="data.startDate" style="color: rgb(0, 0, 0);">{{data.startDate}}
                                  </option>
                               </select>
                            </td>
