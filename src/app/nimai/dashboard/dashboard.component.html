@@ -41,7 +41,7 @@
                  <ul class="nav">
                     <li >
                        <a data-toggle="collapse" href="#accountPages" [attr.aria-expanded]="areaExpandedacc" >
-                          <i class="fas fa-exchange-alt"></i>
+                          <i class="fa fa-address-book-o"></i>
                           <p>Account Details 
                              <b class="caret"></b>
                           </p>
@@ -100,9 +100,9 @@
                           </ul>
                        </div>
                     </li>
-                    <li>
+                    <li *ngIf="isCustomer || isBank">
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
-                          <i class="fas fa-tasks"></i>
+                          <i class="fa fa-book fa-fw"></i>
                           <p>Transaction  Details 
                              <b class="caret"></b>
                           </p>
@@ -123,7 +123,7 @@
                              </li>
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['transaction-details']">
-                                   <i class="fas fa-exchange-alt"></i>
+                                   <i class="fa fa-th-list"></i>
                                    <p> Transaction Details </p>
                                 </a>
                              </li>

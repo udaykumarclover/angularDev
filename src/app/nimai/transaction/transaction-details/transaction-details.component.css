@@ -1,20 +1,24 @@
-table {
-    width: 800px;
-  }
+
   
-  td.mat-column-star {
-    width: 20px;
-    padding-right: 8px;
-  }
-  
-  th.mat-column-position, td.mat-column-position {
-    padding-left: 8px;
-  }
-  
-  .mat-table-sticky:first-child {
-    border-right: 1px solid #e0e0e0;
-  }
-  
-  .mat-table-sticky:last-child {
-    border-left: 1px solid #e0e0e0;
-  }
+  .card .card-header.card-header-icon + .card-content .card-title {
+    padding-bottom: 15px;
+    }
+    .inputDiv{  
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    margin-bottom: 20px;
+    margin: 0 25px 0 0px;
+    }
+    .popupcontent{
+    height: 100%;
+    }
+    .popupcontent th{
+    padding: 4px 8px !important;
+    vertical-align: top !important;
+    }
+    .reopen{
+    margin-right: 5px;    padding: 5px;margin-top: 15px;font-size: 15px;text-decoration: underline;
+    font-weight: 400;
+    color: #333;
+    }

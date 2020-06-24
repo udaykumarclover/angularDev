@@ -814,3 +814,117 @@ export function bankRequest(){
                }); 
 
 }
+
+export function trnsactionDetail() {
+
+    $(function () {
+        $('#datatables select').css('color', '#333');
+        // prettyPrint();
+        $("#menu-bar").click(function () {
+            var id = $(this).attr("href").substring(1);
+            $("html, body").animate({ scrollTop: $("#" + id).offset().top }, 1000, function () {
+                $("#menu-bar").slideReveal("hide");
+            });
+        });
+        var slider = $("#menu-bar").slideReveal({
+            // width: 100,
+            push: false,
+            position: "right",
+            // speed: 600,
+            trigger: $(".handle"),
+            // autoEscape: false,
+            shown: function (obj) {
+                obj.find(".handle").html('<span class="fas fa-times"></span>');
+                obj.addClass("left-shadow-overlay");
+            },
+            hidden: function (obj) {
+                obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                obj.removeClass("left-shadow-overlay");
+            }
+        });
+
+        $(function () {
+            // prettyPrint();
+
+            var slider4 = $("#menubarDetail").slideReveal({
+                width: 650,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handleDetail"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+        });
+
+        $(function () {
+            // prettyPrint();
+
+            var slider5 = $("#menubarDetailreject").slideReveal({
+                width: 650,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handleDetailreject"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+        });
+
+        $(function () {
+            // prettyPrint();
+
+            var slider6 = $("#menubarDetailexpired").slideReveal({
+                width: 650,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handleexpire"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+        });
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers", "scrollX": true,
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            responsive: true, //scrollX: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+
+
+        });
+
+        $('<div class="inputDiv selectdiv pull-right">' +
+            '<select class="has-value">' + '<option value="0">Quote Status </option>' +
+            '<option value="1">Accepted </option>' +
+            '<option value="2">Rejected</option>' +
+            '<option value="3">Expired</option>' +
+            '</select>' +
+            '</div>').appendTo("#datatables_wrapper .dataTables_filter");
+
+        $(".dataTables_filter label").addClass("pull-right");
+    });
+}

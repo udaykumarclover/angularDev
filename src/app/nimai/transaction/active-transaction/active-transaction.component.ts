@@ -30,7 +30,7 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
-  public hasRecord: boolean = false;
+  public hasNoRecord: boolean = false;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -44,8 +44,8 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getTransactionDetailByUserId(data).subscribe(
       (response) => {
         const flt = JSON.parse(JSON.stringify(response)).data;
-        if (flt) {
-          this.hasRecord = true;
+        if (!flt) {
+          this.hasNoRecord = true;
         }
         this.filteredData(flt);
         this.dataSource = new MatTableDataSource(this.ntData);
@@ -53,6 +53,8 @@ export class ActiveTransactionComponent implements OnInit {
         this.dataSource.sort = this.sort;
         
 
+      },(error) =>{
+        this.hasNoRecord = true;
       }
     )
   }

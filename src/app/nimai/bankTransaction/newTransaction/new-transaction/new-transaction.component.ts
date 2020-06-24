@@ -22,10 +22,10 @@ export class NewTransactionComponent implements OnInit {
   }
   ngOnInit() {
     bankRequest();
-    this.getAllBankRequest();
+    this.getNewRequestsForBank();
   }
 
-  public getAllBankRequest() {
+  public getNewRequestsForBank() {
     const data = {
       "userId":sessionStorage.getItem('userID')
     }
