@@ -299,7 +299,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
-    data.transactionID = this.transactionID;
+    data.transactionId = this.transactionID;
 
 
     this.upls.updateLc(data).subscribe(
@@ -307,6 +307,15 @@ export class UploadLCComponent implements OnInit {
           // this.transactionID = JSON.parse(JSON.stringify(response)).data;
           this.loading = false;
           this.titleService.loading.next(false);
+          this.lc = this.lcDetailForm.value;
+          this.previewShow = true;
+          this.isPrev = false;
+          this.isNext = false;
+          this.isSave = false;
+          this.isPreview = false;
+          this.showUpdateButton = false;
+          this.isEdit = true;
+          this.isConfirm = true;
         },
         (error) => {
           this.loading = false;
@@ -496,6 +505,7 @@ export class UploadLCComponent implements OnInit {
   }
 
   callDraftTransaction(trnsactionID){
+    this.transactionID = trnsactionID;
     const param = {
       transactionId: trnsactionID
     }

@@ -19,14 +19,15 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>
-                                    <tr *ngFor="let list of draftData">
-                                        <td>
+                                    <tr *ngFor="let list of draftData; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <!-- <td>
                                             <div class="checkbox">
                                                 <label>
                                                 <input type="checkbox" name="optionsCheckboxes">
                                                 </label>
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td>Draft</td>
                                         <td>{{list.requirementType}}</td>
                                         <td>{{list.transactionId}}</td>
