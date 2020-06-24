@@ -140,7 +140,7 @@ export class ConfirmationComponent implements OnInit {
 
         this.closed();
         this.tab = 'tab1';
-        this.activeTransaction.ngOnInit();
+        window.location.reload();
       }
         break;
       case 'preview': {

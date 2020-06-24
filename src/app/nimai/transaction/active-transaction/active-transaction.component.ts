@@ -17,7 +17,7 @@ import { Tflag } from 'src/app/beans/Tflag';
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsType', 'requirement', 'receivedQuotes', 'star'];
+  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
 
@@ -75,11 +75,12 @@ export class ActiveTransactionComponent implements OnInit {
           validity: '',
           ib:'',
           amount:'',
+          goodsTypes:'',
           ccy:'',
           goods: '',
           requirement:'',
           receivedQuotes:'',
-          data:null
+          data:null,
         }
         bean.id = '' + (index);
         bean.beneficiary = dt.beneName;
@@ -91,7 +92,8 @@ export class ActiveTransactionComponent implements OnInit {
         bean.validity = dt.validity;
         bean.ib = dt.lCIssuanceBank;
         bean.ccy = dt.lCCurrency;
-        bean.goods = dt.lCValue;
+        bean.amount = dt.lCValue;
+        bean.goodsTypes = dt.goodsType;
         bean.requirement = dt.requirementType;
         bean.receivedQuotes='0';
         bean.data=dt;      
@@ -136,13 +138,13 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'discount') {
-      this.confirmation.action(false,0,null);
-      this.discounting.isActive = true;
+    } else if (pagename === 'discounting' || pagename === 'Discounting') {
+      this.confirmation.isActive = false;
+      this.discounting.action(true,action,data);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'cad') {
+    } else if (pagename === 'confirmAndDiscount') {
       this.confirmation.action(false,0,null);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = true;

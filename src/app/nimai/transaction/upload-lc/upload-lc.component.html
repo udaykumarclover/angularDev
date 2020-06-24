@@ -99,7 +99,7 @@
                                                                             <label
                                                                                 class="customlabel">Requirement</label>
                                                                             <div class="radio-group">
-                                                                                <input checked="checked" type="radio"
+                                                                                <input type="radio"
                                                                                     id="option-one" name="selector"
                                                                                     formControlName="selector"
                                                                                     value="confirmation"
@@ -160,7 +160,7 @@
                                                                         <div class="col-md-3">
                                                                             <mat-form-field>
                                                                                 <mat-label>LC Issuance Date</mat-label>
-                                                                                <input autocomplete="off" matInput
+                                                                                <input autocomplete="off" matInput [(ngModel)]="dateToPass"
                                                                                     [matDatepicker]="lcIssuDt"
                                                                                     formControlName="lCIssuingDate">
                                                                                 <mat-datepicker-toggle matSuffix
@@ -204,6 +204,7 @@
                                                                             class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType">
+                                                                                    <option value=""> Select</option>
                                                                                     <option value="Gold"> Gold</option>
                                                                                     <option value="Plastic">Plastic
                                                                                     </option>
