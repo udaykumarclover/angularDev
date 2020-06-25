@@ -15,12 +15,6 @@ import { BusinessDetailsComponent } from 'src/app/nimai/business-details/busines
 import { PersonalDetailsComponent } from 'src/app/nimai/personal-details/personal-details.component';
 import { DashboardComponent } from 'src/app/nimai/dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
-import { NewTransactionComponent } from 'src/app/nimai/bankTransaction/newTransaction/new-transaction/new-transaction.component';
-import { ConfirmationComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/confirmation/confirmation.component';
-import { DiscountingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/discounting/discounting.component';
-import { ConfirmAndDiscountComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/confirm-and-discount/confirm-and-discount.component';
-import { RefinancingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/refinancing/refinancing.component';
-import { BankerComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/banker/banker.component';
 import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.component';
 import { ResetPasswordComponent } from 'src/app/default/reset-password/reset-password/reset-password.component';
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
@@ -69,12 +63,6 @@ const routes: Routes = [
                     { path: "success", component: SuccessPopupComponent },
                     { path: "error", component: ErrorPopupComponent }
                 ]
-            }, {
-                path: "new-transaction", component: NewTransactionComponent,
-                children: [
-                    { path: "success", component: SuccessPopupComponent },
-                    { path: "error", component: ErrorPopupComponent }
-                ]
             },
             {
                 path: "change-password", component: ResetPasswordComponent, children: [
@@ -110,12 +98,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        NewTransactionComponent,
-        ConfirmationComponent,
-        DiscountingComponent,
-        ConfirmAndDiscountComponent,
-        RefinancingComponent,
-        BankerComponent,
+
     ],
     imports: [
         CommonModule,
@@ -132,12 +115,6 @@ const routes: Routes = [
         SharedModule,
     ],
     exports: [
-        NewTransactionComponent,
-        ConfirmationComponent,
-        DiscountingComponent,
-        ConfirmAndDiscountComponent,
-        RefinancingComponent,
-        BankerComponent,
     ]
 })
 export class RefferModule { }
