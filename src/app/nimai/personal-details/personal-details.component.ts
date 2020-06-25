@@ -104,9 +104,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(document).ready(function () {
-
-    })
+    this.setUserCategoryValidators();
 
     $("body").on("domChanged", function () {
       const inputs = $('.inputDiv').find('input');
@@ -125,7 +123,14 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
-
+ setUserCategoryValidators(){
+  const goods = this.personalDetailsForm.get('blacklistedGC')
+  const countries = this.personalDetailsForm.get('countriesInt')
+  if(!this.isBank){
+    goods.setValidators(null);
+    countries.setValidators(null);
+  }
+ }
   submit(): void {
     this.submitted = true;
     if(this.personalDetailsForm.invalid) {
@@ -256,14 +261,8 @@ export class PersonalDetailsComponent implements OnInit {
           this.personalDetails = null;
         }
       )
-
   }
-
-
   public pdb(): signup {
-
-    console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
-    console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
     let data = {
       subscriberType: this.personalDetailsForm.get('subscriberType').value,
       firstName: this.personalDetailsForm.get('firstName').value,
