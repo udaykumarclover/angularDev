@@ -56,31 +56,24 @@ export class PersonalDetailsComponent implements OnInit {
     }
     this.getPersonalDetails(sessionStorage.getItem('userID'));
     this.personalDetailsForm = this.fb.group({
-
       userId: [''],
       subscriberType: [''],
       bankType: [''],
-
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      emailId: ['', Validators.required],
+      emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
       mobileNo: ['', Validators.required],
       landLineNo: [''],
       country: ['', Validators.required],
-
       companyName: [''],
       designation: [''],
       businessType: [''],
-
       countriesInt: ['',Validators.required],
       minLCVal: [''],
       blacklistedGC: ['',Validators.required]
 
     })
     this.titleService.changeTitle(this.title);
-
-
-
     this.dropdownSetting = {
       singleSelection: false,
       idField: 'id',
@@ -104,17 +97,17 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(document).ready(function () {
-
-    })
+    this.setUserCategoryValidators();
 
     $("body").on("domChanged", function () {
       const inputs = $('.inputDiv').find('input');
       for (let input of inputs) {
         var text_val = $(input).val();
         if (text_val === "") {
+          console.log("1")
           $(input).removeClass('has-value');
         } else {
+          console.log("2")
           $(input).addClass('has-value');
         }
       };
@@ -125,12 +118,17 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
-
+ setUserCategoryValidators(){
+  const goods = this.personalDetailsForm.get('blacklistedGC')
+  const countries = this.personalDetailsForm.get('countriesInt')
+  if(!this.isBank){
+    goods.setValidators(null);
+    countries.setValidators(null);
+  }
+ }
   submit(): void {
    // alert("submit")
-    this.submitted = true;
-    console.log("this.personalDetailsForm.controls",this.personalDetailsForm.controls)
-    console.log("this.personalDetailsForm.invalid-------",this.personalDetailsForm.invalid)
+    this.submitted = true;    
     if(this.personalDetailsForm.invalid) {
       return;
     }
@@ -261,14 +259,8 @@ export class PersonalDetailsComponent implements OnInit {
           this.personalDetails = null;
         }
       )
-
   }
-
-
   public pdb(): signup {
-
-    console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
-    console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
     let data = {
       subscriberType: this.personalDetailsForm.get('subscriberType').value,
       firstName: this.personalDetailsForm.get('firstName').value,
@@ -412,6 +404,7 @@ export class PersonalDetailsComponent implements OnInit {
       ValidateRegex.validateNumber(event);
     }
     else if (type == "alpha") {
+      console.log("***")
       //ValidateRegex.alphaOnly(event);
       var key = event.keyCode;
       if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {

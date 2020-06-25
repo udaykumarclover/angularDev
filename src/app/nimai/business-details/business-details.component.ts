@@ -36,6 +36,7 @@ export class BusinessDetailsComponent implements OnInit {
     }else{
       this.hasValue=false;
     }
+    console.log("this.hasValue",this.hasValue)
     this.getBusinessDetails(sessionStorage.getItem('userID'));
     let navigation = this.router.getCurrentNavigation();
 
@@ -47,40 +48,35 @@ export class BusinessDetailsComponent implements OnInit {
     })
 
     this.businessDetailsForm = this.fb.group({
-
       userId: [''],
-
       selector: [''],
-
-      companyName: ['', Validators.required],
-      // ownerFirstName: ['', Validators.required],
-      // ownerLastName: ['', Validators.required],
-      // designation: ['', Validators.required],
+      companyName: ['', [Validators.required,Validators.minLength(4)]],
+      designation: ['', Validators.minLength(3)],
       country: ['', Validators.required],
-      provinceName: [''],
-      city: ['', Validators.required],
-      addressLine1: ['', Validators.required],
-      addressLine2: [''],
-      addressLine3: [''],
-      pincode: ['', Validators.required],
+      provinceName: ['',Validators.required],
+      city: ['', [Validators.required,Validators.minLength(3)]],
+      addressLine1: ['', [Validators.required,Validators.minLength(3)]],
+      addressLine2: ['',Validators.minLength(3)],
+      addressLine3: ['',Validators.minLength(3)],
+      pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
       telephone: ['', Validators.required],
-
-
       bankNbfcName: ['', Validators.required],
       branchName: ['', Validators.required],
       swiftCode: ['', Validators.required],
-
       lCCurrencyValue: [''],
-
-      owners: this.fb.array([])
-
-
-
+      owners: this.fb.array([this.getOwners()])
     });
-    this.add(0);
+    //this.add(0);
     this.titleService.changeTitle(this.title);
   }
-
+  getOwners(){
+    return this.fb.group({
+    ownerFirstName: ['', Validators.required],
+    ownerLastName: ['', Validators.required],
+    designation: ['', Validators.minLength(3)],
+    ownerID: ['']
+  });
+  }
   get busiDetails() {
     return this.businessDetailsForm.controls;
   }
@@ -88,9 +84,24 @@ export class BusinessDetailsComponent implements OnInit {
 
   ngOnInit() { 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-    console.log("country",JSON.parse(sessionStorage.getItem('countryData')));
    }
-
+   ngAfterViewInit() {
+     const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
+     selectList.forEach((select: HTMLElement) => {
+      select.addEventListener('focus', () => {
+        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+          select.className=" has-value ng-valid ng-dirty ng-touched"   
+        else 
+          select.className="ng-valid ng-dirty ng-touched has-value"
+      });
+      select.addEventListener('blur', () => {
+        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+          select.className="has-value ng-valid ng-dirty ng-touched"   
+        else 
+          select.className="ng-valid ng-dirty ng-touched has-value"
+      });
+  });
+ }
   setValidators() {
     
     if (this.isCustomer == false) {
@@ -116,10 +127,10 @@ export class BusinessDetailsComponent implements OnInit {
     this.validateCommons();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
-    console.log("this.businessDetailsForm.controls",this.businessDetailsForm.controls)
+    //let items = this.businessDetailsForm.get('owners') as FormArray;
+    
     console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
     if (this.businessDetailsForm.invalid) {
-      // ignore: ['#hidden',':not(:visible)']
       return;
     }
     this.perDetailsSubmit = false;
@@ -238,14 +249,14 @@ export class BusinessDetailsComponent implements OnInit {
 
   }
 
-  createItem(): FormGroup {
-    return this.fb.group({
-      ownerFirstName: '',
-      ownerLastName: '',
-      designation: '',
-      ownerID: ''
-    });
-  }
+  // createItem(): FormGroup {
+  //   return this.fb.group({
+  //     ownerFirstName: '',
+  //     ownerLastName: '',
+  //     designation: '',
+  //     ownerID: ''
+  //   });
+  // }
   createOwnerItem(data: OwnerDetail): FormGroup {
     return this.fb.group({
       ownerFirstName: data.ownerFirstName,
@@ -259,16 +270,18 @@ export class BusinessDetailsComponent implements OnInit {
     this.removeAll();
     let items = this.businessDetailsForm.get('owners') as FormArray;
     for (let owner of owners)
-      items.push(this.createOwnerItem(owner));
-
+    {
+      items.push(this.createOwnerItem(owner)); 
+    }
   }
 
-  add(i: number) {
 
+  add(i: number) {
     let items = this.businessDetailsForm.get('owners') as FormArray;
     if (items.length < 3)
-      items.push(this.createItem());
-
+    {
+      items.push(this.getOwners());
+    }
   }
 
   remove(i: number) {
