@@ -10,6 +10,8 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
+import { custActiveTransaction } from 'src/assets/js/commons';
+
 
 @Component({
   selector: 'app-active-transaction',
@@ -31,6 +33,7 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
+  detail: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -43,14 +46,10 @@ export class ActiveTransactionComponent implements OnInit {
     }
     this.nts.getTransactionDetailByUserId(data).subscribe(
       (response) => {
-        const flt = JSON.parse(JSON.stringify(response)).data;
-        if (!flt) {
+        this.detail = JSON.parse(JSON.stringify(response)).data;
+        if (!this.detail) {
           this.hasNoRecord = true;
         }
-        this.filteredData(flt);
-        this.dataSource = new MatTableDataSource(this.ntData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
 
       },(error) =>{
         this.hasNoRecord = true;
@@ -58,59 +57,11 @@ export class ActiveTransactionComponent implements OnInit {
     )
   }
 
-  filteredData(data: NTBean[]): void {
-
-    this.ntData = [];
-    let index = 0;
-    if (data.length > 0)
-      for (let dt of data) {
-        index++;
-        let bean = {
-          id:'',
-          beneficiary:'',
-          bcountry: '',
-          applicant:'', 
-          acountry:'',
-          txnID:'',
-          dateTime:'',
-          validity: '',
-          ib:'',
-          amount:'',
-          goodsTypes:'',
-          ccy:'',
-          goods: '',
-          requirement:'',
-          receivedQuotes:'',
-          data:null,
-        }
-        bean.id = '' + (index);
-        bean.beneficiary = dt.beneName;
-        bean.applicant = dt.applicantName;
-        bean.acountry = dt.applicantCountry;
-        bean.bcountry = dt.beneBankCountry;
-        bean.txnID = dt.transactionId;
-        bean.dateTime = dt.insertedDate;
-        bean.validity = dt.validity;
-        bean.ib = dt.lCIssuanceBank;
-        bean.ccy = dt.lCCurrency;
-        bean.amount = dt.lCValue;
-        bean.goodsTypes = dt.goodsType;
-        bean.requirement = dt.requirementType;
-        bean.receivedQuotes='0';
-        bean.data=dt;      
-        this.ntData.push(bean);
-
-
-      }
-
-  }
- 
-
-
   ngOnInit() {
+    custActiveTransaction();
     this.getAllnewTransactions();
-
   }
+
   ngAfterViewInit() {
     this.confirmation.isActive = false;
     this.discounting.isActive = false;
@@ -119,16 +70,6 @@ export class ActiveTransactionComponent implements OnInit {
     this.banker.isActive = false;
     this.getAllnewTransactions();
   }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
 
   showQuotePage(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
@@ -146,32 +87,23 @@ export class ActiveTransactionComponent implements OnInit {
       this.refinancing.isActive = false;
       this.banker.isActive = false;
     } else if (pagename === 'confirmAndDiscount') {
-      this.confirmation.action(false,0,null);
+      this.confirmation.isActive = false;
       this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = true;
+      this.confirmAndDiscount.action(true,action,data);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
     } else if (pagename === 'refinance') {
-      this.confirmation.action(false,0,null);
+      this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = true;
+      this.refinancing.action(true,action,data);
       this.banker.isActive = false;
     } else if (pagename === 'banker') {
-      this.confirmation.action(false,0,null);
+      this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
-      this.banker.isActive = true;
-
-
+      this.banker.action(true,action,data);
     }
-
-
-
-
   }
-
-
-
 }

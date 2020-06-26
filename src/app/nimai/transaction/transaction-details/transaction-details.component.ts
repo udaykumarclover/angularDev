@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { trnsactionDetail } from 'src/assets/js/commons';
+import { custTrnsactionDetail } from 'src/assets/js/commons';
 import * as $ from 'src/assets/js/jquery.min';
 
 
@@ -26,7 +26,7 @@ export class TransactionDetailsComponent {
   }
 
   ngOnInit() {
-    trnsactionDetail();
+    custTrnsactionDetail();
     this.getAllnewTransactions();
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Login } from '../../beans/login'
+import { Login, ChangePassword } from '../../beans/login'
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -26,8 +26,8 @@ export class LoginService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiUAM/passwordPolicy/usertoken/` + token, null, { headers: { 'content-type': 'application/json' } })
   }
 
-  public changePassword(data: any): Observable<any> {
-    return this.httpClient.post<any>(`${environment.domain}/nimaiUAM/passwordPolicy/changePassword/` + data, null, { headers: { 'content-type': 'application/json' } })
+  public changePassword(data: ChangePassword): Observable<ChangePassword> {
+    return this.httpClient.post<ChangePassword>(`${environment.domain}/nimaiUAM/passwordPolicy/changePassword`, data, { headers: { 'content-type': 'application/json' } });
   }
 
   public getCountryMasterData(): Observable<any[]>{
