@@ -247,7 +247,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
-    console.log(data)
+  
 
     this.upls.saveLc(data)
       .subscribe(

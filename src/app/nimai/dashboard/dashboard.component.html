@@ -111,8 +111,16 @@
                           <ul class="nav">
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['new-transaction']">
-                                   <i class="fas fa-concierge-bell"></i>
-                                   <p> New Transaction </p>
+                                  <i class="fas fa-concierge-bell"></i>
+                                  <ng-template
+                                    *ngIf="isCustomer;then showBlock; else notShowBlock">
+                                  </ng-template>
+                                  <ng-template #showBlock>
+                                    <p> New Transaction </p>
+                                  </ng-template>
+                                  <ng-template #notShowBlock>
+                                      <p> New Request </p>
+                                  </ng-template>
                                 </a>
                              </li>
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
