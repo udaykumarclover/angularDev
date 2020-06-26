@@ -18,32 +18,24 @@ export class TransactionDetailsComponent {
 
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
+  public data: any;
+  public specificDetail: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
   }
 
   ngOnInit() {
-    this.getAllnewTransactions();
     trnsactionDetail();
+    this.getAllnewTransactions();
   }
-
-  ngAfterViewInit() {
-    // setTimeout(() => {
-      // trnsactionDetail();
-  // }, 1000);
-}
 
   public getAllnewTransactions() {
     this.nts.getAllNewTransaction().subscribe(
       (response) => {
-        const data = JSON.parse(JSON.stringify(response)).data;
-        console.log(data);
-        
-        // $('#datatables').DataTable({
-        //   responsive: true
-        // });
-        if (!data) {
+        this.data = JSON.parse(JSON.stringify(response)).data;
+        console.log(this.data);
+        if (!this.data) {
           this.hasNoRecord = true;
         }
       },
@@ -54,6 +46,12 @@ export class TransactionDetailsComponent {
     )
   }
 
+  getDetail(detail){
+
+    console.log(detail);
+    this.specificDetail = detail;
+    
+  }
 
 
 

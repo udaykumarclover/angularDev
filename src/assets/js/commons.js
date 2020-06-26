@@ -559,7 +559,7 @@ export function bankRequest(){
                 $(function(){
                 // prettyPrint();
                 
-                var slider4 = $("#menubarDetail").slideReveal({
+                var slider5 = $("#menubarDetail").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -580,7 +580,7 @@ export function bankRequest(){
                  $(function(){
                 // prettyPrint();
                 
-                var slider4 = $("#menubarDetail1").slideReveal({
+                var slider6 = $("#menubarDetail1").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -603,7 +603,7 @@ export function bankRequest(){
                 $(function(){
                 // prettyPrint();
                 
-                var slider4 = $("#menubarReopen").slideReveal({
+                var slider7 = $("#menubarReopen").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -643,13 +643,6 @@ export function bankRequest(){
                         $('#menu-bar #tab1').slideUp();
                          $('#menu-bar #tab3').slideDown();
                     });
-         
-         
-         
-         
-         
-         
-                  
                   
                     $('#menubarDiscounting #tab2').hide();
                     $('#menubarDiscounting #tab3').hide();
@@ -668,12 +661,6 @@ export function bankRequest(){
                         $('#menubarDiscounting #tab1').slideUp();
                          $('#menubarDiscounting #tab3').slideDown();
                     });
-         
-         
-         
-         
-         
-                  
                   
                     $('#menubarConfDis #tab2').hide();
                     $('#menubarConfDis #tab3').hide();
@@ -818,6 +805,7 @@ export function bankRequest(){
 export function trnsactionDetail() {
 
     $(function () {
+        setTimeout(() => {
         $('#datatables select').css('color', '#333');
         // prettyPrint();
         $("#menu-bar").click(function () {
@@ -847,7 +835,7 @@ export function trnsactionDetail() {
             // prettyPrint();
 
             var slider4 = $("#menubarDetail").slideReveal({
-                width: 650,
+                width: 450,
                 push: false,
                 position: "right",
                 // speed: 600,
@@ -868,7 +856,7 @@ export function trnsactionDetail() {
             // prettyPrint();
 
             var slider5 = $("#menubarDetailreject").slideReveal({
-                width: 650,
+                width: 450,
                 push: false,
                 position: "right",
                 // speed: 600,
@@ -889,7 +877,7 @@ export function trnsactionDetail() {
             // prettyPrint();
 
             var slider6 = $("#menubarDetailexpired").slideReveal({
-                width: 650,
+                width: 450,
                 push: false,
                 position: "right",
                 // speed: 600,
@@ -908,14 +896,12 @@ export function trnsactionDetail() {
         $('#datatables').DataTable({
             "pagingType": "full_numbers", "scrollX": true,
             "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-            responsive: true, //scrollX: true,
+            responsive: false, //scrollX: true,
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             }
-
-
-        });
+        });    
 
         $('<div class="inputDiv selectdiv pull-right">' +
             '<select class="has-value">' + '<option value="0">Quote Status </option>' +
@@ -926,5 +912,9 @@ export function trnsactionDetail() {
             '</div>').appendTo("#datatables_wrapper .dataTables_filter");
 
         $(".dataTables_filter label").addClass("pull-right");
+
+        $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"})
+        
+    }, 1000);
     });
 }

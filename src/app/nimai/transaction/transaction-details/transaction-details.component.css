@@ -3,7 +3,7 @@
   .card .card-header.card-header-icon + .card-content .card-title {
     padding-bottom: 15px;
     }
-    .inputDiv{  
+    .dataTables_filter .inputDiv{  
     display: inline-block;
     position: relative;
     width: 200px;
@@ -22,3 +22,18 @@
     font-weight: 400;
     color: #333;
     }
+
+    .popupnew .emaildiv h2 {
+      font-size: 17px;
+      font-weight: 500;
+      padding: 10px 15px;
+      margin: 0 0 20px;
+      background: #00bcd4;
+      color: #fff;
+  }
+  .popupnew .modal-content .modal-body {
+      padding: 0;
+  }
+  .popupnew .emaildiv .padnew {
+      padding: 0px 25px 10px;
+  }
