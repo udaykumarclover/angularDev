@@ -559,7 +559,7 @@ export function bankRequest(){
                 $(function(){
                 // prettyPrint();
                 
-                var slider4 = $("#menubarDetail").slideReveal({
+                var slider5 = $("#menubarDetail").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -580,7 +580,7 @@ export function bankRequest(){
                  $(function(){
                 // prettyPrint();
                 
-                var slider4 = $("#menubarDetail1").slideReveal({
+                var slider6 = $("#menubarDetail1").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -603,7 +603,7 @@ export function bankRequest(){
                 $(function(){
                 // prettyPrint();
                 
-                var slider4 = $("#menubarReopen").slideReveal({
+                var slider7 = $("#menubarReopen").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -643,13 +643,6 @@ export function bankRequest(){
                         $('#menu-bar #tab1').slideUp();
                          $('#menu-bar #tab3').slideDown();
                     });
-         
-         
-         
-         
-         
-         
-                  
                   
                     $('#menubarDiscounting #tab2').hide();
                     $('#menubarDiscounting #tab3').hide();
@@ -668,12 +661,6 @@ export function bankRequest(){
                         $('#menubarDiscounting #tab1').slideUp();
                          $('#menubarDiscounting #tab3').slideDown();
                     });
-         
-         
-         
-         
-         
-                  
                   
                     $('#menubarConfDis #tab2').hide();
                     $('#menubarConfDis #tab3').hide();
@@ -815,9 +802,10 @@ export function bankRequest(){
 
 }
 
-export function trnsactionDetail() {
+export function custTrnsactionDetail() {
 
     $(function () {
+        setTimeout(() => {
         $('#datatables select').css('color', '#333');
         // prettyPrint();
         $("#menu-bar").click(function () {
@@ -847,7 +835,7 @@ export function trnsactionDetail() {
             // prettyPrint();
 
             var slider4 = $("#menubarDetail").slideReveal({
-                width: 650,
+                width: 450,
                 push: false,
                 position: "right",
                 // speed: 600,
@@ -868,7 +856,7 @@ export function trnsactionDetail() {
             // prettyPrint();
 
             var slider5 = $("#menubarDetailreject").slideReveal({
-                width: 650,
+                width: 450,
                 push: false,
                 position: "right",
                 // speed: 600,
@@ -889,7 +877,7 @@ export function trnsactionDetail() {
             // prettyPrint();
 
             var slider6 = $("#menubarDetailexpired").slideReveal({
-                width: 650,
+                width: 450,
                 push: false,
                 position: "right",
                 // speed: 600,
@@ -908,14 +896,12 @@ export function trnsactionDetail() {
         $('#datatables').DataTable({
             "pagingType": "full_numbers", "scrollX": true,
             "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-            responsive: true, //scrollX: true,
+            responsive: false, //scrollX: true,
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             }
-
-
-        });
+        });    
 
         $('<div class="inputDiv selectdiv pull-right">' +
             '<select class="has-value">' + '<option value="0">Quote Status </option>' +
@@ -926,5 +912,150 @@ export function trnsactionDetail() {
             '</div>').appendTo("#datatables_wrapper .dataTables_filter");
 
         $(".dataTables_filter label").addClass("pull-right");
+
+        $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"})
+        
+    }, 1000);
     });
+}
+
+export function custActiveTransaction() {
+    setTimeout(() => {
+        $(function () {
+            // prettyPrint();
+
+            var slider = $("#menu-bar").slideReveal({
+                // width: 100,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handle"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+
+            var slider = $("#menu-bar1").slideReveal({
+                // width: 100,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handle1"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#TransactionDetailDiv').hide();
+            $('#backbtn').hide();
+            $('.transactionDiv').click(function () {
+                $('#changetext').html('Bank Quotes');
+                $('#transactionID').slideUp();
+                $('#TransactionDetailDiv').slideDown();
+                $('#backbtn').fadeIn();
+            });
+
+            $('#backbtn').click(function () {
+                $('#changetext').html('Active Transactions');
+                $('#TransactionDetailDiv').slideUp();
+                $('#transactionID').slideDown();
+                $('#TransactionDetailDiv').hide();
+                $('#backbtn').fadeOut();
+            });
+
+
+            $('#menu-bar #tab2').hide();
+            $('#menu-bar #tab3').hide();
+            $('#menu-bar #btnpreview').click(function () {
+                $('#menu-bar #tab1').slideUp();
+                $('#menu-bar #tab2').slideDown();
+            });
+
+            $('#menu-bar #btnEdit').click(function () {
+                $('#menu-bar #tab1').slideDown();
+                $('#menu-bar #tab2').slideUp();
+            });
+
+
+            $('#menu-bar #btnSubmit').click(function () {
+                $('#menu-bar #tab2').slideUp();
+                $('#menu-bar #tab1').slideUp();
+                $('#menu-bar #tab3').slideDown();
+            });
+
+            $('#menu-bar1 #tab3').hide();
+
+            $('#menu-bar1 #btnSubmit').click(function () {
+                $('#menu-bar1 #tab2').slideUp();
+                $('#menu-bar1 #tab1').slideUp();
+                $('#menu-bar1 #tab3').slideDown();
+            });
+
+
+
+            $('.popupcontent select').css('color', '#333');
+
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers", "scrollX": true,
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                responsive: false, //scrollX: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+
+            });
+
+            $('#datatables1').DataTable({
+                "pagingType": "full_numbers", "scrollX": true,
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                responsive: false,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+
+            });
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+
+            //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
+        });
+    }, 1000);
 }

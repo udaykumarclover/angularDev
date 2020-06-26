@@ -56,31 +56,24 @@ export class PersonalDetailsComponent implements OnInit {
     }
     this.getPersonalDetails(sessionStorage.getItem('userID'));
     this.personalDetailsForm = this.fb.group({
-
       userId: [''],
       subscriberType: [''],
       bankType: [''],
-
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
       mobileNo: ['', Validators.required],
       landLineNo: [''],
       country: ['', Validators.required],
-
       companyName: [''],
       designation: [''],
       businessType: [''],
-
       countriesInt: ['',Validators.required],
       minLCVal: [''],
       blacklistedGC: ['',Validators.required]
 
     })
     this.titleService.changeTitle(this.title);
-
-
-
     this.dropdownSetting = {
       singleSelection: false,
       idField: 'id',

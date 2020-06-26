@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common'; import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
+import { Routes, RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
 import { AccountStatusComponent } from 'src/app/nimai/acstatus/account-status/account-status.component';
@@ -90,16 +91,10 @@ const routes: Routes = [
             }
         ]
     },
-
-
-
-
 ]
 
 @NgModule({
-    declarations: [
-
-    ],
+    declarations: [],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -114,7 +109,6 @@ const routes: Routes = [
         MatPaginatorModule,
         SharedModule,
     ],
-    exports: [
-    ]
+    exports: []
 })
 export class RefferModule { }
