@@ -4,10 +4,10 @@
         <div class="col-md-12">
            <div class="card">
               <div class="card-header card-header-icon" data-background-color="blue">
-                 <i class="fa fa-th-list"></i>
+                <i class="fas fa-exchange-alt"></i>
               </div>
               <div class="card-content">
-                 <h4 class="card-title pull-left">Active Transaction</h4>
+                <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
                  <form>
                   <div class="row" *ngIf="hasNoRecord">
                     <div class="col-md-12">
@@ -38,7 +38,7 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let record of data; let i = index">
+                                  <tr *ngFor="let record of detail; let i = index">
                                     <td>{{i+1}}</td>
                                     <td>{{record.beneName}}</td>
                                     <td>{{record.beneCountry}}</td>
@@ -52,12 +52,98 @@
                                     <td>{{record.lCValue}}</td>
                                     <td>{{record.goodsType}}</td>
                                     <td>{{record.requirementType}}</td>
-                                    <td><span id="transactionDiv" class="transactionDiv">{{record.quotationReceived}}</span></td>
-                                    <td><a href="javascript:void()" (click)="showQuotePage(row.requirement,0,row.data)"
+                                    <td><span id="transactionDiv" style="cursor: pointer;" class="transactionDiv">{{record.quotationReceived}}</span></td>
+                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                             class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                                 </tr>
                                 </tbody>
                              </table>
+                          </div>
+                          <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
+                            style="width:100%">
+                            <table class="table table-hover" id="">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Transaction ID</th>
+                                  <th>Bank</th>
+                                  <th>Total Quote</th>
+                                  <th>Ccy</th>
+                                  <th>Valid Till</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>CU20BANCON1101</td>
+                                  <td>****** <br>
+                                    Quotes placed till date 214<br>
+                                    Quotes for Matress 23</td>
+                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                  <td>USD</td>
+                                  <td>19-06-2019<br>
+                                    4 days to go</td>
+                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>CU20BANCON1101</td>
+                                  <td>******<br>
+                                    Quotes placed till date 322<br>
+                                    Quotes for Matress 102</td>
+                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                  <td>USD</td>
+                                  <td>20-06-2019<br>
+                                    0 days to go</td>
+                                  <td><a href="javascript:void()" class="btn btn-default disabled" style="cursor:not-allowed;">Accept</a></td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>CU20BANCON1101</td>
+                                  <td>******<br>
+                                    Quotes placed till date 184<br>
+                                    Quotes for Matress 87</td>
+                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                  <td>USD</td>
+                                  <td>22-06-2019<br>
+                                    7 days to go</td>
+                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>CU20BANCON1101</td>
+                                  <td>******<br>
+                                    Quotes placed till date 87<br>
+                                    Quotes for Matress 12</td>
+                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                  <td>USD</td>
+                                  <td>24-06-2019<br>
+                                    9 days to go</td>
+                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                </tr>
+                                <tr>
+                                  <td>5</td>
+                                  <td>CU20BANCON1101</td>
+                                  <td>******<br>
+                                    Quotes placed till date 211<br>
+                                    Quotes for Matress 123</td>
+                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                  <td>USD</td>
+                                  <td>26-06-2019<br> 11 days to go</td>
+                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                </tr>
+                          
+                              </tbody>
+                            </table>
+                          
+                          </div>
+                          <div class="text-right downloaddiv">
+                            <ul class="list-unstyled list-inline">
+                              <li>Download</li>
+                              <li><a href="javascript:void()" class="pdf"><span class="fas fa-file-pdf"></span></a></li>
+                              <li><a href="javascript:void()" class="excel"><span class="fas fa-file-excel"></span></a></li>
+                            </ul>
                           </div>
                        </div>
                     </div>
@@ -137,7 +223,7 @@
               Ok
               <div class="ripple-container"></div>
             </button>
-            <!--    <a href="#" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+            <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
           </div>
         </div>
         <div class="tab-content" id="tab3">
@@ -153,7 +239,7 @@
               </tbody>
             </table>
             <div class="posfix">
-              <a href="active-transaction.html" class="btn btn-info">
+              <a href="javascript:void()" class="btn btn-info">
                 OK
                 <div class="ripple-container"></div>
               </a>

@@ -140,7 +140,6 @@ export class ConfirmationComponent implements OnInit {
 
         this.closed();
         this.tab = 'tab1';
-        window.location.reload();
       }
         break;
       case 'preview': {
