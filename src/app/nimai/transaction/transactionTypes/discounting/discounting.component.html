@@ -1,4 +1,4 @@
-<div id="menu-bar" [hidden]="!isActive" (blur)="closed()"
+<div id="menu-bar-discounting" [hidden]="!isActive" (blur)="closed()"
    style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
    <div class="popupcontent">
       <div class="card">
@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                            <td>Requirement</td>
-                           <td><input type="text" readonly="readonly" [(ngModel)]="data.requirementType"></td>
+                           <td><input type="text" [(ngModel)]="data.requirementType"></td>
                         </tr>
                         <tr>
                            <td>Amount</td>
@@ -69,7 +69,7 @@
                            <td>Start Date</td>
                            <td>
                               <select style="color: rgb(51, 51, 51);">
-                                 <option [(ngModel)]="data.startDate" style="color: rgb(0, 0, 0);">{{data.startDate}}
+                                 <option value="data.startDate" style="color: rgb(0, 0, 0);">{{data.startDate}}
                                  </option>
                               </select>
                            </td>
@@ -168,6 +168,7 @@
 
                </div>
             </div>
+
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                <div class="tab-pane active datadiv" id="pill1"
                   style="    height: 530px;overflow: auto;padding-bottom: 30px;">

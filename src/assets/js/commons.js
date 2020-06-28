@@ -924,7 +924,75 @@ export function custActiveTransaction() {
         $(function () {
             // prettyPrint();
 
-            var slider = $("#menu-bar").slideReveal({
+            var slider = $("#menu-bar-banker").slideReveal({
+                // width: 100,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handle"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+
+            var slider = $("#menu-bar-confirmation").slideReveal({
+                // width: 100,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handle"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+
+            var slider = $("#menu-bar-discounting").slideReveal({
+                // width: 100,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handle"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+
+            var slider = $("#menu-bar-confirmAndDiscount").slideReveal({
+                // width: 100,
+                push: false,
+                position: "right",
+                // speed: 600,
+                trigger: $(".handle"),
+                // autoEscape: false,
+                shown: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                },
+                hidden: function (obj) {
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                }
+            });
+
+            var slider = $("#menu-bar-refinancing").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -978,24 +1046,24 @@ export function custActiveTransaction() {
             });
 
 
-            $('#menu-bar #tab2').hide();
-            $('#menu-bar #tab3').hide();
-            $('#menu-bar #btnpreview').click(function () {
-                $('#menu-bar #tab1').slideUp();
-                $('#menu-bar #tab2').slideDown();
-            });
+            // $('#menu-bar #tab2').hide();
+            // $('#menu-bar #tab3').hide();
+            // $('#menu-bar #btnpreview').click(function () {
+            //     $('#menu-bar #tab1').slideUp();
+            //     $('#menu-bar #tab2').slideDown();
+            // });
 
-            $('#menu-bar #btnEdit').click(function () {
-                $('#menu-bar #tab1').slideDown();
-                $('#menu-bar #tab2').slideUp();
-            });
+            // $('#menu-bar #btnEdit').click(function () {
+            //     $('#menu-bar #tab1').slideDown();
+            //     $('#menu-bar #tab2').slideUp();
+            // });
 
 
-            $('#menu-bar #btnSubmit').click(function () {
-                $('#menu-bar #tab2').slideUp();
-                $('#menu-bar #tab1').slideUp();
-                $('#menu-bar #tab3').slideDown();
-            });
+            // $('#menu-bar #btnSubmit').click(function () {
+            //     $('#menu-bar #tab2').slideUp();
+            //     $('#menu-bar #tab1').slideUp();
+            //     $('#menu-bar #tab3').slideDown();
+            // });
 
             $('#menu-bar1 #tab3').hide();
 
