@@ -36,7 +36,7 @@ export class BusinessDetailsComponent implements OnInit {
     }else{
       this.hasValue=false;
     }
-    console.log("this.hasValue",this.hasValue)
+    
     this.getBusinessDetails(sessionStorage.getItem('userID'));
     let navigation = this.router.getCurrentNavigation();
 
@@ -49,7 +49,7 @@ export class BusinessDetailsComponent implements OnInit {
 
     this.businessDetailsForm = this.fb.group({
       userId: [''],
-      selector: [''],
+      selector: ['',Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
       designation: ['', Validators.minLength(3)],
       country: ['', Validators.required],
@@ -128,7 +128,7 @@ export class BusinessDetailsComponent implements OnInit {
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
     //let items = this.businessDetailsForm.get('owners') as FormArray;
-    
+    console.log("this.businessDetailsForm.controls",this.businessDetailsForm.controls)
     console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
     if (this.businessDetailsForm.invalid) {
       return;

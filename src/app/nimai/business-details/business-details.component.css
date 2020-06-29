@@ -30,4 +30,15 @@ select{
     font-size: 10px;
     font-weight: 400;
 }
+.business_details .selection .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 32px;
+    right: 140px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
 

@@ -23,7 +23,7 @@
                         <h4 class="card-title" id="business_details">Business Details </h4>
                         <form [formGroup]="businessDetailsForm" (ngSubmit)="submit()">
                         <div class=" row col-md-5 selection" *ngIf="isCustomer">
-                           <div class="row">
+                           <div class="row" >
                               <label class="customlabel">Registration Type</label>
                               <div class="radio-group">
                                  <input checked="checked" formControlName="selector"
@@ -40,6 +40,11 @@
                                  <label for="option-three">Both</label>
                               </div>
                            </div>
+                           <div *ngIf="perDetailsSubmit && busiDetails.selector.errors" class="invalid-feedback">
+                              <div *ngIf="perDetailsSubmit && busiDetails.selector.errors?.required">
+                                 Please select Registration Type
+                              </div>
+                           </div> 
                         </div>
                         <div class="col-md-3" *ngIf="isCustomer">
                            <div class="inputDiv">
