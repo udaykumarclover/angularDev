@@ -14,10 +14,7 @@ import  { ValidateRegex } from '../../../beans/Validations';
 @Component({
   selector: 'app-upload-lc',
   templateUrl: './upload-lc.component.html',
-  styleUrls: ['./upload-lc.component.css'],
-  // host: {
-  //   '(document:click)': 'onClick($event)',
-  // },
+  styleUrls: ['./upload-lc.component.css']
 })
 export class UploadLCComponent implements OnInit {
 
@@ -45,6 +42,7 @@ export class UploadLCComponent implements OnInit {
   showUpdateButton: boolean = false;
   isUpdate: boolean = false;
   draftData: any;
+  dateToPass: any;
 
 
   // rds: refinance Data Service
@@ -62,7 +60,8 @@ export class UploadLCComponent implements OnInit {
     console.log(navigation);
     if(navigation.extras.state){
       console.log("..."+ navigation.extras.state.redirectedFrom);
-      this.callDraftTransaction();
+      var trnsactionID = navigation.extras.state.trnsactionID;
+      this.callDraftTransaction(trnsactionID);
     }
 
     this.setForm();
@@ -77,29 +76,27 @@ export class UploadLCComponent implements OnInit {
       lcd.saveCount = anchor.length;
 
     })
-    
-  
   }
-// onClick(event) {
-//     if (!this.el.nativeElement.contains(event.target)) // or some similar check
-//       alert('Your LC Transaction details will be lost, Kindly save!');
-//    }
-
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
     const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
      inputList.forEach((input: HTMLElement) => {
          input.addEventListener('focus', () => {
+          if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id===""){
              if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
               input.className="ng-valid ng-dirty ng-touched"   
              else 
               input.className="ng-valid ng-dirty ng-touched has-value"
+          }   
          });
             input.addEventListener('blur', () => {
+              if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id==="")
+              {
               if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
                 input.className="ng-valid ng-dirty ng-touched"   
               else
               input.className="ng-valid ng-dirty ng-touched has-value"
+              }
          });
      });
      const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
@@ -135,8 +132,6 @@ export class UploadLCComponent implements OnInit {
  }
 
   public next() {
-    console.log('111');
-    
     this.previewShow = false;
     this.titleService.loading.next(true);
 
@@ -240,7 +235,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
-    console.log(data)
+  
 
     this.upls.saveLc(data)
       .subscribe(
@@ -248,6 +243,15 @@ export class UploadLCComponent implements OnInit {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
           sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
+          this.lc = this.lcDetailForm.value;
+          this.previewShow = true;
+          this.isPrev = false;
+          this.isNext = false;
+          this.isSave = false;
+          this.isPreview = false;
+          this.showUpdateButton = false;
+          this.isEdit = true;
+          this.isConfirm = true;
           this.titleService.loading.next(false);
         },
         (error) => {
@@ -260,15 +264,15 @@ export class UploadLCComponent implements OnInit {
   public preview() {
     this.titleService.loading.next(true);
     this.save();
-    this.lc = this.lcDetailForm.value;
-    this.previewShow = true;
-    this.isPrev = false;
-    this.isNext = false;
-    this.isSave = false;
-    this.isPreview = false;
-    this.showUpdateButton = false;
-    this.isEdit = true;
-    this.isConfirm = true;
+    // this.lc = this.lcDetailForm.value;
+    // this.previewShow = true;
+    // this.isPrev = false;
+    // this.isNext = false;
+    // this.isSave = false;
+    // this.isPreview = false;
+    // this.showUpdateButton = false;
+    // this.isEdit = true;
+    // this.isConfirm = true;
     this.titleService.loading.next(false);
     
   }
@@ -283,7 +287,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
-    data.transactionID = this.transactionID;
+    data.transactionId = this.transactionID;
 
 
     this.upls.updateLc(data).subscribe(
@@ -291,6 +295,15 @@ export class UploadLCComponent implements OnInit {
           // this.transactionID = JSON.parse(JSON.stringify(response)).data;
           this.loading = false;
           this.titleService.loading.next(false);
+          this.lc = this.lcDetailForm.value;
+          this.previewShow = true;
+          this.isPrev = false;
+          this.isNext = false;
+          this.isSave = false;
+          this.isPreview = false;
+          this.showUpdateButton = false;
+          this.isEdit = true;
+          this.isConfirm = true;
         },
         (error) => {
           this.loading = false;
@@ -316,13 +329,15 @@ export class UploadLCComponent implements OnInit {
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
-              message: 'Your Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
+              message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
               parent: this.subURL+"/"+this.parentURL + '/new-transaction'
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+          this.isUpdate = false;
+
         },
         (error) => {
           this.titleService.loading.next(false);
@@ -477,15 +492,18 @@ export class UploadLCComponent implements OnInit {
     }
   }
 
-  callDraftTransaction(){
+  callDraftTransaction(trnsactionID){
+    this.transactionID = trnsactionID;
     const param = {
-      userId: sessionStorage.getItem('userID')
+      transactionId: trnsactionID
     }
+    this.isUpdate = true;
     
-    this.upls.getCustDraftTransaction(param).subscribe(
+    this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
-         this.draftData = JSON.parse(JSON.stringify(response)).data[13];
+         this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);
+        this.dateToPass = new Date(this.draftData.lCIssuingDate);
          
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
@@ -497,7 +515,7 @@ export class UploadLCComponent implements OnInit {
       
           lCValue: this.draftData.lCValue,
           lCCurrency: this.draftData.lCCurrency,
-          lCIssuingDate: this.draftData.lCIssuingDate, 
+          lCIssuingDate: (this.draftData.lCIssuingDate) ? this.dateFormat(this.draftData.lCIssuingDate) : '',
           lastShipmentDate: this.draftData.lastShipmentDate,
           negotiationDate: this.draftData.negotiationDate,
           goodsType:this.draftData.goodsType,

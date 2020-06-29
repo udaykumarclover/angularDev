@@ -22,59 +22,67 @@
                         <div class="card-header card-header-icon" data-background-color="blue">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div class="card-content">
+                        <div class="card-content personal_details">
                             <h4 class="card-title"> Personal Details </h4>
                             <form [formGroup]="personalDetailsForm" (ngSubmit)="submit();">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                            <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>First Name</label>
-                                            <div *ngIf="submitted && perDetails.firstName.errors?.required">
-                                                First Name is required
-                                            </div>
+                                            <div *ngIf="submitted && perDetails.firstName.errors" class="invalid-feedback">
+                                                <div *ngIf="perDetails.firstName.errors.required">
+                                                   First Name is required
+                                                </div>
+                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                            <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Last Name</label>
-                                            <div *ngIf="submitted && perDetails.lastName.errors?.required">
-                                                Last Name is required
+                                            <div *ngIf="submitted && perDetails.firstName.errors" class="invalid-feedback">
+                                                <div *ngIf="perDetails.lastName.errors?.required">
+                                                    Last Name is required
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="emailId">
-                                            <label>Email ID</label>
+                                            <input type="text" formControlName="emailId" [ngClass]="hasValue ? 'has-value' : ''" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                                            <label>Official Email ID</label>
+                                            <div *ngIf="submitted && perDetails.emailId.errors" class="invalid-feedback">
                                             <div *ngIf="submitted && perDetails.emailId.errors?.required">
                                                 Email is required
                                             </div>
-                                            <div *ngIf="perDetails.emailId.touched && perDetails.emailId.errors?.pattern">
+                                            <div *ngIf="perDetails.emailId.errors?.pattern">
                                                 Invalid Email id
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="inputDiv">
-                                            <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
-                                            <label>Mobile No.</label>
-                                            <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
-                                                Mobile No is required
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="landLineNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')">
+                                            <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <label>Mobile No.</label>
+                                            <div *ngIf="submitted && perDetails.mobileNo.errors" class="invalid-feedback">
+                                                <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
+                                                    Mobile No is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="landLineNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Landline No.</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <!-- <div class="inputDiv " > selectdiv -->
                                         <div class="inputDiv selectdiv">
-                                            <select formControlName="country">
+                                            <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                                                
                                                 <!-- <option value="India">India</option>
@@ -82,26 +90,28 @@
                                                 <option value="BanglaDesh">Bangladesh</option> -->
                                             </select>
                                             <label>Select Country</label>
-                                            <div *ngIf="submitted && perDetails.country.errors?.required">
-                                                Select a Country
+                                            <div *ngIf="submitted && perDetails.country.errors" class="invalid-feedback">
+                                                <div *ngIf="submitted && perDetails.country.errors.required">
+                                                    Select a Country
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="30" formControlName="companyName">
+                                            <input type="text" maxlength="30" formControlName="companyName" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Company Name</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" *ngIf="isReferrer">
+                                    <div class="col-md-3" *ngIf="isReferrer" >
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Designation</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="15" formControlName="businessType">
+                                            <input type="text" maxlength="15" formControlName="businessType" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Business Type</label>
                                         </div>
                                     </div>
@@ -109,19 +119,30 @@
  
                                      <div class="col-md-3 bankfields" *ngIf="isBank">
                                         <div class="inputDiv">
-                                           <input type="text" maxlength="15" formControlName="minLCVal" (keypress)="validateRegexFields($event, 'number')">
+                                           <input type="text" maxlength="15" formControlName="minLCVal" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                            <label>Minimum Value of LC (USD)</label>
                                         </div>
                                      </div>
                                      <div class="col-md-3 bankfields" *ngIf="isBank">
                                         <div class="inputDiv multiselect-dropdown ">
+                                            <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Countries Interested</label>
-                                            <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <div *ngIf="submitted && perDetails.countriesInt.errors" class="invalid-feedback">
+                                                <div *ngIf="submitted && perDetails.countriesInt.errors?.required">
+                                                    Select Countries Interested
+                                                </div>
+                                            </div>
                                         </div>
                                      </div>
                                      <div class="col-md-3 bankfields" *ngIf="isBank">
                                         <div class="inputDiv">
-                                            <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                            <label class="dropdownlabel">Blacklisted Goods</label>
+                                            <div *ngIf="submitted && perDetails.blacklistedGC.errors" class="invalid-feedback">
+                                                <div *ngIf="submitted && perDetails.blacklistedGC.errors?.required">
+                                                    Select Blacklisted Goods
+                                                </div>
+                                            </div>
                                         </div>
                                      </div>
                                     <input type="hidden" formControlName="subscriberType">

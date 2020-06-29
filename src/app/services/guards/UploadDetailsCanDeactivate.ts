@@ -4,7 +4,7 @@ import { UploadLCComponent } from 'src/app/nimai/transaction/upload-lc/upload-lc
 
 export class UploadLcDetailsCanDeactivate implements CanDeactivate<UploadLCComponent>{
     canDeactivate(component:UploadLCComponent):boolean{
-        component.save();
+        // component.save();
         return true;
     }
 

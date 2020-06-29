@@ -84,7 +84,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
+  
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
@@ -140,7 +140,6 @@ export class ConfirmationComponent implements OnInit {
 
         this.closed();
         this.tab = 'tab1';
-        this.activeTransaction.ngOnInit();
       }
         break;
       case 'preview': {

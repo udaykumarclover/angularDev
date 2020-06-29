@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
@@ -25,11 +25,18 @@ export class BusinessDetailsComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   public perDetailsSubmit = false;
+  public hasValue=false;
   resp: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute) {
+  constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
+  
+    if(sessionStorage.getItem('userID'))
+    {
+      this.hasValue=true;
+    }else{
+      this.hasValue=false;
+    }
     this.getBusinessDetails(sessionStorage.getItem('userID'));
-
     let navigation = this.router.getCurrentNavigation();
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -40,40 +47,35 @@ export class BusinessDetailsComponent implements OnInit {
     })
 
     this.businessDetailsForm = this.fb.group({
-
       userId: [''],
-
       selector: [''],
-
-      companyName: ['', Validators.required],
-      // ownerFirstName: ['', Validators.required],
-      // ownerLastName: ['', Validators.required],
-      // designation: ['', Validators.required],
+      companyName: ['', [Validators.required,Validators.minLength(4)]],
+      designation: ['', Validators.minLength(3)],
       country: ['', Validators.required],
-      provinceName: [''],
-      city: ['', Validators.required],
-      addressLine1: ['', Validators.required],
-      addressLine2: ['', Validators.required],
-      addressLine3: ['', Validators.required],
-      pincode: ['', Validators.required],
+      provinceName: ['',Validators.required],
+      city: ['', [Validators.required,Validators.minLength(3)]],
+      addressLine1: ['', [Validators.required,Validators.minLength(3)]],
+      addressLine2: ['',Validators.minLength(3)],
+      addressLine3: ['',Validators.minLength(3)],
+      pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
       telephone: ['', Validators.required],
-
-
       bankNbfcName: ['', Validators.required],
       branchName: ['', Validators.required],
       swiftCode: ['', Validators.required],
-
       lCCurrencyValue: [''],
-
-      owners: this.fb.array([])
-
-
-
+      owners: this.fb.array([this.getOwners()])
     });
-    this.add(0);
+    //this.add(0);
     this.titleService.changeTitle(this.title);
   }
-
+  getOwners(){
+    return this.fb.group({
+    ownerFirstName: ['', Validators.required],
+    ownerLastName: ['', Validators.required],
+    designation: ['', Validators.minLength(3)],
+    ownerID: ['']
+  });
+  }
   get busiDetails() {
     return this.businessDetailsForm.controls;
   }
@@ -82,7 +84,23 @@ export class BusinessDetailsComponent implements OnInit {
   ngOnInit() { 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
    }
-
+   ngAfterViewInit() {
+     const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
+     selectList.forEach((select: HTMLElement) => {
+      select.addEventListener('focus', () => {
+        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+          select.className=" has-value ng-valid ng-dirty ng-touched"   
+        else 
+          select.className="ng-valid ng-dirty ng-touched has-value"
+      });
+      select.addEventListener('blur', () => {
+        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+          select.className="has-value ng-valid ng-dirty ng-touched"   
+        else 
+          select.className="ng-valid ng-dirty ng-touched has-value"
+      });
+  });
+ }
   setValidators() {
 
     if (this.isCustomer == false) {
@@ -101,8 +119,11 @@ export class BusinessDetailsComponent implements OnInit {
 
   }
 
-
+  validateCommons(){
+    this.businessDetailsForm.get('companyName').setValidators(Validators.required);
+  }
   submit(): void {
+    this.validateCommons();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
 
@@ -118,13 +139,14 @@ export class BusinessDetailsComponent implements OnInit {
         this.titleService.loading.next(false);
         const navigationExtras: NavigationExtras = {
           state: {
-            title: 'Congraulations! Your Business Details has been successfully submitted !',
+            title: 'Congratulations! Your Business Details has been successfully submitted!',
             message: '',
             parent: this.subURL + '/' + this.parentURL + '/business-details'
 
           }
         };
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
+        
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
           .then(success => console.log('navigation success?', success))
           .catch(console.error);
       },
@@ -225,14 +247,14 @@ export class BusinessDetailsComponent implements OnInit {
 
   }
 
-  createItem(): FormGroup {
-    return this.fb.group({
-      ownerFirstName: '',
-      ownerLastName: '',
-      designation: '',
-      ownerID: ''
-    });
-  }
+  // createItem(): FormGroup {
+  //   return this.fb.group({
+  //     ownerFirstName: '',
+  //     ownerLastName: '',
+  //     designation: '',
+  //     ownerID: ''
+  //   });
+  // }
   createOwnerItem(data: OwnerDetail): FormGroup {
     return this.fb.group({
       ownerFirstName: data.ownerFirstName,
@@ -246,16 +268,18 @@ export class BusinessDetailsComponent implements OnInit {
     this.removeAll();
     let items = this.businessDetailsForm.get('owners') as FormArray;
     for (let owner of owners)
-      items.push(this.createOwnerItem(owner));
-
+    {
+      items.push(this.createOwnerItem(owner)); 
+    }
   }
 
-  add(i: number) {
 
+  add(i: number) {
     let items = this.businessDetailsForm.get('owners') as FormArray;
     if (items.length < 3)
-      items.push(this.createItem());
-
+    {
+      items.push(this.getOwners());
+    }
   }
 
   remove(i: number) {

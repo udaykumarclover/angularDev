@@ -1,6 +1,5 @@
-<div id="menu-bar" [hidden]="!isActive" (blur)="closed()"
-   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;"
-   >
+<div id="menu-bar-discounting" [hidden]="!isActive" (blur)="closed()"
+   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
    <div class="popupcontent">
       <div class="card">
          <div class="card-content">
@@ -169,6 +168,7 @@
 
                </div>
             </div>
+
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                <div class="tab-pane active datadiv" id="pill1"
                   style="    height: 530px;overflow: auto;padding-bottom: 30px;">
@@ -311,45 +311,45 @@
                         <tr>
                            <td>Pro Forma</td>
                            <td><a href="#" class="">View</a>
+               
+               </td>
+               </tr>
+               </tbody>
+               </table>
 
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-
-               </div>
-               <div class="posfix">
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
-                     Submit
-                     <div class="ripple-container"></div>
-                  </button>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
-                     Edit
-                     <div class="ripple-container"></div>
-                  </button>
-               </div>
             </div>
-            <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
-               <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
-                  <table class="table">
-                     <tbody>
-                        <tr>
-                           <td colspan="2" class="text-center">
-                              <p style="text-align: center;">Your Quote has been placed successfully.<br> Check Active
-                                 Transaction Section to see your current rank.</p>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <div class="posfix">
-                     <button class="btn btn-info" (click)="transaction('ok')">
-                        OK
-                        <div class="ripple-container"></div>
-                     </button>
-                  </div>
+            <div class="posfix">
+               <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                  Submit
+                  <div class="ripple-container"></div>
+               </button>
+               <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                  Edit
+                  <div class="ripple-container"></div>
+               </button>
+            </div>
+         </div>
+         <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+            <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+               <table class="table">
+                  <tbody>
+                     <tr>
+                        <td colspan="2" class="text-center">
+                           <p style="text-align: center;">Your Quote has been placed successfully.<br> Check Active
+                              Transaction Section to see your current rank.</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <div class="posfix">
+                  <button class="btn btn-info" (click)="transaction('ok')">
+                     OK
+                     <div class="ripple-container"></div>
+                  </button>
                </div>
             </div>
          </div>
       </div>
    </div>
+</div>
 </div>

@@ -4,6 +4,7 @@ import { MustMatch } from 'src/app/beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
+import { ChangePassword } from 'src/app/beans/login';
 
 
 @Component({
@@ -28,7 +29,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePasswordForm = this.formBuilder.group({
-    userId: sessionStorage.getItem('userID'),
     oldpassword: new FormControl('', Validators.required),
     newPassword: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', [Validators.required])
@@ -57,14 +57,14 @@ export class ChangePasswordComponent implements OnInit {
     this.submitted = false;
     $('.modal1').hide();
 
-    // let data={
-    //   userId: sessionStorage.getItem('userID'),
-    //   oldPassword: this.changePasswordForm.get('oldpassword').value,
-    //   newPassword: this.changePasswordForm.get('newPassword').value,
-    //   retypePassword: this.changePasswordForm.get('confirmPassword').value
-    // }
+    let data: ChangePassword = {
+      userId: sessionStorage.getItem('userID'),
+      oldPassword: this.changePasswordForm.get('oldpassword').value,
+      newPassword: this.changePasswordForm.get('newPassword').value,
+      retypePaasword: this.changePasswordForm.get('confirmPassword').value,
+    }
 
-    this.loginService.changePassword(this.changePasswordForm.value).
+    this.loginService.changePassword(data).
       subscribe(
         (response) => {
           const navigationExtras: NavigationExtras = {

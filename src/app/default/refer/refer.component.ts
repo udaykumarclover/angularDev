@@ -45,7 +45,7 @@ export class ReferComponent implements OnInit {
 
   referForm = this.formBuilder.group({
     userId: sessionStorage.getItem('userID'),
-    referenceId: new FormControl(''),
+    // referenceId: new FormControl(''),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     mobileNo: new FormControl('', [Validators.required]),
@@ -87,7 +87,7 @@ export class ReferComponent implements OnInit {
     }
     const data = {
       userId: sessionStorage.getItem('userID'),
-      referenceId: this.referForm.get('referenceId').value,
+      // referenceId: this.referForm.get('referenceId').value,
       firstName: this.referForm.get('firstName').value,
       lastName: this.referForm.get('lastName').value,
       mobileNo: this.referForm.get('mobileNo').value,
@@ -97,7 +97,7 @@ export class ReferComponent implements OnInit {
       status: 'ACTIVE',
       insertedDate: this.getCurrentDate,
       modifiedDate: this.getCurrentDate,
-      branchUserId: this.referForm.get('branchUserId').value,
+      branchUserId: 'TEST',//this.referForm.get('branchUserId').value,
       insertedBy: this.referForm.get('firstName').value,
       modifiedBy: this.referForm.get('firstName').value
     }    

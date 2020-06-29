@@ -27,10 +27,10 @@
          Tip 3: you can change the color of the sidebar with data-background-color="white | black"
          -->
       <div class="logo">
-        <a href="#" class="simple-text logo-mini">
+        <a href="#" [routerLink]="['/']" class="simple-text logo-mini">
           <i class="fas fa-industry"></i>
         </a>
-        <a href="#" class="simple-text logo-normal">
+        <a href="#" [routerLink]="['/']" class="simple-text logo-normal">
           NIMAI
         </a>
       </div>
@@ -41,7 +41,7 @@
                  <ul class="nav">
                     <li >
                        <a data-toggle="collapse" href="#accountPages" [attr.aria-expanded]="areaExpandedacc" >
-                          <i class="fas fa-exchange-alt"></i>
+                          <i class="fa fa-address-book-o"></i>
                           <p>Account Details 
                              <b class="caret"></b>
                           </p>
@@ -51,25 +51,25 @@
                              <li [routerLinkActive]="['active']">
                                 <a [routerLink]="['personal-details']">
                                    <i class="fas fa-user"></i>
-                                   <p> Personal Detail </p>
+                                   <p> Personal Details </p>
                                 </a>
                              </li>
                              <li [routerLinkActive]="['active']" > 
                                 <a [routerLink]="['business-details']">
                                    <i class="fas fa-business-time"></i>
-                                   <p> Business Detail </p>
+                                   <p> Business Details </p>
                                 </a>
                              </li>
                              <li [routerLinkActive]="['active']">
                                 <a [routerLink]="['subscription']" *ngIf="!isReferrer">
                                 <i class="fas fa-file-invoice-dollar"></i>
-                                <p> Subscription Detail </p>
+                                <p> Subscription Details </p>
                                 </a>
                              </li>
                              <li [routerLinkActive]="['active']">
                                 <a [routerLink]="['kyc-details']">
                                    <i class="fas fa-user-check"></i>
-                                   <p> KYC Detail </p>
+                                   <p> KYC Details </p>
                                 </a>
                              </li>
                              <!-- <li *ngIf="isCustomer">
@@ -100,9 +100,9 @@
                           </ul>
                        </div>
                     </li>
-                    <li *ngIf="isCustomer || isBank">
+                    <li>
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
-                          <i class="fas fa-tasks"></i>
+                          <i class="fa fa-book fa-fw"></i>
                           <p>Transaction  Details 
                              <b class="caret"></b>
                           </p>
@@ -111,8 +111,16 @@
                           <ul class="nav">
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['new-transaction']">
-                                   <i class="fas fa-concierge-bell"></i>
-                                   <p> New Transaction </p>
+                                  <i class="fas fa-concierge-bell"></i>
+                                  <ng-template
+                                    *ngIf="isCustomer;then showBlock; else notShowBlock">
+                                  </ng-template>
+                                  <ng-template #showBlock>
+                                    <p> New Transaction </p>
+                                  </ng-template>
+                                  <ng-template #notShowBlock>
+                                      <p> New Request </p>
+                                  </ng-template>
                                 </a>
                              </li>
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
@@ -123,7 +131,7 @@
                              </li>
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['transaction-details']">
-                                   <i class="fas fa-exchange-alt"></i>
+                                   <i class="fa fa-th-list"></i>
                                    <p> Transaction Details </p>
                                 </a>
                              </li>
