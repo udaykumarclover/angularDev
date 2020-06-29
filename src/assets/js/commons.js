@@ -805,7 +805,7 @@ export function bankRequest(){
 export function custTrnsactionDetail() {
 
     $(function () {
-        setTimeout(() => {
+        
         $('#datatables select').css('color', '#333');
         // prettyPrint();
         $("#menu-bar").click(function () {
@@ -814,7 +814,7 @@ export function custTrnsactionDetail() {
                 $("#menu-bar").slideReveal("hide");
             });
         });
-        var slider = $("#menu-bar").slideReveal({
+        var slider6 = $("#menu-bar").slideReveal({
             // width: 100,
             push: false,
             position: "right",
@@ -834,7 +834,7 @@ export function custTrnsactionDetail() {
         $(function () {
             // prettyPrint();
 
-            var slider4 = $("#menubarDetail").slideReveal({
+            var slider7 = $("#menubarDetail").slideReveal({
                 width: 450,
                 push: false,
                 position: "right",
@@ -855,7 +855,7 @@ export function custTrnsactionDetail() {
         $(function () {
             // prettyPrint();
 
-            var slider5 = $("#menubarDetailreject").slideReveal({
+            var slider8 = $("#menubarDetailreject").slideReveal({
                 width: 450,
                 push: false,
                 position: "right",
@@ -876,7 +876,7 @@ export function custTrnsactionDetail() {
         $(function () {
             // prettyPrint();
 
-            var slider6 = $("#menubarDetailexpired").slideReveal({
+            var slider9 = $("#menubarDetailexpired").slideReveal({
                 width: 450,
                 push: false,
                 position: "right",
@@ -893,6 +893,7 @@ export function custTrnsactionDetail() {
                 }
             });
         });
+        setTimeout(() => {
         $('#datatables').DataTable({
             "pagingType": "full_numbers", "scrollX": true,
             "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -903,19 +904,14 @@ export function custTrnsactionDetail() {
             }
         });    
 
-        $('<div class="inputDiv selectdiv pull-right">' +
-            '<select class="has-value">' + '<option value="0">Quote Status </option>' +
-            '<option value="1">Accepted </option>' +
-            '<option value="2">Rejected</option>' +
-            '<option value="3">Expired</option>' +
-            '</select>' +
-            '</div>').appendTo("#datatables_wrapper .dataTables_filter");
+
+        $('#addOptions').appendTo("#datatables_wrapper .dataTables_filter");
 
         $(".dataTables_filter label").addClass("pull-right");
 
         $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"})
-        
     }, 1000);
+        
     });
 }
 
@@ -924,7 +920,7 @@ export function custActiveTransaction() {
         $(function () {
             // prettyPrint();
 
-            var slider = $("#menu-bar-banker").slideReveal({
+            var slider0 = $("#menu-bar-banker").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -941,7 +937,7 @@ export function custActiveTransaction() {
                 }
             });
 
-            var slider = $("#menu-bar-confirmation").slideReveal({
+            var slider1 = $("#menu-bar-confirmation").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -958,7 +954,7 @@ export function custActiveTransaction() {
                 }
             });
 
-            var slider = $("#menu-bar-discounting").slideReveal({
+            var slider2 = $("#menu-bar-discounting").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -975,7 +971,7 @@ export function custActiveTransaction() {
                 }
             });
 
-            var slider = $("#menu-bar-confirmAndDiscount").slideReveal({
+            var slider3 = $("#menu-bar-confirmAndDiscount").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -992,7 +988,7 @@ export function custActiveTransaction() {
                 }
             });
 
-            var slider = $("#menu-bar-refinancing").slideReveal({
+            var slider4 = $("#menu-bar-refinancing").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",
@@ -1009,7 +1005,7 @@ export function custActiveTransaction() {
                 }
             });
 
-            var slider = $("#menu-bar1").slideReveal({
+            var slider5 = $("#menu-bar1").slideReveal({
                 // width: 100,
                 push: false,
                 position: "right",

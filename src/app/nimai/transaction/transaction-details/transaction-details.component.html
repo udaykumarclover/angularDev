@@ -68,6 +68,17 @@
   </div>
 </div>
 
+
+<div id="addOptions" class="addOptions inputDiv selectdiv pull-right">
+   <select (change)="changeStatusCall($event.target.value)" class="has-value"> 
+   <option value="Active">Active </option>
+   <option value="Pending">Pending </option>
+   <option value="Accepted">Accepted </option>
+   <option value="Rejected">Rejected</option>
+   <option value="Expired">Expired</option>
+   </select>
+   </div>
+
 <div id="menu-bar">
   <div class="handle btn btn-info handle">
      <span class="fas fa-angle-left"></span>

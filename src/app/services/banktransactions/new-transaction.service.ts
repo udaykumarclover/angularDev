@@ -12,8 +12,8 @@ export class NewTransactionService {
 
   constructor(public httpClient: HttpClient) { }
 
-  public getAllNewTransaction(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${environment.domain}/nimaiTransaction/getAllTransactionDetails`, { headers: { 'content-types': 'application/json' } });
+  public getAllNewTransaction(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailByUserIdAndStatus`,data, { headers: { 'content-types': 'application/json' } });
   }
 
 

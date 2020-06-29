@@ -27,20 +27,24 @@ export class TransactionDetailsComponent {
 
   ngOnInit() {
     custTrnsactionDetail();
-    this.getAllnewTransactions();
+    this.getAllnewTransactions('Active');
   }
 
-  public getAllnewTransactions() {
-    this.nts.getAllNewTransaction().subscribe(
+  public getAllnewTransactions(status) {
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+      "transactionStatus":status
+    }
+    this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
         if (!this.data) {
-          this.hasNoRecord = true;
+          // this.hasNoRecord = true;
         }
       },
       (error) => {
-        this.hasNoRecord = true;
+        // this.hasNoRecord = true;
 
       }
     )
@@ -51,6 +55,10 @@ export class TransactionDetailsComponent {
     console.log(detail);
     this.specificDetail = detail;
     
+  }
+
+  changeStatusCall(status){
+    this.getAllnewTransactions(status);
   }
 
 
