@@ -16,10 +16,7 @@ import { PersonalDetailsComponent } from 'src/app/nimai/personal-details/persona
 import { DashboardComponent } from 'src/app/nimai/dashboard/dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NewTransactionComponent } from 'src/app/nimai/bankTransaction/newTransaction/new-transaction/new-transaction.component';
-import { ConfirmationComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/confirmation/confirmation.component';
-import { DiscountingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/discounting/discounting.component';
 import { ConfirmAndDiscountComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/confirm-and-discount/confirm-and-discount.component';
-import { RefinancingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/refinancing/refinancing.component';
 import { BankerComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/banker/banker.component';
 import { MyProfileComponent } from 'src/app/nimai/my-profile/my-profile.component';
 import { ResetPasswordComponent } from 'src/app/default/reset-password/reset-password/reset-password.component';
@@ -27,8 +24,11 @@ import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/man
 import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
 import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { ActiveTransactionComponent } from 'src/app/nimai/bankTransaction/active-transaction/active-transaction.component';
-import { TrasactionDetailsComponent } from 'src/app/nimai/bankTransaction/trasaction-details/trasaction-details.component';
+import { ConfirmationComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/confirmation/confirmation.component';
+import { DiscountingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/discounting/discounting.component';
 import { DraftTransactionComponent } from 'src/app/nimai/bankTransaction/draft-transaction/draft-transaction.component';
+import { TrasactionDetailsComponent } from 'src/app/nimai/bankTransaction/trasaction-details/trasaction-details.component';
+import { RefinancingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/refinancing/refinancing.component';
 
 
 const routes: Routes = [

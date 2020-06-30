@@ -84,7 +84,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
+  
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
