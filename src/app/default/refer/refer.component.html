@@ -43,80 +43,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>Bangladesh</td>
-                                                <td>Al Muqadi Mah Trading LLC</td>
-                                                <td>john.doe@compname.com</td>
-                                                <td nowrap>+880-8765432109</td>
-                                                <td>Gold</td>
-                                                <td>USD $999</td>
-                                                <td>USD $99</td>
-                                                <td>New</td>
-                                                <td>Active</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td nowrap>14-06-2019<br> 14:25:30 GMT</td>
-                                                <td>Jake</td>
-                                                <td>Weary</td>
-                                                <td>Bangladesh</td>
-                                                <td>Aerotech General Trading LLC</td>
-                                                <td>jake.weary@comname.com</td>
-                                                <td nowrap>+880-89654321098</td>
-                                                <td>Silver</td>
-                                                <td>USD $499</td>
-                                                <td>USD $49</td>
-                                                <td>Renewal</td>
-                                                <td>Active</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td nowrap>15-06-2019<br> 09:33:30 GMT</td>
-                                                <td>Justin</td>
-                                                <td>Case</td>
-                                                <td>Bangladesh</td>
-                                                <td>KDS Group</td>
-                                                <td>justin.case@comname.com</td>
-                                                <td nowrap>+880-6543218908</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>Pending</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td nowrap>16-06-2019<br> 13:16:09 GMT</td>
-                                                <td>John </td>
-                                                <td>Norman</td>
-                                                <td>Bangladesh</td>
-                                                <td>Beximco Pvt Ltd</td>
-                                                <td>john.normal@comname.com</td>
-                                                <td nowrap>+880-9892675688</td>
-                                                <td>Gold</td>
-                                                <td>USD $999</td>
-                                                <td>USD $99</td>
-                                                <td>New</td>
-                                                <td>Active</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td nowrap>14-08-2019<br> 14:25:30 GMT</td>
-                                                <td>Niles</td>
-                                                <td>Down</td>
-                                                <td>Bangladesh</td>
-                                                <td>Walton</td>
-                                                <td>niles.down@comname.com</td>
-                                                <td nowrap>+880-9860234568</td>
-                                                <td>Silver</td>
-                                                <td>USD $499</td>
-                                                <td>USD $49</td>
-                                                <td>New</td>
-                                                <td>Active</td>
+                                            <tr *ngFor="let record of referViewDetails; let i = index">
+                                                <td>{{i+1}}</td>
+                                                <td nowrap>{{record.insertedDate}}</td>
+                                                <td>{{record.firstName}}</td>
+                                                <td>{{record.lastName}}</td>
+                                                <td>{{record.countryName}}</td>
+                                                <td>{{record.companyName}}</td>
+                                                <td>{{record.emailAddress}}</td>
+                                                <td nowrap>{{record.mobileNo}}</td>
+                                                <td>{{record.insertedDate}}</td>
+                                                <td>{{record.insertedDate}}</td>
+                                                <td>{{record.insertedDate}}</td>
+                                                <td>{{record.insertedDate}}</td>
+                                                <td>{{record.status}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

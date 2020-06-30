@@ -44,6 +44,7 @@ export class TransactionDetailsComponent {
         }
       },
       (error) => {
+        this.data = [];
         // this.hasNoRecord = true;
 
       }

@@ -231,7 +231,7 @@ export function manageSub(){
       });
 
       $('.popupcontent select').css('color', '#333');
-
+      setTimeout(() => {
       $('#datatables').DataTable({
         "pagingType": "full_numbers", "scrollX": true,
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -273,6 +273,7 @@ export function manageSub(){
       table.on('click', '.like', function () {
         alert('You clicked on Like button');
       });
+    },1000);
 
       $('.card .material-datatables label').addClass('form-group');
     });

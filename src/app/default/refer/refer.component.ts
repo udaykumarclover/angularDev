@@ -24,6 +24,7 @@ export class ReferComponent implements OnInit {
   getCurrentDate: any;
   showBranchUserId: boolean = false;
   resp: any;
+  referViewDetails : any;
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:PersonalDetailsService) {
 
@@ -67,6 +68,7 @@ export class ReferComponent implements OnInit {
 
   ngOnInit() {
     manageSub();
+    this.viewReferDetails(sessionStorage.getItem('userID'));
   }
 
   close() {
@@ -178,6 +180,17 @@ export class ReferComponent implements OnInit {
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
     }
+  }
+
+  viewReferDetails(userID: string) {
+    this.service.viewRefer(userID)
+      .subscribe(
+        (response) => {
+          let responseData = JSON.parse(JSON.stringify(response));
+          this.referViewDetails = responseData;
+        },
+        (error) => {}
+      )
   }
 
 }
