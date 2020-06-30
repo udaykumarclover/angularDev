@@ -390,6 +390,7 @@ export class UploadLCComponent implements OnInit {
   
       // For Confirmation 
       paymentPeriod: [''],
+      discountPeriod: [''],
       paymentTerms: [''],
       tenorStartDate:[''],
       tenorEndDate: ['20-05-2020'],

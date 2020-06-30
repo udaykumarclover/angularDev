@@ -97,7 +97,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setUserCategoryValidators();
+  //  this.setUserCategoryValidators();
 
     $("body").on("domChanged", function () {
       const inputs = $('.inputDiv').find('input');
@@ -118,17 +118,19 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
- setUserCategoryValidators(){
-  const goods = this.personalDetailsForm.get('blacklistedGC')
-  const countries = this.personalDetailsForm.get('countriesInt')
-  if(!this.isBank){
-    goods.setValidators(null);
-    countries.setValidators(null);
-  }
- }
+//  setUserCategoryValidators(){
+//   const goods = this.personalDetailsForm.get('blacklistedGC')
+//   const countries = this.personalDetailsForm.get('countriesInt')
+//   if(!this.isBank){
+//     goods.setValidators(null);
+//     countries.setValidators(null);
+//   }
+//  }
   submit(): void {
    // alert("submit")
     this.submitted = true;    
+    console.log("this.personalDetailsForm--",this.personalDetailsForm.controls)
+    console.log("this.personalDetailsForm.invalid--",this.personalDetailsForm.invalid)
     if(this.personalDetailsForm.invalid) {
       return;
     }
@@ -141,7 +143,7 @@ export class PersonalDetailsComponent implements OnInit {
           this.titleService.loading.next(false);
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congraulations! Your Personal Details has been successfully submitted!',
+              title: 'congratulations! Your Personal Details has been successfully submitted!',
               message: '',
               parent: this.subURL + "/" + this.parentURL + '/personal-details'  // need to check
             }

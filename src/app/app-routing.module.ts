@@ -59,7 +59,7 @@ const routes: Routes = [
 //   exports: [RouterModule]
 // })
 
-//Code By Ashwini Page Reload Issue
+//Code By Ashvini Page Reload Issue
 @NgModule({
   imports: [RouterModule.forRoot(routes,  { useHash: true })],
   exports: [RouterModule]

@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from '../../../../assets/js/jquery.min';
 import { FormGroup, FormControl } from '@angular/forms';
 import {Validators} from '@angular/forms';
 import  { ValidateRegex } from '../../../beans/Validations';
-
-
+import { loads } from '../../../../assets/js/commons'
 @Component({
   selector: 'app-customer-login',
   templateUrl: './customer-login.component.html',
@@ -16,7 +15,7 @@ export class CustomerLoginComponent implements OnInit {
   emailAddress: any;
   submitted: boolean = false;
 
-  constructor(public router: Router) {
+  constructor(public router: Router,private el: ElementRef) {
 
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation)
@@ -38,9 +37,12 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    loads();
   }
-
+ngAfterViewInit() {
+  const invalidElements = this.el.nativeElement.querySelector('.first_input');
+  invalidElements.focus();
+}
   close() {
     $('.modal1').hide();
     if (this.parent === 'login') {
