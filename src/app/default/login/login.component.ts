@@ -416,7 +416,7 @@ export class LoginComponent implements OnInit {
 
     this.blgValue = this.signupForm.get('blacklistedGC').value;
     this.intCountriesValue = this.signupForm.get('countriesInt').value;
-    console.log(this.intCountriesValue+"========"+this.blgValue);
+ //   console.log(this.intCountriesValue+"========"+this.blgValue);
     
     this.blg = [];
     this.intCountries = [];
@@ -484,12 +484,12 @@ export class LoginComponent implements OnInit {
 
 
   onItemSelect(item: any) {
-    console.log(item);
+   // console.log(item);
 
   }
 
   onSelectAll(item: any) {
-    console.log(item);
+  //  console.log(item);
   }
 
 
@@ -571,7 +571,7 @@ export class LoginComponent implements OnInit {
       subscribe(
         (response) => {
           this.resp = JSON.parse(JSON.stringify(response));
-          console.log(this.resp);
+        //  console.log(this.resp);
           sessionStorage.setItem('countryData', JSON.stringify(response));
           
         },
