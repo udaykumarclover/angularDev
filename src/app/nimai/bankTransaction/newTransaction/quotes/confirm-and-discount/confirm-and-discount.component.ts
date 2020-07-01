@@ -13,6 +13,7 @@ import { ViewChild, OnInit, Component } from '@angular/core';
 export class ConfirmAndDiscountComponent implements OnInit {
 
   public isActive: boolean = false;
+public isActiveQuote:boolean=false;
   public data: TransactionBean;
   public title: string = "";
   public tab = 'tab1';
@@ -84,13 +85,19 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
   public action(flag: boolean, type: Tflag, data: any) {
     if (flag) {
-      this.isActive = flag;
       if (type === Tflag.VIEW) {
+        this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
       } else if (type === Tflag.EDIT) {
+        this.isActive = flag;
         this.title = 'Edit';
+        this.data = data;
+        $('input').attr('readonly', false);
+      }else{
+        this.isActiveQuote = flag;
+        this.title = 'Place Quote';
         this.data = data;
         $('input').attr('readonly', false);
       }
@@ -107,7 +114,10 @@ export class ConfirmAndDiscountComponent implements OnInit {
     this.isActive = false;
     this.titleService.quote.next(false);
   }
-
+  public closedQuote() {
+    this.isActiveQuote = false;
+    this.titleService.quote.next(false);
+  }
 
   public transaction(act: string) {
 
@@ -128,6 +138,8 @@ export class ConfirmAndDiscountComponent implements OnInit {
           },
           error => {
             alert('error')
+            this.closedQuote();
+            this.tab = 'tab1';
           }
         )
 
@@ -135,10 +147,14 @@ export class ConfirmAndDiscountComponent implements OnInit {
       }
         break;
       case 'ok': {
-
-        this.closed();
-        this.tab = 'tab1';
+        if(this.isActive){
+          this.closed();
+          this.tab = 'tab1';
+          }else{
+         this.closedQuote();
+         this.tab = 'tab1';
       }
+    }
         break;
       case 'preview': {
         this.tab = 'tab2';

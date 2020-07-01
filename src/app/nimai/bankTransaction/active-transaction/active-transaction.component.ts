@@ -63,7 +63,6 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-  //  custActiveTransaction();
     bankActiveTransaction();
   }
 
@@ -77,7 +76,7 @@ export class ActiveTransactionComponent implements OnInit {
     
   }
 
-  showQuotePage(pagename: string,action:Tflag,data:any,buttonname: string) {
+  showQuotePage(pagename: string,action:Tflag,data:any) {
    console.log(pagename)
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;

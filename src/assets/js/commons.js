@@ -1486,7 +1486,7 @@ export function newRequest(){
     push: false,
     position: "right",
     // speed: 600,
-    trigger: $(".handleConfDis"),
+    trigger: $(".handle"),
     // autoEscape: false,
     shown: function(obj){
     obj.find(".handle").html('<span class="fas fa-times"></span>');
@@ -1507,7 +1507,7 @@ export function newRequest(){
     push: false,
     position: "right",
     // speed: 600,
-    trigger: $(".handleDis"),
+    trigger: $(".handle"),
     // autoEscape: false,
     shown: function(obj){
     obj.find(".handle").html('<span class="fas fa-times"></span>');
@@ -1528,7 +1528,7 @@ export function newRequest(){
     push: false,
     position: "right",
     // speed: 600,
-    trigger: $(".handleRef"),
+    trigger: $(".handle"),
     // autoEscape: false,
     shown: function(obj){
     obj.find(".handle").html('<span class="fas fa-times"></span>');
@@ -1550,7 +1550,7 @@ export function newRequest(){
     push: false,
     position: "right",
     // speed: 600,
-    trigger: $(".handleBan"),
+    trigger: $(".handle"),
     // autoEscape: false,
     shown: function(obj){
     obj.find(".handle").html('<span class="fas fa-times"></span>');

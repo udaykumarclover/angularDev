@@ -62,8 +62,6 @@
                               Preview
                               <div class="ripple-container" ></div>
                            </button>
-                           <!-- <a href="#"  class="pull-right linkbtn" style="margin-right: 5px;">Save
-                           </a> -->
                            <button class="btn btn-info" (click)="transaction('ok')">
                               Save
                               <div class="ripple-container"></div>
@@ -141,8 +139,6 @@
                               OK
                               <div class="ripple-container"></div>
                            </button>
-
-
                         </div>
                      </div>
                   </div>
@@ -150,13 +146,14 @@
             </div>
          </div>
       </div>
-<!-- 
-      <div id="menu-bar">
-      <div class="popupcontent">
+
+
+      <div id="menu-bar" [hidden]="!isActiveQuote"  (blur)="closedQuote()" style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
+       <div class="popupcontent">
          <div class="card">
             <div class="card-content">
-               <h4>Place Quote</h4>
-               <div class="tab-content" id="tab1">
+               <h4>{{title}}</h4>
+               <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                   <div class="tab-pane active" id="pill1">
                      <table class="table">
                         <tbody>
@@ -198,16 +195,18 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview">
+                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
                            Preview
                            <div class="ripple-container" ></div>
                         </button>
-                        <a href="#"  class="pull-right linkbtn" style="margin-right: 5px;">Save
-                        </a>
+                        <button class="btn btn-info" (click)="transaction('ok')">
+                           Save
+                           <div class="ripple-container"></div>
+                        </button>
                      </div>
                   </div>
                </div>
-               <div class="tab-content" id="tab2">
+               <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                   <div class="tab-pane active" id="pill1">
                      <table class="table">
                         <tbody>
@@ -248,15 +247,18 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
                            Submit
                            <div class="ripple-container"></div>
                         </button>
-                        <a href="#" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                           Edit
+                           <div class="ripple-container"></div>
+                        </button>
                      </div>
                   </div>
                </div>
-               <div class="tab-content" id="tab3">
+               <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
                   <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
                      <table class="table">
                         <tbody>
@@ -268,14 +270,14 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <a href="active-transactions.html" class="btn btn-info">
+                        <button class="btn btn-info" (click)="transaction('ok')">
                            OK
                            <div class="ripple-container"></div>
-                        </a>
+                        </button>
                      </div>
                   </div>
                </div>
             </div>
          </div>
       </div>
-   </div> -->
+   </div>
