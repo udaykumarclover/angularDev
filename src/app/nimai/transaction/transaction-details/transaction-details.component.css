@@ -37,3 +37,11 @@
   .popupnew .emaildiv .padnew {
       padding: 0px 25px 10px;
   }
+  .addOptions{
+    padding: 0;
+    width: 200px;
+    position: absolute;
+    right: 184px;
+    top: -2px;
+    z-index: 1;
+  }

@@ -27,7 +27,7 @@ export class TransactionDetailsComponent {
 
   ngOnInit() {
     custTrnsactionDetail();
-    this.getAllnewTransactions('Active');
+    this.getAllnewTransactions('Accepted');
   }
 
   public getAllnewTransactions(status) {
@@ -37,6 +37,7 @@ export class TransactionDetailsComponent {
     }
     this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
+        this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
         if (!this.data) {
@@ -44,7 +45,7 @@ export class TransactionDetailsComponent {
         }
       },
       (error) => {
-        this.data = [];
+        this.data = null;
         // this.hasNoRecord = true;
 
       }
@@ -60,8 +61,8 @@ export class TransactionDetailsComponent {
 
   changeStatusCall(status){
     this.getAllnewTransactions(status);
+    custTrnsactionDetail();
   }
-
 
 
 }

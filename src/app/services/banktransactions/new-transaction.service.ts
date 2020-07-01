@@ -13,7 +13,7 @@ export class NewTransactionService {
   constructor(public httpClient: HttpClient) { }
 
   public getAllNewTransaction(data: any): Observable<any[]> {
-    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailByUserIdAndStatus`,data, { headers: { 'content-types': 'application/json' } });
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getAllTxnByUserIdAndStatus`,data, { headers: { 'content-types': 'application/json' } });
   }
 
 
@@ -23,7 +23,7 @@ export class NewTransactionService {
 
 
   public updateCustomerTransaction(data: TransactionBean): Observable<any> {
-    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/update`, data, { headers: { 'content-types': 'application/json' } });
+    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
   }
 
   public getAllNewBankRequest(data: any): Observable<any[]> {

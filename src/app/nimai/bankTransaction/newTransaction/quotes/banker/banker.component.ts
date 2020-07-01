@@ -17,7 +17,7 @@ export class BankerComponent implements OnInit {
   public isActive: boolean = false;
   public data: TransactionBean;
   public title: string = "";
-  public tab = 'tab1';
+  public tab = 'tab2';
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     this.data = {
       transactionId: "",

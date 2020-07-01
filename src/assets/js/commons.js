@@ -1126,7 +1126,7 @@ export function bankRequest(){
 }
 
 export function custTrnsactionDetail() {
-
+    setTimeout(() => {
     $(function () {
         
         $('#datatables select').css('color', '#333');
@@ -1216,7 +1216,10 @@ export function custTrnsactionDetail() {
                 }
             });
         });
+    },500);
+    $('#datatables').DataTable().destroy();
         setTimeout(() => {
+            
         $('#datatables').DataTable({
             "pagingType": "full_numbers", "scrollX": true,
             "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -1226,13 +1229,12 @@ export function custTrnsactionDetail() {
                 searchPlaceholder: "Search records",
             }
         });    
+        // $('#addOptions').appendTo(".card-content");
+        // $("#addOptions select").attr("(change)","changeStatusCall($event.target.value)");
 
+        //$(".dataTables_filter label").addClass("pull-right");
 
-        $('#addOptions').appendTo("#datatables_wrapper .dataTables_filter");
-
-        $(".dataTables_filter label").addClass("pull-right");
-
-        $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"})
+        // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
     }, 1000);
         
     });
