@@ -55,7 +55,7 @@
                                       <td>{{record.goodsType}}</td>
                                       <td>{{record.requirementType}}</td>
                                       <td><span id="transactionDiv" style="cursor: pointer;" class="transactionDiv">{{record.quotationReceived}}</span></td>
-                                      <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
+                                      <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record,'Edit')"
                                               class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                                   </tr>
                                   </tbody>
@@ -252,14 +252,13 @@
     </div>
   </div> -->
   
-  <div id="myModal4" class="popupnew modal fade in" role="dialog">
+  <!-- <div id="myModal4" class="popupnew modal fade in" role="dialog">
     <div class="modal-dialog modal-md emaildiv">
-      <!-- Modal content-->
+    
       <div class="modal-content">
         <div class="modal-body">
           <h2>Quote Accepted</h2>
           <div class="padnew">
-            <!--<p><strong>Enter Email ID here</strong></p> -->
             <div class="">
               <div class="row">
                 <div class="col-md-12">
@@ -291,7 +290,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   
     <app-banker></app-banker>
     <app-confirm-and-discount></app-confirm-and-discount>
