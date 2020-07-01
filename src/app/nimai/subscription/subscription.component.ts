@@ -4,8 +4,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { Subscription } from 'src/app/beans/subscription';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
-import { ActivatedRoute } from '@angular/router';
-
+import { NavigationExtras, Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subscription',
@@ -24,7 +23,7 @@ export class SubscriptionComponent implements OnInit {
   public timeStamp = new Date();
   public parentURL: string = "";
   public subURL: string = "";
-  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder) {
+  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder,public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -49,8 +48,11 @@ export class SubscriptionComponent implements OnInit {
     }
     )
   }
-
-
+  gotokyc(){
+    alert("1")
+    console.log("route----",`/${this.subURL}/${this.parentURL}/subscription`)
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`])
+  }
   public choosePlan(plan: Subscription) {
     this.choosedPlan = plan;
     this.choosedPlan.userId = sessionStorage.getItem('userID');

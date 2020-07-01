@@ -68,6 +68,7 @@ export function loads() {
     };
 
     const selects = $('.inputDiv').find('select')
+    console.log("selects",selects)
     for (let select of selects) {
         var text_val = $(select).val();
         if (text_val === "") {
@@ -85,6 +86,14 @@ export function loads() {
             var text_val = $(this).val();
             if (text_val === "") {
                 $(this).removeClass('has-value');
+            } else {
+                $(this).addClass('has-value');
+            }
+        });
+        $('.inputDiv select').focusout(function () {
+            var text_val = $(this).val();
+            if (text_val === "") {
+                $(this).addClass('has-value');
             } else {
                 $(this).addClass('has-value');
             }

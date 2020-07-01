@@ -70,6 +70,9 @@
                                                 <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
                                                     Mobile No is required
                                                 </div>
+                                                <div *ngIf="perDetails.mobileNo.errors?.minlength">
+                                                    Mobile No must 12 digits long.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -77,6 +80,11 @@
                                         <div class="inputDiv">
                                             <input type="text" formControlName="landLineNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Landline No.</label>
+                                            <div *ngIf="submitted && perDetails.landLineNo.errors" class="invalid-feedback">       
+                                                <div *ngIf="perDetails.landLineNo.errors?.minlength">
+                                                    Landline No must 12 digits long.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

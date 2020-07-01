@@ -176,20 +176,26 @@ dl {
   font-weight: normal;
   color: #aaa;
 }
-
-.plan-features { 
-  margin: 20px auto 15px;
-  padding: 15px 0 0 10px;
-  border-top: 1px solid #e5ded6;
-  text-align: left;
-  list-style-image: url('../images/check.svg');
+.plan-features {
+  list-style: none;
+  padding-left: 0;
 }
-
-.plan-feature {
-  line-height: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #00bcd4;
+.plan-features li {
+  position: relative;
+  padding-left: 20px;
+  display:-webkit-box;
+}
+.plan-features li:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background-image: url('../images/check.svg');
+  background-size: cover;
+  background-position: center;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .plan-feature + .plan-feature {
   margin-top: 5px;

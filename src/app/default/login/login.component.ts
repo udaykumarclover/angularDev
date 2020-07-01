@@ -279,10 +279,11 @@ export class LoginComponent implements OnInit {
       this.signupForm.patchValue({ radio: 'bank', selector: 'customer' })
 
     } else {
+      console.log("else")
       this.isBank = true;
       this.resetSignUpForm();
       this.signupForm.patchValue({ radio: 'bank', selector: 'underwriter' })
-
+      setTimeout(function () { loads() }, 100);  
       setTimeout(function () { selectpickercall() }, 200);
     }
 

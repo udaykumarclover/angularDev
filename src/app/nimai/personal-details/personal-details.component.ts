@@ -62,8 +62,8 @@ export class PersonalDetailsComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
-      mobileNo: ['', Validators.required],
-      landLineNo: [''],
+      mobileNo: ['', [Validators.required,Validators.minLength(12)]],
+      landLineNo: ['',Validators.minLength(12)],
       country: ['', Validators.required],
       companyName: [''],
       designation: [''],
@@ -97,8 +97,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-  //  this.setUserCategoryValidators();
-
+    loads();
     $("body").on("domChanged", function () {
       const inputs = $('.inputDiv').find('input');
       for (let input of inputs) {
@@ -118,19 +117,22 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
-//  setUserCategoryValidators(){
-//   const goods = this.personalDetailsForm.get('blacklistedGC')
-//   const countries = this.personalDetailsForm.get('countriesInt')
-//   if(!this.isBank){
-//     goods.setValidators(null);
-//     countries.setValidators(null);
-//   }
-//  }
+ setUserCategoryValidators(){
+  console.log("in function") 
+  const goods = this.personalDetailsForm.get('blacklistedGC')
+  const countries = this.personalDetailsForm.get('countriesInt')
+  goods.clearValidators();
+  goods.updateValueAndValidity();
+  console.log("goods",goods)
+  countries.clearValidators();
+  countries.updateValueAndValidity();
+ }
   submit(): void {
    // alert("submit")
     this.submitted = true;    
     console.log("this.personalDetailsForm--",this.personalDetailsForm.controls)
     console.log("this.personalDetailsForm.invalid--",this.personalDetailsForm.invalid)
+    
     if(this.personalDetailsForm.invalid) {
       return;
     }
@@ -218,7 +220,11 @@ export class PersonalDetailsComponent implements OnInit {
             this.isBank = false;
             this.isReferrer = false;
           }
-
+          console.log("this.isBank ",this.isBank )
+          if(!this.isBank){
+            console.log("iffff")
+            this.setUserCategoryValidators();
+          }
           setTimeout(() => {
             selectpickercall();
             loads();
@@ -406,7 +412,7 @@ export class PersonalDetailsComponent implements OnInit {
       ValidateRegex.validateNumber(event);
     }
     else if (type == "alpha") {
-      console.log("***")
+     // console.log("***")
       //ValidateRegex.alphaOnly(event);
       var key = event.keyCode;
       if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {

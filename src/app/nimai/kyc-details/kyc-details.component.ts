@@ -6,6 +6,7 @@ import { KycuploadService } from 'src/app/services/kyc-upload/kycupload.service'
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { loadFilestyle } from '../../../assets/js/commons'
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { loads } from '../../../assets/js/commons'
 
 @Component({
   selector: 'app-kyc-details',
@@ -37,6 +38,7 @@ export class KycDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads();
     this.kycDetailsForm = this.fb.group({
       file: ['']
     });
@@ -79,7 +81,7 @@ export class KycDetailsComponent implements OnInit {
         err => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Ooops Something went wrong while uploading KYC documents.',
+              title: 'Oops! Something went wrong while uploading KYC documents',
               message: '',
               parent: this.subURL + '/' + this.parentURL + '/kyc-details'
 
