@@ -49,8 +49,8 @@ export class SubscriptionComponent implements OnInit {
     )
   }
   gotokyc(){
-    alert("1")
-    console.log("route----",`/${this.subURL}/${this.parentURL}/subscription`)
+   // alert("1")
+   // console.log("route----",`/${this.subURL}/${this.parentURL}/subscription`)
     this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`])
   }
   public choosePlan(plan: Subscription) {

@@ -68,7 +68,6 @@ export function loads() {
     };
 
     const selects = $('.inputDiv').find('select')
-    console.log("selects",selects)
     for (let select of selects) {
         var text_val = $(select).val();
         if (text_val === "") {
