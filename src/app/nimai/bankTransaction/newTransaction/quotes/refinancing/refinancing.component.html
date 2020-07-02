@@ -1,152 +1,316 @@
-<div id="menubarRefinancing" [hidden]="!isActive">
-    <!--<h3>SlideReveal
-       <small><span class="glyphicon glyphicon-info-sign"></span> Press <kbd>ESC</kbd> to close</small>
-       </h3>-->
-    <div class="popupcontent">
-       <div class="card">
-          <div class="card-content">
-             <h4>Place Quote</h4>
-             <div class="tab-content" id="tab1">
-                <div class="tab-pane active" id="pill1">
-                   <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before submitting it or click cancel if do not want to quote again for this transaction.</p>
-                   <table class="table">
-                      <tbody>
-                         <tr>
-                            <td>Refinancing Charges p.a.</td>
-                            <td><input type="text" name="" placeholder="1.23"><span class="pull-right percent">%</span></td>
-                         </tr>
-                         <tr>
-                            <td>Applicable Benchmark (Libor/Euribor)<br>
-                              
-                            </td>
-                            <td><input type="text" name="" placeholder="2.4780">
-                            <span class="pull-right percent">%</span>
-                           <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea></td>
-                         </tr>
-                         <tr>
-                            <td>Document Transaction Charges</td>
-                            <td>
-                             <input class="halfleft" type="text" name="" placeholder="200.00" />
-
-<select class="halfright">
-                                  <option value="USD">USD</option>
-                               </select>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>Minimum Transaction Charges</td>
-                            <td>
-                               <input class="halfleft" type="text" name="" placeholder="500.00" />
-
-<select class="halfright">
-                                  <option value="USD">USD</option>
-                               </select>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>Other Charges<br>
-                              
-                            </td>
-                            <td>
-                              <input class="halfleft" type="text" name="" placeholder="50.00" />
-
-<select class="halfright">
-                                  <option value="USD">USD</option>
-                               </select>
-                                <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>Validity</td>
-                            <td><input type="text" name="" placeholder="28/03/2020"></td>
-                         </tr> 
-                      </tbody>
-                   </table>
-                    <div class="posfix">
-                      <button type="submit" class="btn btn-info pull-right"  id="btnpreview">
-                         Preview
-                         <div class="ripple-container" ></div>
-                      </button>
-                      <a href="#"  class="pull-right linkbtn" style="margin-right: 5px;">Save
-                      </a>
-                   </div>
-                </div>
-             </div>
-             <div class="tab-content" id="tab2">
-                <div class="tab-pane active" id="pill1">
-                   <table class="table">
-                      <tbody>
-                         <tr>
-                            <td>Refinancing Charges p.a.</td>
-                            <td>1.23%</td>
-                         </tr>
-                         <tr>
-                            <td>Applicable Benchmark (Libor/Euribor)<br>
-                            </td>
-                            <td>2.8740%<br><small>3 Months Euribor</small></td>
-                         </tr>
-                         <tr>
-                            <td>Document Transaction Charges</td>
-                            <td>
-                               USD $200
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>Minimum Transaction Charges</td>
-                            <td>
-                               USD $500
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>Other Charges<br>
-                            </td>
-                            <td>
-                               USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td>Validity</td>
-                            <td>28/03/2020</td>
-                         </tr>
-                         <tr>
-                            <th>Total Quote</th>
-                            <th>USD $65287</th>
-                         </tr>
-                         <tr>
-                            <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                         </tr> 
-                      </tbody>
-                   </table>
-                   <div class="posfix">
-                      <button type="submit" class="btn btn-info pull-right" id="btnSubmit">
-                         Submit
-                         <div class="ripple-container"></div>
-                      </button>
-                      <a href="#" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a>
-                   </div>
-                </div>
-             </div>
-             <div class="tab-content" id="tab3">
-                <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
-                   <table class="table">
-                      <tbody>
-                         <tr>
-                            <td colspan="2" class="text-center">
-                               <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
-                            </td>
-                         </tr>
-                      </tbody>
-                   </table>
-                   <div class="posfix">
-                      <a href="active-transactions.html" class="btn btn-info">
-                         OK
-                         <div class="ripple-container"></div>
-                      </a>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
- </div>
+   <div id="menubarRefinancing" [hidden]="!isActive" (blur)="closed()"
+   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+  
+         <div class="popupcontent">
+            <div class="card">
+               <div class="card-content">
+                  <h4>{{title}}</h4>
+                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
+                     <div class="tab-pane active" id="pill1">
+                        <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before submitting it or click cancel if do not want to quote again for this transaction.</p>
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Refinancing Charges p.a.</td>
+                                 <td><input type="text" name="" placeholder="1.23"><span class="pull-right percent">%</span></td>
+                              </tr>
+                              <tr>
+                                 <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
+                                   
+                                 </td>
+                                 <td><input type="text" name="" placeholder="2.4780">
+                                 <span class="pull-right percent">%</span>
+                                <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea></td>
+                              </tr>
+                              <tr>
+                                 <td>Document Transaction Charges</td>
+                                 <td>
+                                  <input class="halfleft" type="text" name="" placeholder="200.00" />
  
+  <select class="halfright">
+                                       <option value="USD">USD</option>
+                                    </select>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                    <input class="halfleft" type="text" name="" placeholder="500.00" />
+ 
+  <select class="halfright">
+                                       <option value="USD">USD</option>
+                                    </select>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Other Charges<br>
+                                   
+                                 </td>
+                                 <td>
+                                   <input class="halfleft" type="text" name="" placeholder="50.00" />
+ 
+  <select class="halfright">
+                                       <option value="USD">USD</option>
+                                    </select>
+                                     <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Validity</td>
+                                 <td><input type="text" name="" placeholder="28/03/2020"></td>
+                              </tr> 
+                                <tr>
+                                 <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                         <div class="posfix">
+                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
+                              Preview
+                              <div class="ripple-container" ></div>
+                           </button>
+                           <button class="btn btn-info" (click)="transaction('ok')">
+                              Save
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
+                     <div class="tab-pane active" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Refinancing Charges p.a.</td>
+                                 <td>1.23%</td>
+                              </tr>
+                              <tr>
+                                 <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
+                                 </td>
+                                 <td>2.8740%<br><small>Standard Libor applied on the LC value</small></td>
+                              </tr>
+                              <tr>
+                                 <td>Document Transaction Charges</td>
+                                 <td>
+                                    USD $200
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                    USD $500
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Other Charges<br>
+                                 </td>
+                                 <td>
+                                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Validity</td>
+                                 <td>28/03/2020</td>
+                              </tr>
+                              <tr>
+                                 <th>Total Quote</th>
+                                 <th>USD 65,287</th>
+                              </tr>
+                              <tr>
+                                 <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                              </tr> 
+                           </tbody>
+                        </table>
+                        <div class="posfix">
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                              Submit
+                              <div class="ripple-container"></div>
+                           </button>
+                           <!-- <a href="#" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                              Edit
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+                     <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td colspan="2" class="text-center">
+                                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div class="posfix">
+                           <button class="btn btn-info" (click)="transaction('ok')">
+                              OK
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div id="menubarRefinancing" [hidden]="!isActiveQuote" (blur)="closedQuote()"
+      style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+     
+         <div class="popupcontent">
+            <div class="card">
+               <div class="card-content">
+                  <h4>Place Quote</h4>
+                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
+                     <div class="tab-pane active" id="pill1">
+                        <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before submitting it or click cancel if do not want to quote again for this transaction.</p>
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Refinancing Charges p.a.</td>
+                                 <td><input type="text" name="" placeholder="1.23"><span class="pull-right percent">%</span></td>
+                              </tr>
+                              <tr>
+                                 <td>Applicable Benchmark (Libor/Euribor)<br>
+                                   
+                                 </td>
+                                 <td><input type="text" name="" placeholder="2.4780">
+                                 <span class="pull-right percent">%</span>
+                                <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea></td>
+                              </tr>
+                              <tr>
+                                 <td>Document Transaction Charges</td>
+                                 <td>
+                                  <input class="halfleft" type="text" name="" placeholder="200.00" />
+ 
+  <select class="halfright">
+                                       <option value="USD">USD</option>
+                                    </select>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                    <input class="halfleft" type="text" name="" placeholder="500.00" />
+ 
+  <select class="halfright">
+                                       <option value="USD">USD</option>
+                                    </select>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Other Charges<br>
+                                   
+                                 </td>
+                                 <td>
+                                   <input class="halfleft" type="text" name="" placeholder="50.00" />
+ 
+  <select class="halfright">
+                                       <option value="USD">USD</option>
+                                    </select>
+                                     <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+                                 </td>
+                              </tr>
+                              <tr>
+                                  <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                                 <td><input type="text" name="" placeholder="28/03/2020"></td>
+                              </tr> 
+                            
+                           </tbody>
+                        </table>
+                        <div class="posfix">
+                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
+                              Preview
+                              <div class="ripple-container" ></div>
+                           </button>
+                           <button class="btn btn-info" (click)="transaction('ok')">
+                              Save
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
+                     <div class="tab-pane active" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Refinancing Charges p.a.</td>
+                                 <td>1.23%</td>
+                              </tr>
+                              <tr>
+                                 <td>Applicable Benchmark (Libor/Euribor)<br>
+                                 </td>
+                                 <td>2.8740%<br><small>3 Months Euribor</small></td>
+                              </tr>
+                              <tr>
+                                 <td>Document Transaction Charges</td>
+                                 <td>
+                                    USD $200
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                    USD $500
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Other Charges<br>
+                                 </td>
+                                 <td>
+                                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                 </td>
+                              </tr>
+                              <tr>
+                                  <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                                 <td>28/03/2020</td>
+                              </tr>
+                              <tr>
+                                 <th>Total Quote</th>
+                                 <th>USD $500</th>
+                              </tr>
+                              <tr>
+                                 <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                              </tr> 
+                           </tbody>
+                        </table>
+                        <div class="posfix">
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                              Submit
+                              <div class="ripple-container"></div>
+                           </button>
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                              Edit
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+                     <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td colspan="2" class="text-center">
+                                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div class="posfix">
+                           <button class="btn btn-info" (click)="transaction('ok')">
+                              OK
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>

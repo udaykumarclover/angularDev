@@ -13,6 +13,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 export class RefinancingComponent implements OnInit {
 
   public isActive: boolean = false;
+  public isActiveQuote:boolean=false;
   public data: TransactionBean;
   public title: string = "";
   public tab = 'tab2';
@@ -85,13 +86,19 @@ export class RefinancingComponent implements OnInit {
   public action(flag: boolean, type: Tflag, data: any) {
 
     if (flag) {
-      this.isActive = flag;
       if (type === Tflag.VIEW) {
+        this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
       } else if (type === Tflag.EDIT) {
+        this.isActive = flag;
         this.title = 'Edit';
+        this.data = data;
+        $('input').attr('readonly', false);
+      }else{
+        this.isActiveQuote = flag;
+        this.title = 'Place Quote';
         this.data = data;
         $('input').attr('readonly', false);
       }
@@ -109,7 +116,10 @@ export class RefinancingComponent implements OnInit {
     this.titleService.quote.next(false);
   }
 
-
+  public closedQuote() {
+    this.isActiveQuote = false;
+    this.titleService.quote.next(false);
+  }
   public transaction(act: string) {
 
     switch (act) {
@@ -129,6 +139,8 @@ export class RefinancingComponent implements OnInit {
           },
           error => {
             alert('error')
+            this.closedQuote();
+            this.tab = 'tab1';
           }
         )
 
@@ -137,9 +149,14 @@ export class RefinancingComponent implements OnInit {
         break;
       case 'ok': {
 
-        this.closed();
-        this.tab = 'tab1';
+        if(this.isActive){
+          this.closed();
+          this.tab = 'tab1';
+          }else{
+         this.closedQuote();
+         this.tab = 'tab1';
       }
+    }
         break;
       case 'preview': {
         this.tab = 'tab2';

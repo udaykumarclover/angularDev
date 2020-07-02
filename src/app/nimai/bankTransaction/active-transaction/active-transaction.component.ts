@@ -6,7 +6,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction ,transActiveTransaction} from 'src/assets/js/commons';
+import { custActiveTransaction ,bankActiveTransaction} from 'src/assets/js/commons';
 import { ConfirmationComponent } from '../newTransaction/quotes/confirmation/confirmation.component';
 import { ConfirmAndDiscountComponent } from '../newTransaction/quotes/confirm-and-discount/confirm-and-discount.component';
 import { RefinancingComponent } from '../newTransaction/quotes/refinancing/refinancing.component';
@@ -63,8 +63,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-  //  custActiveTransaction();
-    transActiveTransaction();
+    bankActiveTransaction();
   }
 
   ngAfterViewInit() {
@@ -78,7 +77,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   showQuotePage(pagename: string,action:Tflag,data:any) {
-   
+   console.log(pagename)
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
@@ -93,9 +92,9 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount') {
-      this.confirmation.isActive = false;
+    } else if (pagename === 'confirmAndDiscount') {      
       this.confirmAndDiscount.action(true,action,data);
+      this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;

@@ -30,6 +30,7 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailForBank`,data , { headers: { 'content-types': 'application/json' } });
   }
 
+  
   public getBankplaceQuotation(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/placeQuotation`,data , { headers: { 'content-types': 'application/json' } });
   }
