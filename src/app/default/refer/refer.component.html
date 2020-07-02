@@ -27,13 +27,14 @@
                                         <thead>
                                             <tr>
                                                 <th class="disabled-sorting text-center">#</th>
-                                                <th style="min-width: 100px;">Date & Time</th>
-                                                <th style="min-width: 120px;">First Name</th>
-                                                <th style="min-width: 120px;">Last Name</th>
+                                                
+                                                <th style="min-width: 120px;">Name</th>
+                                                
                                                 <th style="min-width: 100px;">Country</th>
                                                 <th style="min-width: 150px;">Company</th>
                                                 <th style="min-width: 180px;">Email</th>
                                                 <th style="min-width: 100px;">Mobile</th>
+                                                <th style="min-width: 100px;">Date & Time</th>
                                                 <th style="min-width: 120px;">Plan Purchased</th>
                                                 <th style="min-width: 120px;">Billing Amount</th>
                                                 <th style="min-width: 100px;">Earning</th>
@@ -45,17 +46,18 @@
                                         <tbody>
                                             <tr *ngFor="let record of referViewDetails; let i = index">
                                                 <td>{{i+1}}</td>
-                                                <td nowrap>{{record.insertedDate}}</td>
-                                                <td>{{record.firstName}}</td>
-                                                <td>{{record.lastName}}</td>
+                                                
+                                                <td>{{record.firstName}} &nbsp; {{record.lastName}}</td>
+                                                
                                                 <td>{{record.countryName}}</td>
                                                 <td>{{record.companyName}}</td>
                                                 <td>{{record.emailAddress}}</td>
                                                 <td nowrap>{{record.mobileNo}}</td>
-                                                <td>{{record.insertedDate}}</td>
-                                                <td>{{record.insertedDate}}</td>
-                                                <td>{{record.insertedDate}}</td>
-                                                <td>{{record.insertedDate}}</td>
+                                                <td nowrap>{{record.insertedDate}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td>{{record.status}}</td>
                                             </tr>
                                         </tbody>
