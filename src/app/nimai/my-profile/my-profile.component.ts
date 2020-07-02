@@ -154,7 +154,7 @@ export class MyProfileComponent implements OnInit {
         (response) => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congraulations! Your Personal Details has been successfully submitted!',
+              title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
               parent: this.parentURL + '/my-profile'
             }

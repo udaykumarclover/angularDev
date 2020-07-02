@@ -282,7 +282,7 @@ export class LoginComponent implements OnInit {
       this.isBank = true;
       this.resetSignUpForm();
       this.signupForm.patchValue({ radio: 'bank', selector: 'underwriter' })
-
+      setTimeout(function () { loads() }, 100);
       setTimeout(function () { selectpickercall() }, 200);
     }
 
@@ -532,7 +532,11 @@ export class LoginComponent implements OnInit {
       ValidateRegex.validateNumber(event);
     }
     else if(type == "alpha"){
-      ValidateRegex.alphaOnly(event);
+      //ValidateRegex.alphaOnly(event);
+    var key = event.keyCode;
+     if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+         event.preventDefault();
+     }
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
