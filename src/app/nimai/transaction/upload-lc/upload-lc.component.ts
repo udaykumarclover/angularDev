@@ -423,7 +423,7 @@ export class UploadLCComponent implements OnInit {
       paymentPeriod: [''],
       paymentTerms: [''],
       tenorStartDate:[''],
-      tenorEndDate: ['20-05-2020'],
+      tenorEndDate: [''],
   
       // For Discounting 
       discountingPeriod:[''],

@@ -62,8 +62,8 @@ export class PersonalDetailsComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
-      mobileNo: ['', Validators.required],
-      landLineNo: [''],
+      mobileNo: ['', [Validators.required,Validators.minLength(12)]],
+      landLineNo: ['',Validators.minLength(12)],
       country: ['', Validators.required],
       companyName: [''],
       designation: [''],
@@ -97,7 +97,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setUserCategoryValidators();
+   // this.setUserCategoryValidators();
 
     $("body").on("domChanged", function () {
       const inputs = $('.inputDiv').find('input');
@@ -116,14 +116,14 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
- setUserCategoryValidators(){
-  const goods = this.personalDetailsForm.get('blacklistedGC')
-  const countries = this.personalDetailsForm.get('countriesInt')
-  if(!this.isBank){
-    goods.setValidators(null);
-    countries.setValidators(null);
-  }
- }
+  setUserCategoryValidators(){
+    const goods = this.personalDetailsForm.get('blacklistedGC')
+    const countries = this.personalDetailsForm.get('countriesInt')
+    goods.clearValidators();
+    goods.updateValueAndValidity();
+    countries.clearValidators();
+    countries.updateValueAndValidity();
+   }
   submit(): void {
     this.submitted = true;
     if(this.personalDetailsForm.invalid) {
@@ -138,7 +138,7 @@ export class PersonalDetailsComponent implements OnInit {
           this.titleService.loading.next(false);
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congraulations! Your Personal Details has been successfully submitted!',
+              title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
               parent: this.subURL + "/" + this.parentURL + '/personal-details'  // need to check
             }
@@ -211,7 +211,10 @@ export class PersonalDetailsComponent implements OnInit {
             this.isBank = false;
             this.isReferrer = false;
           }
-
+          if(!this.isBank){
+            console.log("iffff")
+            this.setUserCategoryValidators();
+          }
           setTimeout(() => {
             selectpickercall();
             loads();

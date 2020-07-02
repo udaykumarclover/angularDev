@@ -20,6 +20,7 @@ export class TransactionDetailsComponent {
   public hasNoRecord: boolean = false;
   public data: any;
   public specificDetail: any;
+  quotationdata: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -27,20 +28,26 @@ export class TransactionDetailsComponent {
 
   ngOnInit() {
     custTrnsactionDetail();
-    this.getAllnewTransactions();
+    this.getAllnewTransactions('Accepted');
   }
 
-  public getAllnewTransactions() {
-    this.nts.getAllNewTransaction().subscribe(
+  public getAllnewTransactions(status) {
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+      "transactionStatus": status
+    }
+    this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
+        this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
         if (!this.data) {
-          this.hasNoRecord = true;
+          // this.hasNoRecord = true;
         }
       },
       (error) => {
-        this.hasNoRecord = true;
+        this.data = null;
+        // this.hasNoRecord = true;
 
       }
     )
@@ -53,6 +60,24 @@ export class TransactionDetailsComponent {
     
   }
 
+  changeStatusCall(status){
+    this.getAllnewTransactions(status);
+    custTrnsactionDetail();
+  }
+
+  displayQuoteDetails(quoteId){
+    let data = {
+      "quotationId":12254
+      }
+    
+    this.nts.getQuotationDetails(data).subscribe(
+        (response) => {
+          this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
+        console.log(this.quotationdata);
+        },
+        (error) => {}
+    )
+  }
 
 
 }

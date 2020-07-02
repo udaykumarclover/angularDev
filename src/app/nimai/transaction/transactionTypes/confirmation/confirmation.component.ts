@@ -16,7 +16,7 @@ export class ConfirmationComponent implements OnInit {
   public isActive: boolean = false;
   public data: TransactionBean;
   public title: string = "";
-  public tab = 'tab1';
+  public tab = 'tab2';
   constructor(public titleService: TitleService, public ts: NewTransactionService) {
     this.data = {
       transactionId: "",
@@ -84,7 +84,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
+  
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {

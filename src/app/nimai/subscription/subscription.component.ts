@@ -49,8 +49,10 @@ export class SubscriptionComponent implements OnInit {
     }
     )
   }
-
-
+  //added by ashvini -  “Next” button in the payment successful  page
+  gotokyc(){
+     this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`])
+   }
   public choosePlan(plan: Subscription) {
     this.choosedPlan = plan;
     this.choosedPlan.userId = sessionStorage.getItem('userID');

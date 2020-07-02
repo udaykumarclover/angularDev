@@ -21,9 +21,4 @@ export class PersonalDetailsService {
     return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserDetails/updatePersonalDetails`,signup,{headers:{'content-type':'application/json'}})
   }
 
-  public addRefer(data):Observable<signup>{
-    return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/saverefer`,data,{headers:{'content-type':'application/json'}})
-  }
-  
-
 }

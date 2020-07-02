@@ -3,7 +3,8 @@
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="paymentPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
-            <label>Usance (Days)</label>
+            <!--added by ashvini Label Change-->    
+            <label>Period for which Confirmation is required</label>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -17,7 +18,7 @@
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" readonly="" formControlName="tenorEndDate" class="has-value" value="20-04-2020">
+            <input type="text" readonly="" formControlName="tenorEndDate" class="has-value" value="{{LcDetail.get('negotiationDate').value | date: 'dd/MM/yyyy'}}">
             <label>Start Date</label>
         </div>
     </div>

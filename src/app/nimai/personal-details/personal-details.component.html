@@ -62,6 +62,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!--added by ashvini - validation added for mobile number and landline number-->
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
@@ -70,6 +71,9 @@
                                                 <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
                                                     Mobile No is required
                                                 </div>
+                                                <div *ngIf="perDetails.mobileNo.errors?.minlength">
+                                                    Mobile No must of 12 digits.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -77,6 +81,11 @@
                                         <div class="inputDiv">
                                             <input type="text" formControlName="landLineNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Landline No.</label>
+                                            <div *ngIf="submitted && perDetails.landLineNo.errors" class="invalid-feedback">       
+                                                <div *ngIf="perDetails.landLineNo.errors?.minlength">
+                                                    Landline No must of 12 digits.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

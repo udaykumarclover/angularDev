@@ -7,7 +7,7 @@
                  <i class="fa fa-th-list"></i>
               </div>
               <div class="card-content">
-                 <h4 class="card-title pull-left">Active Transaction</h4>
+                <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
                  <form>
                   <div class="row" *ngIf="hasNoRecord">
                     <div class="col-md-12">
@@ -52,7 +52,8 @@
                                     <td>{{record.lCValue}}</td>
                                     <td>{{record.goodsType}}</td>
                                     <td>{{record.requirementType}}</td>
-                                    <td><span id="transactionDiv" style="cursor: pointer;" class="transactionDiv">{{record.quotationReceived}}</span></td>
+                                    <td *ngIf="record.quotationReceived == 0"><span>{{record.quotationReceived}}</span></td>
+                                    <td *ngIf="record.quotationReceived != 0"><span id="transactionDiv" style="cursor: pointer;" (click)="showQuoteDetail(record.transactionId)" class="transactionDiv">{{record.quotationReceived}}</span></td>
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                             class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                                 </tr>
@@ -74,66 +75,17 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>CU20BANCON1101</td>
-                                  <td>****** <br>
+                                <tr *ngFor="let QRrecord of QRdetail; let i = index">
+                                  <td>{{i + 1}}</td>
+                                  <td>{{QRrecord.transactionId}}</td>
+                                  <td>** <br>
                                     Quotes placed till date 214<br>
                                     Quotes for Matress 23</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
-                                  <td>19-06-2019<br>
-                                    4 days to go</td>
+                                  <td>{{QRrecord.validityDate}}</td>
                                   <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>CU20BANCON1101</td>
-                                  <td>******<br>
-                                    Quotes placed till date 322<br>
-                                    Quotes for Matress 102</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
-                                  <td>USD</td>
-                                  <td>20-06-2019<br>
-                                    0 days to go</td>
-                                  <td><a href="javascript:void()" class="btn btn-default disabled" style="cursor:not-allowed;">Accept</a></td>
-                                </tr>
-                                <tr>
-                                  <td>3</td>
-                                  <td>CU20BANCON1101</td>
-                                  <td>******<br>
-                                    Quotes placed till date 184<br>
-                                    Quotes for Matress 87</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
-                                  <td>USD</td>
-                                  <td>22-06-2019<br>
-                                    7 days to go</td>
-                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
-                                </tr>
-                                <tr>
-                                  <td>4</td>
-                                  <td>CU20BANCON1101</td>
-                                  <td>******<br>
-                                    Quotes placed till date 87<br>
-                                    Quotes for Matress 12</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
-                                  <td>USD</td>
-                                  <td>24-06-2019<br>
-                                    9 days to go</td>
-                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
-                                </tr>
-                                <tr>
-                                  <td>5</td>
-                                  <td>CU20BANCON1101</td>
-                                  <td>******<br>
-                                    Quotes placed till date 211<br>
-                                    Quotes for Matress 123</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
-                                  <td>USD</td>
-                                  <td>26-06-2019<br> 11 days to go</td>
-                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
-                                </tr>
-                          
+                                </tr>                          
                               </tbody>
                             </table>
                           
@@ -174,7 +126,7 @@
               <tbody>
                 <tr>
                   <td>Bank</td>
-                  <td>****** <br>
+                  <td>** <br>
                     Quotes placed till date 214
                     Quotes for Matress 23</td>
                 </tr>
@@ -223,7 +175,7 @@
               Ok
               <div class="ripple-container"></div>
             </button>
-            <!--    <a href="#" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+            <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
           </div>
         </div>
         <div class="tab-content" id="tab3">
