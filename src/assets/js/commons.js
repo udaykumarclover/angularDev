@@ -1127,7 +1127,7 @@ export function bankRequest(){
 
 export function custTrnsactionDetail() {
     setTimeout(() => {
-    $(function () {
+    // $(function () {
         
         $('#datatables select').css('color', '#333');
         // prettyPrint();
@@ -1237,7 +1237,7 @@ export function custTrnsactionDetail() {
         // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
     }, 1000);
         
-    });
+    // });
 }
 
 export function custActiveTransaction() {
