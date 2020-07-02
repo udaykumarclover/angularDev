@@ -24,6 +24,10 @@ export class PersonalDetailsService {
   public addRefer(data):Observable<signup>{
     return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/saverefer`,data,{headers:{'content-type':'application/json'}})
   }
+
+  public viewRefer(userID:string):Observable<signup>{
+    return this.httpClient.get<signup>(`${environment.domain}/nimaiUCM/getReferListByUserId/`+userID,{headers:{'content-type':'application/json'}});
+  }
   
 
 }

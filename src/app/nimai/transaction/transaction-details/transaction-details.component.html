@@ -7,7 +7,7 @@
                  <i class="fa fa-th-list"></i>
               </div>
               <div class="card-content">
-                 <h4 class="card-title pull-left">Transaction Details</h4>
+                 <h4 class="card-title pull-left">Transaction Details</h4><span class="handleDetail">TEST</span>
                  <form>
                   <div class="row" *ngIf="hasNoRecord">
                     <div class="col-md-12">
@@ -17,6 +17,13 @@
                     <div class="row" *ngIf="!hasNoRecord">
                        <div class="col-md-12">
                           <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                           <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                              <select (change)="changeStatusCall($event.target.value)" class="has-value"> 
+                              <option value="Accepted">Accepted </option>
+                              <option value="Rejected">Rejected</option>
+                              <option value="Expired">Expired</option>
+                              </select>
+                              </div>
                              <table class="table table-hover" id="datatables">
                                 <thead>
                                    <tr>
