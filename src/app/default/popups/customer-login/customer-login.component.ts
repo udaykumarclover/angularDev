@@ -4,6 +4,8 @@ import * as $ from '../../../../assets/js/jquery.min';
 import { FormGroup, FormControl } from '@angular/forms';
 import {Validators} from '@angular/forms';
 import  { ValidateRegex } from '../../../beans/Validations';
+import { SignupService } from 'src/app/services/signup/signup.service';
+import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 
 
 @Component({
@@ -16,7 +18,7 @@ export class CustomerLoginComponent implements OnInit {
   emailAddress: any;
   submitted: boolean = false;
 
-  constructor(public router: Router) {
+  constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService) {
 
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation)
@@ -27,10 +29,10 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   customerLoginForm = new FormGroup({
-    batchId: new FormControl('', Validators.required),
-    empId: new FormControl('', Validators.required),
-    emailId: new FormControl('', [Validators.required, Validators.email]),
-    custName: new FormControl('', Validators.required)
+    batch_id: new FormControl('', Validators.required),
+    employee_id: new FormControl('', Validators.required),
+    email_id: new FormControl('', [Validators.required, Validators.email]),
+    employee_name: new FormControl('', Validators.required)
   })
 
   get custLogDetails() {
@@ -52,21 +54,44 @@ export class CustomerLoginComponent implements OnInit {
 
   onCustLoginClick() {
     this.submitted = true;
-    if(this.customerLoginForm.invalid) {
+    if (this.customerLoginForm.invalid) {
       return;
     }
     this.submitted = false;
 
-    $('.modal1').hide();
-    $('.modal2').show();
-    this.emailAddress = this.customerLoginForm.get('emailId').value;
+    this.emailAddress = this.customerLoginForm.get('email_id').value;
     console.log(this.customerLoginForm.value);
+
+    this.Service.userBranch(this.customerLoginForm.value).subscribe(
+      (response) => {
+        let sendEmail = {
+          event: 'VALID_BRANCHUSER',
+          email: this.emailAddress,
+          userId: sessionStorage.getItem("userID")
+        }
+        this.fps.sendForgetPasswordEmail(sendEmail)
+          .subscribe(
+            (response) => {
+
+              $('.modal1').hide();
+              $('.modal2').show();
+            },
+            (error) => {
+              $('.modal3').show();
+              // alert("unable to send mail")
+
+            }
+          )
+      },
+      (error) => { }
+    );
+
   }
 
   onOTPClick() {
     $('.modal2').hide();
-    $('.modal3').show();
-    this.router.navigate(['/cst/dsb/business-details']);           
+    
+    // this.router.navigate(['/cst/dsb/business-details']);           
   }
 
   reenterCustLoginDetails() {

@@ -20,6 +20,7 @@ export class TransactionDetailsComponent {
   public hasNoRecord: boolean = false;
   public data: any;
   public specificDetail: any;
+  quotationdata: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -62,6 +63,20 @@ export class TransactionDetailsComponent {
   changeStatusCall(status){
     this.getAllnewTransactions(status);
     custTrnsactionDetail();
+  }
+
+  displayQuoteDetails(quoteId){
+    let data = {
+      "quotationId":12254
+      }
+    
+    this.nts.getQuotationDetails(data).subscribe(
+        (response) => {
+          this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
+        console.log(this.quotationdata);
+        },
+        (error) => {}
+    )
   }
 
 

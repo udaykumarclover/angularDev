@@ -34,6 +34,7 @@ export class ActiveTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   detail: any;
+  QRdetail: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -104,5 +105,19 @@ export class ActiveTransactionComponent implements OnInit {
       this.refinancing.isActive = false;
       this.banker.action(true,action,data);
     }
+  }
+
+  showQuoteDetail(transactionId){
+    let data = {
+      "userId": sessionStorage.getItem('userID'),
+      "transactionId": transactionId
+    }
+    this.nts.getAllQuotationDetails(data).subscribe(
+      (response) => {
+        this.QRdetail = JSON.parse(JSON.stringify(response)).data;
+        
+      },(error) =>{
+      }
+    )
   }
 }
