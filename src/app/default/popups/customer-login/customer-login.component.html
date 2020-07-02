@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" maxlength="10" formControlName="batch_id" (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="10" formControlName="batch_id" (keypress)="validateRegexFields($event, 'alphaNum')" class="first_input">
                 <label>Batch ID</label>
                 <div *ngIf="submitted && custLogDetails.batch_id.errors?.required">
                   Batch Id is required

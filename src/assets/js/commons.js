@@ -89,6 +89,14 @@ export function loads() {
                 $(this).addClass('has-value');
             }
         });
+        $('.inputDiv select').focusout(function () {
+            var text_val = $(this).val();
+            if (text_val === "") {
+                $(this).addClass('has-value');
+            } else {
+                $(this).addClass('has-value');
+            }
+        });
     });
 
 

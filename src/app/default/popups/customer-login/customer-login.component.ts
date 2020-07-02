@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from '../../../../assets/js/jquery.min';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -18,7 +18,7 @@ export class CustomerLoginComponent implements OnInit {
   emailAddress: any;
   submitted: boolean = false;
 
-  constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService) {
+  constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation)
@@ -42,7 +42,11 @@ export class CustomerLoginComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  ngAfterViewInit() {
+    /*added by ashvini -Default cursor should be present in the Branch ID field of the Enter Access Details page of the Bank as Customer. */
+    const invalidElements = this.el.nativeElement.querySelector('.first_input');
+    invalidElements.focus();
+  }
   close() {
     $('.modal1').hide();
     if (this.parent === 'login') {

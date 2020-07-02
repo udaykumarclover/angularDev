@@ -79,7 +79,7 @@ export class KycDetailsComponent implements OnInit {
         err => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Ooops Something went wrong while uploading KYC documents.',
+              title: 'Oops! Something went wrong while uploading KYC documents',
               message: '',
               parent: this.subURL + '/' + this.parentURL + '/kyc-details'
 
