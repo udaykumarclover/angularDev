@@ -12,6 +12,7 @@ import * as $ from 'src/assets/js/jquery.min';
   styleUrls: ['./trasaction-details.component.css']
 })
 export class TrasactionDetailsComponent {
+  
   displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime','validity', 'ib','amount', 'ccy', 'goods', 'requirement','receivedQuotes','star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
@@ -27,24 +28,27 @@ export class TrasactionDetailsComponent {
 
   ngOnInit() {
     custTrnsactionDetail();
-    this.getAllnewTransactions();
+    this.getAllnewTransactions('Accepted');
   }
 
-  public getAllnewTransactions() {
+  public getAllnewTransactions(status) {
     const data = {
-      "userId": sessionStorage.getItem('userID'),
-      "transactionStatus":"Active"
+     // "userId": sessionStorage.getItem('userID'),
+      "userId": 'CU1788',
+      "transactionStatus": status
     }
     this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
+        this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
         if (!this.data) {
-          this.hasNoRecord = true;
+          // this.hasNoRecord = true;
         }
       },
       (error) => {
-        this.hasNoRecord = true;
+        this.data = null;
+        // this.hasNoRecord = true;
 
       }
     )
@@ -57,6 +61,10 @@ export class TrasactionDetailsComponent {
     
   }
 
+  changeStatusCall(status){
+    this.getAllnewTransactions(status);
+    custTrnsactionDetail();
+  }
 
 
 }

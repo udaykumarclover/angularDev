@@ -5,15 +5,13 @@ import { TransactionBean } from 'src/app/beans/TransactionBean';
 import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ViewChild, OnInit, Component } from '@angular/core';
-import { ActiveTransactionComponent } from 'src/app/nimai/transaction/active-transaction/active-transaction.component';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent implements OnInit {
-  @ViewChild(ActiveTransactionComponent, { static: true }) activeTransaction: ActiveTransactionComponent;
-
+ 
   public isActive: boolean = false;
   public isActiveQuote: boolean = false;
   public data: TransactionBean;
@@ -173,6 +171,40 @@ export class ConfirmationComponent implements OnInit {
         }, 200);
       }
         break;
+
+
+        case 'GetQuote': {
+          console.log(this.data)
+          const data1 = {
+            
+            "transactionId":'CU2020IND0112'
+           }
+          this.ts.calculateQuote(data1).subscribe(
+            (response) => {
+              console.log(response)
+              //this.tab = 'tab3';
+            },
+            error => {
+              alert('error')
+             
+            }
+          )
+
+          // this.ts.saveQuotationToDraft(this.data).subscribe(
+          //   (response) => {
+          //     this.tab = 'tab2';
+          //   },
+          //   error => {
+          //     alert('error')
+          //     this.closedQuote();
+          //     this.tab = 'tab1';
+          //   }
+          // )
+  
+  
+        }
+
+
     }
 
   }

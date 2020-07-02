@@ -26,8 +26,13 @@ export class NewTransactionService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
   }
 
+  
+  public calculateQuote(data: any): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/calculateQuote`, data, { headers: { 'content-types': 'application/json' } });
+  }
+
   public getAllNewBankRequest(data: any): Observable<any[]> {
-    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailForBank`,data , { headers: { 'content-types': 'application/json' } });
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getAllNewRequestsForBank`,data , { headers: { 'content-types': 'application/json' } });
   }
 
   

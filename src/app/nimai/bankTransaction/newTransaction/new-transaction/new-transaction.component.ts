@@ -24,6 +24,7 @@ export class NewTransactionComponent implements OnInit {
   displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
+  public isActive: boolean = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -50,11 +51,11 @@ export class NewTransactionComponent implements OnInit {
 
   public getNewRequestsForBank() {
     const data = {
-     //"userId":sessionStorage.getItem('userID')
-     "userId":'CU1445'
+    // "userId":sessionStorage.getItem('userID')
+     "userId":'CU1788'
     }
     console.log(data.userId)
-   // this.nts.getAllNewBankRequest(data).subscribe(
+  //this.nts.getAllNewBankRequest(data).subscribe(
    this.nts.getTransactionDetailByUserId(data).subscribe(
     
       (response) => {
@@ -108,9 +109,10 @@ export class NewTransactionComponent implements OnInit {
   //  this.details.isActiveDetail=false;
   }
   showDetail(data:any){
-    //this.isActiveDetail=true;
-   // this.titleService.quote.next(true);
-    //this.details.action(true,data);
+    this.isActive=true;
+   
+   this.titleService.quote.next(true);
+   
   }
   showQuotePage(pagename: string,action:Tflag,data:any) {
   
