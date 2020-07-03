@@ -102,7 +102,7 @@
                                        </div> -->
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                             <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>First Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.firstName.errors" class="invalid-feedback">
@@ -114,7 +114,7 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')">
+                                             <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>Last Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.lastName.errors" class="invalid-feedback">
@@ -134,7 +134,7 @@
                                                    Official Email ID is required
                                                 </div>
                                              </div>
-                                             <div *ngIf="suf.officialMailId.touched && suf.officialMailId.errors?.email" class="invalid-feedback">
+                                             <div *ngIf="suf.officialMailId.touched && suf.officialMailId.errors?.pattern" class="invalid-feedback">
                                                 Invalid Email id
                                               </div>
                                           </div>
@@ -188,8 +188,7 @@
                                           </div>
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
-                                          <div class="inputDiv">
-                                          <!-- <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt"  [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7> -->
+                                          <!-- <div class="inputDiv">                                          
                                              <select class="selectpicker" data-style="select-with-transition" multiple
                                                 title="Countries Interested" data-size="7" formControlName="countriesInt" >
                                                <option *ngFor="let CIlist of interestedCountryList" [ngValue]="CIlist">{{CIlist.name}}</option>
@@ -201,7 +200,17 @@
                                                 </div>
                                              </div>
                                              <img src="assets/images/countries.png" />
-                                          </div>
+                                          </div> -->
+                                          <div class="inputDiv multiselect-dropdown ">
+                                             <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                             <label class="dropdownlabel">Countries Interested</label>
+                                             <div *ngIf="submittedSignup && suf.countriesInt.errors" class="invalid-feedback">
+                                                 <div *ngIf="submittedSignup && suf.countriesInt.errors?.required">
+                                                     Select Countries Interested
+                                                 </div>
+                                             </div>
+                                             <img src="assets/images/countries.png" class="blackListedGoodsList_img"/>
+                                         </div>
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
@@ -216,19 +225,10 @@
                                           </div>
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
-                                          <div class="inputDiv">
+                                          <!-- <div class="inputDiv">
                                              <select class="selectpicker" data-style="select-with-transition" multiple
                                                 title="Blacklisted Goods" data-size="7" formControlName="blacklistedGC">
                                                <option *ngFor="let BGlist of blackListedGoodsList" [ngValue]="BGlist">{{BGlist.name}}</option>
-                                                <!-- <option disabled>Select Blacklisted Goods/Commodities</option>
-                                                <option value="2">Metal </option>
-                                                <option value="3">Garment</option>
-                                                <option value="4">Cotton</option>
-                                                <option value="5">Rice</option>
-                                                <option value="6">Raw Sugar </option>
-                                                <option value="7">Jewellery</option>
-                                                <option value="8">Frozen Mear </option>
-                                                <option value="9">Diamonds</option> -->
                                              </select>
                                              <div *ngIf="submittedSignup && suf.blacklistedGC.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.blacklistedGC.errors.required">
@@ -236,7 +236,17 @@
                                                 </div>
                                              </div>
                                              <img src="assets/images/blacklisted.png" />
-                                          </div>
+                                          </div> -->
+                                          <div class="inputDiv">
+                                             <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                             <label class="dropdownlabel">Blacklisted Goods</label>
+                                             <div *ngIf="submittedSignup && suf.blacklistedGC.errors" class="invalid-feedback">
+                                                 <div *ngIf="suf.blacklistedGC.errors.required">
+                                                     Select Blacklisted Goods
+                                                 </div>
+                                             </div>
+                                             <img src="assets/images/blacklisted.png" class="blackListedGoodsList_img" />
+                                         </div>
                                        </div>
                                        <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
@@ -309,8 +319,8 @@
                                        <div class="checkbox">
                                           <label>
                                              <input type="checkbox" id="isCheckedForTerms" (change)="acceptTerms()">
-                                             I agree to terms of service and privacy policy
                                           </label>
+                                          I agree to <a href="#" class='terms_condition'> terms of service and privacy policy</a>
                                           <div id="checkboxError" style="display:none;color:#ff0330;font-size: 11px;font-weight: 400;">
                                              Kindly accept terms of service and privacy policy!
                                           </div>
