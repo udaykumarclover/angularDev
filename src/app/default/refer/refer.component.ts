@@ -6,7 +6,7 @@ import { manageSub } from 'src/assets/js/commons'
 import { ValidateRegex } from 'src/app/beans/Validations';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { formatDate } from '@angular/common';
-import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { ReferService } from 'src/app/services/refer/refer.service';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class ReferComponent implements OnInit {
   resp: any;
   referViewDetails : any;
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:PersonalDetailsService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;

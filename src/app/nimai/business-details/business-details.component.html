@@ -21,7 +21,7 @@
                         <div class="card-header card-header-icon" data-background-color="blue">
                             <i class="fas fa-business-time"></i>
                         </div>
-                        <div class="card-content">
+                        <div class="card-content business_details">
                             <h4 class="card-title" id="business_details">Business Details </h4>
                             <form [formGroup]="businessDetailsForm" (ngSubmit)="submit()">
                                 
@@ -87,6 +87,13 @@
                                             <div *ngIf="perDetailsSubmit && busiDetails.swiftCode.errors?.required">
                                                 Swift code is required
                                             </div>
+                                        </div>
+                                    </div>
+                                    <!--added by ashvini - designation field added for bank-->
+                                    <div class="col-md-3" *ngIf="!isCustomer">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="designation">
+                                            <label>Designation</label>
                                         </div>
                                     </div>
                                     <!-- Bank Details-->
@@ -193,6 +200,11 @@
                                                 <option value="Rajasthan">Rajasthan</option>
                                             </select>
                                             <label>Select Province/State</label>
+                                            <div *ngIf="perDetailsSubmit && busiDetails.provinceName.errors" class="invalid-feedback">
+                                                <div *ngIf="busiDetails.provinceName.errors.required">
+                                                    Province/State is required
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -273,7 +285,7 @@
                                         </div>
                                     </div>
                                     <input type="hidden" formControlName="userId">
-                                    <button type="submit" class="btn btn-info pull-right">Update Profile</button>
+                                    <button type="submit" class="btn btn-info pull-right">Next</button>
                                     <div class="clearfix"></div>
                             </form>
                         </div>

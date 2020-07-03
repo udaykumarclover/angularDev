@@ -14,39 +14,39 @@
           <div class="row">
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" maxlength="10" formControlName="batchId" (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="10" formControlName="batch_id" (keypress)="validateRegexFields($event, 'alphaNum')" class="first_input">
                 <label>Batch ID</label>
-                <div *ngIf="submitted && custLogDetails.batchId.errors?.required">
+                <div *ngIf="submitted && custLogDetails.batch_id.errors?.required">
                   Batch Id is required
               </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" maxlength="10" formControlName="empId" (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="10" formControlName="employee_id" (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Employee ID</label>
-                <div *ngIf="submitted && custLogDetails.empId.errors?.required">
+                <div *ngIf="submitted && custLogDetails.employee_id.errors?.required">
                   Employee ID is required
               </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" formControlName="emailId">
+                <input type="text" formControlName="email_id">
                 <label>Email ID</label>
-                <div *ngIf="submitted && custLogDetails.emailId.errors?.required">
+                <div *ngIf="submitted && custLogDetails.email_id.errors?.required">
                   Email is required
                 </div>
-                <div *ngIf="custLogDetails.emailId.touched && custLogDetails.emailId.errors?.email">
+                <div *ngIf="custLogDetails.email_id.touched && custLogDetails.email_id.errors?.email">
                   Invalid Email id
               </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="custName" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="15" formControlName="employee_name" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Name</label>
-                <div *ngIf="submitted && custLogDetails.custName.errors?.required">
+                <div *ngIf="submitted && custLogDetails.employee_name.errors?.required">
                   Name is required
               </div>
               </div>

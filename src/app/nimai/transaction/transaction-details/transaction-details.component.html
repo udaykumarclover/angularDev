@@ -7,7 +7,7 @@
                  <i class="fa fa-th-list"></i>
               </div>
               <div class="card-content">
-                 <h4 class="card-title pull-left">Transaction Details</h4><span class="handleDetail">TEST</span>
+                 <h4 class="card-title pull-left">Transaction Details</h4>
                  <form>
                   <div class="row" *ngIf="hasNoRecord">
                     <div class="col-md-12">
@@ -58,7 +58,7 @@
                                          </select>
                                       </td>
                                       <td> 
-                                         <a class="handleDetail" (click)="getDetail(record)">Detail</a>
+                                         <a class="handleDetail" style="cursor: pointer;" (click)="getDetail(record)">Detail</a>
                                       </td>
                                    </tr>
                                 </tbody>
@@ -156,7 +156,7 @@
          <div class="card-content">
             <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
                 <li class="active"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
-               <li><a href="#tab2" data-toggle="tab" aria-expanded="true">Quote</a></li>
+               <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId)" aria-expanded="true">Quote</a></li>
               
             </ul>
             <div class="tab-content" style="height: 552px;overflow: auto;">
@@ -314,51 +314,51 @@
                            <tbody>
                               <tr>
                                  <td style="width: 50%;">Date & Time</td>
-                                 <td>14-06-2019 14:25:30 GMT</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate}}</td>
                               </tr>
                                <tr>
                                  <td>Confirmation Charges</td>
-                                 <td>0.25%</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges from Date of Issuance till date of discounting</td>
-                                 <td>Yes</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges from Date of Issuance till date of maturity</td>
-                                 <td>Yes</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                               </tr>
                               <tr>
                                  <td>Discounting Charges p.a.</td>
-                                 <td>0.25%</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Libor</td>
-                                 <td>0.25%</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate}}</td>
                               </tr>
                               <tr>
                                  <td>Negotiation Charges p.a.</td>
-                                 <td>0.25%</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
                               </tr>
                               <tr>
                                  <td>Document Handling Charges (USD)</td>
-                                 <td>65.00</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Other Charges</td>
-                                 <td>100.00</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.otherCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Min.Trancation Charges (USD)</td>
-                                 <td>90.00</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td>12th Feb 2020</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.validityDate}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>3687.00</th>
+                                 <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
                               </tr>
                              
                               
