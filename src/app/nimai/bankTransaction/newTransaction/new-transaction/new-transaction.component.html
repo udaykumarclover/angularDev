@@ -93,47 +93,48 @@ style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100
                            <tbody>
                               <tr>
                                  <td>Issuing Bank(IB)</td>
-                                 <td>Grameen Bank</td>
+                                 <!-- <td>Grameen Bank</td> -->
+                                 <td>{{data.lCIssuanceBank}}</td>
                               </tr>
                               <tr>
                                  <td>Branch </td>
-                                 <td>Dhaka</td>
+                                 <td>{{data.lCIssuanceBranch}}</td>
                               </tr>
                               <tr>
                                  <td>Swift Code</td>
-                                 <td>GB78123456</td>
+                                 <td>{{data.beneSwiftCode}}</td>
                               </tr>
                               <tr>
                                  <td>Country</td>
-                                 <td>Bangladesh</td>
+                                 <td>{{data.beneCountry}}</td>
                               </tr>
                               <tr>
                                  <td>Requirement</td>
-                                 <td>Confirmation</td>
+                                 <td>{{data.requirementType}}</td>
                               </tr>
                               <tr>
                                  <td>Amount</td>
-                                 <td>USD $127,520</td>
+                                 <td>{{data.lCValue}}</td>
                               </tr>
                               <tr>
                                  <td>Ccy</td>
-                                 <td>USD</td>
+                                 <td>{{data.lCCurrency}}</td>
                               </tr>
                               <tr>
                                  <td>LC Issuing Date</td>
-                                 <td>02/06/2019</td>
+                                 <td>{{data.lCIssuingDate}}</td>
                               </tr>
                               <tr>
                                  <td>Last Shipment Date(LSD)</td>
-                                 <td>12/07/2019 </td>
+                                 <td>{{data.lastBeneSwiftCode}}</td>
                               </tr>
                               <tr>
                                  <td>Negotiation Date</td>
-                                  <td>25/06/2019</td>
+                                 <td>{{data.negotiationDate}}</td>
                               </tr>
                               <tr>
                                  <td>Goods</td>
-                                 <td>Matress</td>
+                                 <td>{{data.goodsType}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -144,21 +145,19 @@ style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100
                               </tr>
                               <tr>
                                  <td>Usance(Days)</td>
-                                 <td>60 days</td>
+                                 <td>{{data.usanceDays}}</td>
                               </tr>
                               <tr>
                                  <td>Payment terms to seller as per LC</td>
-                                 <td>Payment should be credited to the seller's account before last shipment date
-</td>
+                                 <td>{{data.paymentTerms}}</td>
                               </tr>
                               <tr>
                                  <td>Start Date</td>
-                                 <td>02/06/2019
-</td>
+                                 <td>{{data.tenorEndDate}}</td>
                               </tr>
                               <tr>
                                  <td>End Date</td>
-                                 <td>Date of Maturity</td>
+                                 <td>{{data.tenorEndDate}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -169,13 +168,11 @@ style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100
                               </tr>
                               <tr>
                                  <td>Applicant</td>
-                                 <td>Vitafoams Products Ltd
-</td>
+                                 <td>{{data.applicantName}}</td>
                               </tr>
                                <tr>
                                  <td>Country</td>
-                                 <td>Bangladesh
-</td>
+                                 <td>{{data.applicantCountry}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -186,13 +183,11 @@ style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100
                               </tr>
                               <tr>
                                  <td>Beneficiary   </td>
-                                 <td>Al Muqadi Mah Trading LLC
-</td>
+                                 <td>{{data.beneName}}</td>
                               </tr>
                                <tr>
                                  <td>Country</td>
-                                 <td>Bangladesh
-</td>
+                                 <td>{{data.beneCountry}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -202,24 +197,16 @@ style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100
                                  <th colspan="2">Beneficiary Bank</th>
                               </tr>
                                <tr>
-                                 <td>Country of Beneficiary Bank
-</td>
-                                 <td>Bangladesh
-</td>
+                                 <td>Country of Beneficiary Bank</td>
+                                <td>{{data.beneBankCountry}}</td>
                               </tr>
                               <tr>
-                                 <td>
-                                    Bank Name
-
-                                 </td>
-                                 <td>Dutch-Bangla Bank
-</td>
+                                 <td>Bank Name</td>
+                                 <td>{{data.beneBankName}}</td>
                               </tr>
                               <tr>
-                                 <td>Swift Code
-</td>
-                                 <td>DB78123578
-</td>
+                                 <td>Swift Code</td>
+                                 <td>{{data.beneSwiftCode}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -232,37 +219,24 @@ style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100
                               </tr>
                               <tr>
                                  <td>Port of Loading   </td>
-                                 <td>Jawaharlal Nehru Port
-</td>
+                                 <td>{{data.loadingPort}}</td>
                               </tr>
                               <tr>
-                                 <td>Country
- </td>
-                                 <td>India
-
-</td>
+                                 <td>Country </td>
+                                 <td>{{data.loadingCountry}}</td>
                               </tr> 
                               <tr>
-                                 <td>Port of Discharge
-</td>
-                                 <td>Port of Chittagong
-</td>
+                                 <td>Port of Discharge</td>
+                                 <td>{{data.dischargePort}}</td>
                               </tr>
                                <tr>
-                                 <td>Country
- </td>
-                                 <td>Bangladesh
-
-
-</td>
+                                 <td>Country </td>
+                                 <td>{{data.dischargeCountry}}</td>
                               </tr> 
                               <tr>
                                  <td>
-                                   Charges are on
-
-                                 </td>
-                                 <td>Al Muqadi Mah Trading LLC (Beneficiary)
-</td>
+                                   Charges are on</td>
+                                   <td>{{data.chargesType}}</td>
                               </tr> 
                               <tr>
                                  <td>Pro Forma</td>
