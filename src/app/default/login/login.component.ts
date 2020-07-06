@@ -68,12 +68,9 @@ export class LoginComponent implements OnInit {
       blacklistedGC: [''],
       companyName: ['']
     });
-
     this.forgotPasswordForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
     })
-
-
     this.dropdownSetting = {
       singleSelection: false,
       idField: 'id',
@@ -85,18 +82,15 @@ export class LoginComponent implements OnInit {
     }
     this.getCountryData();
   }
-
   get lf() {
     return this.loginForm.controls;
   }
-
   get suf() {
     return this.signupForm.controls;
   }
   get fpf() {
     return this.forgotPasswordForm.controls;
   }
-
   submit() {
     this.submitted = true;
     this.validate();
@@ -104,12 +98,10 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.submitted = false;
-
     let loginData: Login = {
       userId: this.loginForm.get('username').value,
       password: this.loginForm.get('password').value
     }
-
     this.loginService.login(loginData).
       subscribe(
         (response) => {
@@ -150,7 +142,6 @@ export class LoginComponent implements OnInit {
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
-
     if (subscriptionType == 'referrer') {
       this.validateCommons();
       this.validateReferrerForm();
@@ -239,7 +230,6 @@ export class LoginComponent implements OnInit {
     this.clearSignupValidation();
     this.updateValidation();
   }
-
   public checkUserType(value: string) {
     this.clearSignupValidation();
     this.updateValidation();
@@ -248,15 +238,12 @@ export class LoginComponent implements OnInit {
       this.isReferrer = false;
       this.resetSignUpForm();
       this.signupForm.patchValue({ radio: 'customer' })
-
     } else if (value === 'bank') {
       this.resetSignUpForm();
       this.signupForm.patchValue({ radio: 'bank', selector: 'customer' })
       this.isBank = false;
       this.isReferrer = false;
       setTimeout(function () { loads() }, 100);
-
-
     } else {
       this.resetSignUpForm();
       this.signupForm.patchValue({ radio: 'referrer' })
@@ -266,9 +253,6 @@ export class LoginComponent implements OnInit {
       setTimeout(function () { loads() }, 100)
     }
   }
-
-
-
   bankAsEvent(value: string) {
     this.clearSignupValidation();
     this.updateValidation();
@@ -282,7 +266,7 @@ export class LoginComponent implements OnInit {
       this.isBank = true;
       this.resetSignUpForm();
       this.signupForm.patchValue({ radio: 'bank', selector: 'underwriter' })
-
+      setTimeout(function () { loads() }, 200);
       setTimeout(function () { selectpickercall() }, 200);
     }
 
@@ -339,7 +323,7 @@ export class LoginComponent implements OnInit {
   validateCommons() {
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
-    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.email]);
+    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.signupForm.get('mobileNo').setValidators(Validators.required);
     this.signupForm.get('country').setValidators(Validators.required);
     this.removeBankValidation();
@@ -536,6 +520,11 @@ export class LoginComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 
@@ -549,7 +538,7 @@ export class LoginComponent implements OnInit {
     }
 
   forPassValidate() {
-    this.forgotPasswordForm.get('email').setValidators([Validators.required, Validators.email]);
+    this.forgotPasswordForm.get('email').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.forgotPasswordForm.get('email').updateValueAndValidity();
   }
 

@@ -111,8 +111,8 @@ export class NewTransactionComponent implements OnInit {
 
   public getNewRequestsForBank() {
     const data = {
-     "userId":sessionStorage.getItem('userID')
-    // "userId":'CU1788'
+     //"userId":sessionStorage.getItem('userID')
+    "userId":'BA1338'
     }
     console.log(data.userId)
   this.nts.getAllNewBankRequest(data).subscribe(
@@ -174,10 +174,16 @@ export class NewTransactionComponent implements OnInit {
    this.titleService.quote.next(true);
    
   }
-  showQuotePage(pagename: string,action:Tflag,data:any) {
+  showQuotePage(pagename: string,action:Tflag,val:any) {
   
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+    const data = {
+    //"userId":sessionStorage.getItem('userID'),
+     "userId":'CU1030',
+     "transactionId":'CU2020IND2332',
+
+     }
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;

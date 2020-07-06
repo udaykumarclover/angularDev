@@ -124,3 +124,36 @@
     top: -12px;
 
 }
+.terms_condition{
+    color:#4d74e0!important
+}
+.dropdownlabel{
+    font-family: 'Montserrat', sans-serif!important;
+    font-size: 9px!important;
+    font-weight: 500!important;
+    letter-spacing: 0.4px!important;
+    position: absolute!important;
+    top: -7px!important;
+    left: 5px!important;
+    transform: translateY(-50%)!important;
+    color: #999!important;
+    transition: all 0.15s ease-out 0s!important;
+    pointer-events: none!important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn span {
+    margin-left: 10px!important;
+}
+.blackListedGoodsList_img{
+    margin-left: 5px!important;
+    top:9px!important;
+}
+.loginbody .inputDiv .invalid-feedback{
+    top: 33px!important;
+}
+.loginbody .inputDiv {
+    margin-bottom: 30px!important;
+}
+.loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
+    content:none!important;
+}
