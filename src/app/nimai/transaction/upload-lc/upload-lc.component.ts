@@ -32,7 +32,7 @@ export class UploadLCComponent implements OnInit {
   public isEdit: boolean = false;
   public isConfirm: boolean = false;
   public loading: boolean = false;
-  public date: string = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS+SSSS", 'en-US');
+  public date: string = formatDate(new Date(), "dd-MM-yyyy' 'HH:mm:ss, Z", 'en-US');
 
   public lcDetail: LcDetail = null;
   public lc: any = null;
@@ -233,6 +233,7 @@ export class UploadLCComponent implements OnInit {
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
+    data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
   
@@ -285,6 +286,7 @@ export class UploadLCComponent implements OnInit {
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
+    data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
     data.transactionId = this.transactionID;
@@ -476,7 +478,7 @@ export class UploadLCComponent implements OnInit {
 
 
   public dateFormat(date: string): string {
-    let formatedDate = formatDate(new Date(date), "yyyy-MM-dd'T'HH:mm:ss.SSS+SSSS", 'en-US');
+    let formatedDate = formatDate(new Date(date), "dd-MM-yyyy' 'HH:mm:ss, Z", 'en-US');
     return formatedDate;
   }
 
@@ -515,7 +517,7 @@ export class UploadLCComponent implements OnInit {
       
           lCValue: this.draftData.lCValue,
           lCCurrency: this.draftData.lCCurrency,
-          lCIssuingDate: (this.draftData.lCIssuingDate) ? this.dateFormat(this.draftData.lCIssuingDate) : '',
+          lCIssuingDate: this.draftData.lCIssuingDate,
           lastShipmentDate: this.draftData.lastShipmentDate,
           negotiationDate: this.draftData.negotiationDate,
           goodsType:this.draftData.goodsType,
