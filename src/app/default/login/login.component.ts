@@ -321,7 +321,7 @@ export class LoginComponent implements OnInit {
   }
 
   validateCommons() {
-    this.signupForm.get('firstName').setValidators(Validators.required);
+    this.signupForm.get('firstName').setValidators([Validators.required,Validators.minLength(2)]);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.signupForm.get('mobileNo').setValidators(Validators.required);

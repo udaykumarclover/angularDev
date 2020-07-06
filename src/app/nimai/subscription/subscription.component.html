@@ -15,7 +15,7 @@
     <!-- <div class="main-panel"> -->
 
     <div class="content" [hidden]="!isNew">
-        <div class="container-fluid">
+        <div class="container-fluid container-scroll plans">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -25,7 +25,7 @@
                         <div class="card-content">
                             <h4 class="card-title">Subscription Details</h4>
                             <div class="plans">
-                                <div class="col-md-3" *ngFor="let plan of subscriptionDetails">
+                                <div class="col-md-3 subplan" *ngFor="let plan of subscriptionDetails">
                                     <div class="plan">
                                         <h3 class="plan-title">{{plan.subscriptionName}} </h3>
                                         <p class="plan-price">${{plan.subscriptionAmount}} </p>
@@ -39,10 +39,10 @@
                                         <a href="javascript:void()" (click)="choosePlan(plan)" class="plan-button">Choose Plan</a>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 subplan">
                                     <div class="plan">
                                         <h3 class="plan-title">Platinum ++ </h3>
-                                        <p class="plan-price"></p>
+                                        <p class="plan-price">$99</p>
                                         <ul class="plan-features">
                                             <li class="plan-feature">Unlimited <span class="plan-feature-name">Transaction Credits</span></li>
                                             <li class="plan-feature">Unlimited <span class="plan-feature-name">Subsidiaries</span></li>
@@ -93,8 +93,7 @@
                                                     Support</span></li>
                                             <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year
                                                     Validity</span></li>
-                                            <li class="plan-feature">{{choosedPlan.relationshipManager}}<span class="plan-feature-name">Relationship
-                                                    Manager</span></li>
+                                            <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>          
                                         </ul>
                                     </div>
                                 </div>

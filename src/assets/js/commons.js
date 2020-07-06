@@ -664,12 +664,12 @@ export function loadLogin() {
     });
 
     $(function () {
-        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
-            $(this).parent().toggleClass('is-focused');
-        });
-        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
-            $(this).toggleClass('ng-invalid');
-        });
+        // $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+        //     $(this).parent().toggleClass('is-focused');
+        // });
+        // $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+        //     $(this).toggleClass('ng-invalid');
+        // });
         $('.inputDiv input').focusout(function () {
             var text_val = $(this).val();
             if (text_val === "") {
