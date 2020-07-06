@@ -21,6 +21,7 @@ import { TransactionBean } from 'src/app/beans/TransactionBean';
 })
 export class NewTransactionComponent implements OnInit {
   bankDetail: any;
+  public data: TransactionBean;
   displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
@@ -41,7 +42,66 @@ export class NewTransactionComponent implements OnInit {
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
     this.titleService.quote.next(false);
-    
+    this.data = {
+      transactionId: "",
+      userId: "",
+      requirementType: "",
+      lCIssuanceBank: "",
+      lCIssuanceBranch: "",
+      swiftCode: 0,
+      lCIssuanceCountry: "",
+      lCIssuingDate: null,
+      lCExpiryDate: null,
+      lCValue: null,
+      lCCurrency: "",
+      lastShipmentDate: null,
+      negotiationDate: null,
+      paymentPeriod: 0,
+      paymentTerms: "",
+      tenorEndDate: null,
+      applicantName: "",
+      applicantCountry: "",
+      beneName: "",
+      beneBankCountry: "",
+      beneBankName: "",
+      beneSwiftCode: "",
+      beneCountry: "",
+      loadingCountry: "",
+      loadingPort: "",
+      dischargeCountry: "",
+      dischargePort: null,
+      chargesType: "",
+      validity: null,
+      insertedDate: null,
+      insertedBy: "",
+      modifiedDate: null,
+      modifiedBy: "",
+      transactionflag: null,
+      transactionStatus: "",
+      branchUserId: null,
+      branchUserEmail: null,
+      goodsType: "",
+      usanceDays: null,
+      startDate: null,
+      endDate: null,
+      originalTenorDays: null,
+      refinancingPeriod: "",
+      lcMaturityDate: null,
+      lcNumber: '',
+      lastBeneBank: "",
+      lastBeneSwiftCode: "",
+      lastBankCountry: "",
+      remarks: "",
+      discountingPeriod: "",
+      confirmationPeriod: null,
+      financingPeriod: null,
+      lcProForma: "",
+      tenorFile: null,
+      lccountry: [],
+      lcgoods: [],
+      lcbanks: [],
+      lcbranch: []
+    }
   }
   ngOnInit() {
     bankActiveTransaction();
@@ -51,12 +111,12 @@ export class NewTransactionComponent implements OnInit {
 
   public getNewRequestsForBank() {
     const data = {
-    // "userId":sessionStorage.getItem('userID')
-     "userId":'CU1788'
+     "userId":sessionStorage.getItem('userID')
+    // "userId":'CU1788'
     }
     console.log(data.userId)
-  //this.nts.getAllNewBankRequest(data).subscribe(
-   this.nts.getTransactionDetailByUserId(data).subscribe(
+  this.nts.getAllNewBankRequest(data).subscribe(
+  // this.nts.getTransactionDetailByUserId(data).subscribe(
     
       (response) => {
      
@@ -106,11 +166,11 @@ export class NewTransactionComponent implements OnInit {
    this.discounting.isActive = false;
     this.refinancing.isActive = false;
     this.banker.isActive = false;
-  //  this.details.isActiveDetail=false;
   }
   showDetail(data:any){
+    console.log(data)
     this.isActive=true;
-   
+    this.data = data;
    this.titleService.quote.next(true);
    
   }

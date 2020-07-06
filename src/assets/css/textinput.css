@@ -176,21 +176,33 @@ dl {
   font-weight: normal;
   color: #aaa;
 }
-
-.plan-features { 
-  margin: 20px auto 15px;
-  padding: 15px 0 0 10px;
-  border-top: 1px solid #e5ded6;
-  text-align: left;
-  list-style-image: url('../images/check.svg');
+/*added by ashvini - subscription plan checklist size*/
+.plan-features {
+  list-style: none;
+  padding-left: 0;
 }
-
-.plan-feature {
+.plan-features li {
+  position: relative;
+  padding-left: 20px;
+  display:-webkit-box;
+  color: #00bcd4;
   line-height: 20px;
   font-size: 14px;
   font-weight: 500;
-  color: #00bcd4;
 }
+.plan-features li:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background-image: url('../images/check.svg');
+  background-size: cover;
+  background-position: center;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .plan-feature + .plan-feature {
   margin-top: 5px;
 }
@@ -899,14 +911,6 @@ color: #9c9c9c;
   margin: 0;
   font-weight: 300;
 }
-#menu-bar .handle{
-   
-}
-#menu-bar .handle:hover{
-  /*left: -46px;
-  width: 30px;*/
-}
-
 .tabbable-panel {
   border:0px solid #eee;
   padding: 10px;

@@ -153,26 +153,28 @@
          <div class="card">
             <div class="card-content">
                <h4>{{title}}</h4>
+               <form [formGroup]="confirmationForm" (ngSubmit)="submit();">
+
                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                   <div class="tab-pane active" id="pill1">
                      <table class="table">
                         <tbody>
                            <tr>
                               <td>Confirmation Charges p.a.</td>
-                              <td><input type="text" name="" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                              <td><input type="text" formControlName="confirmationCharges" placeholder="0.00"> <span class="pull-right percent">%</span></td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                               <td><input type="text" name="" readonly placeholder="122.22"></td>
+                               <td><input type="text" formControlName="confChgsIssuanceToNegot" readonly placeholder="122.22"></td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                              <td><input type="text" name="" readonly placeholder="377.22"></td>
+                              <td><input type="text" formControlName="confChgsIssuanceToMatur" readonly placeholder="377.22"></td>
                            </tr>
                            <tr>
                               <td>Minimum Transaction Charges</td>
                               <td>
-                                 <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                                 <input type="text" formControlName="minTransactionCharges" class="halfleft" placeholder="0.00" style="width:50%;" />
                                  <select class="halfright" style="color: #333 !important;">
                                     <option value="USD">USD</option>
                                  </select>
@@ -196,7 +198,7 @@
                      </table>
                      <div class="posfix">
                         <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('GetQuote')">
-                           Get Quote
+                           Save/Generate Quote
                            <div class="ripple-container" ></div>
                         </button>
                         <!-- <button class="btn btn-info" (click)="transaction('ok')">
@@ -206,6 +208,7 @@
                      </div>
                   </div>
                </div>
+               </form>
                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                   <div class="tab-pane active" id="pill1">
                      <table class="table">
@@ -248,7 +251,7 @@
                      </table>
                      <div class="posfix">
                         <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
-                           Submit
+                           Confirm
                            <div class="ripple-container"></div>
                         </button>
                         <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">

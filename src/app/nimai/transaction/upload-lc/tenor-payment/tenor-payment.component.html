@@ -18,7 +18,7 @@
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" readonly="" formControlName="tenorEndDate" class="has-value" value="{{LcDetail.get('negotiationDate').value | date: 'dd/MM/yyyy'}}">
+            <input type="text" readonly="" formControlName="tenorEndDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
             <label>Start Date</label>
         </div>
     </div>
@@ -95,7 +95,7 @@
                         <input type="radio" value="rdmaturity" id="rdmaturity" name="optionsRadios"
                             checked="checked"><span class="circle"></span><span class="check"></span><span
                             class="circle"></span><span class="check"></span>
-                        <div class="inputDiv" style="    margin: -15px 0 0 0;"><input type="text" value="20/04/2020"
+                        <div class="inputDiv" style="    margin: -15px 0 0 0;"><input type="text" value="{{LcDetail.get('lCIssuingDate').value | date: 'dd/MM/yyyy'}}"
                                 name="">
                         </div>
                     </label>

@@ -5,6 +5,7 @@ import { TransactionBean } from 'src/app/beans/TransactionBean';
 import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ViewChild, OnInit, Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -12,12 +13,14 @@ import { ViewChild, OnInit, Component } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
  
+  
+  public confirmationForm: FormGroup;
   public isActive: boolean = false;
   public isActiveQuote: boolean = false;
   public data: TransactionBean;
   public title: string = "";
-  public tab = 'tab2';
-  constructor(public titleService: TitleService, public ts: NewTransactionService) {
+  public tab = 'tab1';
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder) {
     this.data = {
       transactionId: "",
       userId: "",
@@ -78,6 +81,15 @@ export class ConfirmationComponent implements OnInit {
       lcbanks: [],
       lcbranch: []
     }
+
+    this.confirmationForm = this.fb.group({
+      confirmationCharges: [''],
+      confChgsIssuanceToNegot: [''],
+      confChgsIssuanceToMatur: [''],
+      minTransactionCharges: ['']
+    
+    })
+
   }
 
   ngOnInit() {
@@ -208,5 +220,13 @@ export class ConfirmationComponent implements OnInit {
     }
 
   }
+
+
+
+
+  submit(): void {
+    
+  }
+
 
 }
