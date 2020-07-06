@@ -185,6 +185,10 @@ dl {
   position: relative;
   padding-left: 20px;
   display:-webkit-box;
+  color: #00bcd4;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 500;
 }
 .plan-features li:before {
   content: '';
