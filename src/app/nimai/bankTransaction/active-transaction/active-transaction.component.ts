@@ -45,7 +45,7 @@ export class ActiveTransactionComponent implements OnInit {
   public getAllnewTransactions() {
     const data={
      // userId:sessionStorage.getItem('userID')
-     userId:'CU1445'
+     userId:'CU1030'
     }
     
     this.nts.getTransactionDetailByUserId(data).subscribe(

@@ -153,7 +153,7 @@
          <div class="card">
             <div class="card-content">
                <h4>{{title}}</h4>
-               <form [formGroup]="confirmationForm" (ngSubmit)="submit();">
+              
 
                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                   <div class="tab-pane active" id="pill1">
@@ -161,20 +161,20 @@
                         <tbody>
                            <tr>
                               <td>Confirmation Charges p.a.</td>
-                              <td><input type="text" formControlName="confirmationCharges" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                              <td><input type="text" [(ngModel)]="data.confirmationCharges" placeholder="0.00"> <span class="pull-right percent">%</span></td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                               <td><input type="text" formControlName="confChgsIssuanceToNegot" readonly placeholder="122.22"></td>
+                               <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" readonly placeholder="122.22"></td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                              <td><input type="text" formControlName="confChgsIssuanceToMatur" readonly placeholder="377.22"></td>
+                              <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" readonly placeholder="377.22"></td>
                            </tr>
                            <tr>
                               <td>Minimum Transaction Charges</td>
                               <td>
-                                 <input type="text" formControlName="minTransactionCharges" class="halfleft" placeholder="0.00" style="width:50%;" />
+                                 <input type="text" [(ngModel)]="data.minTransactionCharges" class="halfleft" placeholder="0.00" style="width:50%;" />
                                  <select class="halfright" style="color: #333 !important;">
                                     <option value="USD">USD</option>
                                  </select>
@@ -183,7 +183,7 @@
                            <tr>
                               <td>Other Charges</td>
                               <td>
-                                 <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                                 <input type="text" [(ngModel)]="data.otherCharges" class="halfleft" placeholder="0.00" style="width:50%;" />
                                  <select class="halfright" style="color: #333 !important;">
                                     <option value="USD">USD</option>
                                  </select>
@@ -192,12 +192,12 @@
                            </tr>
                            <tr>
                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td><input type="text" name=""  placeholder="28/03/2020"></td>
+                              <td><input type="text" [(ngModel)]="data.validityDate"  placeholder="28/03/2020"></td>
                            </tr>
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('GetQuote')">
+                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote')">
                            Save/Generate Quote
                            <div class="ripple-container" ></div>
                         </button>
@@ -208,7 +208,7 @@
                      </div>
                   </div>
                </div>
-               </form>
+              
                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                   <div class="tab-pane active" id="pill1">
                      <table class="table">
@@ -250,11 +250,11 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm')">
                            Confirm
                            <div class="ripple-container"></div>
                         </button>
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit')">
                            Edit
                            <div class="ripple-container"></div>
                         </button>
@@ -273,7 +273,7 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button class="btn btn-info" (click)="transaction('ok')">
+                        <button class="btn btn-info" (click)="transactionForQuotes('ok')">
                            OK
                            <div class="ripple-container"></div>
                         </button>

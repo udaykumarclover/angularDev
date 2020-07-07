@@ -10,12 +10,17 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import {bankActiveTransaction} from 'src/assets/js/commons'
 import { Tflag } from 'src/app/beans/Tflag';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { TransactionBean } from 'src/app/beans/TransactionBean';
 @Component({
   selector: 'app-draft-transaction',
   templateUrl: './draft-transaction.component.html',
   styleUrls: ['./draft-transaction.component.css']
 })
 export class DraftTransactionComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
+  dataSource: MatTableDataSource<any>;
+  public ntData: any[] = [];
   noData: boolean = false;
   detail: any;
     draftData: any;
@@ -23,20 +28,28 @@ export class DraftTransactionComponent implements OnInit {
   public subURL: string = "";
 
   
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
-    public whoIsActive: string = "";
-
-  constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService,  public activatedRoute: ActivatedRoute, public router: Router ) {
-    this.activatedRoute.parent.url.subscribe((urlPath) => {
-      this.parentURL = urlPath[urlPath.length - 1].path;
-    });
-    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
-      this.subURL = urlPath[urlPath.length - 1].path;
-    })
+  public whoIsActive: string = "";
+  public hasNoRecord: boolean = false;
+  
+  // constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService,  public activatedRoute: ActivatedRoute, public router: Router ) {
+  //   this.activatedRoute.parent.url.subscribe((urlPath) => {
+  //     this.parentURL = urlPath[urlPath.length - 1].path;
+  //     this.titleService.quote.next(false);
+  constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService) {
+    this.titleService.quote.next(false);
+    
+    //});
+    // this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+    //   this.subURL = urlPath[urlPath.length - 1].path;
+    // })
   }
 
   
@@ -47,18 +60,18 @@ export class DraftTransactionComponent implements OnInit {
 
   ngAfterViewInit() {
     this.callAllDraftTransaction();
-    this.confirmation.isActive = false;
-    this.confirmAndDiscount.isActive = false;
-   this.discounting.isActive = false;
-    this.refinancing.isActive = false;
-    this.banker.isActive = false;
+  //   this.confirmation.isActive = false;
+  //   this.confirmAndDiscount.isActive = false;
+  //  this.discounting.isActive = false;
+  //   this.refinancing.isActive = false;
+  //   this.banker.isActive = false;
     
   }
 
   callAllDraftTransaction(){
     const param = {
     // userId: sessionStorage.getItem('userID')
-      userId:'CU1445'
+      userId:'CU1030'
     }
     //this.nts.getAllNewBankRequest(param).subscribe(
    this.service.getCustDraftTransaction(param).subscribe(
@@ -87,17 +100,17 @@ export class DraftTransactionComponent implements OnInit {
   }
 
 
-  editDraft(trnsactionID){
-    const navigationExtras: NavigationExtras = {
-      state: {
-        redirectedFrom: "draftTransaction",
-        trnsactionID: trnsactionID
-      }
-    };
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
-      .then(success => console.log('navigation success?', success))
-      .catch(console.error);
-  }
+  // editDraft(trnsactionID){
+  //   const navigationExtras: NavigationExtras = {
+  //     state: {
+  //       redirectedFrom: "draftTransaction",
+  //       trnsactionID: trnsactionID
+  //     }
+  //   };
+  //   this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
+  //     .then(success => console.log('navigation success?', success))
+  //     .catch(console.error);
+  // }
 
 
   showQuotePage(pagename: string,action:Tflag,data:any) {
@@ -105,7 +118,9 @@ export class DraftTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,data);
+      alert(action)
+      this.confirmation.test()
+      //this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;

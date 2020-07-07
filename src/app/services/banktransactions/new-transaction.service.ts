@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
+import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,18 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailByUserId`, data, { headers: { 'content-types': 'application/json' } })
   }
 
+  
+  public saveQuotationToDraft(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/saveQuotationToDraft`, data, { headers: { 'content-types': 'application/json' } })
+  }
 
   public updateCustomerTransaction(data: TransactionBean): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
   }
 
+  public updateBankTransaction(data: PlaceQuote): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
+  }
   
   public calculateQuote(data: any): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/calculateQuote`, data, { headers: { 'content-types': 'application/json' } });
