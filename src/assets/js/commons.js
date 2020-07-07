@@ -664,12 +664,12 @@ export function loadLogin() {
     });
 
     $(function () {
-        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
-            $(this).parent().toggleClass('is-focused');
-        });
-        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
-            $(this).toggleClass('ng-invalid');
-        });
+        // $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+        //     $(this).parent().toggleClass('is-focused');
+        // });
+        // $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+        //     $(this).toggleClass('ng-invalid');
+        // });
         $('.inputDiv input').focusout(function () {
             var text_val = $(this).val();
             if (text_val === "") {
@@ -1814,4 +1814,61 @@ export function newRequest(){
       demo.initFormExtendedDatetimepickers();
     });
 }, 1000);   
+}
+
+export function creditTransaction(){
+    $(document).ready(function() {
+        demo.initFormExtendedDatetimepickers(); 
+
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers","scrollX": true,
+            "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
+            responsive: false, //scrollX: true,
+            language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+            }
+        
+          });
+
+          var table = $('#datatables').DataTable();
+         
+           // Edit record
+           table.on( 'click', '.edit', function () {
+             $tr = $(this).closest('tr');
+         
+             var data = table.row($tr).data();
+             alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+           } );
+         
+           // Delete a record
+           table.on( 'click', '.remove', function (e) {
+             $tr = $(this).closest('tr');
+             table.row($tr).remove().draw();
+             e.preventDefault();
+           } );
+         
+           //Like record
+           table.on( 'click', '.like', function () {
+             alert('You clicked on Like button');
+           });
+         
+           $('.card .material-datatables label').addClass('form-group');
+        });
+
+        $(".datepicker").on("dp.show", function(e) {
+            debugger;
+            // alert('test');
+            $('.datepicker + div + label').addClass('calendarlabel');
+            $('.inputDiv input, .inputDiv textarea').focusout(function() {
+                var text_val = $(this).val();
+                if (text_val === "") {
+                    $(this).removeClass('has-value');
+                    $('.datepicker + div + label').removeClass('calendarlabel');
+                } else {
+                    $(this).addClass('has-value');
+                    $('.datepicker + div + label').addClass('calendarlabel');
+                }
+            });
+        });
 }

@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
 import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
+import * as $ from 'src/assets/js/jquery.min';
 
 
 @Component({
@@ -18,12 +19,21 @@ export class TenorPaymentComponent implements OnInit {
   public discount: boolean = false;
   public refinancing: boolean = false;
   public confirmation: boolean = true;
+  fileToUpload: File = null;
 
   constructor(public rds:DataServiceService) {
 
   }
 
   ngOnInit() {
+    $("input[name='optionsRadios']").click(function() {
+      var radioValue1 = $("input[name='optionsRadios']:checked").val();
+      if (radioValue1 == "rdmaturity") {
+           $('.multipledate').hide();
+      } else {
+          $('.multipledate').show();
+      } 
+    });
 
   }
 
@@ -61,6 +71,15 @@ export class TenorPaymentComponent implements OnInit {
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
     }
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload);
+    const formData: FormData = new FormData();
+    formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
+    
+    this.LcDetail.get('lcMaturityDate').setValue(formData);
   }
 
 

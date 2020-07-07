@@ -22,15 +22,13 @@ export class DraftTransactionComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
   noData: boolean = false;
-  detail: any;
-    draftData: any;
+  draftData: any;
   public parentURL: string = "";
   public subURL: string = "";
 
   
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
@@ -38,33 +36,22 @@ export class DraftTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  
-  // constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService,  public activatedRoute: ActivatedRoute, public router: Router ) {
-  //   this.activatedRoute.parent.url.subscribe((urlPath) => {
-  //     this.parentURL = urlPath[urlPath.length - 1].path;
-  //     this.titleService.quote.next(false);
   constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
-    
-    //});
-    // this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
-    //   this.subURL = urlPath[urlPath.length - 1].path;
-    // })
+ 
   }
-
   
   ngOnInit() {
-   
     bankActiveTransaction();
   }
 
   ngAfterViewInit() {
     this.callAllDraftTransaction();
-  //   this.confirmation.isActive = false;
-  //   this.confirmAndDiscount.isActive = false;
-  //  this.discounting.isActive = false;
-  //   this.refinancing.isActive = false;
-  //   this.banker.isActive = false;
+    this.confirmation.isActive = false;
+    this.confirmAndDiscount.isActive = false;
+   this.discounting.isActive = false;
+    this.refinancing.isActive = false;
+    this.banker.isActive = false;
     
   }
 
@@ -73,7 +60,9 @@ export class DraftTransactionComponent implements OnInit {
     // userId: sessionStorage.getItem('userID')
       userId:'CU1030'
     }
-    //this.nts.getAllNewBankRequest(param).subscribe(
+   
+    //  this.nts.getTransactionDetailByUserId(param).subscribe(
+    
    this.service.getCustDraftTransaction(param).subscribe(
       (response) => {
         this.draftData = JSON.parse(JSON.stringify(response)).data;
@@ -81,18 +70,7 @@ export class DraftTransactionComponent implements OnInit {
         if(!this.draftData){
           this.noData = true;
         }
-        // const data = {
-        //   "userId":sessionStorage.getItem('userID')
-        //  }
-        // this.nts.getAllNewBankRequest(data).subscribe(
-        //   // this.nts.getTransactionDetailByUserId(data).subscribe(            
-        //       (response) => {             
-        //         this.detail = JSON.parse(JSON.stringify(response)).data;
-               
-        //       },(error) =>{
-                
-        //       }
-        //     )
+     
       },(error) =>{
         this.noData = true;
       }
@@ -100,27 +78,17 @@ export class DraftTransactionComponent implements OnInit {
   }
 
 
-  // editDraft(trnsactionID){
-  //   const navigationExtras: NavigationExtras = {
-  //     state: {
-  //       redirectedFrom: "draftTransaction",
-  //       trnsactionID: trnsactionID
-  //     }
-  //   };
-  //   this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
-  //     .then(success => console.log('navigation success?', success))
-  //     .catch(console.error);
-  // }
 
-
-  showQuotePage(pagename: string,action:Tflag,data:any) {
-  console.log(data)
+  showQuotePage(pagename: string,action:Tflag,val:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+    const data = {
+      "userId":sessionStorage.getItem('userID'),
+      "transactionId":this.draftData.transactionId,
+       // "userId":'CU1030',"transactionId":'CU2020IND0130',
+       }
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-      alert(action)
-      this.confirmation.test()
-      //this.confirmation.action(true,action,data);
+      this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;

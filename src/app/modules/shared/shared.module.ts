@@ -21,6 +21,7 @@ import { ResetPasswordComponent } from 'src/app/default/reset-password/reset-pas
 import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/manage-subsidiary.component';
 import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
 import { ReferComponent } from 'src/app/default/refer/refer.component';
+import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 
 
 
@@ -39,7 +40,8 @@ import { ReferComponent } from 'src/app/default/refer/refer.component';
     ResetPasswordComponent,
     ChangePasswordComponent,
     ManageSubsidiaryComponent,
-    ReferComponent
+    ReferComponent,
+    CreditAndTransactionsComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,8 @@ import { ReferComponent } from 'src/app/default/refer/refer.component';
     ResetPasswordComponent,
     ChangePasswordComponent,
     ManageSubsidiaryComponent,
-    ReferComponent
+    ReferComponent,
+    CreditAndTransactionsComponent
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,

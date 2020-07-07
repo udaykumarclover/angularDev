@@ -112,16 +112,8 @@
                 </div>
             </li>
             <li class="multipledate" style="width: 400px; display: none;">
-                <input type="file" class="filestyle" name="" id="filestyle-0" tabindex="-1"
-                    style="position: absolute; clip: rect(0px, 0px, 0px, 0px);">
-                <div class="bootstrap-filestyle input-group">
-                    <div class="form-group is-empty"><input type="text" class="form-control "
-                            placeholder="Upload Document (only pdf, jpeg, png)" disabled=""><span
-                            class="material-input"></span></div> <span class="group-span-filestyle input-group-btn"
-                        tabindex="0"><label for="filestyle-0" class="btn btn-default "><span
-                                class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> <span
-                                class="buttonText">Choose file</span></label></span>
-                </div>
+                <label>Upload Document (only pdf, jpeg, png)</label>
+                <input (change)="handleFileInput($event.target.files)" type="file" placeholder="Document" class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
             </li>
 
         </ul>

@@ -4,6 +4,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
+import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
 
 @Component({
   selector: 'app-refinancing',
@@ -14,69 +15,37 @@ export class RefinancingComponent implements OnInit {
 
   public isActive: boolean = false;
   public isActiveQuote:boolean=false;
-  public data: TransactionBean;
+  public data: PlaceQuote;
   public title: string = "";
   public tab = 'tab1';
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
-    this.data = {
+    
+    this.data = {        
       transactionId: "",
       userId: "",
-      requirementType: "",
-      lCIssuanceBank: "",
-      lCIssuanceBranch: "",
-      swiftCode: 0,
-      lCIssuanceCountry: "",
-      lCIssuingDate: null,
-      lCExpiryDate: null,
-      lCValue: null,
-      lCCurrency: "",
-      lastShipmentDate: null,
-      negotiationDate: null,
-      paymentPeriod: 0,
-      paymentTerms: "",
-      tenorEndDate: null,
-      applicantName: "",
-      applicantCountry: "",
-      beneName: "",
-      beneBankCountry: "",
-      beneBankName: "",
-      beneSwiftCode: "",
-      beneCountry: "",
-      loadingCountry: "",
-      loadingPort: "",
-      dischargeCountry: "",
-      dischargePort: null,
-      chargesType: "",
-      validity: null,
-      insertedDate: null,
+      bankUserId: "",
+      confirmationCharges:0,
+      confChgsIssuanceToNegot: "",
+      confChgsIssuanceToexp: "",
+      confChgsIssuanceToMatur: "",
+      discountingCharges:0,
+      refinancingCharges: "",
+      bankAcceptCharges: "",
+      applicableBenchmark:0,
+      commentsBenchmark: "",
+      negotiationChargesFixed:0,
+      negotiationChargesPerct:0,
+      docHandlingCharges:0,
+      otherCharges:0,
+      minTransactionCharges:0,
       insertedBy: "",
-      modifiedDate: null,
       modifiedBy: "",
-      transactionflag: null,
-      transactionStatus: "",
-      branchUserId: null,
-      branchUserEmail: null,
-      goodsType: "",
-      usanceDays: null,
-      startDate: null,
-      endDate: null,
-      originalTenorDays: null,
-      refinancingPeriod: "",
-      lcMaturityDate: null,
-      lcNumber: '',
-      lastBeneBank: "",
-      lastBeneSwiftCode: "",
-      lastBankCountry: "",
-      remarks: "",
-      discountingPeriod: "",
-      confirmationPeriod: null,
-      financingPeriod: null,
-      lcProForma: "",
-      tenorFile: null,
-      lccountry: [],
-      lcgoods: [],
-      lcbanks: [],
-      lcbranch: []
+      insertedDate: null,
+      modifiedDate:null,
+      validityDate:null
+  
+    
+    
     }
   }
 
@@ -84,7 +53,6 @@ export class RefinancingComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
     if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
@@ -96,7 +64,7 @@ export class RefinancingComponent implements OnInit {
         this.title = 'Edit';
         this.data = data;
         $('input').attr('readonly', false);
-      }else{
+      }else if(type===Tflag.PLACE_QUOTE){
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
@@ -115,11 +83,12 @@ export class RefinancingComponent implements OnInit {
     this.isActive = false;
     this.titleService.quote.next(false);
   }
-
   public closedQuote() {
     this.isActiveQuote = false;
     this.titleService.quote.next(false);
   }
+
+
   public transaction(act: string) {
 
     switch (act) {
@@ -133,7 +102,8 @@ export class RefinancingComponent implements OnInit {
         break;
 
       case 'submit': {
-        this.ts.updateCustomerTransaction(this.data).subscribe(
+        console.log(this.data)
+        this.ts.updateBankTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
           },
@@ -143,20 +113,12 @@ export class RefinancingComponent implements OnInit {
             this.tab = 'tab1';
           }
         )
-
-
       }
         break;
       case 'ok': {
-
-        if(this.isActive){
-          this.closed();
-          this.tab = 'tab1';
-          }else{
-         this.closedQuote();
-         this.tab = 'tab1';
+            this.closed();
+            this.tab = 'tab1';                  
       }
-    }
         break;
       case 'preview': {
         this.tab = 'tab2';
@@ -166,6 +128,79 @@ export class RefinancingComponent implements OnInit {
       }
         break;
     }
-
   }
+  
+  public transactionForQuotes(act: string) {
+
+    switch (act) {
+      case 'edit': {
+        this.tab = 'tab1'
+        setTimeout(() => {
+          $('input').attr('readonly', false);
+        }, 100);
+        this.title = 'Edit';
+      }
+        break;
+
+      case 'confirm': {
+        console.log(this.data)
+        this.ts.updateBankTransaction(this.data).subscribe(
+          (response) => {
+            this.tab = 'tab3';
+          },
+          error => {
+            alert('error')
+            this.closedQuote();
+            this.tab = 'tab1';
+          }
+        )
+      }
+        break;
+      case 'ok': {
+           this.closedQuote();
+           this.tab = 'tab1';
+              }
+        break;
+      case 'preview': {
+        this.tab = 'tab2';
+        setTimeout(() => {
+          $('input').attr('readonly', true);
+        }, 200);
+      }
+        break;
+
+
+        case 'generateQuote': {
+       console.log(this.data)
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+              console.log(response)
+              this.tab = 'tab2';
+            },
+            error => {
+              alert('error')
+              this.closedQuote();
+              this.tab = 'tab1';
+            }
+          )
+          // console.log(this.data)
+          // const data1 = {
+          //               "transactionId":'CU2020IND0112'
+          //  }
+          // this.ts.calculateQuote(data1).subscribe(
+          //   (response) => {
+          //     console.log(response)
+          //     //this.tab = 'tab3';
+          //   },
+          //   error => {
+          //     alert('error')
+             
+          //   }
+          // )}
+    }
+  }
+  
+  }
+
+
 }
