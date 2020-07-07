@@ -8,6 +8,7 @@ import { formatDate } from '@angular/common';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import  { ValidateRegex } from '../../../beans/Validations';
+import { call } from 'src/assets/js/bootstrap-filestyle.min'
 
 
 
@@ -76,6 +77,8 @@ export class UploadLCComponent implements OnInit {
       lcd.saveCount = anchor.length;
 
     })
+    call();
+
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -436,10 +439,9 @@ export class UploadLCComponent implements OnInit {
       refinancingPeriod:[''],
       lcMaturityDate:[''],
       lcNumber:[''],
-    lastBeneBank:[''],
-    lastBeneSwiftCode:[''],
-    lastBankCountry:[''],
-  
+      lastBeneBank:[''],
+      lastBeneSwiftCode:[''],
+      lastBankCountry:[''],  
       
       applicantName:[''],
       applicantCountry:[''],
@@ -458,7 +460,7 @@ export class UploadLCComponent implements OnInit {
   
       chargesType: [''],
       validity:[''],
-      lcProForma:'TEST',
+      lcProForma:[''],
   
       lCExpiryDate:[''],    
       

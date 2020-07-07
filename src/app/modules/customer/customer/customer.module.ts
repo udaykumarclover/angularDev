@@ -32,6 +32,7 @@ import { ChangePasswordComponent } from 'src/app/default/change-password/change-
 import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { TransactionDetailsComponent } from 'src/app/nimai/transaction/transaction-details/transaction-details.component';
 import { DraftTransactionComponent } from 'src/app/nimai/transaction/draft-transaction/draft-transaction.component';
+import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 
 
 const routes: Routes = [
@@ -116,6 +117,12 @@ const routes: Routes = [
       },
       {
         path: "refer", component: ReferComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "credit-transaction", component: CreditAndTransactionsComponent, children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]

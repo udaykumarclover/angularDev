@@ -10,6 +10,7 @@ import { DataServiceService } from 'src/app/services/upload-lc/data-service.serv
 export class OthersComponent implements OnInit {
   
   @Input() public LcDetail:FormGroup;
+  fileToUpload: File = null;
   
   
 
@@ -21,6 +22,15 @@ export class OthersComponent implements OnInit {
   ngOnInit() {
     
 
+  }
+
+  handleFileInput1(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload);
+    const formData: FormData = new FormData();
+    formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
+    
+    this.LcDetail.get('lcProForma').setValue(formData);
   }
 
 }
