@@ -20,11 +20,30 @@
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
 }
+.inputDiv select{
+    color: #545454!important;
+}
+.inputDiv .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+.inputDiv .is-invalid {
+	outline: none;
+    background-image: linear-gradient(#ff0330, #ff0330), linear-gradient(#ff0330, #ff0330);
+    background-size: 100% 2px, 100% 1px;
+    box-shadow: none;
+    transition-duration: 0.3s;
 
+}
 
 /* Modal Content/Box */
-
-
 /* The Close Button */
 
 .close {

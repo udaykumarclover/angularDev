@@ -55,6 +55,7 @@ export function selectpickercall() {
         
         $(".selectpicker").selectpicker();
     }
+
 }
 export function loads() {
     const inputs = $('.inputDiv').find('input');
