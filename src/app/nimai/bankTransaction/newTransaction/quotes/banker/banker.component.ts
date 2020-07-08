@@ -43,7 +43,12 @@ export class BankerComponent implements OnInit {
       modifiedBy: "",
       insertedDate: null,
       modifiedDate:null,
-      validityDate:null
+      validityDate:null,
+      TotalQuote: 0,
+      expiryDays: 0,
+      maturityDays: 0,
+      negotiationDays: 0,
+      sumOfQuote: 0
   
            }
   }

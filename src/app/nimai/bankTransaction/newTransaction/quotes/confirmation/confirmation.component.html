@@ -197,7 +197,7 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote')">
+                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote',data)">
                            Save/Generate Quote
                            <div class="ripple-container" ></div>
                         </button>
@@ -215,34 +215,34 @@
                         <tbody>
                            <tr>
                               <td>Confirmation Charges p.a.</td>
-                              <td>1.23%</td>
+                              <td>{{data.confirmationCharges}}</td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                              <td>USD $122.22</td>
+                              <td>{{data.confChgsIssuanceToNegot}}</td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                              <td>USD $ 377.22</td>
+                              <td>{{data.confChgsIssuanceToMatur}}</td>
                            </tr>
                            <tr>
                               <td>Minimum Transaction Charges</td>
                               <td>
-                                 USD $500 
+                               {{data.minTransactionCharges}}
                               </td>
                            </tr>
                            <tr>
                               <td>Other Charges</td>
-                              <td>USD $500 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                              <td>{{data.otherCharges}}<br><small>Customer needs to pay standard swift transfer charges.</small>
                               </td>
                            </tr>
                            <tr>
                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td>28/03/2020</td>
+                              <td>{{data.validityDate}}</td>
                            </tr>
                            <tr>
                               <th>Total Quote</th>
-                              <th>USD $500</th>
+                              <th>{{data.sumOfQuote}}</th>
                            </tr>
                            <tr>
                               <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>

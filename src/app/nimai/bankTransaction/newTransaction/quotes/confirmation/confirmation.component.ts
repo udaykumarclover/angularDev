@@ -48,8 +48,12 @@ export class ConfirmationComponent implements OnInit {
 		modifiedBy: "",
 		insertedDate: null,
 		modifiedDate:null,
-		validityDate:null
-
+		validityDate:null,
+    TotalQuote: 0,
+    expiryDays: 0,
+    maturityDays: 0,
+    negotiationDays: 0,
+    sumOfQuote: 0
      }
 
      }
@@ -59,7 +63,7 @@ export class ConfirmationComponent implements OnInit {
 
 
   public action(flag: boolean, type: Tflag, data: any) {
-   
+   alert(data)
     if (flag) {
      
       if (type === Tflag.VIEW) {
@@ -143,8 +147,8 @@ export class ConfirmationComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string) {
-
+  public transactionForQuotes(act: string,data:any) {
+console.log(data)
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -184,11 +188,14 @@ export class ConfirmationComponent implements OnInit {
 
 
         case 'generateQuote': {
-       console.log(this.data)
+      
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-              console.log(response)
+            
               this.tab = 'tab2';
+              this.data = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              console.log(this.data)
             },
             error => {
               alert('error')

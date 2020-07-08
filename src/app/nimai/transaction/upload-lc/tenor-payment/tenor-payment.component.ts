@@ -84,7 +84,6 @@ export class TenorPaymentComponent implements OnInit {
     }
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
-
   }
   _handleReaderLoaded(e) {
     let reader = e.target;

@@ -35,7 +35,7 @@ export class NewTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  detail: any;
+  public detail: any;
   
 
 
@@ -104,59 +104,26 @@ export class NewTransactionComponent implements OnInit {
   }
   ngOnInit() {
     bankActiveTransaction();
-   //newRequest();
   }
 
 
   public getNewRequestsForBank() {
     const data = {
      "userId":sessionStorage.getItem('userID')
-  //  "userId":'BA1338'
-    }
-    console.log(data.userId)
+     }
+   
   this.nts.getAllNewBankRequest(data).subscribe(
   // this.nts.getTransactionDetailByUserId(data).subscribe(
-    
-      (response) => {
-     
-        this.detail = JSON.parse(JSON.stringify(response)).data;
-        if (!this.detail) {
+          (response) => {
+             this.detail = JSON.parse(JSON.stringify(response)).data;
+          if (!this.detail) {
           this.hasNoRecord = true;
         }
-
       },(error) =>{
         this.hasNoRecord = true;
       }
     )
   }
-
-  // placeQuoteFrom = this.formBuilder.group({
-  //   transactionId: new FormControl(''),
-  //   quotationId: new FormControl(''),
-  //   confirmationCharges: new FormControl(''),
-  //   confChgsIssuanceToNegot: new FormControl(''),
-  //   confChgsIssuanceToexp: new FormControl(''),
-  //   confChgsIssuanceToMatur: new FormControl(''),
-  //   discountingCharges: new FormControl(''),
-  //   refinancingCharges: new FormControl(''),
-  //   bankAcceptCharges: new FormControl(''),
-  //   applicableBenchmark: new FormControl(''),
-
-
-  // })
-
-  // placeNewQuote(){
-  //   this.nts.getBankplaceQuotation(this.placeQuoteFrom.value).subscribe(
-  //     (response) => {
-  //       this.detail = JSON.parse(JSON.stringify(response)).data;
-  //       console.log(this.detail);
-  //     },
-  //     (error) => {
-  //       console.log("failed");
-        
-  //     }
-  //   )
-  // }
 
   ngAfterViewInit() {
     this.getNewRequestsForBank();
@@ -178,11 +145,13 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     const data = {
-    "userId":sessionStorage.getItem('userID'),
-    "transactionId":this.detail.transactionId,
-     // "userId":'CU1030',"transactionId":'CU2020IND0130',
-   
+      "bankUserId":sessionStorage.getItem('userID'),
+    "userId":val.userId,
+    "transactionId":val.transactionId
+     
   }
+console.log(data)
+  
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
