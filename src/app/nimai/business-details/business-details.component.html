@@ -43,12 +43,17 @@
                                    <label for="option-three">Both</label>
                                </div>
                            </div>
+                           <div *ngIf="perDetailsSubmit && busiDetails.selector.errors" class="invalid-feedback">
+                                <div *ngIf="perDetailsSubmit && busiDetails.selector.errors?.required">
+                                   Please select Registration Type
+                                </div>
+                             </div> 
                            </div>
                                     <div class="col-md-3" *ngIf="isCustomer">
                                         <div class="inputDiv">
                                             <input type="text" formControlName="companyName" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Company Name</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.companyName.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.companyName.errors?.required" class="invalid-feedback">
                                                 Name is required
                                             </div>
                                         </div>
@@ -66,7 +71,7 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="30" formControlName="bankNbfcName" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Bank Name</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.bankNbfcName.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.bankNbfcName.errors?.required" class="invalid-feedback">
                                                 Bank name is required
                                             </div>
                                         </div>
@@ -75,7 +80,7 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="30" formControlName="branchName" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Branch Name</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.branchName.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.branchName.errors?.required" class="invalid-feedback">
                                                 Branch name is required
                                             </div>
                                         </div>
@@ -84,7 +89,7 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="11" formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Swift Code</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.swiftCode.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.swiftCode.errors?.required" class="invalid-feedback">
                                                 Swift code is required
                                             </div>
                                         </div>
@@ -136,18 +141,33 @@
                                                     <div class="inputDiv">
                                                         <input type="text" maxlength="15" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>MD/CEO/Owner’s First Name </label>
+                                                        <div *ngIf="perDetailsSubmit && item.status==='INVALID'" class="invalid-feedback">
+                                                                <div *ngIf="item.status==='INVALID'">
+                                                                   MD/CEO/Owner’s First Name is required
+                                                                </div>
+                                                             </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
                                                         <input type="text" maxlength="15" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>MD/CEO/Owner’s Last Name</label>
+                                                        <div *ngIf="perDetailsSubmit && item.status==='INVALID'" class="invalid-feedback">
+                                                                <div *ngIf="item.status==='INVALID'">
+                                                                 MD/CEO/Owner’s Last Name is required
+                                                              </div>
+                                                           </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
                                                         <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>Designation</label>
+                                                        <div *ngIf="perDetailsSubmit && item.status==='INVALID'" class="invalid-feedback">
+                                                                <div *ngIf="item.status==='INVALID'">
+                                                                     Designation is required
+                                                                </div>
+                                                           </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -186,7 +206,7 @@
                                                 <option value="Bangladesh">Bangladesh</option> -->
                                             </select>
                                             <label>Select Country</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.country.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.country.errors?.required" class="invalid-feedback">
                                                 Country is required
                                             </div>
                                         </div>
@@ -211,8 +231,11 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="15" formControlName="city" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>City</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.city.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.city.errors?.required" class="invalid-feedback">
                                                 City is required
+                                            </div>
+                                            <div *ngIf="busiDetails.city.errors?.minlength" class="invalid-feedback">
+                                                    City atleast 3 characters long.
                                             </div>
                                         </div>
                                         <!-- <div class="inputDiv">
@@ -243,8 +266,11 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="30" formControlName="addressLine1" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Address Line 1</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.addressLine1.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.addressLine1.errors?.required" class="invalid-feedback">
                                                 Address is required
+                                            </div>
+                                            <div *ngIf="busiDetails.addressLine1.errors?.minlength" class="invalid-feedback">
+                                                    Address atleast 3 characters long.
                                             </div>
                                         </div>
                                     </div>
@@ -255,6 +281,11 @@
                                             <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors?.required">
                                                 Address is required
                                             </div> -->
+                                            <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors" class="invalid-feedback">
+                                                <div *ngIf="busiDetails.addressLine2.errors?.minlength">
+                                                    Address Line 2 atleast 3 characters long.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -264,13 +295,18 @@
                                             <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors?.required">
                                                 Landmark is required
                                             </div> -->
+                                            <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors" class="invalid-feedback">
+                                                <div *ngIf="busiDetails.addressLine3.errors?.minlength">
+                                                    Landmark atleast 3 characters long.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <input type="text" formControlName="pincode" maxlength="6" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Pincode/Zipcode</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.pincode.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.pincode.errors?.required" class="invalid-feedback">
                                                 Pincode/Zipcode is required
                                             </div>
                                         </div>
@@ -279,7 +315,7 @@
                                         <div class="inputDiv">
                                             <input type="text" formControlName="telephone" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Telephone</label>
-                                            <div *ngIf="perDetailsSubmit && busiDetails.telephone.errors?.required">
+                                            <div *ngIf="perDetailsSubmit && busiDetails.telephone.errors?.required" class="invalid-feedback">
                                                 Telephone is required
                                             </div>
                                         </div>
