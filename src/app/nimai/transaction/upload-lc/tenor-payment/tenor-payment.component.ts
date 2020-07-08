@@ -84,12 +84,29 @@ export class TenorPaymentComponent implements OnInit {
     }
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    // this.LcDetail.get('lcMaturityDate').setValue(this.imageSrc);
+    this.LcDetail.get('tenor_file').setValue(this.imageSrc);
+    this.LcDetail.get('lcMaturityDate').setValue("");
 
+  }
+
+  handleRadio(e, type){
+    if(type){
+      if(type == "DOM"){
+        this.LcDetail.get('tenorEndDate').setValue('DOM');
+      }
+      else{
+        this.LcDetail.get('tenorEndDate').setValue(this.LcDetail.get('negotiationDate').value);
+      }
+
+    }
+    else{
+      this.LcDetail.get('lcMaturityDate').setValue(this.LcDetail.get('lCIssuingDate').value);
+    }
   }
 
 

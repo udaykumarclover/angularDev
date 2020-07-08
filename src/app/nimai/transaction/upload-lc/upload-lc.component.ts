@@ -238,8 +238,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
-    data.tenorEndDate = data.lastShipmentDate;
-    data.lcMaturityDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
+    data.tenorStartDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     
 
     this.upls.saveLc(data)
@@ -292,9 +291,8 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
-    data.tenorEndDate = data.lastShipmentDate;
+    data.tenorStartDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.transactionId = this.transactionID;
-    data.lcMaturityDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
 
     this.upls.updateLc(data).subscribe(
         (response) => {
@@ -430,7 +428,7 @@ export class UploadLCComponent implements OnInit {
       paymentTerms: [''],
       tenorStartDate:[''],
       tenorEndDate: [''],
-  
+      tenor_file: [''],
       // For Discounting 
       discountingPeriod:[''],
       remarks:[''],
