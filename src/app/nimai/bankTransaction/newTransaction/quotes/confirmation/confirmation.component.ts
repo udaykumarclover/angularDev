@@ -50,29 +50,16 @@ export class ConfirmationComponent implements OnInit {
 		modifiedDate:null,
 		validityDate:null
 
-         }
+     }
 
-    this.confirmationForm = this.fb.group({
-      confirmationCharges: [''],
-      confChgsIssuanceToNegot: [''],
-      confChgsIssuanceToMatur: [''],
-      minTransactionCharges:[''],
-      validityDate:[''],
-      otherCharges:['']
-    
-    })
-
-  }
+     }
 
   ngOnInit() {
   }
 
-  public test(){
-    alert('test')
-  }
 
   public action(flag: boolean, type: Tflag, data: any) {
-    console.log(data)
+   
     if (flag) {
      
       if (type === Tflag.VIEW) {
@@ -85,15 +72,16 @@ export class ConfirmationComponent implements OnInit {
         this.title = 'Edit';
         this.data= data;
         $('input').attr('readonly', false);
-      }else{
-      
+      }else if (type === Tflag.PLACE_QUOTE){      
         this.isActiveQuote = flag;
+       $('input').attr('readonly', false);
         this.title = 'Place Quote';
         this.data = data;
-        $('input').attr('readonly', false);
+      
       }
     } else {
       this.isActive = flag;
+      this.isActiveQuote=flag
       this.data = data;
       this.title = '';
       $('input').attr('readonly', true);

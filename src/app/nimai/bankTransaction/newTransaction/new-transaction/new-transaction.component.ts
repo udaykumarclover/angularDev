@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import * as $ from '../../../../../assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import {bankRequest,newRequest,bankActiveTransaction} from 'src/assets/js/commons'
+import {bankActiveTransaction} from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -111,8 +110,8 @@ export class NewTransactionComponent implements OnInit {
 
   public getNewRequestsForBank() {
     const data = {
-     //"userId":sessionStorage.getItem('userID')
-    "userId":'BA1338'
+     "userId":sessionStorage.getItem('userID')
+  //  "userId":'BA1338'
     }
     console.log(data.userId)
   this.nts.getAllNewBankRequest(data).subscribe(
@@ -131,33 +130,33 @@ export class NewTransactionComponent implements OnInit {
     )
   }
 
-  placeQuoteFrom = this.formBuilder.group({
-    transactionId: new FormControl(''),
-    quotationId: new FormControl(''),
-    confirmationCharges: new FormControl(''),
-    confChgsIssuanceToNegot: new FormControl(''),
-    confChgsIssuanceToexp: new FormControl(''),
-    confChgsIssuanceToMatur: new FormControl(''),
-    discountingCharges: new FormControl(''),
-    refinancingCharges: new FormControl(''),
-    bankAcceptCharges: new FormControl(''),
-    applicableBenchmark: new FormControl(''),
+  // placeQuoteFrom = this.formBuilder.group({
+  //   transactionId: new FormControl(''),
+  //   quotationId: new FormControl(''),
+  //   confirmationCharges: new FormControl(''),
+  //   confChgsIssuanceToNegot: new FormControl(''),
+  //   confChgsIssuanceToexp: new FormControl(''),
+  //   confChgsIssuanceToMatur: new FormControl(''),
+  //   discountingCharges: new FormControl(''),
+  //   refinancingCharges: new FormControl(''),
+  //   bankAcceptCharges: new FormControl(''),
+  //   applicableBenchmark: new FormControl(''),
 
 
-  })
+  // })
 
-  placeNewQuote(){
-    this.nts.getBankplaceQuotation(this.placeQuoteFrom.value).subscribe(
-      (response) => {
-        this.detail = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.detail);
-      },
-      (error) => {
-        console.log("failed");
+  // placeNewQuote(){
+  //   this.nts.getBankplaceQuotation(this.placeQuoteFrom.value).subscribe(
+  //     (response) => {
+  //       this.detail = JSON.parse(JSON.stringify(response)).data;
+  //       console.log(this.detail);
+  //     },
+  //     (error) => {
+  //       console.log("failed");
         
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 
   ngAfterViewInit() {
     this.getNewRequestsForBank();
@@ -179,11 +178,11 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     const data = {
-    //"userId":sessionStorage.getItem('userID'),
-     "userId":'CU1030',
-     "transactionId":'CU2020IND2332',
-
-     }
+    "userId":sessionStorage.getItem('userID'),
+    "transactionId":this.detail.transactionId,
+     // "userId":'CU1030',"transactionId":'CU2020IND0130',
+   
+  }
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;

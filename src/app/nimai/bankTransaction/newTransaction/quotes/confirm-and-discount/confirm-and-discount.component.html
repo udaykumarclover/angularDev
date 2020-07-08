@@ -247,19 +247,19 @@
                            <tbody>
                               <tr>
                                  <td>Confirmation Charges p.a.</td>
-                                 <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" [(ngModel)]="data.confirmationCharges" placeholder="0.00"><span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Discounting Charges p.a.</td>
-                                 <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" [(ngModel)]="data.confirmationCharges" placeholder="0.00"><span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                 <td><input type="text" name="" readonly placeholder="0.00"></td>
+                                 <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" readonly placeholder="0.00"></td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity  </td>
-                                 <td><input type="text" name="" readonly placeholder="0.00"></td>
+                                 <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" readonly placeholder="0.00"></td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark (Libor/Euribor)<br>
@@ -308,7 +308,7 @@
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                   <input class="halfleft" type="text" name="" placeholder="0.00" />
+                                   <input class="halfleft" type="text" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" />
                                    
                                     <select class="halfright">
                                        <option value="USD">USD</option>
@@ -321,7 +321,7 @@
                                  </td>
                                  <td>
                                   
- <input class="halfleft" type="text" name="" placeholder="0.00" />
+ <input class="halfleft" type="text" [(ngModel)]="data.otherCharges" placeholder="0.00" />
  
   <select class="halfright">
                                        <option value="USD">USD</option>
@@ -331,18 +331,14 @@
                               </tr>
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                 <td><input type="text" name="" placeholder="28/03/2020"></td>
+                                 <td><input type="text"  [(ngModel)]="data.validityDate" placeholder="28/03/2020"></td>
                               </tr> 
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
-                              Preview
+                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote')">
+                              Save/Generate Quote
                               <div class="ripple-container" ></div>
-                           </button>
-                           <button class="btn btn-info" (click)="transaction('ok')">
-                              Save
-                              <div class="ripple-container"></div>
                            </button>
                         </div>
                      </div>
@@ -417,11 +413,11 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
-                              Submit
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm')">
+                              Confirm
                               <div class="ripple-container"></div>
                            </button>
-                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit')">
                               Edit
                               <div class="ripple-container"></div>
                            </button>
@@ -440,7 +436,7 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button class="btn btn-info" (click)="transaction('ok')">
+                           <button class="btn btn-info" (click)="transactionForQuotes('ok')">
                               OK
                               <div class="ripple-container"></div>
                            </button>

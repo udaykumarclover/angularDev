@@ -212,13 +212,13 @@
                         <tbody>
                            <tr>
                               <td>Banker's Acceptance Charges p.a.</td>
-                              <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                              <td><input type="text" [(ngModel)]="data.bankAcceptCharges" placeholder="0.00"><span class="pull-right percent">%</span></td>
                            </tr>
                            <tr>
                               <td>Applicable Benchmark (Libor/Euribor)<br>
                                  
                               </td>
-                              <td><input type="text" name="" readonly placeholder="2.4780"><span class="pull-right percent">%</span>
+                              <td><input type="text" [(ngModel)]="data.bankAcceptCharges" readonly placeholder="2.4780"><span class="pull-right percent">%</span>
                               <textarea rows="3" placeholder="1 Month Libor, 3 Months Euribor, etc."></textarea></td>
                            </tr>
                            <tr>
@@ -228,11 +228,10 @@
                                     <option value="Fixed">Fixed</option>
                                  </select>
                               </td>
-                              <td>
-                                 
-<input class="halfleft" type="text" name="" placeholder="0.00" />
+                              <td>                              
+                            <input class="halfleft" type="text" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" />
 
-<select class="halfright">
+                        <select class="halfright">
                                     <option value="USD">USD</option>
                                  </select>
                               </td>
@@ -246,7 +245,7 @@
                               </td>
                               <td>
                                
-<input class="" type="text" name="" placeholder="0.00" />
+<input class="" type="text" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" />
 
 <span class="pull-right percent">%</span>
                               </td>
@@ -255,7 +254,7 @@
                               <td>Document Handling Charges</td>
                               <td>
                                 
-<input class="halfleft" type="text" name="" placeholder="0.00" />
+<input class="halfleft" type="text" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" />
 
 <select class="halfright">
                                     <option value="USD">USD</option>
@@ -266,7 +265,7 @@
                               <td>Minimum Transaction Charges</td>
                               <td>
                                 
-<input class="halfleft" type="text" name="" placeholder="0.00" />
+<input class="halfleft" type="text" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" />
 
 <select class="halfright">
                                     <option value="USD">USD</option>
@@ -279,7 +278,7 @@
                               </td>
                               <td>
                                 
-<input class="halfleft" type="text" name="" placeholder="0.00" />
+<input class="halfleft" type="text" [(ngModel)]="data.otherCharges" placeholder="0.00" />
 
 <select class="halfright">
                                     <option value="USD">USD</option>
@@ -289,19 +288,19 @@
                            </tr>
                            <tr>
                                <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td><input type="text" name="" placeholder="28/03/2020"></td>
+                              <td><input type="text" [(ngModel)]="data.validityDate" placeholder="28/03/2020"></td>
                            </tr> 
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
-                           Preview
+                        <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote')">
+                           Save/Generate Quote
                            <div class="ripple-container" ></div>
                         </button>
-                        <button class="btn btn-info" (click)="transaction('ok')">
+                        <!-- <button class="btn btn-info" (click)="transaction('ok')">
                            Save
                            <div class="ripple-container"></div>
-                        </button>
+                        </button> -->
                      </div>
                   </div>
                </div>
@@ -363,11 +362,11 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
-                           Submit
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm')">
+                           Confirm
                            <div class="ripple-container"></div>
                         </button>
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit')">
                            Edit
                            <div class="ripple-container"></div>
                         </button>
@@ -386,7 +385,7 @@
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button class="btn btn-info" (click)="transaction('ok')">
+                        <button class="btn btn-info" (click)="transactionForQuotes('ok')">
                            OK
                            <div class="ripple-container"></div>
                         </button>
