@@ -17,7 +17,7 @@ export class RefinancingComponent implements OnInit {
   public isActiveQuote:boolean=false;
   public data: PlaceQuote;
   public title: string = "";
-  public tab = 'tab1';
+  public tab = 'tab2';
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     
     this.data = {        
@@ -42,8 +42,12 @@ export class RefinancingComponent implements OnInit {
       modifiedBy: "",
       insertedDate: null,
       modifiedDate:null,
-      validityDate:null
-  
+      validityDate:null,
+      TotalQuote: 0,
+      expiryDays: 0,
+      maturityDays: 0,
+      negotiationDays: 0,
+      sumOfQuote: 0 
     
     
     }

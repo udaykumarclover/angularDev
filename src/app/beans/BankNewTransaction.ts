@@ -81,4 +81,9 @@ export interface PlaceQuote{
 		insertedDate: Date;
 		modifiedDate: Date;
 		validityDate:Date;
+		TotalQuote: number;
+		expiryDays: number;
+		maturityDays: number;
+		negotiationDays: number;
+		sumOfQuote: number;
 		}

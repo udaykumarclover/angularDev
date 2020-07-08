@@ -33,7 +33,7 @@ export class UploadLCComponent implements OnInit {
   public isEdit: boolean = false;
   public isConfirm: boolean = false;
   public loading: boolean = false;
-  public date: string = formatDate(new Date(), "dd-MM-yyyy' 'HH:mm:ss, Z", 'en-US');
+  public date: string = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
 
   public lcDetail: LcDetail = null;
   public lc: any = null;
@@ -239,7 +239,8 @@ export class UploadLCComponent implements OnInit {
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
-  
+    data.lcMaturityDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
+    
 
     this.upls.saveLc(data)
       .subscribe(
@@ -293,7 +294,7 @@ export class UploadLCComponent implements OnInit {
     data.requirementType = data.selector;
     data.tenorEndDate = data.lastShipmentDate;
     data.transactionId = this.transactionID;
-
+    data.lcMaturityDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
 
     this.upls.updateLc(data).subscribe(
         (response) => {
@@ -480,7 +481,7 @@ export class UploadLCComponent implements OnInit {
 
 
   public dateFormat(date: string): string {
-    let formatedDate = formatDate(new Date(date), "dd-MM-yyyy' 'HH:mm:ss, Z", 'en-US');
+    let formatedDate = formatDate(new Date(date), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
     return formatedDate;
   }
 

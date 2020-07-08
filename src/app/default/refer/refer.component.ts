@@ -7,8 +7,7 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { formatDate } from '@angular/common';
 import { ReferService } from 'src/app/services/refer/refer.service';
-
-
+import { loads} from '../../../assets/js/commons'
 @Component({
   selector: 'app-refer',
   templateUrl: './refer.component.html',
@@ -50,7 +49,7 @@ export class ReferComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     mobileNo: new FormControl('', [Validators.required]),
-    emailAddress: new FormControl('', [Validators.required, Validators.email]),
+    emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
     status: new FormControl('ACTIVE'),
@@ -67,6 +66,7 @@ export class ReferComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads();
     manageSub();
     this.viewReferDetails(sessionStorage.getItem('userID'));
   }
@@ -82,7 +82,7 @@ export class ReferComponent implements OnInit {
   }
 
   onSubmit() {
-
+    //alert("1")
     this.submitted = true;
     if (this.referForm.invalid) {
       return;
