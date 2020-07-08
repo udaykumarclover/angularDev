@@ -1135,6 +1135,7 @@ export function bankRequest(){
 }
 
 export function custTrnsactionDetail() {
+    setTimeout(() => {
     // $(function () {
         
         $('#datatables select').css('color', '#333');
@@ -1224,8 +1225,8 @@ export function custTrnsactionDetail() {
                 }
             });
         });
-
-        $('#datatables').DataTable().destroy();
+    },500);
+    $('#datatables').DataTable().destroy();
         setTimeout(() => {
             
         $('#datatables').DataTable({
@@ -1249,6 +1250,7 @@ export function custTrnsactionDetail() {
 }
 
 export function custActiveTransaction() {
+    setTimeout(() => {
         $(function () {
             // prettyPrint();
 
@@ -1384,7 +1386,6 @@ export function custActiveTransaction() {
 
 
             $('.popupcontent select').css('color', '#333');
-        setTimeout(() => {
 
             $('#datatables').DataTable({
                 "pagingType": "full_numbers", "scrollX": true,
@@ -1420,9 +1421,10 @@ export function custActiveTransaction() {
             });
 
             $('.card .material-datatables label').addClass('form-group');
-        }, 200);
+
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
         });
+    }, 200);
 }
 
 
