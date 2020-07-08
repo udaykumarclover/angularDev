@@ -5,7 +5,7 @@ import * as $ from 'src/assets/js/jquery.min';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
 import { ChangePassword } from 'src/app/beans/login';
-
+import { loads} from '../../../assets/js/commons'
 
 @Component({
   selector: 'app-change-password',
@@ -41,7 +41,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    loads();
   }
 
   close() {

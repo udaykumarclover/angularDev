@@ -43,3 +43,6 @@
     text-decoration: none;
     cursor: pointer;
 }
+.statusbar{
+    display: flex!important;
+}

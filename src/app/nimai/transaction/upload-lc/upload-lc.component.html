@@ -25,7 +25,7 @@
                         <div class="card-content">
                             <h4 class="card-title">New Transaction</h4>
                             <!-- <form [formGroup]="newTransactionForm" (ngSubmit)="submit();"> -->
-                            <div class="row" [formGroup]="lcDetailForm" [hidden]="previewShow">
+                            <div class="row" [formGroup]="lcDetailForm" [hidden]="previewShow" >
                                 <div class="col-md-12">
                                     <div class="">
                                         <div class="row">
@@ -205,6 +205,7 @@
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType">
                                                                                     <option value="Gold"> Gold</option>
+                                                                      
                                                                                     <option value="Plastic">Plastic
                                                                                     </option>
                                                                                     <option value="Drugs">Drugs</option>
@@ -236,163 +237,204 @@
                                     </div>
 
                                 </div>
-                            </div>
-
-                            <div class="row" [hidden]="!previewShow">
-                                <p class="col-md-12"><strong>Preview</strong></p>
-                                <div class="col-md-6 ">
-
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th colspan="2">LC Details</th>
-                                            </tr>
-                                            <tr>
-                                                <td nowrap="">LC Issuing Bank</td>
-                                                <td>{{lc.lCIssuanceBank}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Branch</td>
-                                                <td>{{lc.lCIssuanceBranch}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Swift Code</td>
-                                                <td>{{lc.swiftCode}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country</td>
-                                                <td>{{lc.lCIssuanceCountry}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Requirement</td>
-                                                <td>{{lc.selector}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LC Value</td>
-                                                <td>{{lc.lCValue}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LC Issuing Date</td>
-                                                <td>{{lc.lCIssuingDate}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LC Expiry Date</td>
-                                                <td>{{lc.lCExpiryDate}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LSD</td>
-                                                <td>{{lc.lastShipmentDate}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Goods</td>
-                                                <td>{{lc.goodsType}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th colspan="2">Tenor of Deferred Payment</th>
-                                            </tr>
-                                            <tr>
-                                                <td>Period for which confirmation is required</td>
-                                                <td>{{lc.paymentPeriod}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Payments terms to be seller as per LC</td>
-                                                <td>{{lc.paymentTerms}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Start Date</td>
-                                                <td>{{lc.lCIssuingDate}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>End Date</td>
-                                                <td>{{lc.lCExpiryDate}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            </div>                                
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>Applicant and Beneficiary details</strong></p>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Applicant Name</span>
+                                          <span class="labeltext">{{lc.applicantName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.applicantName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Applicant Country</span>
+                                          <span class="labeltext">{{lc.applicantCountry}}</span>
+                                          <span class="labeltext" *ngIf="!lc.applicantCountry">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Beneficiary Name</span>
+                                          <span class="labeltext">{{lc.beneName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Beneficiary Country</span>
+                                          <span class="labeltext">{{lc.beneCountry}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneCountry">-</span>  
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Bank</span>
+                                          <span class="labeltext">{{lc.beneBankName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneBankName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Swift Code</span>
+                                          <span class="labeltext">{{lc.beneSwiftCode}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneSwiftCode">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Bank Country</span>
+                                            <span class="labeltext">{{lc.beneCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.beneCountry">-</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-
-
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th colspan="2">Applicant</th>
-                                            </tr>
-                                            <tr>
-                                                <td>Applicant</td>
-                                                <td>{{lc.applicantName}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country</td>
-                                                <td>{{lc.applicantCountry}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th colspan="2">Beneficiary</th>
-                                            </tr>
-                                            <tr>
-                                                <td>Beneficiary</td>
-                                                <td>{{lc.beneName}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country</td>
-                                                <td>{{lc.beneCountry}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bank</td>
-                                                <td>{{lc.beneBankName}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Swift Code</td>
-                                                <td>{{lc.beneSwiftCode}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bank Country</td>
-                                                <td>{{lc.beneCountry}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th colspan="2">Others</th>
-                                            </tr>
-                                            <tr>
-                                                <td>Port of Loading</td>
-                                                <td>{{lc.loadingPort}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Port of Discharge</td>
-                                                <td>{{lc.dischargePort}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Charges on</td>
-                                                <td>{{lc.chargesType}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Validity</td>
-                                                <td>{{lc.validity}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pro Forma</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>LC Details</strong></p>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Issuing Bank</span>
+                                            <span class="labeltext">{{lc.lCIssuanceBank}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Branch</span>
+                                            <span class="labeltext">{{lc.lCIssuanceBranch}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceBranch">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Swift Code</span>
+                                            <span class="labeltext">{{lc.swiftCode}}</span>
+                                            <span class="labeltext" *ngIf="!lc.swiftCode">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.lCIssuanceCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceCountry">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Requirement</span>
+                                            <span class="labeltext">{{lc.selector}}</span>
+                                            <span class="labeltext" *ngIf="!lc.selector">-</span>
+                                        </div>
+                                    </div>                
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Value</span>
+                                            <span class="labeltext">{{lc.lCValue}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCValue">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Issuing Date</span>
+                                            <span class="labeltext">{{lc.lCIssuingDate}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Expiry Date</span>
+                                            <span class="labeltext">{{lc.lCExpiryDate}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LSD</span>
+                                            <span class="labeltext">{{lc.lastShipmentDate}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Goods</span>
+                                            <span class="labeltext">{{lc.goodsType}}</span>
+                                            <span class="labeltext" *ngIf="!lc.goodsType">-</span>
+                                        </div>
+                                    </div>
                                 </div>
-
-                            </div>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="row" [hidden]="!previewShow">
+                                        <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
+                                        <div class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Period for which confirmation is required</span>
+                                              <span class="labeltext">{{lc.paymentPeriod}}</span>
+                                              <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Payments terms to be seller as per LC</span>
+                                              <span class="labeltext">{{lc.paymentPeriod}}</span>
+                                              <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Start Date</span>
+                                              <span class="labeltext">{{lc.lCIssuingDate}}</span>
+                                              <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">End Date</span>
+                                              <span class="labeltext">{{lc.lCExpiryDate}}</span>
+                                              <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
+                                           </div>
+                                        </div>
+                                </div>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>Others</strong></p>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Port of Loading</span>
+                                            <span class="labeltext">{{lc.loadingPort}}</span>
+                                            <span class="labeltext" *ngIf="!lc.loadingPort">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Port of Discharge</span>
+                                            <span class="labeltext">{{lc.dischargePort}}</span>
+                                            <span class="labeltext" *ngIf="!lc.dischargePort">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Charges on</span>
+                                            <span class="labeltext">{{lc.chargesType}}</span>
+                                            <span class="labeltext" *ngIf="!lc.chargesType">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Validity</span>
+                                            <span class="labeltext">{{lc.validity}}</span>
+                                            <span class="labeltext" *ngIf="!lc.validity">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Pro Forma</span>
+                                            <span class="labeltext">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                          
                             <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
                                 << Prev</button>
                                     <button type="button" class="btn btn-info pull-right" (click)="next()"
