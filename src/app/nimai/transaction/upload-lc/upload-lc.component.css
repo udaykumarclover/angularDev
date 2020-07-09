@@ -50,3 +50,31 @@
 ::ng-deep .mat-input-element {
     caret-color: #00b5de;
 }
+.customspan {
+    top: 1  px;
+    font-size: 9px;
+    color: #aaa;
+    left: 1px;
+    position: absolute;
+    transform: translateY(-50%);
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.labeltext {
+    display: block;
+    padding: 6px 0px 0;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    font-family: 'Montserrat', sans-serif;
+}
+hr {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 2px solid #1fc1d5;
+}
+.inputDiv{
+    margin-bottom: 10px!important;
+}

@@ -36,7 +36,7 @@ export class NewTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public detail: any;
-  
+  public test: string = "";
 
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
@@ -144,14 +144,14 @@ export class NewTransactionComponent implements OnInit {
   
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+    
+    //pagename='confirmAndDiscount';
     const data = {
       "bankUserId":sessionStorage.getItem('userID'),
     "userId":val.userId,
     "transactionId":val.transactionId
      
   }
-console.log(data)
-  
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;

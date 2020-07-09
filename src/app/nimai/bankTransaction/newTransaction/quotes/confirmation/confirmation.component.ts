@@ -23,6 +23,7 @@ export class ConfirmationComponent implements OnInit {
   public tab = 'tab1';
   data1:any;
   getCurrentDate: any;
+   detail: any;
   constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder) {
    
     this.getCurrentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
@@ -63,7 +64,6 @@ export class ConfirmationComponent implements OnInit {
 
 
   public action(flag: boolean, type: Tflag, data: any) {
-   alert(data)
     if (flag) {
      
       if (type === Tflag.VIEW) {
@@ -160,18 +160,24 @@ console.log(data)
         break;
 
       case 'confirm': {
-        console.log(this.data)
-        this.ts.updateBankTransaction(this.data).subscribe(
-          (response) => {
-            this.tab = 'tab3';
-          },
-          error => {
-            alert('error')
-            this.closedQuote();
-            this.tab = 'tab1';
-          }
-        )
-      }
+      console.log(data)
+      const param = {
+                    "transactionId":data.transactionId,
+                    "userId":data.userId
+       }
+      this.ts.confirmQuotation(param).subscribe(
+        (response) => {
+          console.log(response)
+          this.tab = 'tab3';
+        },
+        error => {
+          alert('error')
+          this.closedQuote();
+          this.tab = 'tab1';
+        }
+      )}
+
+
         break;
       case 'ok': {
            this.closedQuote();
@@ -193,7 +199,7 @@ console.log(data)
             (response) => {
             
               this.tab = 'tab2';
-              this.data = JSON.parse(JSON.stringify(response)).data;
+              this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
               console.log(this.data)
             },
@@ -203,20 +209,7 @@ console.log(data)
               this.tab = 'tab1';
             }
           )
-          // console.log(this.data)
-          // const data1 = {
-          //               "transactionId":'CU2020IND0112'
-          //  }
-          // this.ts.calculateQuote(data1).subscribe(
-          //   (response) => {
-          //     console.log(response)
-          //     //this.tab = 'tab3';
-          //   },
-          //   error => {
-          //     alert('error')
-             
-          //   }
-          // )}
+          
     }
   }
   

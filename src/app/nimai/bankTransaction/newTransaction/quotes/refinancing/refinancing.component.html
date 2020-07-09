@@ -172,20 +172,20 @@
                            <tbody>
                               <tr>
                                  <td>Refinancing Charges p.a.</td>
-                                 <td><input type="text" name="" placeholder="1.23"><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" [(ngModel)]="data.refinancingCharges" placeholder="1.23"><span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark (Libor/Euribor)<br>
                                    
                                  </td>
-                                 <td><input type="text" name="" placeholder="2.4780">
+                                 <td><input type="text" [(ngModel)]="data.applicableBenchmark" placeholder="2.4780">
                                  <span class="pull-right percent">%</span>
                                 <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea></td>
                               </tr>
                               <tr>
                                  <td>Document Transaction Charges</td>
                                  <td>
-                                  <input class="halfleft" type="text" name="" placeholder="200.00" />
+                                  <input class="halfleft" type="text" [(ngModel)]="data.docHandlingCharges" placeholder="200.00" />
  
   <select class="halfright">
                                        <option value="USD">USD</option>
@@ -195,7 +195,7 @@
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    <input class="halfleft" type="text" name="" placeholder="500.00" />
+                                    <input class="halfleft" type="text" [(ngModel)]="data.minTransactionCharges" placeholder="500.00" />
  
   <select class="halfright">
                                        <option value="USD">USD</option>
@@ -207,7 +207,7 @@
                                    
                                  </td>
                                  <td>
-                                   <input class="halfleft" type="text" name="" placeholder="50.00" />
+                                   <input class="halfleft" type="text" [(ngModel)]="data.otherCharges" placeholder="50.00" />
  
   <select class="halfright">
                                        <option value="USD">USD</option>
@@ -217,19 +217,15 @@
                               </tr>
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                 <td><input type="text" name="" placeholder="28/03/2020"></td>
+                                 <td><input type="text" [(ngModel)]="data.validityDate" placeholder="28/03/2020"></td>
                               </tr> 
                             
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
-                              Preview
+                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote',data)">
+                              Save/Generate Quote
                               <div class="ripple-container" ></div>
-                           </button>
-                           <button class="btn btn-info" (click)="transaction('ok')">
-                              Save
-                              <div class="ripple-container"></div>
                            </button>
                         </div>
                      </div>
@@ -240,39 +236,39 @@
                            <tbody>
                               <tr>
                                  <td>Refinancing Charges p.a.</td>
-                                 <td>1.23%</td>
+                                 <td>{{data.refinancingCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark (Libor/Euribor)<br>
                                  </td>
-                                 <td>2.8740%<br><small>3 Months Euribor</small></td>
+                                 <td>{{data.applicableBenchmark}}<br><small>3 Months Euribor</small></td>
                               </tr>
                               <tr>
                                  <td>Document Transaction Charges</td>
                                  <td>
-                                    USD $200
+                                    {{data.docHandlingCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    USD $500
+                                    {{data.minTransactionCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Other Charges<br>
                                  </td>
                                  <td>
-                                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                    {{data.otherCharges}}<br><small>Customer needs to pay standard swift transfer charges.</small>
                                  </td>
                               </tr>
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                 <td>28/03/2020</td>
+                                 <td>{{data.validityDate}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>USD $500</th>
+                                 <th>{{data.validityDate}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
@@ -280,11 +276,11 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
-                              Submit
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data)">
+                              Confirm
                               <div class="ripple-container"></div>
                            </button>
-                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit',data)">
                               Edit
                               <div class="ripple-container"></div>
                            </button>
@@ -303,7 +299,7 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button class="btn btn-info" (click)="transaction('ok')">
+                           <button class="btn btn-info" (click)="transactionForQuotes('ok',data)">
                               OK
                               <div class="ripple-container"></div>
                            </button>

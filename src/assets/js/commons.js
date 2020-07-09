@@ -282,7 +282,7 @@ export function manageSub(){
       table.on('click', '.like', function () {
         alert('You clicked on Like button');
       });
-    },1000);
+    },200);
 
       $('.card .material-datatables label').addClass('form-group');
     });
@@ -641,7 +641,7 @@ export function bankActiveTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 1000);
+}, 200);
 }
 
 
@@ -1109,7 +1109,7 @@ export function bankRequest(){
                   table.on( 'click', '.like', function () {
                     alert('You clicked on Like button');
                   });
-                  },1000);
+                  },200);
                   $('.card .material-datatables label').addClass('form-group');
                   demo.initFormExtendedDatetimepickers();
 
@@ -1131,7 +1131,7 @@ export function bankRequest(){
             //        $('#menu-barnew #tab1').slideUp();
             //         $('#menu-barnew #tab3').slideDown();
             //    }); 
-            }, 1000);
+            }, 200);
 }
 
 export function custTrnsactionDetail() {
@@ -1142,7 +1142,7 @@ export function custTrnsactionDetail() {
         // prettyPrint();
         $("#menu-bar").click(function () {
             var id = $(this).attr("href").substring(1);
-            $("html, body").animate({ scrollTop: $("#" + id).offset().top }, 1000, function () {
+            $("html, body").animate({ scrollTop: $("#" + id).offset().top }, 200, function () {
                 $("#menu-bar").slideReveal("hide");
             });
         });
@@ -1244,7 +1244,7 @@ export function custTrnsactionDetail() {
         //$(".dataTables_filter label").addClass("pull-right");
 
         // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
-    }, 1000);
+    }, 200);
         
     // });
 }
@@ -1375,26 +1375,6 @@ export function custActiveTransaction() {
                 $('#backbtn').fadeOut();
             });
 
-
-            // $('#menu-bar #tab2').hide();
-            // $('#menu-bar #tab3').hide();
-            // $('#menu-bar #btnpreview').click(function () {
-            //     $('#menu-bar #tab1').slideUp();
-            //     $('#menu-bar #tab2').slideDown();
-            // });
-
-            // $('#menu-bar #btnEdit').click(function () {
-            //     $('#menu-bar #tab1').slideDown();
-            //     $('#menu-bar #tab2').slideUp();
-            // });
-
-
-            // $('#menu-bar #btnSubmit').click(function () {
-            //     $('#menu-bar #tab2').slideUp();
-            //     $('#menu-bar #tab1').slideUp();
-            //     $('#menu-bar #tab3').slideDown();
-            // });
-
             $('#menu-bar1 #tab3').hide();
 
             $('#menu-bar1 #btnSubmit').click(function () {
@@ -1411,17 +1391,6 @@ export function custActiveTransaction() {
                 "pagingType": "full_numbers", "scrollX": true,
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 responsive: false, //scrollX: true,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                }
-
-            });
-
-            $('#datatables1').DataTable({
-                "pagingType": "full_numbers", "scrollX": true,
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                responsive: false,
                 language: {
                     search: "_INPUT_",
                     searchPlaceholder: "Search records",
@@ -1455,7 +1424,7 @@ export function custActiveTransaction() {
 
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
         });
-    }, 1000);
+    }, 200);
 }
 
 
@@ -1814,7 +1783,7 @@ export function newRequest(){
     //  md.initSliders()
       demo.initFormExtendedDatetimepickers();
     });
-}, 1000);   
+}, 200);   
 }
 
 export function creditTransaction(){

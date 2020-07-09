@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <div class="col-md-6">
         <div class="inputDiv">
-            <input type="text" maxlength="10" formControlName="paymentTerms"
+            <input type="text" maxlength="300" formControlName="paymentTerms"
                 (keypress)="validateRegexFields($event, 'alphaNum')">
             <label>Payment terms to seller as per LC</label>
         </div>
@@ -18,7 +18,7 @@
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" readonly="" formControlName="tenorEndDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
+            <input type="text" readonly="" formControlName="tenorStartDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
             <label>Start Date</label>
         </div>
     </div>
@@ -27,15 +27,15 @@
         </div>
         <div class="radio">
             <label >
-                <input type="radio" formControlName="tenorEndDate" name="tenorEndDate"
-                    value="Date of Maturity"><span class="circle"></span><span class="check"></span><span
+                <input type="radio" (change)="handleRadio($event,'DOM')" name="tenorEndDate"
+                    value="DOM"><span class="circle"></span><span class="check"></span><span
                     class="circle"></span><span class="check"></span>
                 Date of Maturity <i class="fas fa-info-circle" aria-hidden="true"></i>
             </label>
         </div>
         <div class="radio">
             <label >
-                <input type="radio" formControlName="tenorEndDate" name="tenorEndDate"
+                <input type="radio" name="tenorEndDate" (change)="handleRadio($event,'ND')"
                     value="Negotiation Date"><span class="circle"></span><span class="check"></span><span
                     class="circle"></span><span class="check"></span>
                 Negotiation Date
@@ -55,7 +55,7 @@
     <div class="clearfix"></div>
     <div class="col-md-6">
         <div class="inputDiv">
-            <textarea rows="4" maxlength="5" formControlName="paymentTerms"></textarea>
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms" (keypress)="validateRegexFields($event, 'alphaNum')"></textarea>
             <label>Payment terms to seller as per LC</label>
         </div>
     </div>
@@ -92,10 +92,10 @@
             <li>
                 <div class="radio">
                     <label for="rdmaturity">
-                        <input type="radio" value="rdmaturity" id="rdmaturity" name="optionsRadios"
-                            checked="checked"><span class="circle"></span><span class="check"></span><span
+                        <input type="radio" (change)="handleRadio($event)" value="rdmaturity" id="rdmaturity" name="optionsRadios"
+                            ><span class="circle"></span><span class="check"></span><span
                             class="circle"></span><span class="check"></span>
-                        <div class="inputDiv" style="margin: -15px 0 0 0;"><input type="text" value="{{LcDetail.get('lCIssuingDate').value | date: 'dd/MM/yyyy'}}"
+                        <div class="inputDiv" style="margin: -15px 0 0 0;"><input type="text" readonly="" value="{{LcDetail.get('lCIssuingDate').value | date: 'dd/MM/yyyy'}}"
                                 name="">
                         </div>
                     </label>
@@ -104,7 +104,7 @@
             <li>
                 <div class="radio">
                     <label for="rdNegotiation">
-                        <input type="radio" value="rdNegotiation" name="optionsRadios" id="rdNegotiation"><span
+                        <input checked="checked" type="radio" value="rdNegotiation" name="optionsRadios" id="rdNegotiation"><span
                             class="circle"></span><span class="check"></span><span class="circle"></span><span
                             class="check"></span>
                         Multiple Dates
