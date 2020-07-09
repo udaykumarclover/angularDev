@@ -48,7 +48,7 @@ export class BusinessDetailsComponent implements OnInit {
 
     this.businessDetailsForm = this.fb.group({
       userId: [''],
-      selector: [''],
+      selector: ['', Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
       designation: ['', Validators.minLength(3)],
       country: ['', Validators.required],
@@ -146,7 +146,8 @@ export class BusinessDetailsComponent implements OnInit {
           }
         };
         
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
+        //this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
           .then(success => console.log('navigation success?', success))
           .catch(console.error);
       },

@@ -61,14 +61,14 @@
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
                                                                             <input type="text" maxlength="30"
-                                                                                formControlName="lCIssuanceBank">
+                                                                                formControlName="lCIssuanceBank" (keypress)="validateRegexFields($event, 'alphaNum')">
                                                                             <label>LC Issuance Bank</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
                                                                             <input type="text" maxlength="30"
-                                                                                formControlName="lCIssuanceBranch">
+                                                                                formControlName="lCIssuanceBranch" (keypress)="validateRegexFields($event, 'alphaNum')">
                                                                             <label>Issuance Branch</label>
                                                                         </div>
                                                                     </div>

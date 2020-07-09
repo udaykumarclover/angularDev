@@ -6,7 +6,7 @@ import {Validators} from '@angular/forms';
 import  { ValidateRegex } from '../../../beans/Validations';
 import { SignupService } from 'src/app/services/signup/signup.service';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
-
+import { loads } from '../../../../assets/js/commons'
 
 @Component({
   selector: 'app-customer-login',
@@ -40,7 +40,7 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    loads();
   }
   ngAfterViewInit() {
     /*added by ashvini -Default cursor should be present in the Branch ID field of the Enter Access Details page of the Bank as Customer. */
@@ -65,8 +65,9 @@ export class CustomerLoginComponent implements OnInit {
 
     this.emailAddress = this.customerLoginForm.get('email_id').value;
     console.log(this.customerLoginForm.value);
-
-    this.Service.userBranch(this.customerLoginForm.value).subscribe(
+    console.log("sessionStorage.getItem",sessionStorage.getItem("userID"))
+    let userID: string = sessionStorage.getItem('userID');
+    this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {
         let sendEmail = {
           event: 'VALID_BRANCHUSER',
