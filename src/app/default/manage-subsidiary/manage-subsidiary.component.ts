@@ -17,6 +17,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   submitted: boolean = false;
   public parentURL: string = "";
   public subURL: string = "";
+  respMessage: any;
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService) {
 
@@ -60,13 +61,22 @@ export class ManageSubsidiaryComponent implements OnInit {
     this.submitted = false;
 
     const fg = {
-      email: this.manageSubForm.get('emailId').value,
-      event: 'ADD_SUBSIDIARY'
+      "emailId": this.manageSubForm.get('emailId').value,
+      "event": 'ADD_SUBSIDIARY',
+      "userId": sessionStorage.getItem('userID')
     }
 
-    this.fps.sendForgetPasswordEmail(fg)
+    this.fps.sendEmailReferSubsidiary(fg)
       .subscribe(
         (response) => {
+          this.respMessage = JSON.parse(JSON.stringify(response)).message;
+          
+          if(this.respMessage.indexOf('not match') > -1){
+            this.respMessage = "Domain Name does not match!"
+          }
+          else{
+            this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."
+          }
           $('#authemaildiv').slideUp();
           $('#paradiv').slideDown();
           $('#okbtn').show();
@@ -74,7 +84,12 @@ export class ManageSubsidiaryComponent implements OnInit {
           this.manageSubForm.reset();
         },
         (error) => {
-          alert("service not working!!")
+          $('#authemaildiv').slideUp();
+          $('#paradiv').slideDown();
+          $('#okbtn').show();
+          $('#btninvite').hide();
+          this.manageSubForm.reset();
+          this.respMessage = "Service not working! Please try again later."
         }
       )
   }

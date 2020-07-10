@@ -62,7 +62,10 @@
                           </div>
                           <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
                             style="width:100%">
-                            <table class="table table-hover" id="">
+                            <div *ngIf="noQRdetail">
+                              No Data available
+                            </div>
+                            <table class="table table-hover" id="" *ngIf="!noQRdetail">
                               <thead>
                                 <tr>
                                   <th>#</th>
@@ -75,6 +78,7 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                
                                 <tr *ngFor="let QRrecord of QRdetail; let i = index">
                                   <td>{{i + 1}}</td>
                                   <td>{{QRrecord.transactionId}}</td>

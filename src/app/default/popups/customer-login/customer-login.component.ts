@@ -70,11 +70,11 @@ export class CustomerLoginComponent implements OnInit {
     this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {
         let sendEmail = {
-          event: 'VALID_BRANCHUSER',
-          email: this.emailAddress,
-          userId: sessionStorage.getItem("userID")
+          "event": 'ADD_BRANCH_USER',
+          "emailId": this.emailAddress,
+          "userId": sessionStorage.getItem("userID")
         }
-        this.fps.sendForgetPasswordEmail(sendEmail)
+        this.fps.sendEmailBranchUser(sendEmail)
           .subscribe(
             (response) => {
 

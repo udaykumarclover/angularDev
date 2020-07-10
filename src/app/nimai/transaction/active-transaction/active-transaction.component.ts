@@ -10,7 +10,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction } from 'src/assets/js/commons';
+import { custActiveTransaction, onQuoteClick } from 'src/assets/js/commons';
 
 
 @Component({
@@ -35,6 +35,7 @@ export class ActiveTransactionComponent implements OnInit {
   public hasNoRecord: boolean = false;
   detail: any;
   QRdetail: any;
+  noQRdetail: boolean = false;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -108,6 +109,8 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   showQuoteDetail(transactionId){
+    this.noQRdetail = false;
+
     let data = {
       "userId": sessionStorage.getItem('userID'),
       "transactionId": transactionId
@@ -115,6 +118,9 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getAllQuotationDetails(data).subscribe(
       (response) => {
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
+        if(!this.QRdetail){
+          this.noQRdetail = true;
+        }
         
       },(error) =>{
       }
