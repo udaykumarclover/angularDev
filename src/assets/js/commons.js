@@ -282,7 +282,7 @@ export function manageSub(){
       table.on('click', '.like', function () {
         alert('You clicked on Like button');
       });
-    },200);
+    },500);
 
       $('.card .material-datatables label').addClass('form-group');
     });
@@ -641,7 +641,7 @@ export function bankActiveTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 200);
+}, 500);
 }
 
 
@@ -1109,7 +1109,7 @@ export function bankRequest(){
                   table.on( 'click', '.like', function () {
                     alert('You clicked on Like button');
                   });
-                  },200);
+                  },500);
                   $('.card .material-datatables label').addClass('form-group');
                   demo.initFormExtendedDatetimepickers();
 
@@ -1131,7 +1131,7 @@ export function bankRequest(){
             //        $('#menu-barnew #tab1').slideUp();
             //         $('#menu-barnew #tab3').slideDown();
             //    }); 
-            }, 200);
+            }, 500);
 }
 
 export function custTrnsactionDetail() {
@@ -1244,7 +1244,7 @@ export function custTrnsactionDetail() {
         //$(".dataTables_filter label").addClass("pull-right");
 
         // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
-    }, 200);
+    }, 500);
         
     // });
 }
@@ -1424,7 +1424,7 @@ export function custActiveTransaction() {
 
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
         });
-    }, 200);
+    }, 500);
 }
 
 
@@ -1783,7 +1783,7 @@ export function newRequest(){
     //  md.initSliders()
       demo.initFormExtendedDatetimepickers();
     });
-}, 200);   
+}, 500);   
 }
 
 export function creditTransaction(){
