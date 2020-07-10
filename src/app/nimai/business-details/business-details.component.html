@@ -74,6 +74,9 @@
                                             <div *ngIf="perDetailsSubmit && busiDetails.bankNbfcName.errors?.required" class="invalid-feedback">
                                                 Bank name is required
                                             </div>
+                                            <div *ngIf="busiDetails.bankNbfcName.errors?.minlength" class="invalid-feedback">
+                                                Bank name atleast 3 characters long.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="!isCustomer">
@@ -82,6 +85,9 @@
                                             <label>Branch Name</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.branchName.errors?.required" class="invalid-feedback">
                                                 Branch name is required
+                                            </div>
+                                            <div *ngIf="busiDetails.branchName.errors?.minlength" class="invalid-feedback">
+                                                Branch name atleast 3 characters long.
                                             </div>
                                         </div>
                                     </div>
@@ -92,13 +98,22 @@
                                             <div *ngIf="perDetailsSubmit && busiDetails.swiftCode.errors?.required" class="invalid-feedback">
                                                 Swift code is required
                                             </div>
+                                            <div *ngIf="busiDetails.swiftCode.errors?.minlength" class="invalid-feedback">
+                                                Swift code atleast 3 characters long.
+                                            </div>
                                         </div>
                                     </div>
                                     <!--added by ashvini - designation field added for bank-->
                                     <div class="col-md-3" *ngIf="!isCustomer">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="designation">
+                                            <input type="text" formControlName="bank_designation">
                                             <label>Designation</label>
+                                            <div *ngIf="perDetailsSubmit && busiDetails.bank_designation.errors?.required" class="invalid-feedback">
+                                                Designation is required
+                                            </div>
+                                            <div *ngIf="busiDetails.bank_designation.errors?.minlength" class="invalid-feedback">
+                                                Designation atleast 3 characters long.
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- Bank Details-->
@@ -199,7 +214,7 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv selectdiv">
                                             <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''">
-                                                <option value="">Select</option>
+                                                <option [ngValue]="null" selected>Select</option>
                                                 <option *ngFor="let data of resp" >{{data.country}}</option>
                                                 <!-- <option value="India">India</option>
                                                 <option value="Australia">Australia</option>
@@ -214,7 +229,7 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv selectdiv" >
                                             <select formControlName="provinceName" [ngClass]="hasValue ? 'has-value' : ''">
-                                                <option value="">Select</option>
+                                                <option [ngValue]="null" selected>Select</option>
                                                 <option value="Maharastra">Maharashtra</option>
                                                 <option value="Jharkhand">Jharkhand</option>
                                                 <option value="Rajasthan">Rajasthan</option>
@@ -235,7 +250,7 @@
                                                 City is required
                                             </div>
                                             <div *ngIf="busiDetails.city.errors?.minlength" class="invalid-feedback">
-                                                    City atleast 3 characters long.
+                                                    City atleast 2 characters long.
                                             </div>
                                         </div>
                                         <!-- <div class="inputDiv">
@@ -270,7 +285,7 @@
                                                 Address is required
                                             </div>
                                             <div *ngIf="busiDetails.addressLine1.errors?.minlength" class="invalid-feedback">
-                                                    Address atleast 3 characters long.
+                                                    Address atleast 2 characters long.
                                             </div>
                                         </div>
                                     </div>
@@ -283,7 +298,7 @@
                                             </div> -->
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors" class="invalid-feedback">
                                                 <div *ngIf="busiDetails.addressLine2.errors?.minlength">
-                                                    Address Line 2 atleast 3 characters long.
+                                                    Address Line 2 atleast 2 characters long.
                                                 </div>
                                             </div>
                                         </div>
@@ -297,7 +312,7 @@
                                             </div> -->
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors" class="invalid-feedback">
                                                 <div *ngIf="busiDetails.addressLine3.errors?.minlength">
-                                                    Landmark atleast 3 characters long.
+                                                    Landmark atleast 2 characters long.
                                                 </div>
                                             </div>
                                         </div>
@@ -308,6 +323,9 @@
                                             <label>Pincode/Zipcode</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.pincode.errors?.required" class="invalid-feedback">
                                                 Pincode/Zipcode is required
+                                            </div>
+                                            <div *ngIf="busiDetails.pincode.errors?.minlength" class="invalid-feedback">
+                                                Pincode must be 5 to 6 characters long.
                                             </div>
                                         </div>
                                     </div>

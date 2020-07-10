@@ -14,7 +14,6 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   @Input() public LcDetail:FormGroup;
 
   constructor() { }
-
   ngOnInit() {
     $('#divBene').hide();
       $("input[name='userType']").click(function () {
