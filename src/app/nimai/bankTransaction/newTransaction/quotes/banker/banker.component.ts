@@ -20,7 +20,7 @@ export class BankerComponent implements OnInit {
    public data: PlaceQuote;
    detail:any;
   public title: string = "";
-  public tab = 'tab2';
+  public tab = 'tab1';
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     this.data = {        
       transactionId: "",

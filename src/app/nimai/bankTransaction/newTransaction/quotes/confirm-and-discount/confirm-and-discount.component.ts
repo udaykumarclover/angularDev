@@ -17,7 +17,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
 public isActiveQuote:boolean=false;
   public data: PlaceQuote;
   public title: string = "";
-  public tab = 'tab2';
+  public tab = 'tab1';
   detail:any;
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     
@@ -74,6 +74,7 @@ public isActiveQuote:boolean=false;
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
+        console.log(this.data)
         $('input').attr('readonly', false);
       }
     } else {
@@ -186,8 +187,9 @@ public isActiveQuote:boolean=false;
             (response) => {
               this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
-              this.data=data;
               console.log(this.detail)
+              this.data=data;
+             
             },
             error => {
               alert('error')
