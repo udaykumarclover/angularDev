@@ -240,7 +240,7 @@
          <div class="popupcontent">
             <div class="card">
                <div class="card-content">
-                  <h4>Place Quote</h4>
+                  <h4>{{title}}</h4>
                   <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="max-height: 503px;overflow: auto;">
                      <div class="tab-pane active" id="pill1">
                         <table class="table">
@@ -290,7 +290,7 @@
                                     </select>
                                  </td>
                                  <td>
-                                    <input type="text" [(ngModel)]="data.negotiationChargesPerct placeholder="0.00" class="halfleft" />
+                                    <input type="text" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" class="halfleft" />
                                     <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
@@ -405,7 +405,7 @@
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>{{data.validityDate}}</th>
+                                 <th>{{detail.TotalQuote}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>

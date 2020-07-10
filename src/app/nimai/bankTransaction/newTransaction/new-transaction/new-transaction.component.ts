@@ -145,13 +145,14 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     
-    //pagename='confirmAndDiscount';
+  //  pagename='discounting';
     const data = {
       "bankUserId":sessionStorage.getItem('userID'),
     "userId":val.userId,
     "transactionId":val.transactionId
      
   }
+  
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
@@ -165,7 +166,9 @@ export class NewTransactionComponent implements OnInit {
       this.refinancing.isActive = false;
       this.banker.isActive = false;
     } else if (pagename === 'confirmAndDiscount') {      
+   
       this.confirmAndDiscount.action(true,action,data);
+      console.log(data)
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;

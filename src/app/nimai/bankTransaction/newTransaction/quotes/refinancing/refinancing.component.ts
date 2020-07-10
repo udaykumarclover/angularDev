@@ -17,7 +17,7 @@ export class RefinancingComponent implements OnInit {
   public isActiveQuote:boolean=false;
   public data: PlaceQuote;
   public title: string = "";
-  public tab = 'tab2';
+  public tab = 'tab1';
   detail:any;
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     

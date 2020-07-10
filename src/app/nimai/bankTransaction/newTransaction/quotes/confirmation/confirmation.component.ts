@@ -64,14 +64,17 @@ export class ConfirmationComponent implements OnInit {
 
 
   public action(flag: boolean, type: Tflag, data: any) {
+   
     if (flag) {
      
       if (type === Tflag.VIEW) {
+       console.log(type)
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
       } else if (type === Tflag.EDIT) {
+      
         this.isActive = flag;
         this.title = 'Edit';
         this.data= data;

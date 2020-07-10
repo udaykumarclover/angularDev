@@ -53,7 +53,7 @@
                                     <td>{{record.goodsType}}</td>
                                     <td>{{record.requirementType}}</td>
                                     <td *ngIf="record.quotationReceived == 0"><span>{{record.quotationReceived}}</span></td>
-                                    <td *ngIf="record.quotationReceived != 0"><span id="transactionDiv" style="cursor: pointer;" (click)="showQuoteDetail(record.transactionId)" class="transactionDiv">{{record.quotationReceived}}</span></td>
+                                    <td *ngIf="record.quotationReceived != 0"><span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.transactionId)" class="transactionDiv">{{record.quotationReceived}}</span></td>
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                             class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                                 </tr>
@@ -78,10 +78,10 @@
                                 <tr *ngFor="let QRrecord of QRdetail; let i = index">
                                   <td>{{i + 1}}</td>
                                   <td>{{QRrecord.transactionId}}</td>
-                                  <td>** <br>
+                                  <td>**** <br>
                                     Quotes placed till date 214<br>
                                     Quotes for Matress 23</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">{{QRrecord.totalQuoteValue}}</a></td>
+                                  <td><a class="handle1" style="text-decoration:underline;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
                                   <td>{{QRrecord.validityDate}}</td>
                                   <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
