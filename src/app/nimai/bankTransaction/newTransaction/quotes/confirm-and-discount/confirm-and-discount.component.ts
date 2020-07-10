@@ -18,6 +18,7 @@ public isActiveQuote:boolean=false;
   public data: PlaceQuote;
   public title: string = "";
   public tab = 'tab2';
+  detail:any;
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     
     this.data = {        
@@ -135,7 +136,7 @@ public isActiveQuote:boolean=false;
     }
   }
   
-  public transactionForQuotes(act: string) {
+  public transactionForQuotes(act: string,data:any) {
 
     switch (act) {
       case 'edit': {
@@ -148,18 +149,23 @@ public isActiveQuote:boolean=false;
         break;
 
       case 'confirm': {
-        console.log(this.data)
-        this.ts.updateBankTransaction(this.data).subscribe(
-          (response) => {
-            this.tab = 'tab3';
-          },
-          error => {
-            alert('error')
-            this.closedQuote();
-            this.tab = 'tab1';
-          }
-        )
-      }
+        console.log(data)
+      const param = {
+                    "transactionId":data.transactionId,
+                    "userId":data.userId
+       }
+      this.ts.confirmQuotation(param).subscribe(
+        (response) => {
+          console.log(response)
+          this.tab = 'tab3';
+        },
+        error => {
+          alert('error')
+          this.closedQuote();
+          this.tab = 'tab1';
+        }
+      )}
+
         break;
       case 'ok': {
            this.closedQuote();
@@ -176,11 +182,12 @@ public isActiveQuote:boolean=false;
 
 
         case 'generateQuote': {
-       console.log(this.data)
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-              console.log(response)
               this.tab = 'tab2';
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              console.log(this.detail)
             },
             error => {
               alert('error')
@@ -188,20 +195,7 @@ public isActiveQuote:boolean=false;
               this.tab = 'tab1';
             }
           )
-          // console.log(this.data)
-          // const data1 = {
-          //               "transactionId":'CU2020IND0112'
-          //  }
-          // this.ts.calculateQuote(data1).subscribe(
-          //   (response) => {
-          //     console.log(response)
-          //     //this.tab = 'tab3';
-          //   },
-          //   error => {
-          //     alert('error')
-             
-          //   }
-          // )}
+          
     }
   }
   

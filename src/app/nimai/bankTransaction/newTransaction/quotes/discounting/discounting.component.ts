@@ -18,6 +18,7 @@ export class DiscountingComponent implements OnInit {
   public data: PlaceQuote;
   public title: string = "";
   public tab = 'tab1';
+  detail:any;
   constructor(public titleService: TitleService, public ts: NewTransactionService) { 
     
     this.data = {        
@@ -134,7 +135,7 @@ export class DiscountingComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string) {
+  public transactionForQuotes(act: string,data:any) {
 
     switch (act) {
       case 'edit': {
@@ -147,9 +148,14 @@ export class DiscountingComponent implements OnInit {
         break;
 
       case 'confirm': {
-        console.log(this.data)
-        this.ts.updateBankTransaction(this.data).subscribe(
+        console.log(data)
+        const param = {
+                      "transactionId":data.transactionId,
+                      "userId":data.userId
+         }
+        this.ts.confirmQuotation(param).subscribe(
           (response) => {
+            console.log(response)
             this.tab = 'tab3';
           },
           error => {
@@ -157,8 +163,8 @@ export class DiscountingComponent implements OnInit {
             this.closedQuote();
             this.tab = 'tab1';
           }
-        )
-      }
+        )}
+  
         break;
       case 'ok': {
            this.closedQuote();
@@ -175,11 +181,13 @@ export class DiscountingComponent implements OnInit {
 
 
         case 'generateQuote': {
-       console.log(this.data)
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-              console.log(response)
+            
               this.tab = 'tab2';
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              console.log(this.data)
             },
             error => {
               alert('error')

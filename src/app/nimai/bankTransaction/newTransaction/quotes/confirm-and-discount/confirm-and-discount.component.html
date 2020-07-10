@@ -251,7 +251,7 @@
                               </tr>
                               <tr>
                                  <td>Discounting Charges p.a.</td>
-                                 <td><input type="text" [(ngModel)]="data.confirmationCharges" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" [(ngModel)]="data.discountingCharges" placeholder="0.00"><span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
@@ -265,7 +265,7 @@
                                  <td>Applicable Benchmark (Libor/Euribor)<br>
                                   
                                  </td>
-                                 <td><input type="text" name="" readonly placeholder="2.8750"><span class="pull-right percent">%</span>
+                                 <td><input type="text" [(ngModel)]="data.applicableBenchmark" readonly placeholder="2.8750"><span class="pull-right percent">%</span>
                                    <textarea rows="3" placeholder="1 Month Libor, 3 Months Euribor, etc."></textarea></td>
                               </tr>
                               <tr>
@@ -276,7 +276,7 @@
                                     </select>
                                  </td>
                                  <td>
-                                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+                                    <input class="halfleft" type="text" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" />
                                     <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
@@ -290,7 +290,7 @@
                                     </select>
                                  </td>
                                  <td>
-                                    <input type="text" name="" placeholder="0.00" class="halfleft" />
+                                    <input type="text" [(ngModel)]="data.negotiationChargesPerct placeholder="0.00" class="halfleft" />
                                     <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
@@ -299,7 +299,7 @@
                               <tr>
                                  <td>Document Handling Charges</td>
                                  <td>
-                                    <input class="halfleft" type="text" name="" placeholder="0.00" />
+                                    <input class="halfleft" type="text" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" />
                                    <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
@@ -336,7 +336,7 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote')">
+                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote',data)">
                               Save/Generate Quote
                               <div class="ripple-container" ></div>
                            </button>
@@ -349,63 +349,63 @@
                            <tbody>
                               <tr>
                                  <td>Confirmation Charges p.a.</td>
-                                 <td>1.23%</td>
+                                 <td>{{data.confirmationCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Discounting Charges p.a.</td>
-                                 <td>1.23%</td>
+                                 <td>{{data.discountingCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date  </td>
-                                 <td>1.23%</td>
+                                 <td>{{data.confChgsIssuanceToNegot}}</td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity  </td>
-                                 <td>1.23%</td>
+                                 <td>{{data.confChgsIssuanceToMatur}}</td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark (Libor/Euribor)
                                  </td>
-                                 <td>2.8740%<br><small>3 Months Euribor</small></td>
+                                 <td>{{data.applicableBenchmark}}<br><small>3 Months Euribor</small></td>
                               </tr>
                               <tr>
                                  <td>Negotiation Charges</td>
                                  <td>
-                                    USD $200
+                                    {{data.negotiationChargesFixed}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Negotiation Charges</td>
                                  <td>
-                                    0.125%
+                                    {{data.negotiationChargesPerct}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Document Handling Charges</td>
                                  <td>
-                                    USD $500
+                                    {{data.docHandlingCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Minimum Handling Charges</td>
                                  <td>
-                                    USD $500
+                                    {{data.minTransactionCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Other Charges<br>
                                  </td>
                                  <td>
-                                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                    {{data.otherCharges}}  <br><small>Customer needs to pay standard swift transfer charges.</small>
                                  </td>
                               </tr>
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                 <td>28/03/2020</td>
+                                 <td>{{data.validityDate}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>USD $500</th>
+                                 <th>{{data.validityDate}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
@@ -413,11 +413,11 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm')">
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data)">
                               Confirm
                               <div class="ripple-container"></div>
                            </button>
-                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit')">
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit',data)">
                               Edit
                               <div class="ripple-container"></div>
                            </button>
@@ -436,7 +436,7 @@
                            </tbody>
                         </table>
                         <div class="posfix">
-                           <button class="btn btn-info" (click)="transactionForQuotes('ok')">
+                           <button class="btn btn-info" (click)="transactionForQuotes('ok',data)">
                               OK
                               <div class="ripple-container"></div>
                            </button>
