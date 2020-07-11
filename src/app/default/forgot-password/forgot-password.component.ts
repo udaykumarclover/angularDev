@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { MustMatch } from 'src/app/beans/Validations';
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,6 +16,8 @@ export class ForgotPasswordComponent implements OnInit {
   public key: string;
   public forgetPassword: FormGroup;
   public userID: string = null;
+  submitted: boolean = false;
+
   constructor(public router: ActivatedRoute, public route: Router, public lgsc: LoginService, public rsc: ForgetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
@@ -45,12 +49,27 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.forgetPassword = this.fb.group({      
-      password: [''],
-      rePassword: ['']
-    })
+      password: ['', Validators.required],
+      rePassword: ['', Validators.required]
+    },
+    {
+      validators: MustMatch('password', 'rePassword')
+    }
+    )
+  }
+
+  get forgetPasswordDetails() {
+    return this.forgetPassword.controls;
   }
 
   public save() {
+    this.submitted = true;
+                                                                                    
+    if (this.forgetPassword.invalid) {
+      return;
+    }
+    this.submitted = false;
+
    let data={
     emailId:'',
     userId: this.userID,
