@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
+import { MustMatch } from 'src/app/beans/Validations';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -14,6 +16,8 @@ export class ResetPasswordComponent implements OnInit {
   public flag: boolean = false;
   public key: string;
   public resetForm: FormGroup;
+  submitted: boolean = false;
+
   constructor(public router: ActivatedRoute, public route: Router,public lgsc:LoginService, public rsc: ResetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
@@ -42,15 +46,27 @@ export class ResetPasswordComponent implements OnInit {
       emailId: [''],
       userId: [''],
       oldPassword: [''],
-      newPassword: [''],
-      retypePaasword: [''],
+      newPassword: ['', Validators.required],
+      retypePaasword: ['' ,Validators.required],
       getToken: this.key
-    })
+    },
+    {
+      validators: MustMatch('newPassword', 'retypePaasword')
+    }
+    )
+  }
+
+  get resetFormDetails() {
+    return this.resetForm.controls;
   }
 
 
   submit(){
-
+    this.submitted = true;
+    if (this.resetForm.invalid) {
+      return;
+    }
+    this.submitted = false;
 
     this.lgsc.resetPassword(this.resetForm.value)
     .subscribe(
