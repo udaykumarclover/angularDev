@@ -69,7 +69,7 @@ export class ChangePasswordComponent implements OnInit {
         (response) => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congratulations! Your Password has been successfully Changed !',
+              title: 'Congratulations! Your Password has been successfully Changed!',
               message: 'Kindly login with new Password',
               parent: 'login'
             }
@@ -81,7 +81,7 @@ export class ChangePasswordComponent implements OnInit {
         (error) => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Old Password is incorrect !',
+              title: 'Old Password is incorrect!',
               message: 'Kindly check the password and try again!',
               parent: this.subURL + '/' + this.parentURL + '/business-details'
             }
