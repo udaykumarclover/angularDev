@@ -289,10 +289,13 @@ export class LoginComponent implements OnInit {
     this.fps.sendForgetPasswordEmail(fg)
       .subscribe(
         (response) => {
-
+          let emailValue = this.forgotPasswordForm.get('email').value;
+          $('#ForgotPassworddiv').slideUp();
+          $('#logindiv').slideDown();
+          this.forgotPasswordForm.reset();
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congratulations! Password reset link is sent to your registered email address.',
+              title: 'Congratulations! Password reset link is sent to '+ emailValue +'.',
               message: '',
               parent: 'login'
             }

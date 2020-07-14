@@ -50,18 +50,18 @@ export class BusinessDetailsComponent implements OnInit {
       userId: [''],
       selector: ['', Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
-      designation: ['', Validators.minLength(3)],
+      bank_designation: ['', [Validators.required,Validators.minLength(3)]],
       country: ['', Validators.required],
       provinceName: ['',Validators.required],
-      city: ['', [Validators.required,Validators.minLength(3)]],
-      addressLine1: ['', [Validators.required,Validators.minLength(3)]],
-      addressLine2: ['',Validators.minLength(3)],
-      addressLine3: ['',Validators.minLength(3)],
+      city: ['', [Validators.required,Validators.minLength(2)]],
+      addressLine1: ['', [Validators.required,Validators.minLength(2)]],
+      addressLine2: ['',Validators.minLength(2)],
+      addressLine3: ['',Validators.minLength(2)],
       pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
       telephone: ['', Validators.required],
-      bankNbfcName: ['', Validators.required],
-      branchName: ['', Validators.required],
-      swiftCode: ['', Validators.required],
+      bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
+      branchName: ['', [Validators.required,Validators.minLength(3)]],
+      swiftCode: ['', [Validators.required,Validators.minLength(3)]],
       lCCurrencyValue: [''],
       owners: this.fb.array([this.getOwners()])
     });
@@ -82,6 +82,7 @@ export class BusinessDetailsComponent implements OnInit {
 
 
   ngOnInit() { 
+    loads();
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
    }
    ngAfterViewInit() {
@@ -108,13 +109,18 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("branchName").enable();
       this.businessDetailsForm.get("swiftCode").enable();
       this.businessDetailsForm.get("companyName").disable();
+      this.businessDetailsForm.get("owners").disable();
+      this.businessDetailsForm.get("selector").disable();
+      this.businessDetailsForm.get("bank_designation").enable();
 
     } else {
       this.businessDetailsForm.get("bankNbfcName").disable();
       this.businessDetailsForm.get("branchName").disable();
       this.businessDetailsForm.get("swiftCode").disable();
       this.businessDetailsForm.get("companyName").enable();
-
+      this.businessDetailsForm.get("owners").enable();
+      this.businessDetailsForm.get("selector").enable();
+      this.businessDetailsForm.get("bank_designation").disable();
     }
 
   }
@@ -126,7 +132,8 @@ export class BusinessDetailsComponent implements OnInit {
     this.validateCommons();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
-
+    console.log("this.businessDetailsForm",this.businessDetailsForm)
+    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
       return;
@@ -183,6 +190,7 @@ export class BusinessDetailsComponent implements OnInit {
           this.isCustomer = true;
 
         }
+        console.log("this.isCustomer",this.isCustomer)
         this.setValidators();
         this.businessDetailsForm.patchValue({
           bankNbfcName: this.bd.bankName,
@@ -229,7 +237,7 @@ export class BusinessDetailsComponent implements OnInit {
       swiftCode: this.businessDetailsForm.get('swiftCode').value,
       telephone: this.businessDetailsForm.get('telephone').value,
       comapanyName: this.businessDetailsForm.get('companyName').value,
-
+      designation:this.businessDetailsForm.get('bank_designation').value,
       registeredCountry: this.businessDetailsForm.get('country').value,
       registrationType: this.businessDetailsForm.get('selector').value,
       provinceName: this.businessDetailsForm.get('provinceName').value,

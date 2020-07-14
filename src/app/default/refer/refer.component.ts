@@ -24,6 +24,7 @@ export class ReferComponent implements OnInit {
   showBranchUserId: boolean = false;
   resp: any;
   referViewDetails : any;
+  respMessage: string;
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService) {
 
@@ -108,55 +109,31 @@ export class ReferComponent implements OnInit {
     this.CompanyName = this.referForm.get('companyName').value;
 
     const fg = {
-      email: this.referForm.get('emailAddress').value,
-      event: 'ADD_REFER'
+      "emailId": this.referForm.get('emailAddress').value,
+      "event": 'ADD_REFER',
+      "userId": sessionStorage.getItem('userID')
     }
 
     this.service.addRefer(data)
       .subscribe(
         (response) => {
-      let res = JSON.parse(JSON.stringify(response));
-      console.log(res);                
-          this.resetPopup();
-              this.fps.sendForgetPasswordEmail(fg)
-                .subscribe(
-                  (response) => {
-                    const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: 'Congratulations! You has successfully refered. Soon provided email address will get a reference mail.',
-                        message: '',
-                        parent: this.subURL + "/" + this.parentURL + '/refer'
-                      }
-                    };
-                    this.router.navigate([`/${this.subURL}/${this.parentURL}/refer/success`], navigationExtras)
-                    .then(success => console.log('navigation success?', success))
-                    .catch(console.error);
-                  },
-                  (error) => {
-                    const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: ' Failed !!!',
-                        message: 'Invalid Data',
-                        parent: this.subURL + "/" + this.parentURL + '/refer'
-                      }
-                    };
-                    this.router.navigate([`/${this.subURL}/${this.parentURL}/refer/error`], navigationExtras)
-                      .then(success => console.log('navigation success?', success))
-                      .catch(console.error);
-                  }
-                )
+          let res = JSON.parse(JSON.stringify(response));
+          console.log(res);
+          this.fps.sendEmailReferSubsidiary(fg)
+            .subscribe(
+              (response) => {
+                this.resetPopup();
+                this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+              },
+              (error) => {
+                this.resetPopup();
+                this.respMessage = "Service not working! Please try again later."
+              }
+            )
         },
         (error) => {
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: ' Failed !!!',
-              message: 'Invalid Data',
-              parent: this.subURL + "/" + this.parentURL + '/refer'
-            }
-          };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/refer/error`], navigationExtras)
-            .then(success => console.log('navigation success?', success))
-            .catch(console.error);
+          this.resetPopup();
+          this.respMessage = "Service not working! Please try again later."
         }
       )
 

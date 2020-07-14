@@ -43,12 +43,14 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   public getAllnewTransactions() {
-    const data={
-     // userId:sessionStorage.getItem('userID')
-     userId:'CU1030'
+    const data={    
+      "bankUserId":sessionStorage.getItem('userID'),
+      "quotationPlaced":"Yes",
+      "transactionStatus":"Active"
+
     }
     
-    this.nts.getTransactionDetailByUserId(data).subscribe(
+    this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
      
         this.detail = JSON.parse(JSON.stringify(response)).data;
@@ -77,7 +79,6 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   showQuotePage(pagename: string,action:Tflag,data:any) {
-   console.log(data)
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {

@@ -323,6 +323,12 @@ export class UploadLCComponent implements OnInit {
       transactionId: sessionStorage.getItem("transactionID"),
       userId: sessionStorage.getItem('userID')
     }
+
+    let emailBody = {
+      "transactionid": sessionStorage.getItem("transactionID"),
+      "userId": sessionStorage.getItem('userID'),
+      "event": "LC_Upload"
+      }
     this.upls.confirmLc(body)
       .subscribe(
         (response) => {
@@ -330,6 +336,7 @@ export class UploadLCComponent implements OnInit {
           this.edit();
           this.loading = false;
           this.titleService.loading.next(false);
+          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
@@ -500,10 +507,19 @@ export class UploadLCComponent implements OnInit {
     const param = {
       transactionId: trnsactionID
     }
+
+    let emailBodyUpdate = {
+      "transactionid": trnsactionID,
+      "userId": sessionStorage.getItem('userID'),
+      "event": "LC_UPDATE"
+      }
     this.isUpdate = true;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
+
+        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+
          this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);
         this.dateToPass = new Date(this.draftData.lCIssuingDate);

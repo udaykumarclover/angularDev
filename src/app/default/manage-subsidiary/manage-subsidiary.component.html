@@ -119,17 +119,17 @@
             <div class="row">
               <div class="col-md-12">
                 <div id="authemaildiv">
-                  <p><strong>Enter an email address of an authrized user</strong></p>
+                  <p><strong>Enter an email address of an Authorized user</strong></p>
                   <div class="form-group"></div>
                   <div class="col-md-12">
                     <div class="row">
                       <div class="inputDiv">
                         <input type="text" formControlName="emailId">
                         <label>Your Email ID</label>
-                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required">
+                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
                           Email is required
                         </div>
-                        <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.email">
+                        <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern" class="invalid-feedback">
                           Invalid Email id
                         </div>
                       </div>
@@ -138,7 +138,7 @@
                 </div>
 
                 <p id="paradiv">
-                  You've successfully invited a subsidiary to join TradeEnabler.
+                  {{respMessage}}
                 </p>
                 <div class="clearfix"></div>
                 <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
