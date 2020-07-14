@@ -4,7 +4,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
 import { manageSub } from 'src/assets/js/commons'
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
-
+import { loads } from '../../../assets/js/commons';
 
 @Component({
   selector: 'app-manage-subsidiary',
@@ -31,7 +31,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   manageSubForm = this.formBuilder.group({
-    emailId: new FormControl('', [Validators.required, Validators.email])
+    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
   });
 
   get manageSubDetails() {
@@ -39,6 +39,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads();
     manageSub();
   }
 

@@ -41,7 +41,7 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Last Name</label>
-                                            <div *ngIf="submitted && perDetails.firstName.errors" class="invalid-feedback">
+                                            <div *ngIf="submitted && perDetails.lastName.errors" class="invalid-feedback">
                                                 <div *ngIf="perDetails.lastName.errors?.required">
                                                     Last Name is required
                                                 </div>
