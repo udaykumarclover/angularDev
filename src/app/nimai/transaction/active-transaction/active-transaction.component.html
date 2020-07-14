@@ -1,3 +1,4 @@
+<div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
 <div class="content">
   <div class="container-fluid">
      <div class="row">
@@ -85,7 +86,7 @@
                                   <td>**** <br>
                                     Quotes placed till date 214<br>
                                     Quotes for Matress 23</td>
-                                  <td><a class="handle1" style="text-decoration:underline;">{{QRrecord.totalQuoteValue}}</a></td>
+                                  <td><a (click)="openNav3();openOffcanvas()" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
                                   <td>{{QRrecord.validityDate}}</td>
                                   <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
@@ -112,15 +113,14 @@
   </div>
 </div>
 
-<div id="menu-bar1" style="background: #fff;">
+<div id="menu-barnew" class="offcanvas">
   <div class="popupcontent">
     <div class="card">
       <div class="card-content">
-        <h4>Bank Quote</h4>
-        <div class="tab-content" id="tab2">
-          <div class="tab-pane active datadiv" id="pill1"
-            style="    height: 530px;overflow: auto;padding-bottom: 30px;">
-            <table class="table table-bordered">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
               <thead>
                 <tr>
                   <th>Transaction ID</th>
@@ -170,16 +170,13 @@
                 </tr>
               </tbody>
             </table>
-
-
-
-          </div>
-          <div class="posfix">
-            <button type="submit" class="btn btn-info pull-right handle1">
-              Ok
-              <div class="ripple-container"></div>
-            </button>
-            <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
+                Ok
+                <div class="ripple-container"></div>
+              </button>
+              <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+            </div>
           </div>
         </div>
         <div class="tab-content" id="tab3">
@@ -195,7 +192,7 @@
               </tbody>
             </table>
             <div class="posfix">
-              <a href="javascript:void()" class="btn btn-info">
+              <a (click)="closeOffcanvas()" class="btn btn-info">
                 OK
                 <div class="ripple-container"></div>
               </a>

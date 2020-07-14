@@ -126,4 +126,17 @@ export class ActiveTransactionComponent implements OnInit {
       }
     )
   }
+
+  openOffcanvas() {
+    document.getElementById("menu-barnew").style.width = "450px"; 
+ }
+ openNav3() {
+    document.getElementById("myCanvasNav").style.width = "100%";
+    document.getElementById("myCanvasNav").style.opacity = "0.6";  
+ }
+ closeOffcanvas() {
+    document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+ } 
 }
