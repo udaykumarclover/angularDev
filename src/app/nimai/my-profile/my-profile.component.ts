@@ -110,7 +110,7 @@ export class MyProfileComponent implements OnInit {
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
         this.bd = responseData.data;
-        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('BC')) {
+        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('BC') || this.bd.userId.startsWith('RE')) {
           this.isCustomer = false;
         } else if (this.bd.userId.startsWith('CU')) {
           this.isCustomer = true;
