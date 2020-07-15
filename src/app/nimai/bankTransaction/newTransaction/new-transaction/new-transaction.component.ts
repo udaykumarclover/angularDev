@@ -142,11 +142,14 @@ export class NewTransactionComponent implements OnInit {
   
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-    
     const data = {
       "bankUserId":sessionStorage.getItem('userID'),
       "userId":val.userId,
-      "transactionId":val.transactionId
+      "transactionId":val.transactionId,
+      "requirementType":val.requirementType,
+      "lCIssuanceBank":val.lCIssuanceBank,
+      "lCValue":val.lCValue,
+      "lCCurrency":val.lCCurrency
      
   }
   
