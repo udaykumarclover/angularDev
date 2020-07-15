@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
       this.accountPages="in"
       this.isCollapsed=""
       this.areaExpandedacc=!this.areaExpandedacc
-    }else if (this.router.url==="/cst/dsb/new-transaction" || this.router.url==="/cst/dsb/active-transaction" || this.router.url==="/cst/dsb/transaction-details" || this.router.url==="/cst/dsb/draft-transaction" ){
+    }else if (this.router.url===`/${this.parentURL}/dsb/new-transaction` || this.router.url===`/${this.parentURL}/dsb/active-transaction` || this.router.url===`/${this.parentURL}/dsb/transaction-details` || this.router.url===`/${this.parentURL}/dsb/draft-transaction`){
       this.transactionpages="in"
       this.isCollapsed=""
       this.areaExpandedtra=!this.areaExpandedtra

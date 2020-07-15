@@ -49,7 +49,7 @@ export class ReferComponent implements OnInit {
     // referenceId: new FormControl(''),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    mobileNo: new FormControl('', [Validators.required]),
+    mobileNo: ['', [Validators.required,Validators.minLength(10)]],
     emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
@@ -156,6 +156,11 @@ export class ReferComponent implements OnInit {
     }
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 

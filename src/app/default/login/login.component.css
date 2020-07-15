@@ -157,3 +157,6 @@
 .loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
     content:none!important;
 }
+select{
+    color: #545454!important;
+}

@@ -26,7 +26,7 @@
                                     <table class="table table-hover" id="datatables">
                                         <thead>
                                             <tr>
-                                                <th class="disabled-sorting text-center">#</th>
+                                                <th class="text-center" style="min-width: 19px!important;">#</th>
                                                 
                                                 <th style="min-width: 120px;">Name</th>
                                                 
@@ -40,7 +40,7 @@
                                                 <th style="min-width: 100px;">Earning</th>
                                                 <th style="min-width: 120px;">Purchase Type</th>
                                                 <th style="min-width: 100px;" nowrap
-                                                    class="disabled-sorting text-center">Status</th>
+                                                    class="text-center">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -79,21 +79,21 @@
         <div class="modal-content">
             <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
-                    <h2>Refer
+                    <h2>Refer  <span class="refer_span">Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.</span>
+                        
                         <button type="button" class="close" (click)="close()">&times;</button>
                     </h2>
                     <div class="padnew">
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="authemaildiv">
-                                    <p>Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.
-                                    </p>
+
                                     <div class="form-group"></div>
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" maxlength="15"   [ngClass]="{ 'is-invalid': submitted && referDetails.firstName.errors?.required }" formControlName="firstName" (keydown)="validateRegexFields($event, 'alpha')">
+                                                    <input type="text" maxlength="15"   [ngClass]="{ 'is-invalid': submitted && referDetails.firstName.errors?.required }" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                                                     <label>First Name</label>
                                                     <div *ngIf="submitted && referDetails.firstName.errors?.required" class="invalid-feedback">       
                                                         <div *ngIf="submitted && referDetails.firstName.errors?.required">
@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" maxlength="15" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && referDetails.lastName.errors?.required }" (keydown)="validateRegexFields($event, 'alpha')">
+                                                    <input type="text" maxlength="15" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && referDetails.lastName.errors?.required }" (keydown)="validateRegexFields($event, 'name_validation')">
                                                     <label>Last Name</label>      
                                                     <div *ngIf="submitted && referDetails.lastName.errors?.required" class="invalid-feedback">
                                                         Last Name is required.
@@ -117,6 +117,9 @@
                                                     <label>Mobile No.</label>      
                                                     <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
                                                         Mobile No. is required.
+                                                    </div>
+                                                    <div *ngIf="referDetails.mobileNo.errors?.minlength" class="invalid-feedback">
+                                                        Mobile No atleast of 10 digits.
                                                     </div>
                                                 </div>
                                             </div>
