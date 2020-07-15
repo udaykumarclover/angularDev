@@ -86,7 +86,7 @@
                                   <td>**** <br>
                                     Quotes placed till date 214<br>
                                     Quotes for Matress 23</td>
-                                  <td><a (click)="openNav3();openOffcanvas()" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
+                                  <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
                                   <td>{{QRrecord.validityDate}}</td>
                                   <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
@@ -124,7 +124,7 @@
               <thead>
                 <tr>
                   <th>Transaction ID</th>
-                  <th>CU20BANCON1101</th>
+                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.transactionId}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -136,33 +136,32 @@
                 </tr>
                 <tr>
                   <td>Confirmation Charges</td>
-                  <td><input type="text" name="" value="1%" placeholder=""></td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}</td>
                 </tr>
                 <tr>
                   <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                  <td>USD $5.01</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
                 </tr>
                 <tr>
                   <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
-                  <td>USD $17.55</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
                 </tr>
                 <tr>
                   <td>Minimum Transaction Charges</td>
-                  <td><input type="text" name="" value="USD $500"></td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
                 </tr>
                 <tr>
                   <td>Other Charges</td>
-                  <td>USD $50 <br>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}} <br>
                     Comment: SWIFT Charges</td>
                 </tr>
                 <tr>
                   <td>Valid Till</td>
-                  <td>19-06-2019<br>
-                    4 days to go</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate}}</td>
                 </tr>
                 <tr>
                   <th>Total Quote</th>
-                  <th>USD $500 </th>
+                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}} </th>
                 </tr>
                 <tr>
                   <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual

@@ -34,8 +34,9 @@ export class ActiveTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   detail: any;
-  QRdetail: any;
+  QRdetail: any = "";
   noQRdetail: boolean = false;
+  getSpecificDetail: any = "";
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -139,4 +140,8 @@ export class ActiveTransactionComponent implements OnInit {
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
  } 
+
+  getQRDetail(detail){
+    this.getSpecificDetail = detail;
+ }
 }

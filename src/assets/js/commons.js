@@ -1386,7 +1386,9 @@ export function custActiveTransaction() {
 
 
             $('.popupcontent select').css('color', '#333');
+    }, 500);
 
+        setTimeout(() => {
             $('#datatables').DataTable({
                 "pagingType": "full_numbers", "scrollX": true,
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
