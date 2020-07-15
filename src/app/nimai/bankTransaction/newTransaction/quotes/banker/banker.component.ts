@@ -26,6 +26,7 @@ export class BankerComponent implements OnInit {
       transactionId: "",
       userId: "",
       bankUserId: "",
+      quotationId:"",
       confirmationCharges:0,
       confChgsIssuanceToNegot: "",
       confChgsIssuanceToexp: "",

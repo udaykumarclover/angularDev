@@ -25,6 +25,7 @@ public isActiveQuote:boolean=false;
       transactionId: "",
       userId: "",
       bankUserId: "",
+      quotationId:"",
       confirmationCharges:0,
       confChgsIssuanceToNegot: "",
       confChgsIssuanceToexp: "",

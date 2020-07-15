@@ -62,6 +62,7 @@ export interface PlaceQuote{
 		transactionId:String;
 		userId:String;
 		bankUserId:String;
+		quotationId:String;
 		confirmationCharges:number;
 		confChgsIssuanceToNegot:String;
 		confChgsIssuanceToexp:String;

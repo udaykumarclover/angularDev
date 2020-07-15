@@ -113,7 +113,6 @@ export class NewTransactionComponent implements OnInit {
      }
    
   this.nts.getAllNewBankRequest(data).subscribe(
-  // this.nts.getTransactionDetailByUserId(data).subscribe(
           (response) => {
              this.detail = JSON.parse(JSON.stringify(response)).data;
           if (!this.detail) {
@@ -134,7 +133,6 @@ export class NewTransactionComponent implements OnInit {
     this.banker.isActive = false;
   }
   showDetail(data:any){
-    console.log(data)
     this.isActive=true;
     this.data = data;
    this.titleService.quote.next(true);
@@ -145,11 +143,10 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     
-  //  pagename='discounting';
     const data = {
       "bankUserId":sessionStorage.getItem('userID'),
-    "userId":val.userId,
-    "transactionId":val.transactionId
+      "userId":val.userId,
+      "transactionId":val.transactionId
      
   }
   
@@ -168,7 +165,6 @@ export class NewTransactionComponent implements OnInit {
     } else if (pagename === 'confirmAndDiscount') {      
    
       this.confirmAndDiscount.action(true,action,data);
-      console.log(data)
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;

@@ -30,7 +30,8 @@ export class ConfirmationComponent implements OnInit {
     this.data = {        
 		transactionId: "",
 		userId: "",
-		bankUserId: "",
+    bankUserId: "",
+    quotationId:"",
 		confirmationCharges:0,
 		confChgsIssuanceToNegot: "",
 		confChgsIssuanceToexp: "",
@@ -64,7 +65,7 @@ export class ConfirmationComponent implements OnInit {
 
 
   public action(flag: boolean, type: Tflag, data: any) {
-   
+ 
     if (flag) {
      
       if (type === Tflag.VIEW) {
@@ -150,8 +151,7 @@ export class ConfirmationComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
-console.log(data)
+  public transactionForQuotes(act: string,data:any,detail:any) {
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -163,14 +163,13 @@ console.log(data)
         break;
 
       case 'confirm': {
-      console.log(data)
       const param = {
                     "transactionId":data.transactionId,
-                    "userId":data.userId
+                    "userId":data.userId,
+                    "quotationId":detail.quotationId,
        }
       this.ts.confirmQuotation(param).subscribe(
         (response) => {
-          console.log(response)
           this.tab = 'tab3';
         },
         error => {
@@ -204,7 +203,6 @@ console.log(data)
               this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
-              console.log(this.data)
             },
             error => {
               alert('error')

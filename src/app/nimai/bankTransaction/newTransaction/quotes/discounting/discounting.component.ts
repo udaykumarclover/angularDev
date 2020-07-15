@@ -25,6 +25,7 @@ export class DiscountingComponent implements OnInit {
       transactionId: "",
       userId: "",
       bankUserId: "",
+      quotationId:"",
       confirmationCharges:0,
       confChgsIssuanceToNegot: "",
       confChgsIssuanceToexp: "",
@@ -107,7 +108,6 @@ export class DiscountingComponent implements OnInit {
         break;
 
       case 'submit': {
-        console.log(this.data)
         this.ts.updateBankTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -148,14 +148,12 @@ export class DiscountingComponent implements OnInit {
         break;
 
       case 'confirm': {
-        console.log(data)
         const param = {
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
         this.ts.confirmQuotation(param).subscribe(
           (response) => {
-            console.log(response)
             this.tab = 'tab3';
           },
           error => {

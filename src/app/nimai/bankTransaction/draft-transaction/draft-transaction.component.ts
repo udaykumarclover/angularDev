@@ -57,13 +57,10 @@ export class DraftTransactionComponent implements OnInit {
 
   callAllDraftTransaction(){
     const param = {
-    // userId: sessionStorage.getItem('userID')
-      userId:'CU1030'
+    "bankUserId":sessionStorage.getItem('userID')
     }
-   
-    //  this.nts.getTransactionDetailByUserId(param).subscribe(
     
-   this.service.getCustDraftTransaction(param).subscribe(
+   this.service.getBankDraftQuotation(param).subscribe(
       (response) => {
         this.draftData = JSON.parse(JSON.stringify(response)).data;
         console.log(this.draftData);
@@ -85,7 +82,7 @@ export class DraftTransactionComponent implements OnInit {
     const data = {
       "userId":sessionStorage.getItem('userID'),
       "transactionId":this.draftData.transactionId,
-       // "userId":'CU1030',"transactionId":'CU2020IND0130',
+      "quotationId":this.draftData.quotationId,
        }
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
