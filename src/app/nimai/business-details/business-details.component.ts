@@ -132,7 +132,8 @@ export class BusinessDetailsComponent implements OnInit {
     this.validateCommons();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
-    console.log("this.businessDetailsForm",this.businessDetailsForm)
+    let items = this.businessDetailsForm.get('owners') as FormArray;
+    console.log("items",items.controls)
     console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']

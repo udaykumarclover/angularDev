@@ -94,7 +94,7 @@
 
 
 
-    <div class="col-md-12 ">
+    <div class="col-md-6 ">
         <div class="selection">
             <p class=""><strong>Charges are
                     on</strong></p>
@@ -121,22 +121,20 @@
                 </div>
             </li>
         </ul>
-
-
-
     </div>
+    <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Validity</mat-label>
+                <input matInput [matDatepicker]="validity" formControlName="validity" autocomplete="off">
+                <mat-datepicker-toggle matSuffix [for]="validity">
+                </mat-datepicker-toggle>
+                <mat-datepicker #validity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
     <div class="clearfix"></div>
 
-    <div class="col-md-4">
-        <mat-form-field>
-            <mat-label>Validity</mat-label>
-            <input matInput [matDatepicker]="validity" formControlName="validity">
-            <mat-datepicker-toggle matSuffix [for]="validity">
-            </mat-datepicker-toggle>
-            <mat-datepicker #validity>
-            </mat-datepicker>
-        </mat-form-field>
-    </div>
+   
     <div class="clearfix"></div>
     <div class="col-md-5">
         <p><strong>Pro Forma</strong></p>
