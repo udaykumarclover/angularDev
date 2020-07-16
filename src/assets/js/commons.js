@@ -1386,7 +1386,9 @@ export function custActiveTransaction() {
 
 
             $('.popupcontent select').css('color', '#333');
+    }, 500);
 
+        setTimeout(() => {
             $('#datatables').DataTable({
                 "pagingType": "full_numbers", "scrollX": true,
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -1398,33 +1400,11 @@ export function custActiveTransaction() {
 
             });
 
-            var table = $('#datatables').DataTable();
-
-            // Edit record
-            table.on('click', '.edit', function () {
-                $tr = $(this).closest('tr');
-
-                var data = table.row($tr).data();
-                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-            });
-
-            // Delete a record
-            table.on('click', '.remove', function (e) {
-                $tr = $(this).closest('tr');
-                table.row($tr).remove().draw();
-                e.preventDefault();
-            });
-
-            //Like record
-            table.on('click', '.like', function () {
-                alert('You clicked on Like button');
-            });
-
             $('.card .material-datatables label').addClass('form-group');
 
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
         });
-    }, 500);
+    }, 800);
 }
 
 

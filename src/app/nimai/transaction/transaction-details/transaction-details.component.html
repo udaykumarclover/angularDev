@@ -1,3 +1,5 @@
+<div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
+
 <div class="content">
   <div class="container-fluid">
      <div class="row">
@@ -58,7 +60,7 @@
                                          </select>
                                       </td>
                                       <td> 
-                                         <a class="handleDetail" style="cursor: pointer;" (click)="getDetail(record)">Detail</a>
+                                         <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas();">Detail</a>
                                       </td>
                                    </tr>
                                 </tbody>
@@ -75,7 +77,7 @@
   </div>
 </div>
 
-<div id="menu-bar">
+<div id="menu-bar" style="display: none;">
   <div class="handle btn btn-info handle">
      <span class="fas fa-angle-left"></span>
   </div>
@@ -150,7 +152,7 @@
      </div>
   </div>
 </div>
-<div id="menubarDetail">
+<div id="menu-barnew" class="offcanvas">
    <div class="popupcontent">
       <div class="card">
          <div class="card-content">
@@ -298,7 +300,7 @@
                               </tr>
                               <tr>
                                  <td>Pro Forma</td>
-                                 <td><a href="#">View</a></td>
+                                 <th><a style="cursor: pointer;" (click)="showProForma(specificDetail.lcProForma)">View</a></th>
                               </tr>
                            </tbody>
                         </table>
@@ -376,7 +378,7 @@
       </div>
    </div>
 </div>
-<div id="menubarDetailreject">
+<div id="menubarDetailreject" style="display: none;">
   <div class="popupcontent">
      <div class="card">
         <div class="card-content">
@@ -699,7 +701,7 @@
      </div>
   </div>
 </div>
-<div id="menubarDetailexpired">
+<div id="menubarDetailexpired" style="display: none;">
   <div class="popupcontent">
      <div class="card">
         <div class="card-content">
@@ -857,7 +859,7 @@
      </div>
   </div>
 </div>
-<div id="myModal4" class="popupnew modal fade" role="dialog">
+<div id="myModal4" style="display: none;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -876,7 +878,7 @@
                           </div>
                        </div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" class="close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-info pull-right">OK</button>
                  </div>
               </div>
@@ -885,7 +887,7 @@
      </div>
   </div>
 </div>
-<div id="myModal5" class="popupnew modal fade" role="dialog">
+<div id="myModal5" style="display: none;z-index: 9999;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -910,7 +912,7 @@
                        <div class="form-group"></div>
                        <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" class="close" data-dismiss="modal">Submit</button> 
+                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Submit</button> 
                  </div>
               </div>
            </div>
@@ -918,7 +920,7 @@
      </div>
   </div>
 </div>
-<div id="myModal6" class="popupnew modal fade" role="dialog">
+<div id="myModal6" style="display: none;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -932,7 +934,7 @@
                        <label>Your transaction has been reopened. Check the active transacion section for more details.</label> 
                        <div class="form-group"></div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" class="close" data-dismiss="modal">Ok</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Ok</button> 
                  </div>
               </div>
            </div>
@@ -940,7 +942,7 @@
      </div>
   </div>
 </div>
-<div id="myModal7" class="popupnew modal fade" role="dialog">
+<div id="myModal7" style="display: none;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -954,7 +956,7 @@
                        <label>Validity of your transaction has been expired. Kindly update the validity date before reopening it.</label> 
                        <div class="form-group"></div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" class="close" data-dismiss="modal">Ok</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Ok</button> 
                  </div>
               </div>
            </div>
@@ -962,7 +964,7 @@
      </div>
   </div>
 </div>
-<div id="myModal8" class="popupnew modal fade" role="dialog">
+<div id="myModal8" style="display: none;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -976,8 +978,8 @@
                        <label>By clicking Refund you will receive 1 credit back to your account.</label> 
                        <div class="form-group"></div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" class="close" data-dismiss="modal">Cancel</button> 
-                    <button type="submit" class="btn btn-info pull-right" class="close" data-dismiss="modal">Refund</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Cancel</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Refund</button> 
                  </div>
               </div>
            </div>
@@ -985,3 +987,21 @@
      </div>
   </div>
 </div>
+<div id="myModal9" class="modal3" style="display: none;">
+   <!-- <div class="modal-dialog modal-md emaildiv"> -->
+   <!-- Modal content-->
+   <div class="modal-content-image">
+     <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
+     <div class="modal-body" style="text-align:center">
+       <h4>Attached document</h4>
+       <div class="row">
+         <!--<p><strong>Enter Email ID here</strong></p> -->
+         <div class="col-md-12">
+          <img [src]="document" />
+         </div>
+         <!-- <button type="submit" class="btn btn-info"  data-dismiss="modal">Close</button>-->
+       </div>
+     </div>
+   </div>
+   <!-- </div> -->
+ </div>

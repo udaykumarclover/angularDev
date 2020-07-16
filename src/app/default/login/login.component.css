@@ -143,6 +143,7 @@
 
 ::ng-deep .multiselect-dropdown .dropdown-btn span {
     margin-left: 10px!important;
+    margin-top: 4px!important;
 }
 .blackListedGoodsList_img{
     margin-left: 5px!important;
@@ -156,4 +157,7 @@
 }
 .loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
     content:none!important;
+}
+select{
+    color: #545454!important;
 }

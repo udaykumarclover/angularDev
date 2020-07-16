@@ -80,16 +80,16 @@
                               </thead>
                               <tbody>
                                 
-                                <tr *ngFor="let QRrecord of QRdetail; let i = index">
+                                <tr *ngFor="let QRrecord of QRdetail; let i = index" >
                                   <td>{{i + 1}}</td>
                                   <td>{{QRrecord.transactionId}}</td>
-                                  <td>**** <br>
+                                  <td class="showBankDetails">**** <br>
                                     Quotes placed till date 214<br>
                                     Quotes for Matress 23</td>
-                                  <td><a (click)="openNav3();openOffcanvas()" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
+                                  <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
                                   <td>{{QRrecord.validityDate}}</td>
-                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord.bankUserId, true);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" data-target="#myModal4">Accept</button></td>
                                 </tr>                          
                               </tbody>
                             </table>
@@ -124,7 +124,7 @@
               <thead>
                 <tr>
                   <th>Transaction ID</th>
-                  <th>CU20BANCON1101</th>
+                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.transactionId}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -136,33 +136,32 @@
                 </tr>
                 <tr>
                   <td>Confirmation Charges</td>
-                  <td><input type="text" name="" value="1%" placeholder=""></td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}</td>
                 </tr>
                 <tr>
                   <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                  <td>USD $5.01</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
                 </tr>
                 <tr>
                   <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
-                  <td>USD $17.55</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
                 </tr>
                 <tr>
                   <td>Minimum Transaction Charges</td>
-                  <td><input type="text" name="" value="USD $500"></td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
                 </tr>
                 <tr>
                   <td>Other Charges</td>
-                  <td>USD $50 <br>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}} <br>
                     Comment: SWIFT Charges</td>
                 </tr>
                 <tr>
                   <td>Valid Till</td>
-                  <td>19-06-2019<br>
-                    4 days to go</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate}}</td>
                 </tr>
                 <tr>
                   <th>Total Quote</th>
-                  <th>USD $500 </th>
+                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}} </th>
                 </tr>
                 <tr>
                   <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual
@@ -215,17 +214,17 @@
           <div class="">
             <div class="row">
               <div class="col-md-12">
-                <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
-                  this Bid.</p>
+                <!-- <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
+                  this Bid.</p> -->
 
                 <ul class="list-unstyled">
                   <li><strong>Bank Details</strong></li>
-                  <li>Bank : Diamond Trust Bank</li>
-                  <li>Branch : Dhaka</li>
-                  <li>Country : Bangladesh</li>
-                  <li>Email : nasim.devij@dtbbank.com</li>
-                  <li>Contact : +254-719-031-888</li>
-                  <li>Contact Person : Nasim Devji</li>
+                  <li>Bank : {{acceptedDetails.bankName}}</li>
+                  <li>Branch : {{acceptedDetails.branchName}}</li>
+                  <li>Country : {{acceptedDetails.registeredCountry}}</li>
+                  <li>Email : {{acceptedDetails.emailId}}</li>
+                  <li>Contact : {{acceptedDetails.telephone}}</li>
+                  <li>Contact Person : {{acceptedDetails.firstName}}{{acceptedDetails.lastName}}</li>
                 </ul>
                 <p>Details are saved in the Transaction Details section.</p>
                 <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div

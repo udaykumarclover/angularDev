@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import { NewTransaction, NTBean } from 'src/app/beans/BankNewTransaction';
 import { ConfirmationComponent } from '../transactionTypes/confirmation/confirmation.component';
 import { DiscountingComponent } from '../transactionTypes/discounting/discounting.component';
@@ -11,6 +11,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
 import { custActiveTransaction, onQuoteClick } from 'src/assets/js/commons';
+import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 
 
 @Component({
@@ -34,10 +35,12 @@ export class ActiveTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   detail: any;
-  QRdetail: any;
+  QRdetail: any = "";
   noQRdetail: boolean = false;
+  getSpecificDetail: any = "";
+  acceptedDetails: any = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService) {
     this.titleService.quote.next(false);
 
   }
@@ -118,6 +121,10 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getAllQuotationDetails(data).subscribe(
       (response) => {
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
+        this.QRdetail = this.QRdetail.map(item => ({
+          ...item,
+          isSelected: false
+        }));
         if(!this.QRdetail){
           this.noQRdetail = true;
         }
@@ -139,4 +146,31 @@ export class ActiveTransactionComponent implements OnInit {
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
  } 
+
+  getQRDetail(detail){
+    this.getSpecificDetail = detail;
+ }
+
+ showAcceptedDetails(index,qId, tId, userID,sel){
+  let req = {
+    "quotationId": qId,
+	  "transactionId": tId
+  }
+
+  index = index + 1;
+
+  this.bds.viewBusinessDetails(userID).subscribe(
+    (response) => {
+      let responseData = JSON.parse(JSON.stringify(response));
+      this.acceptedDetails = responseData.data;
+      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ', ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.registeredCountry);
+      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
+      
+      index = parseInt(index) - 1;
+      this.QRdetail[index].isSelected = sel;
+      // $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html("Accepted");
+      
+    },
+    (err) => {})
+ }
 }

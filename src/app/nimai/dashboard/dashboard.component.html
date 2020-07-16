@@ -55,7 +55,7 @@
                                    <p> Personal Details </p>
                                 </a>
                              </li>
-                             <li [routerLinkActive]="['active']" > 
+                             <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']" > 
                                 <a [routerLink]="['business-details']">
                                    <i class="fas fa-business-time"></i>
                                    <p> Business Details </p>
@@ -126,7 +126,7 @@
                              </li>
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['active-transaction']">
-                                   <i class="fas fa-exchange-alt"></i>
+                                   <i class="fa fa-check-square-o"></i>
                                    <p> Active Transaction </p>
                                 </a>
                              </li>
@@ -166,8 +166,8 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a [routerLink]="['my-profile']">My Profile</a></li>
-                  <li><a [routerLink]="['credit-transaction']">Credits and Transactions</a></li>
-                  <li><a [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
+                  <li><a *ngIf="isCustomer || isBank" [routerLink]="['credit-transaction']">Credits and Transactions</a></li>
+                  <li><a *ngIf="isCustomer || isBank" [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
                   <li><a [routerLink]="['refer']">Refer</a></li>
                   <li><a [routerLink]="['change-password']">Change Password</a></li>
                   <li><a href="preComingSoon.html">Support</a></li>

@@ -34,3 +34,6 @@
     font-size: 36px !important;
     margin-left: 50px;
     } 
+    .data-selected {
+        background-color:grey;
+      }

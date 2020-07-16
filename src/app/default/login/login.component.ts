@@ -186,7 +186,7 @@ export class LoginComponent implements OnInit {
             this.updateValidation();
             const navigationExtras: NavigationExtras = {
               state: {
-                title: 'Congratulations, Your account has been successfully created!',
+                title: 'Congratulations! Your account has been successfully created!',
                 message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
                 parent: 'login'
               }
@@ -496,6 +496,7 @@ export class LoginComponent implements OnInit {
       blacklistedGC: '',
       companyName: ''
     })
+    $("#isCheckedForTerms"). prop("checked", false);
   }
 
 
