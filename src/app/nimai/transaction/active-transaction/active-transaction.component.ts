@@ -12,6 +12,7 @@ import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
 import { custActiveTransaction, onQuoteClick } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -39,17 +40,26 @@ export class ActiveTransactionComponent implements OnInit {
   noQRdetail: boolean = false;
   getSpecificDetail: any = "";
   acceptedDetails: any = "";
+  public parentURL: string = "";
+  public subURL: string = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
 
   }
 
   public getAllnewTransactions() {
     const data={
-      userId:sessionStorage.getItem('userID')
+      userId:sessionStorage.getItem('userID'),
+      "transactionStatus": 'Active'
     }
-    this.nts.getTransactionDetailByUserId(data).subscribe(
+    this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
         this.detail = JSON.parse(JSON.stringify(response)).data;
         if (!this.detail) {
@@ -173,12 +183,11 @@ export class ActiveTransactionComponent implements OnInit {
           console.log("Failure");
         }
       )
-
-      // index = parseInt(index) - 1;
-      // this.QRdetail[index].isSelected = sel;
-      // $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html("Accepted");
-      
     },
     (err) => {})
+ }
+
+ redirectAsAccepted(){
+  this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/transaction-details"]);
  }
 }
