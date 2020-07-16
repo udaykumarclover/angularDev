@@ -165,9 +165,17 @@ export class ActiveTransactionComponent implements OnInit {
       this.acceptedDetails = responseData.data;
       $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ', ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.registeredCountry);
       $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
-      
-      index = parseInt(index) - 1;
-      this.QRdetail[index].isSelected = sel;
+      this.nts.acceptBankQuote(req).subscribe(
+        (response) => {
+          console.log("quote Accepted");
+        },
+        (err) => {
+          console.log("Failure");
+        }
+      )
+
+      // index = parseInt(index) - 1;
+      // this.QRdetail[index].isSelected = sel;
       // $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html("Accepted");
       
     },
