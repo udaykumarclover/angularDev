@@ -16,7 +16,6 @@ export interface NewTransaction{
    }
 
 
-
 export interface NTBean{ 
 	 transactionId:string;
 	 userId:string;
@@ -57,3 +56,35 @@ export interface NTBean{
 	 goodsType:string;
 
 }
+
+export interface PlaceQuote{
+	
+		transactionId:String;
+		userId:String;
+		bankUserId:String;
+		quotationId:String;
+		confirmationCharges:number;
+		confChgsIssuanceToNegot:String;
+		confChgsIssuanceToexp:String;
+		confChgsIssuanceToMatur:String;
+		discountingCharges:number;
+		refinancingCharges:String;
+		bankAcceptCharges:String;
+		applicableBenchmark:number;
+		commentsBenchmark:String;
+		negotiationChargesFixed:number;
+		negotiationChargesPerct:number;
+		docHandlingCharges:number;
+		otherCharges:number;
+		minTransactionCharges:number;
+		insertedBy:String;
+		modifiedBy:String;
+		insertedDate: Date;
+		modifiedDate: Date;
+		validityDate:Date;
+		TotalQuote: number;
+		expiryDays: number;
+		maturityDays: number;
+		negotiationDays: number;
+		sumOfQuote: number;
+		}

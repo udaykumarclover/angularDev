@@ -30,7 +30,7 @@ import { CustomerLoginComponent } from './default/popups/customer-login/customer
     ForgotPasswordComponent,
     PagenotfoundComponent,
     //ResetPasswordComponent,
-    CustomerLoginComponent 
+    CustomerLoginComponent,
     
   ],
   imports: [

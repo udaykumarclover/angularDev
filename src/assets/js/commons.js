@@ -55,6 +55,7 @@ export function selectpickercall() {
         
         $(".selectpicker").selectpicker();
     }
+
 }
 export function loads() {
     const inputs = $('.inputDiv').find('input');
@@ -281,7 +282,7 @@ export function manageSub(){
       table.on('click', '.like', function () {
         alert('You clicked on Like button');
       });
-    },1000);
+    },500);
 
       $('.card .material-datatables label').addClass('form-group');
     });
@@ -640,7 +641,7 @@ export function bankActiveTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 1000);
+}, 500);
 }
 
 
@@ -664,12 +665,12 @@ export function loadLogin() {
     });
 
     $(function () {
-        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
-            $(this).parent().toggleClass('is-focused');
-        });
-        $(".inputDiv input, .inputDiv select").on('focus blur', function () {
-            $(this).toggleClass('ng-invalid');
-        });
+        // $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+        //     $(this).parent().toggleClass('is-focused');
+        // });
+        // $(".inputDiv input, .inputDiv select").on('focus blur', function () {
+        //     $(this).toggleClass('ng-invalid');
+        // });
         $('.inputDiv input').focusout(function () {
             var text_val = $(this).val();
             if (text_val === "") {
@@ -1108,7 +1109,7 @@ export function bankRequest(){
                   table.on( 'click', '.like', function () {
                     alert('You clicked on Like button');
                   });
-                  },1000);
+                  },500);
                   $('.card .material-datatables label').addClass('form-group');
                   demo.initFormExtendedDatetimepickers();
 
@@ -1130,7 +1131,7 @@ export function bankRequest(){
             //        $('#menu-barnew #tab1').slideUp();
             //         $('#menu-barnew #tab3').slideDown();
             //    }); 
-            }, 1000);
+            }, 500);
 }
 
 export function custTrnsactionDetail() {
@@ -1141,7 +1142,7 @@ export function custTrnsactionDetail() {
         // prettyPrint();
         $("#menu-bar").click(function () {
             var id = $(this).attr("href").substring(1);
-            $("html, body").animate({ scrollTop: $("#" + id).offset().top }, 1000, function () {
+            $("html, body").animate({ scrollTop: $("#" + id).offset().top }, 200, function () {
                 $("#menu-bar").slideReveal("hide");
             });
         });
@@ -1243,7 +1244,7 @@ export function custTrnsactionDetail() {
         //$(".dataTables_filter label").addClass("pull-right");
 
         // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
-    }, 1000);
+    }, 500);
         
     // });
 }
@@ -1374,26 +1375,6 @@ export function custActiveTransaction() {
                 $('#backbtn').fadeOut();
             });
 
-
-            // $('#menu-bar #tab2').hide();
-            // $('#menu-bar #tab3').hide();
-            // $('#menu-bar #btnpreview').click(function () {
-            //     $('#menu-bar #tab1').slideUp();
-            //     $('#menu-bar #tab2').slideDown();
-            // });
-
-            // $('#menu-bar #btnEdit').click(function () {
-            //     $('#menu-bar #tab1').slideDown();
-            //     $('#menu-bar #tab2').slideUp();
-            // });
-
-
-            // $('#menu-bar #btnSubmit').click(function () {
-            //     $('#menu-bar #tab2').slideUp();
-            //     $('#menu-bar #tab1').slideUp();
-            //     $('#menu-bar #tab3').slideDown();
-            // });
-
             $('#menu-bar1 #tab3').hide();
 
             $('#menu-bar1 #btnSubmit').click(function () {
@@ -1405,7 +1386,9 @@ export function custActiveTransaction() {
 
 
             $('.popupcontent select').css('color', '#333');
+    }, 500);
 
+        setTimeout(() => {
             $('#datatables').DataTable({
                 "pagingType": "full_numbers", "scrollX": true,
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -1417,44 +1400,11 @@ export function custActiveTransaction() {
 
             });
 
-            $('#datatables1').DataTable({
-                "pagingType": "full_numbers", "scrollX": true,
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                responsive: false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                }
-
-            });
-
-            var table = $('#datatables').DataTable();
-
-            // Edit record
-            table.on('click', '.edit', function () {
-                $tr = $(this).closest('tr');
-
-                var data = table.row($tr).data();
-                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-            });
-
-            // Delete a record
-            table.on('click', '.remove', function (e) {
-                $tr = $(this).closest('tr');
-                table.row($tr).remove().draw();
-                e.preventDefault();
-            });
-
-            //Like record
-            table.on('click', '.like', function () {
-                alert('You clicked on Like button');
-            });
-
             $('.card .material-datatables label').addClass('form-group');
 
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
         });
-    }, 1000);
+    }, 800);
 }
 
 
@@ -1813,5 +1763,62 @@ export function newRequest(){
     //  md.initSliders()
       demo.initFormExtendedDatetimepickers();
     });
-}, 1000);   
+}, 500);   
+}
+
+export function creditTransaction(){
+    $(document).ready(function() {
+        demo.initFormExtendedDatetimepickers(); 
+
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers","scrollX": true,
+            "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
+            responsive: false, //scrollX: true,
+            language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+            }
+        
+          });
+
+          var table = $('#datatables').DataTable();
+         
+           // Edit record
+           table.on( 'click', '.edit', function () {
+             $tr = $(this).closest('tr');
+         
+             var data = table.row($tr).data();
+             alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+           } );
+         
+           // Delete a record
+           table.on( 'click', '.remove', function (e) {
+             $tr = $(this).closest('tr');
+             table.row($tr).remove().draw();
+             e.preventDefault();
+           } );
+         
+           //Like record
+           table.on( 'click', '.like', function () {
+             alert('You clicked on Like button');
+           });
+         
+           $('.card .material-datatables label').addClass('form-group');
+        });
+
+        $(".datepicker").on("dp.show", function(e) {
+            debugger;
+            // alert('test');
+            $('.datepicker + div + label').addClass('calendarlabel');
+            $('.inputDiv input, .inputDiv textarea').focusout(function() {
+                var text_val = $(this).val();
+                if (text_val === "") {
+                    $(this).removeClass('has-value');
+                    $('.datepicker + div + label').removeClass('calendarlabel');
+                } else {
+                    $(this).addClass('has-value');
+                    $('.datepicker + div + label').addClass('calendarlabel');
+                }
+            });
+        });
 }

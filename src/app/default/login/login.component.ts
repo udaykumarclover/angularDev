@@ -186,7 +186,7 @@ export class LoginComponent implements OnInit {
             this.updateValidation();
             const navigationExtras: NavigationExtras = {
               state: {
-                title: 'Congratulations, Your account has been successfully created!',
+                title: 'Congratulations! Your account has been successfully created!',
                 message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
                 parent: 'login'
               }
@@ -289,10 +289,13 @@ export class LoginComponent implements OnInit {
     this.fps.sendForgetPasswordEmail(fg)
       .subscribe(
         (response) => {
-
+          let emailValue = this.forgotPasswordForm.get('email').value;
+          $('#ForgotPassworddiv').slideUp();
+          $('#logindiv').slideDown();
+          this.forgotPasswordForm.reset();
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congratulations! Password reset link is sent to your registered email address.',
+              title: 'Congratulations! Password reset link is sent to '+ emailValue +'.',
               message: '',
               parent: 'login'
             }
@@ -321,7 +324,7 @@ export class LoginComponent implements OnInit {
   }
 
   validateCommons() {
-    this.signupForm.get('firstName').setValidators(Validators.required);
+    this.signupForm.get('firstName').setValidators([Validators.required,Validators.minLength(2)]);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.signupForm.get('mobileNo').setValidators(Validators.required);
@@ -493,6 +496,7 @@ export class LoginComponent implements OnInit {
       blacklistedGC: '',
       companyName: ''
     })
+    $("#isCheckedForTerms"). prop("checked", false);
   }
 
 

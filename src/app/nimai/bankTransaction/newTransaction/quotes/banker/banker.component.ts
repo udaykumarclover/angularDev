@@ -4,6 +4,8 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
+import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 @Component({
   selector: 'app-banker',
@@ -16,71 +18,42 @@ export class BankerComponent implements OnInit {
 
   public isActive: boolean = false;
   public isActiveQuote :boolean=false;
-
-  public data: TransactionBean;
+   public data: PlaceQuote;
+   detail:any;
   public title: string = "";
-  public tab = 'tab2';
-  constructor(public titleService: TitleService, public ts: NewTransactionService) { 
-    this.data = {
+  public tab = 'tab1';
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
+    this.data = {        
       transactionId: "",
       userId: "",
-      requirementType: "",
-      lCIssuanceBank: "",
-      lCIssuanceBranch: "",
-      swiftCode: 0,
-      lCIssuanceCountry: "",
-      lCIssuingDate: null,
-      lCExpiryDate: null,
-      lCValue: null,
-      lCCurrency: "",
-      lastShipmentDate: null,
-      negotiationDate: null,
-      paymentPeriod: 0,
-      paymentTerms: "",
-      tenorEndDate: null,
-      applicantName: "",
-      applicantCountry: "",
-      beneName: "",
-      beneBankCountry: "",
-      beneBankName: "",
-      beneSwiftCode: "",
-      beneCountry: "",
-      loadingCountry: "",
-      loadingPort: "",
-      dischargeCountry: "",
-      dischargePort: null,
-      chargesType: "",
-      validity: null,
-      insertedDate: null,
+      bankUserId: "",
+      quotationId:"",
+      confirmationCharges:0,
+      confChgsIssuanceToNegot: "",
+      confChgsIssuanceToexp: "",
+      confChgsIssuanceToMatur: "",
+      discountingCharges:0,
+      refinancingCharges: "",
+      bankAcceptCharges: "",
+      applicableBenchmark:0,
+      commentsBenchmark: "",
+      negotiationChargesFixed:0,
+      negotiationChargesPerct:0,
+      docHandlingCharges:0,
+      otherCharges:0,
+      minTransactionCharges:0,
       insertedBy: "",
-      modifiedDate: null,
       modifiedBy: "",
-      transactionflag: null,
-      transactionStatus: "",
-      branchUserId: null,
-      branchUserEmail: null,
-      goodsType: "",
-      usanceDays: null,
-      startDate: null,
-      endDate: null,
-      originalTenorDays: null,
-      refinancingPeriod: "",
-      lcMaturityDate: null,
-      lcNumber: '',
-      lastBeneBank: "",
-      lastBeneSwiftCode: "",
-      lastBankCountry: "",
-      remarks: "",
-      discountingPeriod: "",
-      confirmationPeriod: null,
-      financingPeriod: null,
-      lcProForma: "",
-      tenorFile: null,
-      lccountry: [],
-      lcgoods: [],
-      lcbanks: [],
-      lcbranch: []
-    }
+      insertedDate: null,
+      modifiedDate:null,
+      validityDate:null,
+      TotalQuote: 0,
+      expiryDays: 0,
+      maturityDays: 0,
+      negotiationDays: 0,
+      sumOfQuote: 0
+  
+           }
   }
 
   ngOnInit() {
@@ -99,11 +72,12 @@ export class BankerComponent implements OnInit {
         this.title = 'Edit';
         this.data = data;
         $('input').attr('readonly', false);
-      }else{
+      }else if (type === Tflag.PLACE_QUOTE){      
         this.isActiveQuote = flag;
+        $('input').attr('readonly', false);
         this.title = 'Place Quote';
         this.data = data;
-        $('input').attr('readonly', false);
+       
       }
     } else {
       this.isActive = flag;
@@ -137,7 +111,8 @@ export class BankerComponent implements OnInit {
         break;
 
       case 'submit': {
-        this.ts.updateCustomerTransaction(this.data).subscribe(
+        console.log(this.data)
+        this.ts.updateBankTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
           },
@@ -147,19 +122,12 @@ export class BankerComponent implements OnInit {
             this.tab = 'tab1';
           }
         )
-
-
       }
         break;
       case 'ok': {
-        if(this.isActive){
-          this.closed();
-          this.tab = 'tab1';
-          }else{
-         this.closedQuote();
-         this.tab = 'tab1';
+            this.closed();
+            this.tab = 'tab1';                  
       }
-    }
         break;
       case 'preview': {
         this.tab = 'tab2';
@@ -169,6 +137,78 @@ export class BankerComponent implements OnInit {
       }
         break;
     }
-
   }
+  
+  public transactionForQuotes(act: string,data:any) {
+
+    switch (act) {
+      case 'edit': {
+        this.tab = 'tab1'
+        setTimeout(() => {
+          $('input').attr('readonly', false);
+        }, 100);
+        this.title = 'Edit';
+      }
+        break;
+
+      case 'confirm': {
+        console.log(data)
+        const param = {
+                      "transactionId":data.transactionId,
+                      "userId":data.userId
+         }
+        this.ts.confirmQuotation(param).subscribe(
+          (response) => {
+            console.log(response)
+            this.tab = 'tab3';
+            let emailBodyUpdate = {
+              "transactionid": data.transactionId,
+              "userId": data.userId,
+              "event": "QUOTE_ACCEPT"
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+  
+          },
+          error => {
+            alert('error')
+            this.closedQuote();
+            this.tab = 'tab1';
+          }
+        )}
+  
+        break;
+      case 'ok': {
+           this.closedQuote();
+           this.tab = 'tab1';
+              }
+        break;
+      case 'preview': {
+        this.tab = 'tab2';
+        setTimeout(() => {
+          $('input').attr('readonly', true);
+        }, 200);
+      }
+        break;
+
+
+        case 'generateQuote': {
+     
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+            
+              this.tab = 'tab2';
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              console.log(this.data)
+            },
+            error => {
+              alert('error')
+              this.closedQuote();
+              this.tab = 'tab1';
+            }
+          )
+        
+    }
+  }
+    }
 }

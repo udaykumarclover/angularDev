@@ -1,3 +1,4 @@
+<div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
 <div class="content">
   <div class="container-fluid">
      <div class="row">
@@ -53,7 +54,7 @@
                                     <td>{{record.goodsType}}</td>
                                     <td>{{record.requirementType}}</td>
                                     <td *ngIf="record.quotationReceived == 0"><span>{{record.quotationReceived}}</span></td>
-                                    <td *ngIf="record.quotationReceived != 0"><span id="transactionDiv" style="cursor: pointer;" (click)="showQuoteDetail(record.transactionId)" class="transactionDiv">{{record.quotationReceived}}</span></td>
+                                    <td *ngIf="record.quotationReceived != 0"><span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.transactionId)" class="transactionDiv">{{record.quotationReceived}}</span></td>
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                             class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                                 </tr>
@@ -62,7 +63,10 @@
                           </div>
                           <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
                             style="width:100%">
-                            <table class="table table-hover" id="">
+                            <div *ngIf="noQRdetail">
+                              No Records available
+                            </div>
+                            <table class="table table-hover" id="" *ngIf="!noQRdetail">
                               <thead>
                                 <tr>
                                   <th>#</th>
@@ -75,16 +79,17 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let QRrecord of QRdetail; let i = index">
+                                
+                                <tr *ngFor="let QRrecord of QRdetail; let i = index" >
                                   <td>{{i + 1}}</td>
                                   <td>{{QRrecord.transactionId}}</td>
-                                  <td>** <br>
+                                  <td class="showBankDetails">**** <br>
                                     Quotes placed till date 214<br>
                                     Quotes for Matress 23</td>
-                                  <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">{{QRrecord.totalQuoteValue}}</a></td>
+                                  <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
                                   <td>{{QRrecord.validityDate}}</td>
-                                  <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord.bankUserId, true);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" data-target="#myModal4">Accept</button></td>
                                 </tr>                          
                               </tbody>
                             </table>
@@ -108,19 +113,18 @@
   </div>
 </div>
 
-<div id="menu-bar1" style="background: #fff;">
+<div id="menu-barnew" class="offcanvas">
   <div class="popupcontent">
     <div class="card">
       <div class="card-content">
-        <h4>Bank Quote</h4>
-        <div class="tab-content" id="tab2">
-          <div class="tab-pane active datadiv" id="pill1"
-            style="    height: 530px;overflow: auto;padding-bottom: 30px;">
-            <table class="table table-bordered">
+        <h4>Place Quote</h4>
+        <div class="tab-content" id="tab1">
+          <div class="tab-pane active" id="pill1">
+            <table class="table">
               <thead>
                 <tr>
                   <th>Transaction ID</th>
-                  <th>CU20BANCON1101</th>
+                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.transactionId}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,33 +136,32 @@
                 </tr>
                 <tr>
                   <td>Confirmation Charges</td>
-                  <td><input type="text" name="" value="1%" placeholder=""></td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}</td>
                 </tr>
                 <tr>
                   <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                  <td>USD $5.01</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
                 </tr>
                 <tr>
                   <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
-                  <td>USD $17.55</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
                 </tr>
                 <tr>
                   <td>Minimum Transaction Charges</td>
-                  <td><input type="text" name="" value="USD $500"></td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
                 </tr>
                 <tr>
                   <td>Other Charges</td>
-                  <td>USD $50 <br>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}} <br>
                     Comment: SWIFT Charges</td>
                 </tr>
                 <tr>
                   <td>Valid Till</td>
-                  <td>19-06-2019<br>
-                    4 days to go</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate}}</td>
                 </tr>
                 <tr>
                   <th>Total Quote</th>
-                  <th>USD $500 </th>
+                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}} </th>
                 </tr>
                 <tr>
                   <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual
@@ -166,16 +169,13 @@
                 </tr>
               </tbody>
             </table>
-
-
-
-          </div>
-          <div class="posfix">
-            <button type="submit" class="btn btn-info pull-right handle1">
-              Ok
-              <div class="ripple-container"></div>
-            </button>
-            <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
+                Ok
+                <div class="ripple-container"></div>
+              </button>
+              <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+            </div>
           </div>
         </div>
         <div class="tab-content" id="tab3">
@@ -191,7 +191,7 @@
               </tbody>
             </table>
             <div class="posfix">
-              <a href="javascript:void()" class="btn btn-info">
+              <a (click)="closeOffcanvas()" class="btn btn-info">
                 OK
                 <div class="ripple-container"></div>
               </a>
@@ -214,20 +214,20 @@
           <div class="">
             <div class="row">
               <div class="col-md-12">
-                <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
-                  this Bid.</p>
+                <!-- <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
+                  this Bid.</p> -->
 
                 <ul class="list-unstyled">
                   <li><strong>Bank Details</strong></li>
-                  <li>Bank : Diamond Trust Bank</li>
-                  <li>Branch : Dhaka</li>
-                  <li>Country : Bangladesh</li>
-                  <li>Email : nasim.devij@dtbbank.com</li>
-                  <li>Contact : +254-719-031-888</li>
-                  <li>Contact Person : Nasim Devji</li>
+                  <li>Bank : {{acceptedDetails.bankName}}</li>
+                  <li>Branch : {{acceptedDetails.branchName}}</li>
+                  <li>Country : {{acceptedDetails.registeredCountry}}</li>
+                  <li>Email : {{acceptedDetails.emailId}}</li>
+                  <li>Contact : {{acceptedDetails.telephone}}</li>
+                  <li>Contact Person : {{acceptedDetails.firstName}}{{acceptedDetails.lastName}}</li>
                 </ul>
                 <p>Details are saved in the Transaction Details section.</p>
-                <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div
+                <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">Ok<div
                     class="ripple-container">
                     <div class="ripple ripple-on ripple-out"
                       style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">

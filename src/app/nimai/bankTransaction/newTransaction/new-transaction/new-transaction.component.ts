@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import * as $ from '../../../../../assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import {bankRequest,newRequest,bankActiveTransaction} from 'src/assets/js/commons'
+import {bankActiveTransaction} from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -36,8 +35,8 @@ export class NewTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  detail: any;
-  
+  public detail: any;
+  public test: string = "";
 
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
@@ -105,56 +104,22 @@ export class NewTransactionComponent implements OnInit {
   }
   ngOnInit() {
     bankActiveTransaction();
-   //newRequest();
   }
 
 
   public getNewRequestsForBank() {
     const data = {
      "userId":sessionStorage.getItem('userID')
-    // "userId":'CU1788'
-    }
-    console.log(data.userId)
+     }
+   
   this.nts.getAllNewBankRequest(data).subscribe(
-  // this.nts.getTransactionDetailByUserId(data).subscribe(
-    
-      (response) => {
-     
-        this.detail = JSON.parse(JSON.stringify(response)).data;
-        if (!this.detail) {
+          (response) => {
+             this.detail = JSON.parse(JSON.stringify(response)).data;
+          if (!this.detail) {
           this.hasNoRecord = true;
         }
-
       },(error) =>{
         this.hasNoRecord = true;
-      }
-    )
-  }
-
-  placeQuoteFrom = this.formBuilder.group({
-    transactionId: new FormControl(''),
-    quotationId: new FormControl(''),
-    confirmationCharges: new FormControl(''),
-    confChgsIssuanceToNegot: new FormControl(''),
-    confChgsIssuanceToexp: new FormControl(''),
-    confChgsIssuanceToMatur: new FormControl(''),
-    discountingCharges: new FormControl(''),
-    refinancingCharges: new FormControl(''),
-    bankAcceptCharges: new FormControl(''),
-    applicableBenchmark: new FormControl(''),
-
-
-  })
-
-  placeNewQuote(){
-    this.nts.getBankplaceQuotation(this.placeQuoteFrom.value).subscribe(
-      (response) => {
-        this.detail = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.detail);
-      },
-      (error) => {
-        console.log("failed");
-        
       }
     )
   }
@@ -168,16 +133,26 @@ export class NewTransactionComponent implements OnInit {
     this.banker.isActive = false;
   }
   showDetail(data:any){
-    console.log(data)
     this.isActive=true;
     this.data = data;
    this.titleService.quote.next(true);
    
   }
-  showQuotePage(pagename: string,action:Tflag,data:any) {
+  showQuotePage(pagename: string,action:Tflag,val:any) {
   
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+    const data = {
+      "bankUserId":sessionStorage.getItem('userID'),
+      "userId":val.userId,
+      "transactionId":val.transactionId,
+      "requirementType":val.requirementType,
+      "lCIssuanceBank":val.lCIssuanceBank,
+      "lCValue":val.lCValue,
+      "lCCurrency":val.lCCurrency
+     
+  }
+  
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
@@ -191,6 +166,7 @@ export class NewTransactionComponent implements OnInit {
       this.refinancing.isActive = false;
       this.banker.isActive = false;
     } else if (pagename === 'confirmAndDiscount') {      
+   
       this.confirmAndDiscount.action(true,action,data);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;

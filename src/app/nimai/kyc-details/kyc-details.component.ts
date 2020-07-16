@@ -4,7 +4,7 @@ import { call } from '../../../assets/js/bootstrap-filestyle.min'
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { KycuploadService } from 'src/app/services/kyc-upload/kycupload.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { loadFilestyle } from '../../../assets/js/commons'
+import { loadFilestyle ,loads} from '../../../assets/js/commons'
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -38,9 +38,14 @@ export class KycDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.kycDetailsForm = this.fb.group({
-      file: ['']
-    });
+      file: [''],
+      busiDocument: [''],
+      busiCountry: [''],
+      perCountry:[''],
+      perDocument:[''],
 
+    });
+    loads();
     this.titleService.changeTitle(this.title);
   }
 
@@ -51,7 +56,7 @@ export class KycDetailsComponent implements OnInit {
 
     if (this.selectedFiles.length) {
       for (let i = 0; i < this.selectedFiles.length; i++)
-        formData.append('files', this.selectedFiles[i], this.selectedFiles[i].name);
+        formData.append('files', this.selectedFiles[i], this.selectedFiles[i].name),this;
     }
 
     formData.append('userId', sessionStorage.getItem('userID'));
@@ -95,13 +100,15 @@ export class KycDetailsComponent implements OnInit {
   }
 
   selectFile(event) {
+
+    console.log("event-------",event)
     if (event.target.files.length) {
       for (let i = 0; i < event.target.files.length; i++) {
         this.selectedFiles.push(<File>event.target.files[i]);
       }
     }
     call();
-    console.log(this.selectedFiles)
+    console.log("selectedFiles",this.selectedFiles)
   }
 
   creatFile(): FormGroup {

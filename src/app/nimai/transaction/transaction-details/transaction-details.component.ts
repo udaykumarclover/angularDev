@@ -21,6 +21,7 @@ export class TransactionDetailsComponent {
   public data: any;
   public specificDetail: any;
   quotationdata: any;
+  document: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
@@ -78,6 +79,26 @@ export class TransactionDetailsComponent {
         (error) => {}
     )
   }
+
+  openOffcanvas() {
+    document.getElementById("menu-barnew").style.width = "450px"; 
+ }
+ openNav3() {
+    document.getElementById("myCanvasNav").style.width = "100%";
+    document.getElementById("myCanvasNav").style.opacity = "0.6";  
+ }
+ closeOffcanvas() {
+    document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+ } 
+ showProForma(file){
+  $('#myModal9').show();
+  this.document = file;
+}
+close(){
+  $('#myModal9').hide();
+}
 
 
 }

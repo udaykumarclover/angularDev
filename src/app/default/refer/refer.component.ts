@@ -7,8 +7,7 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { formatDate } from '@angular/common';
 import { ReferService } from 'src/app/services/refer/refer.service';
-
-
+import { loads} from '../../../assets/js/commons'
 @Component({
   selector: 'app-refer',
   templateUrl: './refer.component.html',
@@ -25,6 +24,7 @@ export class ReferComponent implements OnInit {
   showBranchUserId: boolean = false;
   resp: any;
   referViewDetails : any;
+  respMessage: string;
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService) {
 
@@ -49,8 +49,8 @@ export class ReferComponent implements OnInit {
     // referenceId: new FormControl(''),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    mobileNo: new FormControl('', [Validators.required]),
-    emailAddress: new FormControl('', [Validators.required, Validators.email]),
+    mobileNo: ['', [Validators.required,Validators.minLength(10)]],
+    emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
     status: new FormControl('ACTIVE'),
@@ -67,6 +67,7 @@ export class ReferComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads();
     manageSub();
     this.viewReferDetails(sessionStorage.getItem('userID'));
   }
@@ -82,7 +83,7 @@ export class ReferComponent implements OnInit {
   }
 
   onSubmit() {
-
+    //alert("1")
     this.submitted = true;
     if (this.referForm.invalid) {
       return;
@@ -108,55 +109,31 @@ export class ReferComponent implements OnInit {
     this.CompanyName = this.referForm.get('companyName').value;
 
     const fg = {
-      email: this.referForm.get('emailAddress').value,
-      event: 'ADD_REFER'
+      "emailId": this.referForm.get('emailAddress').value,
+      "event": 'ADD_REFER',
+      "userId": sessionStorage.getItem('userID')
     }
 
     this.service.addRefer(data)
       .subscribe(
         (response) => {
-      let res = JSON.parse(JSON.stringify(response));
-      console.log(res);                
-          this.resetPopup();
-              this.fps.sendForgetPasswordEmail(fg)
-                .subscribe(
-                  (response) => {
-                    const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: 'Congratulations! You has successfully refered. Soon provided email address will get a reference mail.',
-                        message: '',
-                        parent: this.subURL + "/" + this.parentURL + '/refer'
-                      }
-                    };
-                    this.router.navigate([`/${this.subURL}/${this.parentURL}/refer/success`], navigationExtras)
-                    .then(success => console.log('navigation success?', success))
-                    .catch(console.error);
-                  },
-                  (error) => {
-                    const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: ' Failed !!!',
-                        message: 'Invalid Data',
-                        parent: this.subURL + "/" + this.parentURL + '/refer'
-                      }
-                    };
-                    this.router.navigate([`/${this.subURL}/${this.parentURL}/refer/error`], navigationExtras)
-                      .then(success => console.log('navigation success?', success))
-                      .catch(console.error);
-                  }
-                )
+          let res = JSON.parse(JSON.stringify(response));
+          console.log(res);
+          this.fps.sendEmailReferSubsidiary(fg)
+            .subscribe(
+              (response) => {
+                this.resetPopup();
+                this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+              },
+              (error) => {
+                this.resetPopup();
+                this.respMessage = "Service not working! Please try again later."
+              }
+            )
         },
         (error) => {
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: ' Failed !!!',
-              message: 'Invalid Data',
-              parent: this.subURL + "/" + this.parentURL + '/refer'
-            }
-          };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/refer/error`], navigationExtras)
-            .then(success => console.log('navigation success?', success))
-            .catch(console.error);
+          this.resetPopup();
+          this.respMessage = "Service not working! Please try again later."
         }
       )
 
@@ -179,6 +156,11 @@ export class ReferComponent implements OnInit {
     }
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 

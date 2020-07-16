@@ -8,6 +8,13 @@
                 </div>
                 <div class="card-content">
                    <h4 class="card-title pull-left">Active Transaction</h4>
+                   
+                   <!-- <h4 class="card-title">
+                      <span id="changetext"> Active Transaction</span> 
+                      <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn">
+                        <span class="fas fa-long-arrow-alt-left"></span> Back</a>
+                      </h4>    -->
+              
                    <form>
                     <div class="row" *ngIf="hasNoRecord">
                       <div class="col-md-12">
@@ -34,7 +41,7 @@
                                       <th style="min-width: 80px;">Quote</th>
                                       <th style="min-width: 80px;">Goods</th>
                                    <th style="min-width: 130px;">Requirement</th>
-                                      <th style="min-width: 130px;">Quotes Received</th>
+                                      <th style="min-width: 130px;">Quotes Rank</th>
                                       <th style="min-width: 130px;">Action</th>
                                    </tr>
                                   </thead>
@@ -46,8 +53,8 @@
                                       <td>{{record.applicantName}}</td>
                                       <td>{{record.applicantCountry}}</td>
                                       <td>{{record.transactionId}}</td>
-                                      <td nowrap>{{record.insertedDate}}</td>
-                                      <td nowrap>{{record.validity}}</td>
+                                      <td nowrap>{{record.acceptedOn}}</td>
+                                      <td nowrap>{{record.validityDate}}</td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.lCCurrency}}</td>
                                        <td>{{record.lCValue}}</td>

@@ -8,6 +8,7 @@ import { formatDate } from '@angular/common';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import  { ValidateRegex } from '../../../beans/Validations';
+import { call } from 'src/assets/js/bootstrap-filestyle.min'
 
 
 
@@ -32,7 +33,7 @@ export class UploadLCComponent implements OnInit {
   public isEdit: boolean = false;
   public isConfirm: boolean = false;
   public loading: boolean = false;
-  public date: string = formatDate(new Date(), "dd-MM-yyyy' 'HH:mm:ss, Z", 'en-US');
+  public date: string = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
 
   public lcDetail: LcDetail = null;
   public lc: any = null;
@@ -76,6 +77,8 @@ export class UploadLCComponent implements OnInit {
       lcd.saveCount = anchor.length;
 
     })
+    call();
+
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -235,8 +238,8 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
-    data.tenorEndDate = data.lastShipmentDate;
-  
+    data.tenorStartDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
+    
 
     this.upls.saveLc(data)
       .subscribe(
@@ -288,9 +291,8 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
-    data.tenorEndDate = data.lastShipmentDate;
+    data.tenorStartDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.transactionId = this.transactionID;
-
 
     this.upls.updateLc(data).subscribe(
         (response) => {
@@ -321,6 +323,12 @@ export class UploadLCComponent implements OnInit {
       transactionId: sessionStorage.getItem("transactionID"),
       userId: sessionStorage.getItem('userID')
     }
+
+    let emailBody = {
+      "transactionid": sessionStorage.getItem("transactionID"),
+      "userId": sessionStorage.getItem('userID'),
+      "event": "LC_Upload"
+      }
     this.upls.confirmLc(body)
       .subscribe(
         (response) => {
@@ -328,6 +336,7 @@ export class UploadLCComponent implements OnInit {
           this.edit();
           this.loading = false;
           this.titleService.loading.next(false);
+          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
@@ -426,7 +435,7 @@ export class UploadLCComponent implements OnInit {
       paymentTerms: [''],
       tenorStartDate:[''],
       tenorEndDate: [''],
-  
+      tenor_file: [''],
       // For Discounting 
       discountingPeriod:[''],
       remarks:[''],
@@ -436,10 +445,9 @@ export class UploadLCComponent implements OnInit {
       refinancingPeriod:[''],
       lcMaturityDate:[''],
       lcNumber:[''],
-    lastBeneBank:[''],
-    lastBeneSwiftCode:[''],
-    lastBankCountry:[''],
-  
+      lastBeneBank:[''],
+      lastBeneSwiftCode:[''],
+      lastBankCountry:[''],  
       
       applicantName:[''],
       applicantCountry:[''],
@@ -458,7 +466,7 @@ export class UploadLCComponent implements OnInit {
   
       chargesType: [''],
       validity:[''],
-      lcProForma:'TEST',
+      lcProForma:[''],
   
       lCExpiryDate:[''],    
       
@@ -478,7 +486,7 @@ export class UploadLCComponent implements OnInit {
 
 
   public dateFormat(date: string): string {
-    let formatedDate = formatDate(new Date(date), "dd-MM-yyyy' 'HH:mm:ss, Z", 'en-US');
+    let formatedDate = formatDate(new Date(date), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
     return formatedDate;
   }
 
@@ -499,10 +507,19 @@ export class UploadLCComponent implements OnInit {
     const param = {
       transactionId: trnsactionID
     }
+
+    let emailBodyUpdate = {
+      "transactionid": trnsactionID,
+      "userId": sessionStorage.getItem('userID'),
+      "event": "LC_UPDATE"
+      }
     this.isUpdate = true;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
+
+        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+
          this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);
         this.dateToPass = new Date(this.draftData.lCIssuingDate);

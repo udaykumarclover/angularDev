@@ -5,6 +5,7 @@ import { Subscription } from 'src/app/beans/subscription';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
 import { ActivatedRoute, Router } from '@angular/router';
+import { loads } from '../../../assets/js/commons';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads();
     this.titleService.changeTitle(this.title);
     this.getSubscriptionDetails();
     this.getPlan(sessionStorage.getItem("userID"));

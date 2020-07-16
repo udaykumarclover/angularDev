@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import { NewTransaction, NTBean } from 'src/app/beans/BankNewTransaction';
 import { ConfirmationComponent } from '../transactionTypes/confirmation/confirmation.component';
 import { DiscountingComponent } from '../transactionTypes/discounting/discounting.component';
@@ -10,7 +10,9 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction } from 'src/assets/js/commons';
+import { custActiveTransaction, onQuoteClick } from 'src/assets/js/commons';
+import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -34,18 +36,30 @@ export class ActiveTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   detail: any;
-  QRdetail: any;
+  QRdetail: any = "";
+  noQRdetail: boolean = false;
+  getSpecificDetail: any = "";
+  acceptedDetails: any = "";
+  public parentURL: string = "";
+  public subURL: string = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
 
   }
 
   public getAllnewTransactions() {
     const data={
-      userId:sessionStorage.getItem('userID')
+      userId:sessionStorage.getItem('userID'),
+      "transactionStatus": 'Active'
     }
-    this.nts.getTransactionDetailByUserId(data).subscribe(
+    this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
         this.detail = JSON.parse(JSON.stringify(response)).data;
         if (!this.detail) {
@@ -108,6 +122,8 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   showQuoteDetail(transactionId){
+    this.noQRdetail = false;
+
     let data = {
       "userId": sessionStorage.getItem('userID'),
       "transactionId": transactionId
@@ -115,9 +131,63 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getAllQuotationDetails(data).subscribe(
       (response) => {
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
+        this.QRdetail = this.QRdetail.map(item => ({
+          ...item,
+          isSelected: false
+        }));
+        if(!this.QRdetail){
+          this.noQRdetail = true;
+        }
         
       },(error) =>{
       }
     )
   }
+
+  openOffcanvas() {
+    document.getElementById("menu-barnew").style.width = "450px"; 
+ }
+ openNav3() {
+    document.getElementById("myCanvasNav").style.width = "100%";
+    document.getElementById("myCanvasNav").style.opacity = "0.6";  
+ }
+ closeOffcanvas() {
+    document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+ } 
+
+  getQRDetail(detail){
+    this.getSpecificDetail = detail;
+ }
+
+ showAcceptedDetails(index,qId, tId, userID,sel){
+  let req = {
+    "quotationId": qId,
+	  "transactionId": tId
+  }
+
+  index = index + 1;
+
+  this.bds.viewBusinessDetails(userID).subscribe(
+    (response) => {
+      let responseData = JSON.parse(JSON.stringify(response));
+      this.acceptedDetails = responseData.data;
+      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ', ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.registeredCountry);
+      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
+      this.nts.acceptBankQuote(req).subscribe(
+        (response) => {
+          console.log("quote Accepted");
+        },
+        (err) => {
+          console.log("Failure");
+        }
+      )
+    },
+    (err) => {})
+ }
+
+ redirectAsAccepted(){
+  this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/transaction-details"]);
+ }
 }

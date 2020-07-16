@@ -33,8 +33,7 @@ export class TrasactionDetailsComponent {
 
   public getAllnewTransactions(status) {
     const data = {
-     // "userId": sessionStorage.getItem('userID'),
-      "userId": 'CU1788',
+     "userId": sessionStorage.getItem('userID'),
       "transactionStatus": status
     }
     this.nts.getAllNewTransaction(data).subscribe(
@@ -56,7 +55,6 @@ export class TrasactionDetailsComponent {
 
   getDetail(detail){
 
-    console.log(detail);
     this.specificDetail = detail;
     
   }

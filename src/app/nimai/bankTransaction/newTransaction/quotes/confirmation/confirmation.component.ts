@@ -1,11 +1,13 @@
 // import { Component, OnInit, ViewChild } from '@angular/core';
 import { Tflag } from 'src/app/beans/Tflag';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
 import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ViewChild, OnInit, Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -17,106 +19,78 @@ export class ConfirmationComponent implements OnInit {
   public confirmationForm: FormGroup;
   public isActive: boolean = false;
   public isActiveQuote: boolean = false;
-  public data: TransactionBean;
+  public data: PlaceQuote;
   public title: string = "";
   public tab = 'tab1';
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder) {
-    this.data = {
-      transactionId: "",
-      userId: "",
-      requirementType: "",
-      lCIssuanceBank: "",
-      lCIssuanceBranch: "",
-      swiftCode: 0,
-      lCIssuanceCountry: "",
-      lCIssuingDate: null,
-      lCExpiryDate: null,
-      lCValue: null,
-      lCCurrency: "",
-      lastShipmentDate: null,
-      negotiationDate: null,
-      paymentPeriod: 0,
-      paymentTerms: "",
-      tenorEndDate: null,
-      applicantName: "",
-      applicantCountry: "",
-      beneName: "",
-      beneBankCountry: "",
-      beneBankName: "",
-      beneSwiftCode: "",
-      beneCountry: "",
-      loadingCountry: "",
-      loadingPort: "",
-      dischargeCountry: "",
-      dischargePort: null,
-      chargesType: "",
-      validity: null,
-      insertedDate: null,
-      insertedBy: "",
-      modifiedDate: null,
-      modifiedBy: "",
-      transactionflag: null,
-      transactionStatus: "",
-      branchUserId: null,
-      branchUserEmail: null,
-      goodsType: "",
-      usanceDays: null,
-      startDate: null,
-      endDate: null,
-      originalTenorDays: null,
-      refinancingPeriod: "",
-      lcMaturityDate: null,
-      lcNumber: '',
-      lastBeneBank: "",
-      lastBeneSwiftCode: "",
-      lastBankCountry: "",
-      remarks: "",
-      discountingPeriod: "",
-      confirmationPeriod: null,
-      financingPeriod: null,
-      lcProForma: "",
-      tenorFile: null,
-      lccountry: [],
-      lcgoods: [],
-      lcbanks: [],
-      lcbranch: []
-    }
+  data1:any;
+  getCurrentDate: any;
+   detail: any;
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder, public upls: UploadLcService) {
+   
+    this.getCurrentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
+    this.data = {        
+		transactionId: "",
+		userId: "",
+    bankUserId: "",
+    quotationId:"",
+		confirmationCharges:0,
+		confChgsIssuanceToNegot: "",
+		confChgsIssuanceToexp: "",
+		confChgsIssuanceToMatur: "",
+		discountingCharges:0,
+		refinancingCharges: "",
+		bankAcceptCharges: "",
+		applicableBenchmark:0,
+		commentsBenchmark: "",
+		negotiationChargesFixed:0,
+		negotiationChargesPerct:0,
+		docHandlingCharges:0,
+		otherCharges:0,
+		minTransactionCharges:0,
+		insertedBy: "",
+		modifiedBy: "",
+		insertedDate: null,
+		modifiedDate:null,
+		validityDate:null,
+    TotalQuote: 0,
+    expiryDays: 0,
+    maturityDays: 0,
+    negotiationDays: 0,
+    sumOfQuote: 0
+     }
 
-    this.confirmationForm = this.fb.group({
-      confirmationCharges: [''],
-      confChgsIssuanceToNegot: [''],
-      confChgsIssuanceToMatur: [''],
-      minTransactionCharges: ['']
-    
-    })
-
-  }
+     }
 
   ngOnInit() {
   }
 
-  public action(flag: boolean, type: Tflag, data: any) {
 
+  public action(flag: boolean, type: Tflag, data: any) {
+ 
     if (flag) {
      
       if (type === Tflag.VIEW) {
+       console.log(type)
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
       } else if (type === Tflag.EDIT) {
+      
         this.isActive = flag;
         this.title = 'Edit';
-        this.data = data;
+        this.data= data;
         $('input').attr('readonly', false);
-      }else{
+      }else if (type === Tflag.PLACE_QUOTE){      
         this.isActiveQuote = flag;
+       $('input').attr('readonly', false);
         this.title = 'Place Quote';
         this.data = data;
-        $('input').attr('readonly', false);
+      
       }
     } else {
       this.isActive = flag;
+      this.isActiveQuote=flag
       this.data = data;
       this.title = '';
       $('input').attr('readonly', true);
@@ -151,7 +125,7 @@ export class ConfirmationComponent implements OnInit {
 
       case 'submit': {
         console.log(this.data)
-        this.ts.updateCustomerTransaction(this.data).subscribe(
+        this.ts.updateBankTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
           },
@@ -161,20 +135,65 @@ export class ConfirmationComponent implements OnInit {
             this.tab = 'tab1';
           }
         )
-
-
       }
         break;
       case 'ok': {
-            if(this.isActive){
             this.closed();
-            this.tab = 'tab1';
-            }else{
+            this.tab = 'tab1';                  
+      }
+        break;
+      case 'preview': {
+        this.tab = 'tab2';
+        setTimeout(() => {
+          $('input').attr('readonly', true);
+        }, 200);
+      }
+        break;
+    }
+  }
+  
+  public transactionForQuotes(act: string,data:any,detail:any) {
+    switch (act) {
+      case 'edit': {
+        this.tab = 'tab1'
+        setTimeout(() => {
+          $('input').attr('readonly', false);
+        }, 100);
+        this.title = 'Edit';
+      }
+        break;
+
+      case 'confirm': {
+      const param = {
+                    "transactionId":data.transactionId,
+                    "userId":data.userId,
+                    "quotationId":detail.quotationId,
+       }
+      this.ts.confirmQuotation(param).subscribe(
+        (response) => {
+          this.tab = 'tab3';
+          let emailBodyUpdate = {
+            "transactionid": data.transactionId,
+            "userId": data.userId,
+            "event": "QUOTE_ACCEPT"
+            }
+        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+
+          
+        },
+        error => {
+          alert('error')
+          this.closedQuote();
+          this.tab = 'tab1';
+        }
+      )}
+
+
+        break;
+      case 'ok': {
            this.closedQuote();
            this.tab = 'tab1';
-}
-        
-      }
+              }
         break;
       case 'preview': {
         this.tab = 'tab2';
@@ -185,47 +204,25 @@ export class ConfirmationComponent implements OnInit {
         break;
 
 
-        case 'GetQuote': {
-          console.log(this.data)
-          const data1 = {
-            
-            "transactionId":'CU2020IND0112'
-           }
-          this.ts.calculateQuote(data1).subscribe(
+        case 'generateQuote': {
+      
+          this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-              console.log(response)
-              //this.tab = 'tab3';
+            
+              this.tab = 'tab2';
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
             },
             error => {
               alert('error')
-             
+              this.closedQuote();
+              this.tab = 'tab1';
             }
           )
-
-          // this.ts.saveQuotationToDraft(this.data).subscribe(
-          //   (response) => {
-          //     this.tab = 'tab2';
-          //   },
-          //   error => {
-          //     alert('error')
-          //     this.closedQuote();
-          //     this.tab = 'tab1';
-          //   }
-          // )
-  
-  
-        }
-
-
+          
     }
-
   }
-
-
-
-
-  submit(): void {
-    
+  
   }
 
 

@@ -34,7 +34,7 @@
                                         <td>{{list.modifiedDate}}</td>
                                         <!-- <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="editDraft(list.transactionId)">Edit</button></td> -->
                                
-                                        <td><a href="javascript:void()" (click)="showQuotePage(list.requirementType,0,list)"
+                                        <td><a href="javascript:void()" (click)="showQuotePage(list.requirementType,2,list)"
                                             class="handle btn btn-info btn-round">Edit<div class="ripple-container"></div></a></td>
                                     </tr>
 
@@ -51,3 +51,9 @@
         </div>
     </div>
 </div>           
+
+<app-banker></app-banker>
+<app-confirm-and-discount></app-confirm-and-discount>
+<app-confirmation></app-confirmation>
+<app-discounting></app-discounting>
+<app-refinancing></app-refinancing>

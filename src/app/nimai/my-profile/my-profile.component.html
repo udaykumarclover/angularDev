@@ -13,7 +13,7 @@
                            style="width:18px !important; vertical-align: text-bottom;" /></small>
                   </h4>
                      <div class="row">
-                        <p class="col-md-12"><strong>Personal Detais</strong><small> <a 
+                        <p class="col-md-12"><strong>Personal Details</strong><small> <a style="cursor: pointer;"
                            (click)="redirectOn('personal-details')">Edit <i class="far fa-edit"></i></a></small></p>
                         <div class="col-md-3">
                            <div class="inputDiv">
@@ -55,8 +55,8 @@
                         <div class="col-md-3" *ngIf="isBank">
                            <div class="inputDiv">
                               <span class="customspan">Minimum Value of LC (USD)</span>
-                              <span class="labeltext">{{this.personalDetails.minLCVal}}</span>
-                              <span class="labeltext" *ngIf="!this.personalDetails.minLCVal">-</span>
+                              <span class="labeltext">{{this.personalDetails.minLCValue}}</span>
+                              <span class="labeltext" *ngIf="!this.personalDetails.minLCValue">-</span>
                            </div>
                         </div>
                       
@@ -108,12 +108,10 @@
                         </div>
                      </div>
                      <hr/>
+                     <div *ngIf="isCustomer || isBank">
                      <p class="dash"><strong>Business Details</strong><small>
-                           <a (click)="redirectOn('business-details')" >Edit <i
-                                 class="far fa-edit"></i></a></small></p>
+                     <a style="cursor: pointer;" (click)="redirectOn('business-details')" >Edit <i class="far fa-edit"></i></a></small></p>
                      <div class="row">
-                        
-
                         <div class="col-md-3" *ngIf="isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Registration Type</span>
@@ -222,8 +220,9 @@
                         </div>
                      </div>
                      <hr/>
-                     <p class="dash"><strong>KYC Detais</strong><small>
-                           <a (click)="redirectOn('kyc-details')">Edit <i
+                     </div>
+                     <p class="dash"><strong>KYC Details</strong><small>
+                           <a style="cursor: pointer;" (click)="redirectOn('kyc-details')">Edit <i
                                  class="far fa-edit"></i></a></small></p>
                      <div class="clearfix"></div>
                </div>
