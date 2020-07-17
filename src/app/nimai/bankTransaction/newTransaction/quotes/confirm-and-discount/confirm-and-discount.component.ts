@@ -5,6 +5,7 @@ import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ViewChild, OnInit, Component } from '@angular/core';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 @Component({
   selector: 'app-confirm-and-discount',
@@ -19,7 +20,7 @@ public isActiveQuote:boolean=false;
   public title: string = "";
   public tab = 'tab1';
   detail:any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService) { 
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
     
     this.data = {        
       transactionId: "",
@@ -160,6 +161,13 @@ public isActiveQuote:boolean=false;
         (response) => {
           console.log(response)
           this.tab = 'tab3';
+          let emailBodyUpdate = {
+            "transactionid": data.transactionId,
+            "userId": data.userId,
+            "event": "QUOTE_ACCEPT"
+            }
+        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+
         },
         error => {
           alert('error')

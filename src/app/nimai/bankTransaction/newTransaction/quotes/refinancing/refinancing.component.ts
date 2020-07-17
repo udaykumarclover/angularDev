@@ -5,6 +5,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 @Component({
   selector: 'app-refinancing',
@@ -20,7 +21,7 @@ export class RefinancingComponent implements OnInit {
   public tab = 'tab1';
   detail:any;
   val:any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService) { 
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
     
     this.data = {        
       transactionId: "",
@@ -75,7 +76,6 @@ export class RefinancingComponent implements OnInit {
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
       this.data = data;
-//this.val=data;
 
         $('input').attr('readonly', false);
       }
@@ -138,7 +138,7 @@ export class RefinancingComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
+  public transactionForQuotes(act: string,data:any,detail:any) {
 
     switch (act) {
       case 'edit': {
@@ -152,12 +152,20 @@ export class RefinancingComponent implements OnInit {
 
       case 'confirm': {
         const param = {
+                      "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
         this.ts.confirmQuotation(param).subscribe(
           (response) => {
             this.tab = 'tab3';
+            let emailBodyUpdate = {
+              "transactionid": data.transactionId,
+              "userId": data.userId,
+              "event": "QUOTE_ACCEPT"
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+  
           },
           error => {
             alert('error')
@@ -180,37 +188,23 @@ export class RefinancingComponent implements OnInit {
       }
         break;
 
-
+case 'calculateQuote':{
+  this.ts.saveQuotationToDraft(this.data).subscribe(
+    (response) => {
+      this.detail = JSON.parse(JSON.stringify(response)).data;
+      this.data=data;
+      this.data.TotalQuote=this.detail.TotalQuote;
+    },
+    error => {
+      alert('error')
+      this.closedQuote();
+      this.tab = 'tab1';
+    }
+  )
+}break;
         case 'generateQuote': {
-          
-          const param = {
-            "transactionId":data.transactionId,
-            "userId":data.userId,
-            "bankUserId": data.bankUserId,
-            "applicableBenchmark":data.applicableBenchmark,
-            "docHandlingCharges":data.docHandlingCharges,
-            "minTransactionCharges":data.minTransactionCharges,
-            "otherCharges":data.otherCharges,
-            "refinancingCharges":data.refinancingCharges,
-            "validityDate":data.validityDate,
-            "lCCurrency": data.lCCurrency,
-            "lCIssuanceBank": data.lCIssuanceBank,
-            "lCValue": data.lCValue,
-            "requirementType": "refinancing"
 
-}
-          this.ts.saveQuotationToDraft(this.data).subscribe(
-            (response) => {
               this.tab = 'tab2';
-              this.detail = JSON.parse(JSON.stringify(response)).data;
-              this.data=data;
-            },
-            error => {
-              alert('error')
-              this.closedQuote();
-              this.tab = 'tab1';
-            }
-          )
         
     }
   }

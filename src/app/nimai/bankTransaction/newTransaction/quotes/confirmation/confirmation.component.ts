@@ -7,6 +7,7 @@ import { ViewChild, OnInit, Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -24,7 +25,7 @@ export class ConfirmationComponent implements OnInit {
   data1:any;
   getCurrentDate: any;
    detail: any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder) {
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder, public upls: UploadLcService) {
    
     this.getCurrentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
     this.data = {        
@@ -171,6 +172,14 @@ export class ConfirmationComponent implements OnInit {
       this.ts.confirmQuotation(param).subscribe(
         (response) => {
           this.tab = 'tab3';
+          let emailBodyUpdate = {
+            "transactionid": data.transactionId,
+            "userId": data.userId,
+            "event": "QUOTE_ACCEPT"
+            }
+        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+
+          
         },
         error => {
           alert('error')

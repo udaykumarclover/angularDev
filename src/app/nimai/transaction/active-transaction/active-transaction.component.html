@@ -5,7 +5,7 @@
         <div class="col-md-12">
            <div class="card">
               <div class="card-header card-header-icon" data-background-color="blue">
-                 <i class="fa fa-th-list"></i>
+                 <i class="fa fa-check-square-o"></i>
               </div>
               <div class="card-content">
                 <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
@@ -23,7 +23,7 @@
                                   <tr>
                                     <th class="disabled-sorting text-center">#</th> 
                                     <th style="min-width: 150px;">Beneficiary</th>
-                                    <th>Country</th>
+                                    <th nowrap>Country</th>
                                     <th style="min-width: 150px;">Applicant</th>
                                     <th nowrap>Country</th>
                                     <th nowrap>Txn ID</th>
@@ -64,7 +64,7 @@
                           <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
                             style="width:100%">
                             <div *ngIf="noQRdetail">
-                              No Data available
+                              No Records available
                             </div>
                             <table class="table table-hover" id="" *ngIf="!noQRdetail">
                               <thead>
@@ -227,7 +227,7 @@
                   <li>Contact Person : {{acceptedDetails.firstName}}{{acceptedDetails.lastName}}</li>
                 </ul>
                 <p>Details are saved in the Transaction Details section.</p>
-                <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div
+                <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">Ok<div
                     class="ripple-container">
                     <div class="ripple ripple-on ripple-out"
                       style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">

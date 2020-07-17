@@ -5,6 +5,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 @Component({
   selector: 'app-banker',
@@ -21,7 +22,7 @@ export class BankerComponent implements OnInit {
    detail:any;
   public title: string = "";
   public tab = 'tab1';
-  constructor(public titleService: TitleService, public ts: NewTransactionService) { 
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
     this.data = {        
       transactionId: "",
       userId: "",
@@ -160,6 +161,13 @@ export class BankerComponent implements OnInit {
           (response) => {
             console.log(response)
             this.tab = 'tab3';
+            let emailBodyUpdate = {
+              "transactionid": data.transactionId,
+              "userId": data.userId,
+              "event": "QUOTE_ACCEPT"
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+  
           },
           error => {
             alert('error')
