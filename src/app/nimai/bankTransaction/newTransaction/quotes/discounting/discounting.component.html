@@ -248,7 +248,7 @@
                                 
                                  <tr>
                                     <td>Discounting interest p.a ( spread over benchmark)</td>
-                                    <td><input type="text" [(ngModel)]="data.refinancingCharges" placeholder="0.00">
+                                    <td><input type="text" [(ngModel)]="data.discountingCharges" placeholder="0.00">
                                        <span class="pull-right percent">%</span></td>
                                  </tr>
                                  <tr>
@@ -274,9 +274,9 @@
                                                 
                                  <tr>
                                     <td>Total Quote <button value="Calculate">Calculate</button></td>
-                                    <td><input type="text" [(ngModel)]="data.applicableBenchmark"  disabled></td>
+                                    <td><input type="text" name=""  disabled></td>
                                  </tr>
-                                 <tr>
+                                 <tr> 
                                     <td>Minimum Transaction Charges</td>
                                     <td><input type="text" [(ngModel)]="data.minTransactionCharges" placeholder="50.00">
                                  </tr>

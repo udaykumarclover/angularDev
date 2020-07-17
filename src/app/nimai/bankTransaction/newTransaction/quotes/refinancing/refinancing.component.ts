@@ -20,6 +20,7 @@ export class RefinancingComponent implements OnInit {
   public title: string = "";
   public tab = 'tab1';
   detail:any;
+  val:any;
   constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
     
     this.data = {        
@@ -74,7 +75,9 @@ export class RefinancingComponent implements OnInit {
       }else if(type===Tflag.PLACE_QUOTE){
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
-        this.data = data;
+      this.data = data;
+//this.val=data;
+
         $('input').attr('readonly', false);
       }
     } else {
@@ -187,9 +190,25 @@ export class RefinancingComponent implements OnInit {
 
 
         case 'generateQuote': {
+          
+          const param = {
+            "transactionId":data.transactionId,
+            "userId":data.userId,
+            "bankUserId": data.bankUserId,
+            "applicableBenchmark":data.applicableBenchmark,
+            "docHandlingCharges":data.docHandlingCharges,
+            "minTransactionCharges":data.minTransactionCharges,
+            "otherCharges":data.otherCharges,
+            "refinancingCharges":data.refinancingCharges,
+            "validityDate":data.validityDate,
+            "lCCurrency": data.lCCurrency,
+            "lCIssuanceBank": data.lCIssuanceBank,
+            "lCValue": data.lCValue,
+            "requirementType": "refinancing"
+
+}
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-            
               this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;

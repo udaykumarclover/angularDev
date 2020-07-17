@@ -172,7 +172,7 @@ export class NewTransactionComponent implements OnInit {
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinance') {
+    } else if (pagename === 'refinancing') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
