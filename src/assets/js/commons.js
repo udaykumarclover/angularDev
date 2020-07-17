@@ -652,6 +652,7 @@ export function loadLogin() {
 
     $('#signIn').click(function () {
         $('#container').removeClass('right-panel-active');
+        $('#logindiv').slideDown();
     });
 
     $('#btnForgot').click(function () {

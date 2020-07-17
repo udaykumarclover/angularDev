@@ -129,7 +129,7 @@
 }
 .dropdownlabel{
     font-family: 'Montserrat', sans-serif!important;
-    font-size: 9px!important;
+    font-size: 10px!important;
     font-weight: 500!important;
     letter-spacing: 0.4px!important;
     position: absolute!important;
@@ -161,3 +161,7 @@
 select{
     color: #545454!important;
 }
+.extralink:hover {
+    color: blue!important;
+  }
+  

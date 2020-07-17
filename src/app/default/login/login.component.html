@@ -74,7 +74,7 @@
                     
                                        <div class="selection text-left">
                                           <ul class="list-inline list-unstyled">
-                                             <li><label class="customlabel">Select Role</label></li>
+                                             <li><label class="customlabel"><strong>Select Role</strong></label></li>
                                              <li>
                                                 <div class="radio-group">
                                                    <input checked="checked" type="radio" formControlName="selector"
@@ -239,7 +239,7 @@
                                           </div> -->
                                           <div class="inputDiv">
                                              <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
-                                             <label class="dropdownlabel">Blacklisted Goods</label>
+                                             <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
                                              <div *ngIf="submittedSignup && suf.blacklistedGC.errors" class="invalid-feedback">
                                                  <div *ngIf="suf.blacklistedGC.errors.required">
                                                      Select Blacklisted Goods
@@ -345,7 +345,7 @@
                                     <h1>Login</h1>
                                     <span></span>
                                     <div class="inputDiv">
-                                       <input oninput="this.value = this.value.toUpperCase()" type="text"  maxlength="8" class="has-value" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()">
+                                       <input oninput="this.value = this.value.toUpperCase()"  type="text"  maxlength="8" class="first_input has-value" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()" ng-trim="true">
                                        <label>User ID</label>
                                        <img src="assets/images/user.png" />
                                        <div *ngIf="submitted && lf.username.errors" class="invalid-feedback" >
@@ -355,7 +355,7 @@
                                        </div>
                                     </div>
                                     <div class="inputDiv">
-                                       <input type="Password" class="has-value"  maxlength="16"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" (input)="validate()">
+                                       <input type="password" class="has-value"  maxlength="16"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" (input)="validate()">
                                        <label>Password</label>
                                        <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
                                           <div *ngIf="lf.password.errors.required">
