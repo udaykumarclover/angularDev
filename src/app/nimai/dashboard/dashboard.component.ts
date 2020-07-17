@@ -57,6 +57,10 @@ export class DashboardComponent implements OnInit {
       this.transactionpages="in"
       this.isCollapsed=""
       this.areaExpandedtra=!this.areaExpandedtra
+    }else if(this.router.url===`/${this.parentURL}/rcs/kyc-details` || this.router.url===`/${this.parentURL}/rcs/personal-details` ){
+      this.accountPages="in"
+      this.isCollapsed=""
+      this.areaExpandedtra=!this.areaExpandedtra
     }
 
     this.searchForm = this.fb.group({

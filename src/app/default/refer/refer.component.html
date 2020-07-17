@@ -10,7 +10,7 @@
                         <h4 class="card-title"> <span id="changetext"> Refer</span>
                             <ul class="pull-right list-unstyled list-inline statusbar">
                                 <li>
-                                    <label>Total References <span class="">12</span></label>
+                                    <label>Total References <span class="">{{total_references}}</span></label>
                                 </li>
                                 <li><label>Total Earning <span>USD $892</span></label></li>
                                 <li>
@@ -46,9 +46,7 @@
                                         <tbody>
                                             <tr *ngFor="let record of referViewDetails; let i = index">
                                                 <td>{{i+1}}</td>
-                                                
                                                 <td>{{record.firstName}} &nbsp; {{record.lastName}}</td>
-                                                
                                                 <td>{{record.countryName}}</td>
                                                 <td>{{record.companyName}}</td>
                                                 <td>{{record.emailAddress}}</td>
