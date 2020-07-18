@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject ,ElementRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, Form } from '@angular/forms';
 import { SignupService } from 'src/app/services/signup/signup.service';
 import { signup } from 'src/app/beans/signup';
@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit {
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
-
-
   interestedCountryList = this.countryService();
   blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
@@ -41,7 +39,7 @@ export class LoginComponent implements OnInit {
   public forgPassSubmitted: boolean = false;
   resp: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService) {
+  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef) {
     $('#checkboxError').hide();
   }
 
@@ -82,6 +80,10 @@ export class LoginComponent implements OnInit {
     }
     this.getCountryData();
   }
+  ngAfterViewInit() {    
+    const first_input = this.el.nativeElement.querySelector('.first_input');
+    first_input.focus();
+  }
   get lf() {
     return this.loginForm.controls;
   }
@@ -99,9 +101,10 @@ export class LoginComponent implements OnInit {
     }
     this.submitted = false;
     let loginData: Login = {
-      userId: this.loginForm.get('username').value,
+      userId: this.loginForm.get('username').value.trim(),
       password: this.loginForm.get('password').value
     }
+    this.loginForm.get('username').setValue(this.loginForm.get('username').value.trim())
     this.loginService.login(loginData).
       subscribe(
         (response) => {
@@ -123,7 +126,7 @@ export class LoginComponent implements OnInit {
         (error) => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Username or Password is incorrect !',
+              title: 'Username or Password is incorrect!',
               message: 'Username or Password is incorrect',
               parent: 'login'
             }

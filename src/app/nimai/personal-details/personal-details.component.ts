@@ -81,7 +81,8 @@ export class PersonalDetailsComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 5,
-      allowSearchFilter: true
+      allowSearchFilter: true,
+      closeDropDownOnSelection: true
     }
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -401,14 +402,15 @@ export class PersonalDetailsComponent implements OnInit {
       ValidateRegex.validateNumber(event);
     }
     else if (type == "alpha") {
-      //ValidateRegex.alphaOnly(event);
-      var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
-          event.preventDefault();
-      }
+      ValidateRegex.alphaOnly(event);
     }
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 

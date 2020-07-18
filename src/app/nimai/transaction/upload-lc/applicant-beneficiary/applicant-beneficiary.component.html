@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="applicantName" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="50" formControlName="applicantName" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Applicant's Name </label>
             </div>
         </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="beneName" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Beneficiary's Name</label>
             </div>
         </div>
@@ -200,13 +200,13 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="applicantName" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="50" formControlName="applicantName" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Applicant's Name</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="applicantContactPerson" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="50" formControlName="applicantContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Contact Person</label>
             </div>
         </div>
