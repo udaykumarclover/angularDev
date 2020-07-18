@@ -76,7 +76,6 @@ export class RefinancingComponent implements OnInit {
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
       this.data = data;
-//this.val=data;
 
         $('input').attr('readonly', false);
       }
@@ -139,7 +138,7 @@ export class RefinancingComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
+  public transactionForQuotes(act: string,data:any,detail:any) {
 
     switch (act) {
       case 'edit': {
@@ -153,6 +152,7 @@ export class RefinancingComponent implements OnInit {
 
       case 'confirm': {
         const param = {
+                      "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
@@ -188,37 +188,23 @@ export class RefinancingComponent implements OnInit {
       }
         break;
 
-
+case 'calculateQuote':{
+  this.ts.saveQuotationToDraft(this.data).subscribe(
+    (response) => {
+      this.detail = JSON.parse(JSON.stringify(response)).data;
+      this.data=data;
+      this.data.TotalQuote=this.detail.TotalQuote;
+    },
+    error => {
+      alert('error')
+      this.closedQuote();
+      this.tab = 'tab1';
+    }
+  )
+}break;
         case 'generateQuote': {
-          
-          const param = {
-            "transactionId":data.transactionId,
-            "userId":data.userId,
-            "bankUserId": data.bankUserId,
-            "applicableBenchmark":data.applicableBenchmark,
-            "docHandlingCharges":data.docHandlingCharges,
-            "minTransactionCharges":data.minTransactionCharges,
-            "otherCharges":data.otherCharges,
-            "refinancingCharges":data.refinancingCharges,
-            "validityDate":data.validityDate,
-            "lCCurrency": data.lCCurrency,
-            "lCIssuanceBank": data.lCIssuanceBank,
-            "lCValue": data.lCValue,
-            "requirementType": "refinancing"
 
-}
-          this.ts.saveQuotationToDraft(this.data).subscribe(
-            (response) => {
               this.tab = 'tab2';
-              this.detail = JSON.parse(JSON.stringify(response)).data;
-              this.data=data;
-            },
-            error => {
-              alert('error')
-              this.closedQuote();
-              this.tab = 'tab1';
-            }
-          )
         
     }
   }
