@@ -110,6 +110,11 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="30" formControlName="companyName" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Company Name</label>
+                                            <div *ngIf="submitted && perDetails.companyName.errors" class="invalid-feedback">
+                                            <div *ngIf="submitted && perDetails.companyName.errors.required" >
+                                                Select Company Name
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer" >
@@ -122,10 +127,13 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="15" formControlName="businessType" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Business Type</label>
+                                            <div *ngIf="submitted && perDetails.businessType.errors" class="invalid-feedback">
+                                                <div *ngIf="submitted && perDetails.businessType.errors.required" >
+                                                    Select Business Type
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    
- 
                                      <div class="col-md-3 bankfields" *ngIf="isBank">
                                         <div class="inputDiv">
                                            <input type="text" maxlength="15" formControlName="minLCVal" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
