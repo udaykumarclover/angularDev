@@ -261,6 +261,16 @@ export class UploadLCComponent implements OnInit {
         (error) => {
           this.loading = false;
           this.titleService.loading.next(false);
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Transaction Failed',
+              message: '',
+              parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+            }
+          };
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+            .then(success => console.log('navigation error?', success))
+            .catch(console.error);
         }
       )
   }
@@ -312,6 +322,16 @@ export class UploadLCComponent implements OnInit {
         (error) => {
           this.loading = false;
           this.titleService.loading.next(false);
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Transaction Failed',
+              message: '',
+              parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+            }
+          };
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+            .then(success => console.log('navigation error?', success))
+            .catch(console.error);
         }
       )
   }

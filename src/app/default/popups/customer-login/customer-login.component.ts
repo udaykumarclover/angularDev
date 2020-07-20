@@ -44,8 +44,8 @@ export class CustomerLoginComponent implements OnInit {
   }
   ngAfterViewInit() {
     /*added by ashvini -Default cursor should be present in the Branch ID field of the Enter Access Details page of the Bank as Customer. */
-    const invalidElements = this.el.nativeElement.querySelector('.first_input');
-    invalidElements.focus();
+    const first_input = this.el.nativeElement.querySelector('.first_input');
+    first_input.focus();
   }
   close() {
     $('.modal1').hide();

@@ -139,7 +139,7 @@ export class BankerComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
+  public transactionForQuotes(act: string,data:any,detail:any) {
 
     switch (act) {
       case 'edit': {
@@ -152,8 +152,8 @@ export class BankerComponent implements OnInit {
         break;
 
       case 'confirm': {
-        console.log(data)
         const param = {
+                      "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
@@ -190,16 +190,12 @@ export class BankerComponent implements OnInit {
       }
         break;
 
-
-        case 'generateQuote': {
-     
+        case 'calculateQuote':{
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-            
-              this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
-              console.log(this.data)
+              this.data.TotalQuote=this.detail.TotalQuote;
             },
             error => {
               alert('error')
@@ -207,8 +203,13 @@ export class BankerComponent implements OnInit {
               this.tab = 'tab1';
             }
           )
+        }break;
+                case 'generateQuote': {
+                      this.tab = 'tab2';
+            }
+          }
+          
+          }
         
-    }
-  }
-    }
-}
+        
+        }

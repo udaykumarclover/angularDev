@@ -203,9 +203,7 @@ case 'calculateQuote':{
   )
 }break;
         case 'generateQuote': {
-
               this.tab = 'tab2';
-        
     }
   }
   

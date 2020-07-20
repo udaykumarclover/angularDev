@@ -279,10 +279,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="30" formControlName="addressLine1" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" maxlength="30" formControlName="addressLine1" [ngClass]="hasValue ? 'has-value' : ''" (keydown)="validateRegexFields($event, 'namewithspace')">
                                             <label>Address Line 1</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine1.errors?.required" class="invalid-feedback">
-                                                Address is required
+                                                Address Line 1 is required
                                             </div>
                                             <div *ngIf="busiDetails.addressLine1.errors?.minlength" class="invalid-feedback">
                                                     Address atleast 2 characters long.
@@ -291,11 +291,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="30" formControlName="addressLine2" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" maxlength="30" formControlName="addressLine2" [ngClass]="hasValue ? 'has-value' : ''" (keydown)="validateRegexFields($event, 'namewithspace')">
                                             <label>Address Line 2</label>
-                                            <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors?.required">
-                                                Address is required
-                                            </div> -->
+                                            <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors?.required" class="invalid-feedback">
+                                                Address Line 2 is required
+                                            </div>
                                             <div *ngIf="perDetailsSubmit && busiDetails.addressLine2.errors" class="invalid-feedback">
                                                 <div *ngIf="busiDetails.addressLine2.errors?.minlength">
                                                     Address Line 2 atleast 2 characters long.
@@ -305,7 +305,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="30" formControlName="addressLine3" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" maxlength="30" formControlName="addressLine3" [ngClass]="hasValue ? 'has-value' : ''" (keydown)="validateRegexFields($event, 'namewithspace')">
                                             <label>Address Line 3 / Landmark</label>
                                             <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors?.required">
                                                 Landmark is required

@@ -273,9 +273,9 @@
                               rows="3"></textarea>
                                              
                               <tr>
-                                 <td>Total Quote <button value="Calculate">Calculate</button></td>
-                                 <td><input type="text" [(ngModel)]="data.applicableBenchmark"  disabled></td>
-                              </tr>
+                                 <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
+                                 <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
+                            </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td><input type="text" [(ngModel)]="data.minTransactionCharges" placeholder="50.00">
@@ -313,28 +313,54 @@
                </div>
                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                   <div class="tab-pane active" id="pill1">
+                     <div class="tab">
+                        <table>
+                           <tbody>
+                           <tr>
+                              <td><b>Transaction ID</b></td>
+                              <td>{{data.transactionId}}</td>
+                            
+                           </tr>     
+                           <tr>
+                             <td><b>Requirement</b></td>
+                             <td>{{data.requirementType}}</td>
+                         
+                             <td><b>Amount</b></td>
+                             <td>{{data.lCCurrency}}&nbsp;${{ data.lCValue}}</td>
+                          </tr> 
+                          <tr>
+                             <td><b>IB</b></td>
+                             <td>{{data.lCIssuanceBank}}</td>
+                         
+                             <td><b>Tenor</b></td>
+                             <td>60 Days</td>
+                          </tr>  
+                        </tbody>
+                         </table>
+                        </div>
                      <table class="table">
                         <tbody>
+                           
+                           <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr>
+                            <tr>
+                              <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">comment :6 month libor</small></td>
+                              <td>{{data.applicableBenchmark}}% </td>
+                           </tr>
+                           
                            <tr>
-                              <td>Banker's Acceptance Charges p.a.</td>
-                              <td>{{data.bankAcceptCharges}}</td>
+                              <td>Banker's Acceptance interest p.a.(spread over benchmark)</td>
+                              <td>{{data.bankAcceptCharges}}%</td>
                            </tr>
                            <tr>
-                              <td>Applicable Benchmark (Libor/Euribor)
-                              </td>
-                              <td>{{data.applicableBenchmark}}<br><small>3 Months Euribor</small></td>
-                           </tr>
-                           <tr>
-                              <td>Negotiation Charges</td>
+                              <td>Negotiation Charges (fixed)</td>
                               <td>
-                                {{ data.negotiationChargesFixed}}
+                                 {{data.negotiationChargesFixed}}
                               </td>
                            </tr>
                            <tr>
-                              <td>Negotiation Charges</td>
+                              <td>Negotiation Charges (%)</td>
                               <td>
-                                 {{data.negotiationChargesPerct}}
-                              </td>
+                                 {{data.negotiationChargesPerct}}%</td>
                            </tr>
                            <tr>
                               <td>Document Handling Charges</td>
@@ -343,37 +369,36 @@
                               </td>
                            </tr>
                            <tr>
-                              <td>Minimum Handling Charges</td>
+                              <td>Other Charges<br><small style="color: #b6a3a3;">Comment: P&T charges</small>
+                              </td>
+                              <td>
+                                 {{data.otherCharges}}
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>Minimum Transaction Charges</td>
                               <td>
                                  {{data.minTransactionCharges}}
                               </td>
                            </tr>
-                           <tr>
-                              <td>Other Charges<br>
-                              </td>
-                              <td>
-                                 {{data.otherCharges}}<br><small>Customer needs to pay standard swift transfer charges.</small>
-                              </td>
-                           </tr>
+                          
                            <tr>
                                <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
                               <td>{{data.validityDate}}</td>
                            </tr>
                            <tr>
                               <th>Total Quote</th>
-                              {{detail.TotalQuote}}
+                              <th>{{detail.TotalQuote}}</th>
                            </tr>
-                           <tr>
-                              <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                           </tr> 
+
                         </tbody>
                      </table>
                      <div class="posfix">
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data)">
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data,detail)">
                            Confirm
                            <div class="ripple-container"></div>
                         </button>
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit',data)">
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit',data,detail)">
                            Edit
                            <div class="ripple-container"></div>
                         </button>
