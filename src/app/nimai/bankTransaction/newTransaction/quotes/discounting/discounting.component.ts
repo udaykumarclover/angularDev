@@ -136,7 +136,7 @@ export class DiscountingComponent implements OnInit {
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
+  public transactionForQuotes(act: string,data:any,detail:any) {
 
     switch (act) {
       case 'edit': {
@@ -150,6 +150,7 @@ export class DiscountingComponent implements OnInit {
 
       case 'confirm': {
         const param = {
+                      "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
@@ -185,15 +186,12 @@ export class DiscountingComponent implements OnInit {
       }
         break;
 
-
-        case 'generateQuote': {
+        case 'calculateQuote':{
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-            
-              this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
-              console.log(this.data)
+              this.data.TotalQuote=this.detail.TotalQuote;
             },
             error => {
               alert('error')
@@ -201,21 +199,11 @@ export class DiscountingComponent implements OnInit {
               this.tab = 'tab1';
             }
           )
-          // console.log(this.data)
-          // const data1 = {
-          //               "transactionId":'CU2020IND0112'
-          //  }
-          // this.ts.calculateQuote(data1).subscribe(
-          //   (response) => {
-          //     console.log(response)
-          //     //this.tab = 'tab3';
-          //   },
-          //   error => {
-          //     alert('error')
-             
-          //   }
-          // )}
-    }
+        }break;
+
+        case 'generateQuote': {
+          this.tab = 'tab2';
+}
   }
   
   }

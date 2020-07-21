@@ -139,7 +139,8 @@ public isActiveQuote:boolean=false;
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
+  
+  public transactionForQuotes(act: string,data:any,detail:any) {
 
     switch (act) {
       case 'edit': {
@@ -152,11 +153,11 @@ public isActiveQuote:boolean=false;
         break;
 
       case 'confirm': {
-        console.log(data)
-      const param = {
-                    "transactionId":data.transactionId,
-                    "userId":data.userId
-       }
+        const param = {
+                      "quotationId":detail.quotationId,
+                      "transactionId":data.transactionId,
+                      "userId":data.userId
+         }
       this.ts.confirmQuotation(param).subscribe(
         (response) => {
           console.log(response)
@@ -191,14 +192,12 @@ public isActiveQuote:boolean=false;
         break;
 
 
-        case 'generateQuote': {
+        case 'calculateQuote':{
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-              this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
-              console.log(this.detail)
               this.data=data;
-             
+              this.data.TotalQuote=this.detail.TotalQuote;
             },
             error => {
               alert('error')
@@ -206,11 +205,13 @@ public isActiveQuote:boolean=false;
               this.tab = 'tab1';
             }
           )
+        }break;
+                case 'generateQuote': {
+                      this.tab = 'tab2';
+            }
+          }
           
-    }
-  }
-  
-  }
-
-
-}
+          }
+        
+        
+        }
