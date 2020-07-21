@@ -54,6 +54,7 @@ export interface NTBean{
 	 transactionStatus:string;
 	 confirmedFlag:string;
 	 goodsType:string;
+	 quotationReceived:string;
 
 }
 
