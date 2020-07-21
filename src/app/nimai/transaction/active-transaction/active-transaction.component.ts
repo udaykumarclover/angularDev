@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, throwMatDialogContentAlreadyAttachedError, Sort } from '@angular/material';
 import { NewTransaction, NTBean } from 'src/app/beans/BankNewTransaction';
 import { ConfirmationComponent } from '../transactionTypes/confirmation/confirmation.component';
 import { DiscountingComponent } from '../transactionTypes/discounting/discounting.component';
@@ -21,7 +21,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
+  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goods', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
 
@@ -65,6 +65,13 @@ export class ActiveTransactionComponent implements OnInit {
         if (!this.detail) {
           this.hasNoRecord = true;
         }
+        this.detail.forEach(item => {
+          // console.log(item);
+          this.ntData.push(item);
+        });
+        this.dataSource = new MatTableDataSource(this.ntData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
       },(error) =>{
         this.hasNoRecord = true;
@@ -74,6 +81,23 @@ export class ActiveTransactionComponent implements OnInit {
 
   ngOnInit() {
     custActiveTransaction();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  sortData(sort: Sort) {
+    const data = this.ntData.slice();
+    if (!sort.active || sort.direction == '') {
+      this.ntData = data;
+      return;
+    }
   }
 
   ngAfterViewInit() {
