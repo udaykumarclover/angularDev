@@ -37,9 +37,8 @@
 }
 
 .selections .customlabel {
-    font-size: 10px;
-    color: #aaa !important;
-    font-weight: 400 !important;
+    font-size: 12px;
+    font-weight: 600 !important;
     clear: both;
     font-family: roboto;
     display: block;

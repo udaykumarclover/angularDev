@@ -68,9 +68,9 @@ export class PersonalDetailsComponent implements OnInit {
       companyName: [''],
       designation: [''],
       businessType: [''],
-      countriesInt: ['',Validators.required],
+      countriesInt: [''],
       minLCVal: [''],
-      blacklistedGC: ['',Validators.required]
+      blacklistedGC: ['']
 
     })
     this.titleService.changeTitle(this.title);
@@ -117,13 +117,17 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
-  setUserCategoryValidators(){
-    const goods = this.personalDetailsForm.get('blacklistedGC')
-    const countries = this.personalDetailsForm.get('countriesInt')
-    goods.clearValidators();
-    goods.updateValueAndValidity();
-    countries.clearValidators();
-    countries.updateValueAndValidity();
+  setReferrerValidators(){
+    this.personalDetailsForm.get('companyName').setValidators([Validators.required])
+    this.personalDetailsForm.get('companyName').updateValueAndValidity();
+    this.personalDetailsForm.get('businessType').setValidators([Validators.required])
+    this.personalDetailsForm.get('businessType').updateValueAndValidity();
+  }
+  setBankValidators(){
+    this.personalDetailsForm.get('blacklistedGC').setValidators([Validators.required])
+    this.personalDetailsForm.get('blacklistedGC').updateValueAndValidity();
+    this.personalDetailsForm.get('countriesInt').setValidators([Validators.required])
+    this.personalDetailsForm.get('countriesInt').updateValueAndValidity();
    }
   submit(): void {
     this.submitted = true;
@@ -202,19 +206,15 @@ export class PersonalDetailsComponent implements OnInit {
           let bankType = this.personalDetails.bankType
           if (subscriptionType === 'REFERRER') {
             this.isReferrer = true;
-            $("body").trigger("domChanged");
             this.isBank = false;
+            this.setReferrerValidators();
           } else if (subscriptionType === 'BANK' && bankType === 'UNDERWRITER') {
-
             this.isBank = true;
             this.isReferrer = false;
+            this.setBankValidators();
           } else {
             this.isBank = false;
             this.isReferrer = false;
-          }
-          if(!this.isBank){
-            console.log("iffff")
-            this.setUserCategoryValidators();
           }
           setTimeout(() => {
             selectpickercall();
