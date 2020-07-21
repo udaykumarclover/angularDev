@@ -1389,6 +1389,22 @@ export function custActiveTransaction() {
             $('.popupcontent select').css('color', '#333');
     }, 500);
 
+        setTimeout(() => {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers", "scrollX": true,
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                responsive: false, //scrollX: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+
+            //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
+        });
     }, 800);
 }
 
