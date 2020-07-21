@@ -298,7 +298,7 @@ export class LoginComponent implements OnInit {
           this.forgotPasswordForm.reset();
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congratulations! Password reset link is sent to '+ emailValue +'.',
+              title: 'Congratulations! Password reset link is sent to email id '+ emailValue +'.',
               message: '',
               parent: 'login'
             }
