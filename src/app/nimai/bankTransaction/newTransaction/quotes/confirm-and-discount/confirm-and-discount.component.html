@@ -286,17 +286,29 @@
                                  </tr>
                                  <tr>
                                     <td>Discounting interest p.a ( spread over benchmark)</td>
-                                    <td><input type="text" [(ngModel)]="data.refinancingCharges" placeholder="0.00">
+                                    <td><input type="text" [(ngModel)]="data.discountingCharges" placeholder="0.00">
                                        <span class="pull-right percent">%</span></td>
                                  </tr>
+                                 
                                  <tr>
-                                    <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                    <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" readonly placeholder="0.00"></td>
-                                 </tr>
+                                    <td>
+                                       <input type="radio" id="optn"value="negotiation" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                    <td>
+                                       <select [(ngModel)]="data.confChgsIssuanceToNegot">
+                                          <option value="yes">Yes</option>
+                                          <option value="no">No</option>
+                                       </select></td>                 
+                                     </tr>
+                                 
                                  <tr>
-                                    <td>Confirmation Charges applicable from date of issuance till date of maturity  </td>
-                                    <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" readonly placeholder="0.00"></td>
-                                 </tr>
+                                    <td>
+                                       <input type="radio" id="optn"value="negotiation" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                       <td>
+                                          <select [(ngModel)]="data.confChgsIssuanceToMatur">
+                                             <option value="yes">Yes</option>
+                                          <option value="no">No</option>
+                                          </select></td>    </tr>
+
                                  <tr>
                                     <td>Negotiation Charges (Fixed)</td>
                                     <td><input type="text" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00">
@@ -317,12 +329,12 @@
                                  </tr>
                                  <textarea placeholder="Specify the type of charge (Swift, P&T, etc)" 
                                  rows="3"></textarea>
-                                                
+                                
                                  <tr>
                                     <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
                                     <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
                                   </tr>
-                                 <tr>
+                                  <tr>
                                     <td>Minimum Transaction Charges</td>
                                     <td><input type="text" [(ngModel)]="data.minTransactionCharges" placeholder="0.00">
                                  </tr>
@@ -376,7 +388,7 @@
                               <td>Confirmation interest p.a.(spread over benchmark)</td>
                               <td>{{data.confirmationCharges}}%</td>
                            </tr>
-                           
+                       
                               <tr>
                                  <td>Discounting interest p.a.(spread over benchmark)</td>
                                  <td>{{data.discountingCharges}}</td>
