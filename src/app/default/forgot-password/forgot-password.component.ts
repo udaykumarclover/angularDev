@@ -4,8 +4,7 @@ import { ForgetPasswordService } from 'src/app/services/forget-password/forget-p
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { MustMatch } from 'src/app/beans/Validations';
-
-
+import { loads } from '../../../assets/js/commons';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -45,12 +44,9 @@ export class ForgotPasswordComponent implements OnInit {
           .catch(console.error);
       }
     )
-  }
-
-  ngOnInit() {
     this.forgetPassword = this.fb.group({      
-      password: ['', Validators.required],
-      rePassword: ['', Validators.required]
+      password: ['', [Validators.required,Validators.minLength(6)]],
+      rePassword: ['', [Validators.required,Validators.minLength(6)]]
     },
     {
       validators: MustMatch('password', 'rePassword')
@@ -58,13 +54,18 @@ export class ForgotPasswordComponent implements OnInit {
     )
   }
 
+  ngOnInit() {
+    loads();
+  }
+  returntologin(){
+    this.route.navigate(['/login']);
+  }
   get forgetPasswordDetails() {
     return this.forgetPassword.controls;
   }
 
   public save() {
-    this.submitted = true;
-                                                                                    
+    this.submitted = true;                                                                           
     if (this.forgetPassword.invalid) {
       return;
     }
@@ -84,7 +85,7 @@ export class ForgotPasswordComponent implements OnInit {
      (response)=>{
        const navigationExtras: NavigationExtras = {
          state: {
-           title: 'Congratulations! Your password reset successfully !',
+           title: 'Congratulations! Your password reset successfully!',
            message: '',
            parent: 'forgetpassword'
          }

@@ -1,6 +1,5 @@
 import { Tflag } from 'src/app/beans/Tflag';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
 import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ViewChild, OnInit, Component } from '@angular/core';

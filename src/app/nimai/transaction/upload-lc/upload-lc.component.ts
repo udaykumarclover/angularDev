@@ -454,7 +454,7 @@ export class UploadLCComponent implements OnInit {
       paymentPeriod: [''],
       paymentTerms: [''],
       tenorStartDate:[''],
-      tenorEndDate: [''],
+      // tenorEndDate: [''],
       tenor_file: [''],
       // For Discounting 
       discountingPeriod:[''],
@@ -564,7 +564,7 @@ export class UploadLCComponent implements OnInit {
           paymentPeriod: this.draftData.paymentPeriod,
           paymentTerms: this.draftData.paymentTerms,
           tenorStartDate:this.draftData.tenorStartDate,
-          tenorEndDate: this.draftData.tenorEndDate,
+          // tenorEndDate: this.draftData.tenorEndDate,
       
           // For Discounting 
           discountingPeriod:this.draftData.discountingPeriod,

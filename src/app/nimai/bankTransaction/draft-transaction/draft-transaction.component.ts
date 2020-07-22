@@ -11,7 +11,6 @@ import {bankActiveTransaction} from 'src/assets/js/commons'
 import { Tflag } from 'src/app/beans/Tflag';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
 @Component({
   selector: 'app-draft-transaction',
   templateUrl: './draft-transaction.component.html',

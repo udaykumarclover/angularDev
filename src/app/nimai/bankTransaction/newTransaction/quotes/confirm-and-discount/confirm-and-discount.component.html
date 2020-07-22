@@ -263,7 +263,7 @@
                                 <td>{{data.lCIssuanceBank}}</td>
                             
                                 <td><b>Tenor</b></td>
-                                <td>60 Days</td>
+                                <td>{{data.usanceDays}} Days</td>
                              </tr>  
                            </tbody>
                             </table>
@@ -307,7 +307,8 @@
                                           <select [(ngModel)]="data.confChgsIssuanceToMatur">
                                              <option value="yes">Yes</option>
                                           <option value="no">No</option>
-                                          </select></td>    </tr>
+                                          </select></td>  
+                                  </tr>
 
                                  <tr>
                                     <td>Negotiation Charges (Fixed)</td>
@@ -371,7 +372,7 @@
                                 <td>{{data.lCIssuanceBank}}</td>
                             
                                 <td><b>Tenor</b></td>
-                                <td>60 Days</td>
+                                <td>{{data.usanceDays}} Days</td>
                              </tr>  
                            </tbody>
                             </table>
