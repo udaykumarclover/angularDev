@@ -14,7 +14,7 @@ export interface TransactionBean{
   negotiationDate:Date;
   paymentPeriod: number;
   paymentTerms: string;
-  tenorEndDate: Date;
+  // tenorEndDate: Date;
   applicantName:string;
   applicantCountry:string;
   beneName: string;
