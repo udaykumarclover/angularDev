@@ -158,7 +158,7 @@
 .loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
     content:none!important;
 }
-select{
+select option{
     color: #545454!important;
 }
 .extralink:hover {

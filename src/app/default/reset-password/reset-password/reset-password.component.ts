@@ -46,8 +46,8 @@ export class ResetPasswordComponent implements OnInit {
       emailId: [''],
       userId: [''],
       oldPassword: [''],
-      newPassword: ['', Validators.required],
-      retypePaasword: ['' ,Validators.required],
+      newPassword: ['', [Validators.required,Validators.minLength(6)]],
+      retypePaasword: ['' ,[Validators.required,Validators.minLength(6)]],
       getToken: this.key
     },
     {
@@ -73,7 +73,7 @@ export class ResetPasswordComponent implements OnInit {
       (response)=>{
         const navigationExtras: NavigationExtras = {
           state: {
-            title: 'Congratulations! Your password reset successfully !',
+            title: 'Your password is set successfully!',
             message: '',
             parent: 'accountactivation'
           }
