@@ -180,6 +180,7 @@
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="companyName">
                                              <label>Company Name</label>
+                                             <i class="fa fa-building-o fa-1"></i>
                                              <div *ngIf="submittedSignup && suf.companyName.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.companyName.errors.required">
                                                    Company Name field is required
@@ -187,6 +188,7 @@
                                              </div>
                                           </div>
                                        </div>
+
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <!-- <div class="inputDiv">                                          
                                              <select class="selectpicker" data-style="select-with-transition" multiple
@@ -252,6 +254,7 @@
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="designation">
                                              <label>Designation</label>
+                                             <i class="fa fa-graduation-cap fa-1"></i>
                                              <div *ngIf="submittedSignup && suf.designation.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.designation.errors.required">
                                                    Designation is required
@@ -270,6 +273,7 @@
                                                 <option value="Others">Others</option>
                                              </select>
                                              <label>Business Type</label>
+                                             <i class="fa fa-address-card fa-1"></i>
                                              <div *ngIf="submittedSignup && suf.businessType.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.businessType.errors.required">
                                                    Business Type is required

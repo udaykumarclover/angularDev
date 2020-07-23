@@ -317,6 +317,11 @@ export class BusinessDetailsComponent implements OnInit {
       if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/ || key==188/* , key*/ || key > 31 && (key < 48 || key > 57))) {
           event.preventDefault();
       }    
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 
