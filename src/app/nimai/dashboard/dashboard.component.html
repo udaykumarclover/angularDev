@@ -167,7 +167,8 @@
                 <ul class="dropdown-menu">
                   <li><a [routerLink]="['my-profile']">My Profile</a></li>
                   <li><a *ngIf="isCustomer || isBank" [routerLink]="['credit-transaction']">Credits and Transactions</a></li>
-                  <li><a *ngIf="!isReferrer" [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
+                  <li><a *ngIf="isCustomer" [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
+                  <li><a *ngIf="isBank" [routerLink]="['manage-user']">Manage User</a></li>
                   <li><a [routerLink]="['refer']">Refer</a></li>
                   <li><a [routerLink]="['change-password']">Change Password</a></li>
                   <li><a href="preComingSoon.html">Support</a></li>

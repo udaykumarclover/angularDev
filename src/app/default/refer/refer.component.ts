@@ -81,10 +81,17 @@ export class ReferComponent implements OnInit {
 
   close() {
     //this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
-    });
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //     this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+    // });
     $("#addsub").hide();
+  }
+
+  onOkClick(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+      });
+      $("#addsub").hide();
   }
 
   addRefer() {
