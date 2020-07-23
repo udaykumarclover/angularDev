@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from 'src/assets/js/jquery.min';

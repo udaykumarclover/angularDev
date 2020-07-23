@@ -153,6 +153,7 @@ export class ConfirmationComponent implements OnInit {
   }
   
   public transactionForQuotes(act: string,data:any,detail:any) {
+   
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -164,11 +165,13 @@ export class ConfirmationComponent implements OnInit {
         break;
 
       case 'confirm': {
-      const param = {
-                    "transactionId":data.transactionId,
-                    "userId":data.userId,
-                    "quotationId":detail.quotationId,
-       }
+        const param = {
+                      "quotationId":detail.quotationId,
+                      "transactionId":data.transactionId,
+                      "userId":data.userId
+         }
+
+       
       this.ts.confirmQuotation(param).subscribe(
         (response) => {
           this.tab = 'tab3';
@@ -204,14 +207,12 @@ export class ConfirmationComponent implements OnInit {
         break;
 
 
-        case 'generateQuote': {
-      
+        case 'calculateQuote':{
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-            
-              this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
+              this.data.TotalQuote=this.detail.TotalQuote;
             },
             error => {
               alert('error')
@@ -219,11 +220,13 @@ export class ConfirmationComponent implements OnInit {
               this.tab = 'tab1';
             }
           )
+        }break;
+                case 'generateQuote': {
+                      this.tab = 'tab2';
+            }
+          }
           
-    }
-  }
-  
-  }
-
-
-}
+          }
+        
+        
+        }
