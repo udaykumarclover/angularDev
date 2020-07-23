@@ -24,7 +24,7 @@ export class MyProfileComponent implements OnInit {
   isReferrer: boolean = false;
   isBank: boolean = false;
   public bd: any = null;
-  public isCustomer = true;
+  public isCustomer = false;
 
 
 
@@ -110,9 +110,9 @@ export class MyProfileComponent implements OnInit {
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
         this.bd = responseData.data;
-        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('BC') || this.bd.userId.startsWith('RE')) {
+        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('RE')) {
           this.isCustomer = false;
-        } else if (this.bd.userId.startsWith('CU')) {
+        } else if (this.bd.userId.startsWith('CU') || this.bd.userId.startsWith('BC')) {
           this.isCustomer = true;
         }
       }   

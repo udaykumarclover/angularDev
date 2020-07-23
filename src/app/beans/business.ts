@@ -6,7 +6,7 @@ export interface Business{
 	 branchName:string;
 	 swiftCode:string;
 	 telephone:string;
-	 
+	 designation:string;
 	 comapanyName:string;
 	 registeredCountry:string;
 	 registrationType:string;

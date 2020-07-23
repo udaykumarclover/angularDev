@@ -185,9 +185,9 @@ export class BusinessDetailsComponent implements OnInit {
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
         this.bd = responseData.data;
-        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('BC')) {
+        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('RE')) {
           this.isCustomer = false;
-        } else if (this.bd.userId.startsWith('CU')) {
+        } else if (this.bd.userId.startsWith('CU') || this.bd.userId.startsWith('BC')) {
           this.isCustomer = true;
 
         }
@@ -199,7 +199,7 @@ export class BusinessDetailsComponent implements OnInit {
           branchName: this.bd.branchName,
           swiftCode: this.bd.swiftCode,
           telephone: this.bd.telephone,
-
+          bank_designation: this.bd.designation,
           companyName: this.bd.comapanyName,
           country: this.bd.registeredCountry,
           selector: this.bd.registrationType,
