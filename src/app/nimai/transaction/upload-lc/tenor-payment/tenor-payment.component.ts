@@ -96,10 +96,10 @@ export class TenorPaymentComponent implements OnInit {
   handleRadio(e, type){
     if(type){
       if(type == "DOM"){
-        this.LcDetail.get('tenorEndDate').setValue('DOM');
+        // this.LcDetail.get('tenorEndDate').setValue('DOM');
       }
       else{
-        this.LcDetail.get('tenorEndDate').setValue(this.LcDetail.get('negotiationDate').value);
+        // this.LcDetail.get('tenorEndDate').setValue(this.LcDetail.get('negotiationDate').value);
       }
 
     }

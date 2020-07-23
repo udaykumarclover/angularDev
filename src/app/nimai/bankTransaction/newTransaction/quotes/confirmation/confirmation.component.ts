@@ -56,7 +56,9 @@ export class ConfirmationComponent implements OnInit {
     expiryDays: 0,
     maturityDays: 0,
     negotiationDays: 0,
-    sumOfQuote: 0
+    sumOfQuote: 0,
+    confChgsMatur: 0,
+    confChgsNegot:0
      }
 
      }
@@ -221,12 +223,26 @@ export class ConfirmationComponent implements OnInit {
             }
           )
         }break;
-                case 'generateQuote': {
-                      this.tab = 'tab2';
+        case 'generateQuote': {
+          this.tab = 'tab2';
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              this.data.TotalQuote=this.detail.TotalQuote;
+              this.data.confChgsMatur=this.detail.confChgsMatur;
+              this.data.confChgsNegot=this.detail.confChgsNegot;
+            },
+            error => {
+              alert('error')
+              this.closedQuote();
+              this.tab = 'tab1';
             }
-          }
-          
-          }
-        
-        
-        }
+          )
+}
+}
+
+}
+
+
+}

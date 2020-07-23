@@ -39,6 +39,8 @@ export class SuccessPopupComponent implements OnInit {
       this.router.navigate(['/login']);
     } else if(this.parent==="cst/dsb/business-details"){
       this.router.navigate(['/cst/dsb/subscription']);
+    }else if(this.parent==="forgetpassword"){
+      this.router.navigate(['/login']);
     }else{
       this.router.navigate(['/'+this.parent]);
     }

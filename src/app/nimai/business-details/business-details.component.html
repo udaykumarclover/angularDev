@@ -155,20 +155,20 @@
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
                                                         <input type="text" maxlength="15" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
-                                                        <label>MD/CEO/Owner’s First Name </label>
-                                                        <div *ngIf="perDetailsSubmit && item.status==='INVALID'" class="invalid-feedback">
-                                                                <div *ngIf="item.status==='INVALID'">
-                                                                   MD/CEO/Owner’s First Name is required
-                                                                </div>
-                                                             </div>
+                                                        <label>MD/CEO/Owner’s First Name</label>
+                                                        <div *ngIf="perDetailsSubmit && item.controls.ownerFirstName.status==='INVALID'" class="invalid-feedback">
+                                                            <div *ngIf="item.controls.ownerFirstName.status==='INVALID'">
+                                                                MD/CEO/Owner’s First Name is required
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
                                                         <input type="text" maxlength="15" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>MD/CEO/Owner’s Last Name</label>
-                                                        <div *ngIf="perDetailsSubmit && item.status==='INVALID'" class="invalid-feedback">
-                                                                <div *ngIf="item.status==='INVALID'">
+                                                        <div *ngIf="perDetailsSubmit && item.controls.ownerLastName.status==='INVALID'" class="invalid-feedback">
+                                                                <div *ngIf="item.controls.ownerLastName.status==='INVALID'">
                                                                  MD/CEO/Owner’s Last Name is required
                                                               </div>
                                                            </div>
@@ -178,8 +178,8 @@
                                                     <div class="inputDiv">
                                                         <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>Designation</label>
-                                                        <div *ngIf="perDetailsSubmit && item.status==='INVALID'" class="invalid-feedback">
-                                                                <div *ngIf="item.status==='INVALID'">
+                                                        <div *ngIf="perDetailsSubmit && item.controls.designation.status==='INVALID'" class="invalid-feedback">
+                                                                <div *ngIf="item.controls.designation.status==='INVALID'">
                                                                      Designation is required
                                                                 </div>
                                                            </div>

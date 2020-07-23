@@ -72,7 +72,7 @@ export class BusinessDetailsComponent implements OnInit {
     return this.fb.group({
     ownerFirstName: ['', Validators.required],
     ownerLastName: ['', Validators.required],
-    designation: ['', Validators.minLength(3)],
+    designation: ['', [Validators.required,Validators.minLength(3)]],
     ownerID: ['']
   });
   }

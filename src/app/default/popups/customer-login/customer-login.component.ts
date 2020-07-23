@@ -69,10 +69,15 @@ export class CustomerLoginComponent implements OnInit {
     let userID: string = sessionStorage.getItem('userID');
     this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {
+      let responseData = JSON.parse(JSON.stringify(response));
+      var matches = responseData.data.match(/\d+/g)
+      if (matches != null) {
+      
         let sendEmail = {
           "event": 'ADD_BRANCH_USER',
           "emailId": this.emailAddress,
-          "userId": sessionStorage.getItem("userID")
+          "userId": sessionStorage.getItem("userID"),
+          "data": responseData.data
         }
         this.fps.sendEmailBranchUser(sendEmail)
           .subscribe(
@@ -82,11 +87,17 @@ export class CustomerLoginComponent implements OnInit {
               $('.modal2').show();
             },
             (error) => {
+              $('.modal1').hide();
               $('.modal3').show();
               // alert("unable to send mail")
 
             }
           )
+        }
+        else{
+          $('.modal1').hide();
+          $('.modal3').show();
+        }
       },
       (error) => { }
     );
@@ -96,7 +107,7 @@ export class CustomerLoginComponent implements OnInit {
   onOTPClick() {
     $('.modal2').hide();
     
-    // this.router.navigate(['/cst/dsb/business-details']);           
+    this.router.navigate(['/cst/dsb/business-details']);           
   }
 
   reenterCustLoginDetails() {

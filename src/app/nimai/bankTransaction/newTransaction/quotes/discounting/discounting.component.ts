@@ -202,10 +202,22 @@ export class DiscountingComponent implements OnInit {
 
         case 'generateQuote': {
           this.tab = 'tab2';
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              this.data.TotalQuote=this.detail.TotalQuote;
+            },
+            error => {
+              alert('error')
+              this.closedQuote();
+              this.tab = 'tab1';
+            }
+          )
 }
-  }
-  
-  }
+}
+
+}
 
 
 }

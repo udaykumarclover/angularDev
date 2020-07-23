@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads();
     loadLogin();
     this.loginForm = this.fb.group({
       username: [''],
