@@ -14,7 +14,7 @@
                   </h4>
                      <div class="row">
                         <p class="col-md-12"><strong>Personal Details</strong><small> <a style="cursor: pointer;"
-                           (click)="redirectOn('personal-details')">Edit <i class="far fa-edit"></i></a></small></p>
+                           (click)="redirectOn('personal-details')" class="edit_icon">Edit <i class="far fa-edit"></i></a></small></p>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">First Name</span>
@@ -110,7 +110,7 @@
                      <hr/>
                      <div *ngIf="isCustomer || isBank">
                      <p class="dash"><strong>Business Details</strong><small>
-                     <a style="cursor: pointer;" (click)="redirectOn('business-details')" >Edit <i class="far fa-edit"></i></a></small></p>
+                     <a style="cursor: pointer;" (click)="redirectOn('business-details')" class="edit_icon">Edit <i class="far fa-edit"></i></a></small></p>
                      <div class="row">
                         <div class="col-md-3" *ngIf="isCustomer">
                            <div class="inputDiv">
@@ -228,7 +228,7 @@
                      <hr/>
                      </div>
                      <p class="dash"><strong>KYC Details</strong><small>
-                           <a style="cursor: pointer;" (click)="redirectOn('kyc-details')">Edit <i
+                           <a style="cursor: pointer;" (click)="redirectOn('kyc-details')" class="edit_icon">Edit <i
                                  class="far fa-edit"></i></a></small></p>
                      <div class="clearfix"></div>
                </div>

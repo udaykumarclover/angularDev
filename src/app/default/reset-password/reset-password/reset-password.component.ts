@@ -4,7 +4,7 @@ import { ResetPasswordService } from 'src/app/services/reset-password/reset-pass
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
 import { MustMatch } from 'src/app/beans/Validations';
-
+import { loads} from '../../../../assets/js/commons.js'
 
 @Component({
   selector: 'app-reset-password',
@@ -42,6 +42,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads()
     this.resetForm = this.fb.group({
       emailId: [''],
       userId: [''],

@@ -164,4 +164,11 @@ select option{
 .extralink:hover {
     color: blue!important;
   }
-  
+  .loginbody .inputDiv i {
+    position: absolute;
+    left: 0;
+    width: 10px;
+    height: 15px;
+    top: 13px;
+    color: skyblue;
+}
