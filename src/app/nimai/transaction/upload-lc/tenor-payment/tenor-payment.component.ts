@@ -42,19 +42,19 @@ export class TenorPaymentComponent implements OnInit {
 
   public selectors(selector: string) {
     this.selector = selector;
-    if (this.selector === 'discounting' || this.selector === 'banker') {
+    if (this.selector === 'Discounting' || this.selector === 'Banker') {
       this.discount = true;
       this.confirmation = false;
       this.refinancing = false;
       this.CandD = false;
       this.rds.refinance.next(this.refinancing);
-    } else if (this.selector === 'refinance') {
+    } else if (this.selector === 'Refinance') {
       this.discount = false;
       this.confirmation = false;
       this.refinancing = true;
       this.CandD = false;
       this.rds.refinance.next(this.refinancing);
-    } else if(this.selector === "confirmAndDiscount"){
+    } else if(this.selector === "ConfirmAndDiscount"){
       this.discount = false;
       this.confirmation = true;
       this.refinancing = false;

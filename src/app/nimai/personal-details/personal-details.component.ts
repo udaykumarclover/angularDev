@@ -198,6 +198,7 @@ export class PersonalDetailsComponent implements OnInit {
             blacklistedGC: this.filterBlackListGoods(this.personalDetails.blacklistedGoods)
 
           })
+          sessionStorage.setItem('custUserEmailId',this.personalDetails.emailAddress);
 
           this.intCntTemp = this.personalDetails.interestedCountry;
           this.blgTemp = this.personalDetails.blacklistedGoods;

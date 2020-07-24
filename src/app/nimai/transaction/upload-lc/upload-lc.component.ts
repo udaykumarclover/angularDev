@@ -20,7 +20,7 @@ import { call } from 'src/assets/js/bootstrap-filestyle.min'
 export class UploadLCComponent implements OnInit {
 
   public lcDetailForm: FormGroup
-  public selector: string = "confirmation";
+  public selector: string = "Confirmation";
   public title: string = "New Transaction";
   public refinancing: boolean = false;
   public counter = 1;
@@ -238,7 +238,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
-    data.tenorStartDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
+    data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     
 
     this.upls.saveLc(data)
@@ -301,7 +301,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
-    data.tenorStartDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
+    data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.transactionId = this.transactionID;
 
     this.upls.updateLc(data).subscribe(
@@ -433,15 +433,23 @@ export class UploadLCComponent implements OnInit {
   }
 
   public setForm() {
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if(userIdDetail.startsWith('BC')){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
+    // else{
+    //   emailId = sessionStorage.getItem('custUserEmailId');
+    // }
     this.lcDetailForm = this.fb.group({
-      selector: ['confirmation'],
+      selector: ['Confirmation'],
       userId: sessionStorage.getItem('userID'),
       requirementType: [''],
       lCIssuanceBank: [''],
       lCIssuanceBranch: [''],
       swiftCode: [''],
       lCIssuanceCountry: [''],
-  
+      branchUserEmail: emailId,
       lCValue: [''],
       lCCurrency: [''],
       lCIssuingDate: [''], 
@@ -453,7 +461,7 @@ export class UploadLCComponent implements OnInit {
       // For Confirmation 
       paymentPeriod: [''],
       paymentTerms: [''],
-      tenorStartDate:[''],
+      startDate:[''],
       // tenorEndDate: [''],
       tenor_file: [''],
       // For Discounting 
@@ -563,7 +571,7 @@ export class UploadLCComponent implements OnInit {
           // For Confirmation 
           paymentPeriod: this.draftData.paymentPeriod,
           paymentTerms: this.draftData.paymentTerms,
-          tenorStartDate:this.draftData.tenorStartDate,
+          startDate:this.draftData.startDate,
           // tenorEndDate: this.draftData.tenorEndDate,
       
           // For Discounting 

@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="employee_name" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="30" formControlName="employee_name" (keydown)="validateRegexFields($event, 'name_validation')">
                 <label>Name</label>
                 <div *ngIf="submitted && custLogDetails.employee_name.errors?.required" class="invalid-feedback">
                   Name is required
@@ -68,7 +68,7 @@
   <div class="modal-content">
     <div class="col-md-12 arrow_box"><button type="button" class="close" (click)="close()">&times;</button></div>
     <div class="modal-body">
-      <h2>Enter Access Details</h2>
+      <h2></h2>
       <div class="row">
         <!--<p><strong>Enter Email ID here</strong></p> -->
         <div class="col-md-12">
@@ -79,8 +79,9 @@
             <div class="form-group"></div>
             <div class="col-md-4 col-md-offset-4">
               <div class="inputDiv">
-                <input type="text">
+                <input type="text" [(ngModel)]="passValue" (click)="passCodeValue()" (keypress)="validateRegexFields($event, 'number')">
                 <label>Enter Passcode</label>
+                <div class="invalid-feedback">{{errMessage}}</div>
               </div>
             </div>
             <div class="clearfix"></div>

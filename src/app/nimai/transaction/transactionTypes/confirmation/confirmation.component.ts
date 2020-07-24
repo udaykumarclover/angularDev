@@ -5,6 +5,7 @@ import * as $ from '../../../../../assets/js/jquery.min';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ActiveTransactionComponent } from 'src/app/nimai/active-transaction/active-transaction.component';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -18,7 +19,17 @@ export class ConfirmationComponent implements OnInit {
   public title: string = "";
   public tab = 'tab2';
   document: any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService) {
+  public parentURL: string = "";
+  public subURL: string = "";
+
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
+
     this.data = {
       transactionId: "",
       userId: "",
@@ -128,6 +139,7 @@ export class ConfirmationComponent implements OnInit {
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
+            
           },
           error => {
             alert('error')
@@ -141,6 +153,9 @@ export class ConfirmationComponent implements OnInit {
 
         this.closed();
         this.tab = 'tab1';
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
       }
         break;
       case 'preview': {

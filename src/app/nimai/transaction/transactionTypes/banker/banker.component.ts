@@ -4,6 +4,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../../assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-banker',
@@ -19,7 +20,17 @@ export class BankerComponent implements OnInit {
   public title: string = "";
   public tab = 'tab2';
   document: any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService) { 
+  public parentURL: string = "";
+  public subURL: string = "";
+
+  constructor(public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
+    
     this.data = {
       transactionId: "",
       userId: "",
@@ -142,6 +153,9 @@ export class BankerComponent implements OnInit {
 
         this.closed();
         this.tab = 'tab1';
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
       }
         break;
       case 'preview': {

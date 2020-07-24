@@ -26,8 +26,14 @@ export class DraftTransactionComponent implements OnInit {
   }
 
   callAllDraftTransaction(){
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if(userIdDetail.startsWith('BC')){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
     const param = {
-      userId: sessionStorage.getItem('userID')
+      userId: sessionStorage.getItem('userID'),
+      "branchUserEmail":emailId
     }
     
     this.service.getCustDraftTransaction(param).subscribe(
