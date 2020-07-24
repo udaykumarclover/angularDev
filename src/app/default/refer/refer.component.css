@@ -53,14 +53,14 @@
     font-weight: bold;
     position: absolute;
     z-index: 9;
-    margin-left: 42px;
+    margin-left: 90px;
 }
 .modal-dialog{
     width: 695px!important;
 }
 .refer_span{
     font-size: 15px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 .close:hover,
 .close:focus {

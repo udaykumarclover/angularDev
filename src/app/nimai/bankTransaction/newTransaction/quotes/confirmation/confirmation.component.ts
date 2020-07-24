@@ -67,6 +67,14 @@ export class ConfirmationComponent implements OnInit {
   }
 
 
+  onNegotChange(value){
+    this.data.confChgsIssuanceToNegot='yes';
+    }
+
+onMatureChange(value){
+   
+ this.data.confChgsIssuanceToMatur='yes';
+  }
   public action(flag: boolean, type: Tflag, data: any) {
  
     if (flag) {

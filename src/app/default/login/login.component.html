@@ -156,6 +156,11 @@
                                              <input type="text" formControlName="landlineNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
                                              <label>Landline No.</label>
                                              <img src="assets/images/telephone.png" style="width: 14px;height: 14px;" />
+                                             <div *ngIf="submittedSignup && suf.landlineNo.errors" class="invalid-feedback">
+                                                <div *ngIf="suf.landlineNo.errors.required">
+                                                   Landline Number is required
+                                                </div>
+                                             </div>
                                           </div>
                                        </div>
                                        <div class="col-md-4">
@@ -180,6 +185,7 @@
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="companyName">
                                              <label>Company Name</label>
+                                             <i class="fa fa-building-o fa-1"></i>
                                              <div *ngIf="submittedSignup && suf.companyName.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.companyName.errors.required">
                                                    Company Name field is required
@@ -187,6 +193,7 @@
                                              </div>
                                           </div>
                                        </div>
+
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <!-- <div class="inputDiv">                                          
                                              <select class="selectpicker" data-style="select-with-transition" multiple
@@ -214,11 +221,11 @@
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="minLCVal" (keypress)="validateRegexFields($event, 'number')">
+                                             <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
                                              <label>Minimum Value of LC</label>
                                              <img src="assets/images/cash.png" style="height: 14px;width: 10px;" />
-                                             <!-- <div *ngIf="submittedSignup && suf.minLCVal.errors" class="invalid-feedback">
-                                                <div *ngIf="suf.minLCVal.errors.required">
+                                             <!-- <div *ngIf="submittedSignup && suf.minLCValue.errors" class="invalid-feedback">
+                                                <div *ngIf="suf.minLCValue.errors.required">
                                                    Minimum LC value is required
                                                 </div>
                                              </div> -->
@@ -252,6 +259,7 @@
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="designation">
                                              <label>Designation</label>
+                                             <i class="fa fa-graduation-cap fa-1"></i>
                                              <div *ngIf="submittedSignup && suf.designation.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.designation.errors.required">
                                                    Designation is required
@@ -270,6 +278,7 @@
                                                 <option value="Others">Others</option>
                                              </select>
                                              <label>Business Type</label>
+                                             <i class="fa fa-address-card fa-1"></i>
                                              <div *ngIf="submittedSignup && suf.businessType.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.businessType.errors.required">
                                                    Business Type is required

@@ -77,7 +77,7 @@
         <div class="modal-content">
             <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
-                    <h2>Refer  <span class="refer_span">Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.</span>
+                    <h2><span class="refer_span">Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.</span>
                         
                         <button type="button" class="close" (click)="close()">&times;</button>
                     </h2>
@@ -173,7 +173,7 @@
                                 <div class="clearfix"></div>
                                 <button type="submit"  id="btninvite" class="btn btn-info pull-right">Invite
                                     User</button>
-                                <a (click)="close()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                                <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
                             </div>
                         </div>
 

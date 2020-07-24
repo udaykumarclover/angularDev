@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       radio: ['customer'],
       selector: ['customer'],
       countriesInt: [''],
-      minLCVal: [''],
+      minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: ['']
     });
@@ -339,9 +339,11 @@ export class LoginComponent implements OnInit {
   }
 
   validateBank() {
-    // this.signupForm.get('minLCVal').setValidators(Validators.required);
+    // this.signupForm.get('minLCValue').setValidators(Validators.required);
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
+    this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('landlineNo').setValidators(Validators.required);
     this.updateValidation();
   }
 
@@ -362,7 +364,7 @@ export class LoginComponent implements OnInit {
   }
 
   removeBankValidation() {
-    this.signupForm.get('minLCVal').clearValidators();
+    this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
     this.updateValidation();
@@ -373,7 +375,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('companyName').clearValidators();
     this.signupForm.get('businessType').clearValidators();
 
-    this.signupForm.get('minLCVal').clearValidators();
+    this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
 
@@ -381,6 +383,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('lastName').clearValidators();
     this.signupForm.get('officialMailId').clearValidators();
     this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('landlineNo').clearValidators();
     this.signupForm.get('country').clearValidators();
   }
 
@@ -389,7 +392,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('companyName').updateValueAndValidity();
     this.signupForm.get('businessType').updateValueAndValidity();
 
-    this.signupForm.get('minLCVal').updateValueAndValidity();
+    this.signupForm.get('minLCValue').updateValueAndValidity();
     this.signupForm.get('blacklistedGC').updateValueAndValidity();
     this.signupForm.get('countriesInt').updateValueAndValidity();
 
@@ -397,6 +400,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('lastName').updateValueAndValidity();
     this.signupForm.get('officialMailId').updateValueAndValidity();
     this.signupForm.get('mobileNo').updateValueAndValidity();
+    this.signupForm.get('landlineNo').updateValueAndValidity();
     this.signupForm.get('country').updateValueAndValidity();
   }
 
@@ -428,6 +432,11 @@ export class LoginComponent implements OnInit {
       }
       this.intCountries.push(icData);
     }
+    var minValue = this.signupForm.get('minLCValue').value;
+    if(minValue == ""){
+      minValue = '0';
+    }
+
 
 
     let data = {
@@ -445,7 +454,7 @@ export class LoginComponent implements OnInit {
       bankType: this.signupForm.get('selector').value,
       subscriberType: this.signupForm.get('radio').value,
 
-      minLCValue: this.signupForm.get('minLCVal').value,
+      minLCValue: minValue,
       interestedCountry: this.intCountries,
       blacklistedGoods: this.blg
 
@@ -496,7 +505,7 @@ export class LoginComponent implements OnInit {
       radio: '',
       selector: '',
       countriesInt: '',
-      minLCVal: '',
+      minLCValue: '',
       blacklistedGC: '',
       companyName: ''
     })

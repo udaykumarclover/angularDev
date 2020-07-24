@@ -154,7 +154,7 @@
                                                 <input type="hidden" formControlName="ownerID">
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
-                                                        <input type="text" maxlength="15" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
+                                                        <input type="text" maxlength="15" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>MD/CEO/Owner’s First Name</label>
                                                         <div *ngIf="perDetailsSubmit && item.controls.ownerFirstName.status==='INVALID'" class="invalid-feedback">
                                                             <div *ngIf="item.controls.ownerFirstName.status==='INVALID'">
@@ -165,7 +165,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="inputDiv">
-                                                        <input type="text" maxlength="15" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
+                                                        <input type="text" maxlength="15" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
                                                         <label>MD/CEO/Owner’s Last Name</label>
                                                         <div *ngIf="perDetailsSubmit && item.controls.ownerLastName.status==='INVALID'" class="invalid-feedback">
                                                                 <div *ngIf="item.controls.ownerLastName.status==='INVALID'">

@@ -17,6 +17,7 @@ export class CustomerLoginComponent implements OnInit {
   public parent: string;
   emailAddress: any;
   submitted: boolean = false;
+  passCode: any;
 
   constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
@@ -77,11 +78,13 @@ export class CustomerLoginComponent implements OnInit {
           "event": 'ADD_BRANCH_USER',
           "emailId": this.emailAddress,
           "userId": sessionStorage.getItem("userID"),
-          "data": responseData.data
+          "branchId": responseData.data
         }
         this.fps.sendEmailBranchUser(sendEmail)
           .subscribe(
             (response) => {
+             this.passCode = JSON.parse(JSON.stringify(response));
+             this.passCode = this.passCode.data;
 
               $('.modal1').hide();
               $('.modal2').show();
@@ -106,8 +109,16 @@ export class CustomerLoginComponent implements OnInit {
 
   onOTPClick() {
     $('.modal2').hide();
-    
-    this.router.navigate(['/cst/dsb/business-details']);           
+    this.fps.branchUserOTP(this.passCode).subscribe(
+      (response) => {
+        var response = JSON.parse(JSON.stringify(response));
+
+        if(response.flag == 1){
+          this.router.navigate(['/cst/dsb/business-details']);           
+        }
+      },
+      (err) => {}
+    )
   }
 
   reenterCustLoginDetails() {

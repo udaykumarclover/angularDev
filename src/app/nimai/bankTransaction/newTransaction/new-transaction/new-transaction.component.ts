@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import {bankActiveTransaction} from 'src/assets/js/commons'
+import {bankActiveTransaction,custActiveTransaction} from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -103,7 +103,8 @@ export class NewTransactionComponent implements OnInit {
     }
   }
   ngOnInit() {
-    bankActiveTransaction();
+  //  bankActiveTransaction();
+    custActiveTransaction();
   }
 
 
@@ -128,7 +129,7 @@ export class NewTransactionComponent implements OnInit {
     this.getNewRequestsForBank();
     this.confirmation.isActive = false;
     this.confirmAndDiscount.isActive = false;
-   this.discounting.isActive = false;
+    this.discounting.isActive = false;
     this.refinancing.isActive = false;
     this.banker.isActive = false;
   }
@@ -166,8 +167,7 @@ export class NewTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount') {      
-   
+    } else if (pagename === 'confirmAndDiscount') {    
       this.confirmAndDiscount.action(true,action,data);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;

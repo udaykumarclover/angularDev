@@ -22,6 +22,7 @@ import { ManageSubsidiaryComponent } from 'src/app/default/manage-subsidiary/man
 import { ChangePasswordComponent } from 'src/app/default/change-password/change-password.component';
 import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
+import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/manage-user.component';
 
 
 
@@ -41,7 +42,8 @@ import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-trans
     ChangePasswordComponent,
     ManageSubsidiaryComponent,
     ReferComponent,
-    CreditAndTransactionsComponent
+    CreditAndTransactionsComponent,
+    ManageUserComponent
   ],
   imports: [
     CommonModule,
@@ -68,6 +70,7 @@ import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-trans
     ResetPasswordComponent,
     ChangePasswordComponent,
     ManageSubsidiaryComponent,
+    ManageUserComponent,
     ReferComponent,
     CreditAndTransactionsComponent
   ],

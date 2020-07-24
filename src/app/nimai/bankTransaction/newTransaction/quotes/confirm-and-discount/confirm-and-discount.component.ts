@@ -19,7 +19,8 @@ public isActiveQuote:boolean=false;
   public title: string = "";
   public tab = 'tab1';
   detail:any;
-  public selected:string="";
+  public radioSelected:string="";
+  radioStatus: boolean;
   constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
     
     this.data = {        
@@ -62,6 +63,15 @@ public isActiveQuote:boolean=false;
   ngOnInit() {
   }
 
+  onNegotChange(value){
+     this.data.confChgsIssuanceToNegot='yes';
+     }
+ 
+ onMatureChange(value){
+    
+  this.data.confChgsIssuanceToMatur='yes';
+   }
+
   public action(flag: boolean, type: Tflag, data: any) {
     if (flag) {
       if (type === Tflag.VIEW) {
@@ -90,9 +100,6 @@ public isActiveQuote:boolean=false;
     }
   }
 
-public radiobtn(){
-  this.selected='yes';
-}
 
   public closed() {
     this.isActive = false;
