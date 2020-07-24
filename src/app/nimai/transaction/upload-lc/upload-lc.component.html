@@ -102,36 +102,36 @@
                                                                                 <input type="radio"
                                                                                     id="option-one" name="selector"
                                                                                     formControlName="selector"
-                                                                                    value="confirmation"
-                                                                                    (click)="tenor.selectors('confirmation')">
+                                                                                    value="Confirmation"
+                                                                                    (click)="tenor.selectors('Confirmation')">
                                                                                 <label
                                                                                     for="option-one">Confirmation</label>
                                                                                 <input type="radio" id="option-two"
                                                                                     name="selector"
                                                                                     formControlName="selector"
-                                                                                    value="discounting"
-                                                                                    (click)="tenor.selectors('discounting')">
+                                                                                    value="Discounting"
+                                                                                    (click)="tenor.selectors('Discounting')">
                                                                                 <label
                                                                                     for="option-two">Discounting</label>
                                                                                 <input type="radio" id="option-three"
                                                                                     name="selector"
                                                                                     formControlName="selector"
-                                                                                    value="confirmAndDiscount"
-                                                                                    (click)="tenor.selectors('confirmAndDiscount')">
+                                                                                    value="ConfirmAndDiscount"
+                                                                                    (click)="tenor.selectors('ConfirmAndDiscount')">
                                                                                 <label for="option-three">Confirmation
                                                                                     and Discounting</label>
                                                                                 <input type="radio" id="option-four"
                                                                                     name="selector"
                                                                                     formControlName="selector"
-                                                                                    value="refinance"
-                                                                                    (click)="tenor.selectors('refinance')">
+                                                                                    value="Refinance"
+                                                                                    (click)="tenor.selectors('Refinance')">
                                                                                 <label
                                                                                     for="option-four">Refinancing</label>
                                                                                 <input type="radio" id="option-five"
                                                                                     name="selector"
                                                                                     formControlName="selector"
-                                                                                    value="banker"
-                                                                                    (click)="tenor.selectors('banker')">
+                                                                                    value="Banker"
+                                                                                    (click)="tenor.selectors('Banker')">
                                                                                 <label for="option-five">Banker's
                                                                                     Acceptance</label>
                                                                             </div>
@@ -388,13 +388,13 @@
                                               <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                            </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">End Date</span>
                                               <span class="labeltext">{{lc.lCExpiryDate}}</span>
                                               <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
                                            </div>
-                                        </div>
+                                        </div> -->
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">

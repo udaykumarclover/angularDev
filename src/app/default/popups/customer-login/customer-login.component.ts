@@ -18,6 +18,8 @@ export class CustomerLoginComponent implements OnInit {
   emailAddress: any;
   submitted: boolean = false;
   passCode: any;
+  passValue: any;
+  errMessage: any;
 
   constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
@@ -85,7 +87,7 @@ export class CustomerLoginComponent implements OnInit {
             (response) => {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
-
+              sessionStorage.setItem('branchUserEmailId', this.emailAddress);
               $('.modal1').hide();
               $('.modal2').show();
             },
@@ -107,14 +109,31 @@ export class CustomerLoginComponent implements OnInit {
 
   }
 
+  passCodeValue(){
+      this.errMessage = "";
+  }
+
   onOTPClick() {
-    $('.modal2').hide();
-    this.fps.branchUserOTP(this.passCode).subscribe(
+
+    if(!this.passValue){
+      this.errMessage = "Kindly enter code!";
+      return;
+    }
+    
+    var data = {
+      "token" : this.passCode.split('_')[0],
+      "passcodeValue": this.passValue
+    }
+    
+    this.fps.branchUserOTP(data).subscribe(
       (response) => {
         var response = JSON.parse(JSON.stringify(response));
 
         if(response.flag == 1){
-          this.router.navigate(['/cst/dsb/business-details']);           
+          this.router.navigate(['/cst/dsb/business-details']);   
+          $('.modal2').hide();
+        } else{
+          this.errMessage = response.message;
         }
       },
       (err) => {}
@@ -135,6 +154,12 @@ export class CustomerLoginComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
+    }
+    else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 

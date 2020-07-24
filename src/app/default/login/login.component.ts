@@ -12,7 +12,7 @@ import { BlackListedGoods } from 'src/app/beans/blacklistedgoods';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { Email } from 'src/app/beans/Email';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
-import  { ValidateRegex } from '../../beans/Validations';
+import  { ValidateRegex } from 'src/app/beans/Validations';
 
 @Component({
   selector: 'app-login',
