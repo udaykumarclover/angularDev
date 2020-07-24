@@ -30,10 +30,10 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   customerLoginForm = new FormGroup({
-    batch_id: new FormControl('', Validators.required),
-    employee_id: new FormControl('', Validators.required),
+    batch_id: new FormControl('', [Validators.required,Validators.minLength(3)]),
+    employee_id: new FormControl('', [Validators.required,Validators.minLength(3)]),
     email_id: new FormControl('', [Validators.required, Validators.email]),
-    employee_name: new FormControl('', Validators.required)
+    employee_name: new FormControl('', [Validators.required,Validators.minLength(2)])
   })
 
   get custLogDetails() {
