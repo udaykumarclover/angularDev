@@ -50,7 +50,9 @@ export class BankerComponent implements OnInit {
       expiryDays: 0,
       maturityDays: 0,
       negotiationDays: 0,
-      sumOfQuote: 0
+      sumOfQuote: 0,
+      confChgsMatur: 0,
+      confChgsNegot:0
   
            }
   }
