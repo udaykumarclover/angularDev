@@ -49,7 +49,9 @@ export class DiscountingComponent implements OnInit {
       expiryDays: 0,
       maturityDays: 0,
       negotiationDays: 0,
-      sumOfQuote: 0  
+      sumOfQuote: 0  ,
+      confChgsMatur: 0,
+      confChgsNegot:0
     
     
     }
@@ -202,10 +204,22 @@ export class DiscountingComponent implements OnInit {
 
         case 'generateQuote': {
           this.tab = 'tab2';
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              this.data.TotalQuote=this.detail.TotalQuote;
+            },
+            error => {
+              alert('error')
+              this.closedQuote();
+              this.tab = 'tab1';
+            }
+          )
 }
-  }
-  
-  }
+}
+
+}
 
 
 }

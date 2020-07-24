@@ -218,10 +218,10 @@
                            <textarea placeholder="Specify the type of charge (Swift, P&T, etc)" 
                            rows="3"></textarea>
                           
-                           <tr>
+                           <!-- <tr>
                               <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
                               <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
-                            </tr>
+                            </tr> -->
                          
                            <tr>
                               <td>Minimum Transaction Charges</td>
@@ -298,11 +298,11 @@
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                              <td>{{data.confChgsIssuanceToNegot}}</td>
+                              <td>{{detail.confChgsNegot}}</td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                              <td>{{data.confChgsIssuanceToMatur}}</td>
+                              <td>{{detail.confChgsMatur}}</td>
                            </tr>
                            <tr>
                               <td>Other Charges<br><small style="color: #b6a3a3;">Customer needs to pay standard swift transfer charges.</small>

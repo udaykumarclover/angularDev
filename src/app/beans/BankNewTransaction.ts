@@ -88,6 +88,8 @@ export interface PlaceQuote{
 		maturityDays: number;
 		negotiationDays: number;
 		sumOfQuote: number;
+		confChgsMatur: number;
+        confChgsNegot:number;
 		}
 
 
