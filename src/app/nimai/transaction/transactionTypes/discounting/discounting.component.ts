@@ -16,6 +16,7 @@ export class DiscountingComponent implements OnInit {
   public data: TransactionBean;
   public title: string = "";
   public tab = 'tab2';
+  document: any;
   constructor(public titleService: TitleService, public ts: NewTransactionService) {
     this.data = {
       transactionId: "",
@@ -33,7 +34,7 @@ export class DiscountingComponent implements OnInit {
       negotiationDate: null,
       paymentPeriod: 0,
       paymentTerms: "",
-      tenorEndDate: null,
+      // tenorEndDate: null,
       applicantName: "",
       applicantCountry: "",
       beneName: "",
@@ -152,6 +153,15 @@ export class DiscountingComponent implements OnInit {
         break;
     }
 
+  }
+
+  close(){
+    $('.modal3').hide();
+  }
+
+  openDocument(file){
+    $('#myModal7').show();
+    this.document = file;
   }
 
 }

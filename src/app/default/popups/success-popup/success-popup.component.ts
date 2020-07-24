@@ -31,14 +31,16 @@ export class SuccessPopupComponent implements OnInit {
   }
 
   close() {
-    console.log("this.parent----",this.parent)
     $('.modal').hide();
     if(this.parent === 'login'){
       this.router.navigate(['/'+this.parent]);
+      $('#container').removeClass('right-panel-active');
     } else if(this.parent === "accountactivation"){
       this.router.navigate(['/login']);
     } else if(this.parent==="cst/dsb/business-details"){
       this.router.navigate(['/cst/dsb/subscription']);
+    }else if(this.parent==="forgetpassword"){
+      this.router.navigate(['/login']);
     }else{
       this.router.navigate(['/'+this.parent]);
     }

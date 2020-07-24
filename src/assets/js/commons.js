@@ -652,6 +652,7 @@ export function loadLogin() {
 
     $('#signIn').click(function () {
         $('#container').removeClass('right-panel-active');
+        $('#logindiv').slideDown();
     });
 
     $('#btnForgot').click(function () {
@@ -1404,7 +1405,7 @@ export function custActiveTransaction() {
 
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
         });
-    }, 800);
+    }, 1000);
 }
 
 

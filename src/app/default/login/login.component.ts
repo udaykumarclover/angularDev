@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject ,ElementRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, Form } from '@angular/forms';
 import { SignupService } from 'src/app/services/signup/signup.service';
 import { signup } from 'src/app/beans/signup';
@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit {
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
-
-
   interestedCountryList = this.countryService();
   blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
@@ -41,11 +39,12 @@ export class LoginComponent implements OnInit {
   public forgPassSubmitted: boolean = false;
   resp: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService) {
+  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef) {
     $('#checkboxError').hide();
   }
 
   ngOnInit() {
+    loads();
     loadLogin();
     this.loginForm = this.fb.group({
       username: [''],
@@ -64,7 +63,7 @@ export class LoginComponent implements OnInit {
       radio: ['customer'],
       selector: ['customer'],
       countriesInt: [''],
-      minLCVal: [''],
+      minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: ['']
     });
@@ -81,6 +80,10 @@ export class LoginComponent implements OnInit {
       allowSearchFilter: false
     }
     this.getCountryData();
+  }
+  ngAfterViewInit() {    
+    const first_input = this.el.nativeElement.querySelector('.first_input');
+    first_input.focus();
   }
   get lf() {
     return this.loginForm.controls;
@@ -99,9 +102,10 @@ export class LoginComponent implements OnInit {
     }
     this.submitted = false;
     let loginData: Login = {
-      userId: this.loginForm.get('username').value,
+      userId: this.loginForm.get('username').value.trim(),
       password: this.loginForm.get('password').value
     }
+    this.loginForm.get('username').setValue(this.loginForm.get('username').value.trim())
     this.loginService.login(loginData).
       subscribe(
         (response) => {
@@ -123,7 +127,7 @@ export class LoginComponent implements OnInit {
         (error) => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Username or Password is incorrect !',
+              title: 'Username or Password is incorrect!',
               message: 'Username or Password is incorrect',
               parent: 'login'
             }
@@ -295,7 +299,7 @@ export class LoginComponent implements OnInit {
           this.forgotPasswordForm.reset();
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congratulations! Password reset link is sent to '+ emailValue +'.',
+              title: 'Congratulations! Password reset link is sent to email id '+ emailValue +'.',
               message: '',
               parent: 'login'
             }
@@ -335,9 +339,11 @@ export class LoginComponent implements OnInit {
   }
 
   validateBank() {
-    // this.signupForm.get('minLCVal').setValidators(Validators.required);
+    // this.signupForm.get('minLCValue').setValidators(Validators.required);
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
+    this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('landlineNo').setValidators(Validators.required);
     this.updateValidation();
   }
 
@@ -358,7 +364,7 @@ export class LoginComponent implements OnInit {
   }
 
   removeBankValidation() {
-    this.signupForm.get('minLCVal').clearValidators();
+    this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
     this.updateValidation();
@@ -369,7 +375,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('companyName').clearValidators();
     this.signupForm.get('businessType').clearValidators();
 
-    this.signupForm.get('minLCVal').clearValidators();
+    this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
 
@@ -377,6 +383,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('lastName').clearValidators();
     this.signupForm.get('officialMailId').clearValidators();
     this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('landlineNo').clearValidators();
     this.signupForm.get('country').clearValidators();
   }
 
@@ -385,7 +392,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('companyName').updateValueAndValidity();
     this.signupForm.get('businessType').updateValueAndValidity();
 
-    this.signupForm.get('minLCVal').updateValueAndValidity();
+    this.signupForm.get('minLCValue').updateValueAndValidity();
     this.signupForm.get('blacklistedGC').updateValueAndValidity();
     this.signupForm.get('countriesInt').updateValueAndValidity();
 
@@ -393,6 +400,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('lastName').updateValueAndValidity();
     this.signupForm.get('officialMailId').updateValueAndValidity();
     this.signupForm.get('mobileNo').updateValueAndValidity();
+    this.signupForm.get('landlineNo').updateValueAndValidity();
     this.signupForm.get('country').updateValueAndValidity();
   }
 
@@ -424,6 +432,11 @@ export class LoginComponent implements OnInit {
       }
       this.intCountries.push(icData);
     }
+    var minValue = this.signupForm.get('minLCValue').value;
+    if(minValue == ""){
+      minValue = '0';
+    }
+
 
 
     let data = {
@@ -441,7 +454,7 @@ export class LoginComponent implements OnInit {
       bankType: this.signupForm.get('selector').value,
       subscriberType: this.signupForm.get('radio').value,
 
-      minLCValue: this.signupForm.get('minLCVal').value,
+      minLCValue: minValue,
       interestedCountry: this.intCountries,
       blacklistedGoods: this.blg
 
@@ -492,7 +505,7 @@ export class LoginComponent implements OnInit {
       radio: '',
       selector: '',
       countriesInt: '',
-      minLCVal: '',
+      minLCValue: '',
       blacklistedGC: '',
       companyName: ''
     })

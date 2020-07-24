@@ -27,4 +27,8 @@ export class ForgetPasswordService {
   public sendEmailBranchUser(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/sendBranchUserLink` ,data, { headers: { 'content-type': 'application/json' } });
   }
+
+  public branchUserOTP(token: string): Observable<any> {
+    return this.httpClient.get(`${environment.domain}/nimaiEmail/validateAccLink/` + token, { headers: { 'content-type': 'application/json' } });
+  }
 }

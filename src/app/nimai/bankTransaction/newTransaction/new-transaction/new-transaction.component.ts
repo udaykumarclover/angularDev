@@ -10,7 +10,7 @@ import { DiscountingComponent } from '../quotes/discounting/discounting.componen
 import { BankerComponent } from '../quotes/banker/banker.component';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Tflag } from 'src/app/beans/Tflag';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
+import { newTransactionBean } from 'src/app/beans/BankNewTransaction';
 
 
 @Component({
@@ -20,7 +20,7 @@ import { TransactionBean } from 'src/app/beans/TransactionBean';
 })
 export class NewTransactionComponent implements OnInit {
   bankDetail: any;
-  public data: TransactionBean;
+  public data: newTransactionBean;
   displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
@@ -149,7 +149,8 @@ export class NewTransactionComponent implements OnInit {
       "requirementType":val.requirementType,
       "lCIssuanceBank":val.lCIssuanceBank,
       "lCValue":val.lCValue,
-      "lCCurrency":val.lCCurrency
+      "lCCurrency":val.lCCurrency,
+      "usanceDays":val.usanceDays
      
   }
   
@@ -172,7 +173,7 @@ export class NewTransactionComponent implements OnInit {
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinance') {
+    } else if (pagename === 'refinancing') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

@@ -35,7 +35,7 @@ export class ConfirmationComponent implements OnInit {
       negotiationDate: null,
       paymentPeriod: 0,
       paymentTerms: "",
-      tenorEndDate: null,
+      // tenorEndDate: null,
       applicantName: "",
       applicantCountry: "",
       beneName: "",

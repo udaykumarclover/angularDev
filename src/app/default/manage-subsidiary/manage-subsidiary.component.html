@@ -8,6 +8,16 @@
           </div>
           <div class="card-content">
             <h4 class="card-title"> <span id="changetext"> Manage Subsidiary</span>
+              <ul class="pull-right list-unstyled list-inline statusbar">
+                <li>
+                  <label>Subsidiary Slots Available <span class="">4</span></label>
+                </li>
+                <li><label>Subsidiary Slots Utilized <span>6</span></label></li>
+                <li>
+                  <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a>
+                </li>
+
+              </ul>
             </h4>
               <div class="row">
                 <div class="col-md-12">
@@ -132,7 +142,7 @@
                 </p>
                 <div class="clearfix"></div>
                 <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
-                <a (click)="close()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
               </div>
             </div>
 

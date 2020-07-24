@@ -5,7 +5,7 @@
         <div class="col-md-12">
            <div class="card">
               <div class="card-header card-header-icon" data-background-color="blue">
-                 <i class="fa fa-th-list"></i>
+                 <i class="fa fa-check-square-o"></i>
               </div>
               <div class="card-content">
                 <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
@@ -23,7 +23,7 @@
                                   <tr>
                                     <th class="disabled-sorting text-center">#</th> 
                                     <th style="min-width: 150px;">Beneficiary</th>
-                                    <th>Country</th>
+                                    <th nowrap>Country</th>
                                     <th style="min-width: 150px;">Applicant</th>
                                     <th nowrap>Country</th>
                                     <th nowrap>Txn ID</th>
@@ -49,8 +49,8 @@
                                     <td nowrap>{{record.insertedDate}}</td>
                                     <td nowrap>{{record.validity}}</td>
                                     <td>{{record.lCIssuanceBank}}</td>
-                                    <td>{{record.lCCurrency}}</td>
                                     <td>{{record.lCValue}}</td>
+                                    <td>{{record.lCCurrency}}</td>
                                     <td>{{record.goodsType}}</td>
                                     <td>{{record.requirementType}}</td>
                                     <td *ngIf="record.quotationReceived == 0"><span>{{record.quotationReceived}}</span></td>

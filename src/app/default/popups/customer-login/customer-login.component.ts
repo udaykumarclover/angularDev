@@ -17,6 +17,7 @@ export class CustomerLoginComponent implements OnInit {
   public parent: string;
   emailAddress: any;
   submitted: boolean = false;
+  passCode: any;
 
   constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
@@ -44,8 +45,8 @@ export class CustomerLoginComponent implements OnInit {
   }
   ngAfterViewInit() {
     /*added by ashvini -Default cursor should be present in the Branch ID field of the Enter Access Details page of the Bank as Customer. */
-    const invalidElements = this.el.nativeElement.querySelector('.first_input');
-    invalidElements.focus();
+    const first_input = this.el.nativeElement.querySelector('.first_input');
+    first_input.focus();
   }
   close() {
     $('.modal1').hide();
@@ -69,24 +70,37 @@ export class CustomerLoginComponent implements OnInit {
     let userID: string = sessionStorage.getItem('userID');
     this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {
+      let responseData = JSON.parse(JSON.stringify(response));
+      var matches = responseData.data.match(/\d+/g)
+      if (matches != null) {
+      
         let sendEmail = {
           "event": 'ADD_BRANCH_USER',
           "emailId": this.emailAddress,
-          "userId": sessionStorage.getItem("userID")
+          "userId": sessionStorage.getItem("userID"),
+          "branchId": responseData.data
         }
         this.fps.sendEmailBranchUser(sendEmail)
           .subscribe(
             (response) => {
+             this.passCode = JSON.parse(JSON.stringify(response));
+             this.passCode = this.passCode.data;
 
               $('.modal1').hide();
               $('.modal2').show();
             },
             (error) => {
+              $('.modal1').hide();
               $('.modal3').show();
               // alert("unable to send mail")
 
             }
           )
+        }
+        else{
+          $('.modal1').hide();
+          $('.modal3').show();
+        }
       },
       (error) => { }
     );
@@ -95,8 +109,16 @@ export class CustomerLoginComponent implements OnInit {
 
   onOTPClick() {
     $('.modal2').hide();
-    
-    // this.router.navigate(['/cst/dsb/business-details']);           
+    this.fps.branchUserOTP(this.passCode).subscribe(
+      (response) => {
+        var response = JSON.parse(JSON.stringify(response));
+
+        if(response.flag == 1){
+          this.router.navigate(['/cst/dsb/business-details']);           
+        }
+      },
+      (err) => {}
+    )
   }
 
   reenterCustLoginDetails() {

@@ -1,6 +1,5 @@
 import { Tflag } from 'src/app/beans/Tflag';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
 import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ViewChild, OnInit, Component } from '@angular/core';
@@ -20,6 +19,7 @@ public isActiveQuote:boolean=false;
   public title: string = "";
   public tab = 'tab1';
   detail:any;
+  public selected:string="";
   constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
     
     this.data = {        
@@ -50,7 +50,9 @@ public isActiveQuote:boolean=false;
       expiryDays: 0,
       maturityDays: 0,
       negotiationDays: 0,
-      sumOfQuote: 0
+      sumOfQuote: 0,
+      confChgsMatur: 0,
+      confChgsNegot:0
   
     
     
@@ -87,6 +89,10 @@ public isActiveQuote:boolean=false;
 
     }
   }
+
+public radiobtn(){
+  this.selected='yes';
+}
 
   public closed() {
     this.isActive = false;
@@ -139,7 +145,8 @@ public isActiveQuote:boolean=false;
     }
   }
   
-  public transactionForQuotes(act: string,data:any) {
+  
+  public transactionForQuotes(act: string,data:any,detail:any) {
 
     switch (act) {
       case 'edit': {
@@ -152,11 +159,11 @@ public isActiveQuote:boolean=false;
         break;
 
       case 'confirm': {
-        console.log(data)
-      const param = {
-                    "transactionId":data.transactionId,
-                    "userId":data.userId
-       }
+        const param = {
+                      "quotationId":detail.quotationId,
+                      "transactionId":data.transactionId,
+                      "userId":data.userId
+         }
       this.ts.confirmQuotation(param).subscribe(
         (response) => {
           console.log(response)
@@ -191,14 +198,12 @@ public isActiveQuote:boolean=false;
         break;
 
 
-        case 'generateQuote': {
+        case 'calculateQuote':{
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
-              this.tab = 'tab2';
               this.detail = JSON.parse(JSON.stringify(response)).data;
-              console.log(this.detail)
               this.data=data;
-             
+              this.data.TotalQuote=this.detail.TotalQuote;
             },
             error => {
               alert('error')
@@ -206,11 +211,27 @@ public isActiveQuote:boolean=false;
               this.tab = 'tab1';
             }
           )
-          
-    }
-  }
-  
-  }
+        }break;
+        case 'generateQuote': {
+          this.tab = 'tab2';
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              this.data.TotalQuote=this.detail.TotalQuote;
+              this.data.confChgsMatur=this.detail.confChgsMatur;
+              this.data.confChgsNegot=this.detail.confChgsNegot;
+            },
+            error => {
+              alert('error')
+              this.closedQuote();
+              this.tab = 'tab1';
+            }
+          )
+}
+}
+
+}
 
 
 }

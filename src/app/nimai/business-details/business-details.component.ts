@@ -55,7 +55,7 @@ export class BusinessDetailsComponent implements OnInit {
       provinceName: ['',Validators.required],
       city: ['', [Validators.required,Validators.minLength(2)]],
       addressLine1: ['', [Validators.required,Validators.minLength(2)]],
-      addressLine2: ['',Validators.minLength(2)],
+      addressLine2: ['', [Validators.required,Validators.minLength(2)]],
       addressLine3: ['',Validators.minLength(2)],
       pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
       telephone: ['', Validators.required],
@@ -72,7 +72,7 @@ export class BusinessDetailsComponent implements OnInit {
     return this.fb.group({
     ownerFirstName: ['', Validators.required],
     ownerLastName: ['', Validators.required],
-    designation: ['', Validators.minLength(3)],
+    designation: ['', [Validators.required,Validators.minLength(3)]],
     ownerID: ['']
   });
   }
@@ -132,7 +132,8 @@ export class BusinessDetailsComponent implements OnInit {
     this.validateCommons();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
-    console.log("this.businessDetailsForm",this.businessDetailsForm)
+    let items = this.businessDetailsForm.get('owners') as FormArray;
+    console.log("items",items.controls)
     console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
@@ -184,9 +185,9 @@ export class BusinessDetailsComponent implements OnInit {
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
         this.bd = responseData.data;
-        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('BC')) {
+        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('RE')) {
           this.isCustomer = false;
-        } else if (this.bd.userId.startsWith('CU')) {
+        } else if (this.bd.userId.startsWith('CU') || this.bd.userId.startsWith('BC')) {
           this.isCustomer = true;
 
         }
@@ -198,7 +199,7 @@ export class BusinessDetailsComponent implements OnInit {
           branchName: this.bd.branchName,
           swiftCode: this.bd.swiftCode,
           telephone: this.bd.telephone,
-
+          bank_designation: this.bd.designation,
           companyName: this.bd.comapanyName,
           country: this.bd.registeredCountry,
           selector: this.bd.registrationType,
@@ -302,15 +303,25 @@ export class BusinessDetailsComponent implements OnInit {
       items.removeAt(x);
   }
 
-  validateRegexFields(event, type) {
-    if (type == "number") {
+  validateRegexFields(event, type){
+    if(type == "number"){
       ValidateRegex.validateNumber(event);
     }
-    else if (type == "alpha") {
+    else if(type == "alpha"){
       ValidateRegex.alphaOnly(event);
     }
-    else if (type == "alphaNum") {
+    else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
+    }else if(type=="namewithspace"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/ || key==188/* , key*/ || key > 31 && (key < 48 || key > 57))) {
+          event.preventDefault();
+      }    
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 

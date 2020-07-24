@@ -19,6 +19,7 @@ export class TenorPaymentComponent implements OnInit {
   public discount: boolean = false;
   public refinancing: boolean = false;
   public confirmation: boolean = true;
+  public CandD: boolean = false;
   fileToUpload: File = null;
   private imageSrc: string = '';
 
@@ -45,16 +46,25 @@ export class TenorPaymentComponent implements OnInit {
       this.discount = true;
       this.confirmation = false;
       this.refinancing = false;
+      this.CandD = false;
       this.rds.refinance.next(this.refinancing);
     } else if (this.selector === 'refinance') {
       this.discount = false;
       this.confirmation = false;
       this.refinancing = true;
+      this.CandD = false;
+      this.rds.refinance.next(this.refinancing);
+    } else if(this.selector === "confirmAndDiscount"){
+      this.discount = false;
+      this.confirmation = true;
+      this.refinancing = false;
+      this.CandD = true;
       this.rds.refinance.next(this.refinancing);
     } else {
       this.discount = false;
       this.confirmation = true;
       this.refinancing = false;
+      this.CandD = false;
       this.rds.refinance.next(this.refinancing);
     }
 
@@ -96,10 +106,10 @@ export class TenorPaymentComponent implements OnInit {
   handleRadio(e, type){
     if(type){
       if(type == "DOM"){
-        this.LcDetail.get('tenorEndDate').setValue('DOM');
+        // this.LcDetail.get('tenorEndDate').setValue('DOM');
       }
       else{
-        this.LcDetail.get('tenorEndDate').setValue(this.LcDetail.get('negotiationDate').value);
+        // this.LcDetail.get('tenorEndDate').setValue(this.LcDetail.get('negotiationDate').value);
       }
 
     }

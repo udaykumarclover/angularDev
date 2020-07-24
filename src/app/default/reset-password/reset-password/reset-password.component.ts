@@ -4,7 +4,7 @@ import { ResetPasswordService } from 'src/app/services/reset-password/reset-pass
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
 import { MustMatch } from 'src/app/beans/Validations';
-
+import { loads} from '../../../../assets/js/commons.js'
 
 @Component({
   selector: 'app-reset-password',
@@ -42,12 +42,13 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    loads()
     this.resetForm = this.fb.group({
       emailId: [''],
       userId: [''],
       oldPassword: [''],
-      newPassword: ['', Validators.required],
-      retypePaasword: ['' ,Validators.required],
+      newPassword: ['', [Validators.required,Validators.minLength(6)]],
+      retypePaasword: ['' ,[Validators.required,Validators.minLength(6)]],
       getToken: this.key
     },
     {
@@ -73,7 +74,7 @@ export class ResetPasswordComponent implements OnInit {
       (response)=>{
         const navigationExtras: NavigationExtras = {
           state: {
-            title: 'Congratulations! Your password reset successfully !',
+            title: 'Your password is set successfully!',
             message: '',
             parent: 'accountactivation'
           }

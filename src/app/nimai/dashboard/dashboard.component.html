@@ -104,7 +104,7 @@
                     <li *ngIf="isCustomer || isBank">
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
                           <i class="fa fa-book fa-fw"></i>
-                          <p>Transaction  Details 
+                          <p>Transaction 
                              <b class="caret"></b>
                           </p>
                        </a>
@@ -126,7 +126,7 @@
                              </li>
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['active-transaction']">
-                                   <i class="fas fa-exchange-alt"></i>
+                                   <i class="fa fa-check-square-o"></i>
                                    <p> Active Transaction </p>
                                 </a>
                              </li>
@@ -167,7 +167,8 @@
                 <ul class="dropdown-menu">
                   <li><a [routerLink]="['my-profile']">My Profile</a></li>
                   <li><a *ngIf="isCustomer || isBank" [routerLink]="['credit-transaction']">Credits and Transactions</a></li>
-                  <li><a *ngIf="isCustomer || isBank" [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
+                  <li><a *ngIf="isCustomer" [routerLink]="['manage-sub']">Manage Subsidiary</a></li>
+                  <li><a *ngIf="isBank" [routerLink]="['manage-user']">Manage User</a></li>
                   <li><a [routerLink]="['refer']">Refer</a></li>
                   <li><a [routerLink]="['change-password']">Change Password</a></li>
                   <li><a href="preComingSoon.html">Support</a></li>

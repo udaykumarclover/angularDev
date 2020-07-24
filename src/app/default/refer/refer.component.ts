@@ -25,7 +25,7 @@ export class ReferComponent implements OnInit {
   resp: any;
   referViewDetails : any;
   respMessage: string;
-
+  total_references:number;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -70,11 +70,28 @@ export class ReferComponent implements OnInit {
     loads();
     manageSub();
     this.viewReferDetails(sessionStorage.getItem('userID'));
+    
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
   }
 
   close() {
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+    //this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //     this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+    // });
     $("#addsub").hide();
+  }
+
+  onOkClick(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+      });
+      $("#addsub").hide();
   }
 
   addRefer() {
@@ -169,7 +186,9 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
-          this.referViewDetails = responseData;
+          this.referViewDetails = responseData.filter(Boolean);;
+          this.total_references=this.referViewDetails.length;
+          console.log("this.total_references---",this.total_references)
         },
         (error) => {}
       )

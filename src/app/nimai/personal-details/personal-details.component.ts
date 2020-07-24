@@ -68,9 +68,9 @@ export class PersonalDetailsComponent implements OnInit {
       companyName: [''],
       designation: [''],
       businessType: [''],
-      countriesInt: ['',Validators.required],
+      countriesInt: [''],
       minLCVal: [''],
-      blacklistedGC: ['',Validators.required]
+      blacklistedGC: ['']
 
     })
     this.titleService.changeTitle(this.title);
@@ -81,7 +81,8 @@ export class PersonalDetailsComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 5,
-      allowSearchFilter: true
+      allowSearchFilter: true,
+      closeDropDownOnSelection: true
     }
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -116,13 +117,17 @@ export class PersonalDetailsComponent implements OnInit {
     
 
   }
-  setUserCategoryValidators(){
-    const goods = this.personalDetailsForm.get('blacklistedGC')
-    const countries = this.personalDetailsForm.get('countriesInt')
-    goods.clearValidators();
-    goods.updateValueAndValidity();
-    countries.clearValidators();
-    countries.updateValueAndValidity();
+  setReferrerValidators(){
+    this.personalDetailsForm.get('companyName').setValidators([Validators.required])
+    this.personalDetailsForm.get('companyName').updateValueAndValidity();
+    this.personalDetailsForm.get('businessType').setValidators([Validators.required])
+    this.personalDetailsForm.get('businessType').updateValueAndValidity();
+  }
+  setBankValidators(){
+    this.personalDetailsForm.get('blacklistedGC').setValidators([Validators.required])
+    this.personalDetailsForm.get('blacklistedGC').updateValueAndValidity();
+    this.personalDetailsForm.get('countriesInt').setValidators([Validators.required])
+    this.personalDetailsForm.get('countriesInt').updateValueAndValidity();
    }
   submit(): void {
     this.submitted = true;
@@ -201,19 +206,15 @@ export class PersonalDetailsComponent implements OnInit {
           let bankType = this.personalDetails.bankType
           if (subscriptionType === 'REFERRER') {
             this.isReferrer = true;
-            $("body").trigger("domChanged");
             this.isBank = false;
+            this.setReferrerValidators();
           } else if (subscriptionType === 'BANK' && bankType === 'UNDERWRITER') {
-
             this.isBank = true;
             this.isReferrer = false;
+            this.setBankValidators();
           } else {
             this.isBank = false;
             this.isReferrer = false;
-          }
-          if(!this.isBank){
-            console.log("iffff")
-            this.setUserCategoryValidators();
           }
           setTimeout(() => {
             selectpickercall();
@@ -401,14 +402,15 @@ export class PersonalDetailsComponent implements OnInit {
       ValidateRegex.validateNumber(event);
     }
     else if (type == "alpha") {
-      //ValidateRegex.alphaOnly(event);
-      var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
-          event.preventDefault();
-      }
+      ValidateRegex.alphaOnly(event);
     }
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
+    }else if(type=="name_validation"){
+      var key = event.keyCode;
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+          event.preventDefault();
+      }    
     }
   }
 

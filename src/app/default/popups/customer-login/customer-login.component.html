@@ -16,7 +16,7 @@
               <div class="inputDiv">
                 <input type="text" maxlength="10" formControlName="batch_id" (keypress)="validateRegexFields($event, 'alphaNum')" class="first_input">
                 <label>Batch ID</label>
-                <div *ngIf="submitted && custLogDetails.batch_id.errors?.required">
+                <div *ngIf="submitted && custLogDetails.batch_id.errors?.required" class="invalid-feedback">
                   Batch Id is required
               </div>
               </div>
@@ -25,7 +25,7 @@
               <div class="inputDiv">
                 <input type="text" maxlength="10" formControlName="employee_id" (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Employee ID</label>
-                <div *ngIf="submitted && custLogDetails.employee_id.errors?.required">
+                <div *ngIf="submitted && custLogDetails.employee_id.errors?.required" class="invalid-feedback">
                   Employee ID is required
               </div>
               </div>
@@ -34,7 +34,7 @@
               <div class="inputDiv">
                 <input type="text" formControlName="email_id">
                 <label>Email ID</label>
-                <div *ngIf="submitted && custLogDetails.email_id.errors?.required">
+                <div *ngIf="submitted && custLogDetails.email_id.errors?.required" class="invalid-feedback">
                   Email is required
                 </div>
                 <div *ngIf="custLogDetails.email_id.touched && custLogDetails.email_id.errors?.email">
@@ -46,7 +46,7 @@
               <div class="inputDiv">
                 <input type="text" maxlength="15" formControlName="employee_name" (keydown)="validateRegexFields($event, 'alpha')">
                 <label>Name</label>
-                <div *ngIf="submitted && custLogDetails.employee_name.errors?.required">
+                <div *ngIf="submitted && custLogDetails.employee_name.errors?.required" class="invalid-feedback">
                   Name is required
               </div>
               </div>

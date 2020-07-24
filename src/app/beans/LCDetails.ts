@@ -21,7 +21,7 @@ export interface LcDetail {
     paymentPeriod: string;
     paymentTerms: string;
     tenorStartDate:string;
-    tenorEndDate: string;
+    // tenorEndDate: string;
 
     // For Discounting 
     discountingPeriod:string;
