@@ -217,12 +217,14 @@ export class UploadLCComponent implements OnInit {
       this.isNext = true;
       this.isSave = false;
       this.isPreview = false;
+      this.showUpdateButton = false;
 
     } else {  
       this.isPrev = true;
       this.isNext = true;
       this.isSave = false;
       this.isPreview = false;
+      this.showUpdateButton = false;
     }
     this.titleService.loading.next(false);
   }

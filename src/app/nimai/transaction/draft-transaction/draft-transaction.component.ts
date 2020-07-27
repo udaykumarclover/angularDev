@@ -60,4 +60,9 @@ export class DraftTransactionComponent implements OnInit {
       .then(success => console.log('navigation success?', success))
       .catch(console.error);
   }
+
+  deleteDraft(data){
+    const index = this.draftData.indexOf(data);
+    this.draftData.splice(index, 1);
+  }
 }
