@@ -7,16 +7,11 @@
     padding-bottom: 12px;
 }
 
-.table textarea{
+.textarea-pad{
     margin: 6px 0px 0px; width: 320px; height: 52px;
     
 }
 
 .table td button{
     margin-left: 149px;
-}
-.table td radio{
-    width: 18px;
-    height: 18px;
-
 }

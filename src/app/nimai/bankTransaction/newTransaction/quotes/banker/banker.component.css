@@ -9,9 +9,8 @@
         padding-bottom: 12px;
     }
     
-    .table textarea{
-        margin: 6px 0px 0px; width: 320px; height: 52px;
-        
+   .textarea-pad{
+    margin: 6px 0px 0px; width: 320px; height: 52px;
     }
     
     .table td button{
