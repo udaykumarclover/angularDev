@@ -107,5 +107,16 @@ close(){
   $('#myModal9').hide();
 }
 
+rejectBankQuote(quoteId){
+  let data = {
+    "statusReason":"ABC"
+    }
+  
+  this.nts.custRejectBankQuote(data, quoteId).subscribe(
+      (response) => {},
+      (err) => {}
+  )
+}
+
 
 }
