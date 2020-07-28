@@ -53,14 +53,18 @@
     font-weight: bold;
     position: absolute;
     z-index: 9;
-    margin-left: 90px;
+    margin-left: 640px;
+    margin-top: -51px
+}
+.popupnew .emaildiv h2{
+    padding: 5px 15px!important;
 }
 .modal-dialog{
     width: 695px!important;
 }
 .refer_span{
-    font-size: 15px;
-    margin-left: 10px;
+    display: flex;
+    font-size: 13px;
 }
 .close:hover,
 .close:focus {

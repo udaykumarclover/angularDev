@@ -26,8 +26,14 @@ export class DraftTransactionComponent implements OnInit {
   }
 
   callAllDraftTransaction(){
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if(userIdDetail.startsWith('BC')){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
     const param = {
-      userId: sessionStorage.getItem('userID')
+      userId: sessionStorage.getItem('userID'),
+      "branchUserEmail":emailId
     }
     
     this.service.getCustDraftTransaction(param).subscribe(
@@ -53,5 +59,10 @@ export class DraftTransactionComponent implements OnInit {
     this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
       .then(success => console.log('navigation success?', success))
       .catch(console.error);
+  }
+
+  deleteDraft(data){
+    const index = this.draftData.indexOf(data);
+    this.draftData.splice(index, 1);
   }
 }

@@ -58,7 +58,7 @@ export class BusinessDetailsComponent implements OnInit {
       addressLine2: ['', [Validators.required,Validators.minLength(2)]],
       addressLine3: ['',Validators.minLength(2)],
       pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
-      telephone: ['', Validators.required],
+      telephone: [''],
       bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
       branchName: ['', [Validators.required,Validators.minLength(3)]],
       swiftCode: ['', [Validators.required,Validators.minLength(3)]],
@@ -112,6 +112,7 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").disable();
       this.businessDetailsForm.get("selector").disable();
       this.businessDetailsForm.get("bank_designation").enable();
+      this.businessDetailsForm.get('telephone').setValidators(Validators.required);
 
     } else {
       this.businessDetailsForm.get("bankNbfcName").disable();
@@ -121,6 +122,8 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").enable();
       this.businessDetailsForm.get("selector").enable();
       this.businessDetailsForm.get("bank_designation").disable();
+      this.businessDetailsForm.get('telephone').clearValidators();
+
     }
 
   }

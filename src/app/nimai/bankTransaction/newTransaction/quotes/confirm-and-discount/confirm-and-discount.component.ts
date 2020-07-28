@@ -5,6 +5,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import { ViewChild, OnInit, Component } from '@angular/core';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-and-discount',
@@ -19,10 +20,20 @@ public isActiveQuote:boolean=false;
   public title: string = "";
   public tab = 'tab1';
   detail:any;
-  public radioSelected:string="";
+  public radioSelected:boolean=false;
   radioStatus: boolean;
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
-    
+  public parentURL: string = "";
+  public subURL: string = "";
+
+
+ constructor(public titleService: TitleService, public ts: NewTransactionService, 
+    public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
+   this.activatedRoute.parent.url.subscribe((urlPath) => {
+     this.parentURL = urlPath[urlPath.length - 1].path;
+   });
+   this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+     this.subURL = urlPath[urlPath.length - 1].path;
+   })
     this.data = {        
       transactionId: "",
       userId: "",
@@ -64,11 +75,12 @@ public isActiveQuote:boolean=false;
   }
 
   onNegotChange(value){
-     this.data.confChgsIssuanceToNegot='yes';
+    this.data.confChgsIssuanceToMatur='';
+    this.data.confChgsIssuanceToNegot='yes';     
      }
  
  onMatureChange(value){
-    
+  this.data.confChgsIssuanceToNegot='';
   this.data.confChgsIssuanceToMatur='yes';
    }
 
@@ -139,7 +151,9 @@ public isActiveQuote:boolean=false;
         break;
       case 'ok': {
             this.closed();
-            this.tab = 'tab1';                  
+            this.tab = 'tab1';         
+           
+         
       }
         break;
       case 'preview': {
@@ -194,6 +208,16 @@ public isActiveQuote:boolean=false;
       case 'ok': {
            this.closedQuote();
            this.tab = 'tab1';
+           const navigationExtras: NavigationExtras = {
+            state: {
+              redirectedFrom: "confirmAndDiscountComponent",
+              trnsactionID: data.transactionId
+            }
+          };
+           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+           .then(success => console.log('navigation success?', success))
+           .catch(console.error);
+              
               }
         break;
       case 'preview': {

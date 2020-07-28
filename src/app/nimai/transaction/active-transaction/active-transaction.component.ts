@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
-import { NewTransaction, NTBean } from 'src/app/beans/BankNewTransaction';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ConfirmationComponent } from '../transactionTypes/confirmation/confirmation.component';
 import { DiscountingComponent } from '../transactionTypes/discounting/discounting.component';
 import { ConfirmAndDiscountComponent } from '../transactionTypes/confirm-and-discount/confirm-and-discount.component';
@@ -10,7 +9,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction, onQuoteClick } from 'src/assets/js/commons';
+import { custActiveTransaction } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -55,9 +54,15 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   public getAllnewTransactions() {
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if(userIdDetail.startsWith('BC')){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
     const data={
       userId:sessionStorage.getItem('userID'),
-      "transactionStatus": 'Active'
+      "transactionStatus": 'Active',
+      "branchUserEmail":emailId
     }
     this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
@@ -100,19 +105,19 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount') {
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.action(true,action,data);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinance') {
+    } else if (pagename === 'refinance' || pagename === 'Refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,data);
       this.banker.isActive = false;
-    } else if (pagename === 'banker') {
+    } else if (pagename === 'banker' || pagename === 'Banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

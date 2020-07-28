@@ -33,9 +33,15 @@ export class TransactionDetailsComponent {
   }
 
   public getAllnewTransactions(status) {
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if(userIdDetail.startsWith('BC')){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
     const data = {
       "userId": sessionStorage.getItem('userID'),
-      "transactionStatus": status
+      "transactionStatus": status,
+      "branchUserEmail":emailId
     }
     this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
@@ -66,14 +72,15 @@ export class TransactionDetailsComponent {
     custTrnsactionDetail();
   }
 
-  displayQuoteDetails(quoteId){
+  displayQuoteDetails(transactionId){
     let data = {
-      "quotationId":12254
-      }
+      "userId": sessionStorage.getItem('userID'),
+      "transactionId": transactionId
+    }
     
     this.nts.getQuotationDetails(data).subscribe(
         (response) => {
-          this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
+          this.quotationdata = JSON.parse(JSON.stringify(response)).data;
         console.log(this.quotationdata);
         },
         (error) => {}
@@ -98,6 +105,17 @@ export class TransactionDetailsComponent {
 }
 close(){
   $('#myModal9').hide();
+}
+
+rejectBankQuote(quoteId){
+  let data = {
+    "statusReason":"ABC"
+    }
+  
+  this.nts.custRejectBankQuote(data, quoteId).subscribe(
+      (response) => {},
+      (err) => {}
+  )
 }
 
 

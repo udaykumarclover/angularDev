@@ -193,13 +193,13 @@
                            </tr>
                            <tr>
                               <td>
-                                 <input type="radio" id="optn" [checked]="false" 
+                                 <input type="radio" id="optn" [checked]="false" name="charges" 
                                  (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
                                  <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" placeholder="">
                            </tr>
                            <tr>
                               <td>
-                                 <input type="radio" id="optn"[checked]="false" 
+                                 <input type="radio" id="optn"[checked]="false" name="charges" 
                                  (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
                                  <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" placeholder="">
                             </tr>
@@ -207,7 +207,7 @@
                               <td>Other Charges</td>
                               <td><input type="text" [(ngModel)]="data.otherCharges" placeholder="0.00">
                            </tr>
-                           <textarea class="textarea-pad"placeholder="Specify the type of charge (Swift, P&T, etc)" 
+                           <textarea style="width:331px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
                            rows="3"></textarea>
                           
                            <!-- <tr>

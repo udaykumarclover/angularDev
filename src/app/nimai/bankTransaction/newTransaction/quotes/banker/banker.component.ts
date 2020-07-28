@@ -5,6 +5,7 @@ import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-banker',
@@ -21,8 +22,19 @@ export class BankerComponent implements OnInit {
    detail:any;
   public title: string = "";
   public tab = 'tab1';
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
-    this.data = {        
+  public parentURL: string = "";
+  public subURL: string = "";
+
+
+ constructor(public titleService: TitleService, public ts: NewTransactionService, 
+    public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
+   this.activatedRoute.parent.url.subscribe((urlPath) => {
+     this.parentURL = urlPath[urlPath.length - 1].path;
+   });
+   this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+     this.subURL = urlPath[urlPath.length - 1].path;
+   })
+     this.data = {        
       transactionId: "",
       userId: "",
       bankUserId: "",
@@ -181,6 +193,15 @@ export class BankerComponent implements OnInit {
       case 'ok': {
            this.closedQuote();
            this.tab = 'tab1';
+           const navigationExtras: NavigationExtras = {
+            state: {
+              redirectedFrom: "banker",
+              trnsactionID: data.transactionId
+            }
+          };
+           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+           .then(success => console.log('navigation success?', success))
+           .catch(console.error);
               }
         break;
       case 'preview': {

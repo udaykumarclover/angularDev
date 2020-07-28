@@ -13,56 +13,108 @@ import * as $ from 'src/assets/js/jquery.min';
 })
 export class TrasactionDetailsComponent {
   
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime','validity', 'ib','amount', 'ccy', 'goods', 'requirement','receivedQuotes','star'];
-  dataSource: MatTableDataSource<any>;
-  public ntData: any[] = [];
+dataSource: MatTableDataSource<any>;
+public ntData: any[] = [];
 
-  public whoIsActive: string = "";
-  public hasNoRecord: boolean = false;
-  public data: any;
-  public specificDetail: any;
+public whoIsActive: string = "";
+public hasNoRecord: boolean = false;
+public data: any;
+public specificDetail: any;
+quotationdata: any;
+document: any;
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
-    this.titleService.quote.next(false);
-  }
-
-  ngOnInit() {
-    custTrnsactionDetail();
-    this.getAllnewTransactions('Accepted');
-  }
-
-  public getAllnewTransactions(status) {
-    const data = {
-     "userId": sessionStorage.getItem('userID'),
-      "transactionStatus": status
-    }
-    this.nts.getAllNewTransaction(data).subscribe(
-      (response) => {
-        this.data = [];
-        this.data = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.data);
-        if (!this.data) {
-          // this.hasNoRecord = true;
-        }
-      },
-      (error) => {
-        this.data = null;
-        // this.hasNoRecord = true;
-
-      }
-    )
-  }
-
-  getDetail(detail){
-
-    this.specificDetail = detail;
-    
-  }
-
-  changeStatusCall(status){
-    this.getAllnewTransactions(status);
-    custTrnsactionDetail();
-  }
-
-
+constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  this.titleService.quote.next(false);
 }
+
+ngOnInit() {
+  custTrnsactionDetail();
+  this.getAllnewTransactions('Accepted');
+}
+
+public getAllnewTransactions(status) {
+  
+  const data = {
+    "bankUserId":sessionStorage.getItem('userID'),
+    "quotationPlaced":"Yes",
+    "transactionStatus":status
+
+  }
+
+  this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
+    (response) => {
+      this.data = [];
+      this.data = JSON.parse(JSON.stringify(response)).data;
+      console.log(this.data);
+      if (!this.data) {
+        // this.hasNoRecord = true;
+      }
+    },
+    (error) => {
+      this.data = null;
+      // this.hasNoRecord = true;
+
+    }
+  )
+}
+
+getDetail(detail){
+
+  console.log(detail);
+  this.specificDetail = detail;
+  
+}
+
+changeStatusCall(status){
+  this.getAllnewTransactions(status);
+  custTrnsactionDetail();
+}
+
+displayQuoteDetails(transactionId){
+  let data = {
+    "userId": sessionStorage.getItem('userID'),
+    "transactionId": transactionId
+  }
+  
+  this.nts.getQuotationDetails(data).subscribe(
+      (response) => {
+        this.quotationdata = JSON.parse(JSON.stringify(response)).data;
+      console.log(this.quotationdata);
+      },
+      (error) => {}
+  )
+}
+
+openOffcanvas() {
+  document.getElementById("menu-barnew").style.width = "450px"; 
+}
+openNav3() {
+  document.getElementById("myCanvasNav").style.width = "100%";
+  document.getElementById("myCanvasNav").style.opacity = "0.6";  
+}
+closeOffcanvas() {
+  document.getElementById("menu-barnew").style.width = "0%"; 
+  document.getElementById("myCanvasNav").style.width = "0%";
+  document.getElementById("myCanvasNav").style.opacity = "0"; 
+} 
+showProForma(file){
+$('#myModal9').show();
+this.document = file;
+}
+close(){
+$('#myModal9').hide();
+}
+
+rejectBankQuote(quoteId){
+let data = {
+  "statusReason":"ABC"
+  }
+
+this.nts.custRejectBankQuote(data, quoteId).subscribe(
+    (response) => {},
+    (err) => {}
+)
+}
+
+
+} 
