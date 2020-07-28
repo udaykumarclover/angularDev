@@ -15,3 +15,8 @@
 .table td button{
     margin-left: 149px;
 }
+.table td radio{
+    width: 18px;
+    height: 18px;
+
+}

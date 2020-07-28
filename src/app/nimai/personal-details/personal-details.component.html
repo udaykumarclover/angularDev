@@ -28,7 +28,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" maxlength="30" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>First Name</label>
                                             <div *ngIf="submitted && perDetails.firstName.errors" class="invalid-feedback">
                                                 <div *ngIf="perDetails.firstName.errors.required">
@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" maxlength="30" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Last Name</label>
                                             <div *ngIf="submitted && perDetails.lastName.errors" class="invalid-feedback">
                                                 <div *ngIf="perDetails.lastName.errors?.required">
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="emailId" [ngClass]="hasValue ? 'has-value' : ''" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                                            <input type="text" maxlength="70" formControlName="emailId" [ngClass]="hasValue ? 'has-value' : ''" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                                             <label>Official Email ID</label>
                                             <div *ngIf="submitted && perDetails.emailId.errors" class="invalid-feedback">
                                             <div *ngIf="submitted && perDetails.emailId.errors?.required">

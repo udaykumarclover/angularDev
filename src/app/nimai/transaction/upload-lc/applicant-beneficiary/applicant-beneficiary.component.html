@@ -80,13 +80,13 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="beneContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <input type="text" maxlength="30" formControlName="beneContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Contact Person</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="beneContactPersonEmail">
+                <input type="text" formControlName="beneContactPersonEmail" maxlength="100">
                 <label>Contact Person's Email</label>
             </div>
         </div>
@@ -119,7 +119,7 @@
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
 
-                <input type="text" maxlength="30" formControlName="beneBankName">
+                <input type="text" maxlength="50" formControlName="beneBankName" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Bank Name</label>
             </div>
         </div>
@@ -144,7 +144,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="15" formControlName="beneName" (keydown)="validateRegexFields($event, 'alpha')">
+                <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Beneficiary's Name </label>
             </div>
         </div>
@@ -176,7 +176,7 @@
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
-                <input type="text" maxlength="30" formControlName="beneBankName">
+                <input type="text" maxlength="50" formControlName="beneBankName" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Bank Name</label>
             </div>
         </div>
@@ -212,7 +212,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="applicantContactPersonEmail">
+                <input type="text" formControlName="applicantContactPersonEmail" maxlength="100">
                 <label>Contact Person's Email</label>
             </div>
         </div>
