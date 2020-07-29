@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -25,8 +26,18 @@ export class ConfirmationComponent implements OnInit {
   data1:any;
   getCurrentDate: any;
    detail: any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public fb: FormBuilder, public upls: UploadLcService) {
-   
+   public parentURL: string = "";
+   public subURL: string = "";
+ 
+
+  constructor(public titleService: TitleService, public ts: NewTransactionService, 
+     public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
     this.getCurrentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
     this.data = {        
 		transactionId: "",
@@ -68,13 +79,16 @@ export class ConfirmationComponent implements OnInit {
 
 
   onNegotChange(value){
-    this.data.confChgsIssuanceToNegot='yes';
-    }
+    this.data.confChgsIssuanceToMatur='';
+    this.data.confChgsIssuanceToNegot='yes';     
+     }
+ 
+ onMatureChange(value){
+  this.data.confChgsIssuanceToNegot='';
+  this.data.confChgsIssuanceToMatur='yes';
+   }
 
-onMatureChange(value){
-   
- this.data.confChgsIssuanceToMatur='yes';
-  }
+
   public action(flag: boolean, type: Tflag, data: any) {
  
     if (flag) {
@@ -200,12 +214,20 @@ onMatureChange(value){
           this.tab = 'tab1';
         }
       )}
-
-
         break;
       case 'ok': {
            this.closedQuote();
            this.tab = 'tab1';
+             const navigationExtras: NavigationExtras = {
+            state: {
+              redirectedFrom: "confirmation",
+              trnsactionID: data.transactionId
+            }
+          };
+           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+           .then(success => console.log('navigation success?', success))
+           .catch(console.error);
+     
               }
         break;
       case 'preview': {

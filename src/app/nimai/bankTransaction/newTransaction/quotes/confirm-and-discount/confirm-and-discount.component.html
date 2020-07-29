@@ -280,7 +280,7 @@
                                     <span class="pull-right percent">%</span></td>
                                  </tr>
                                 
-                                 <textarea class="textarea-pad" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
+                                 <textarea style="width:331px;margin: 6px 0px 0px;height: 57px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
                                  rows="3"></textarea>
                                  <tr>
                                     <td>Confirmation interest p.a ( spread over benchmark)</td>
@@ -295,15 +295,15 @@
                                  
                                  <tr>
                                     <td>
-                                       <input type="radio" id="optn" [checked]="false" 
+                                       <input type="radio" [checked]="false" name="charges" 
                                        (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                       <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" placeholder="">
+                                       <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" placeholder="" readonly>
                                  </tr>
                                  <tr>
                                     <td>
-                                       <input type="radio" id="optn"[checked]="false" 
+                                       <input type="radio" [checked]="false" name="charges"
                                        (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
-                                       <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" placeholder="">
+                                       <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" placeholder="" readonly>
                                   </tr>
                                  <tr>
                                     <td>Negotiation Charges (Fixed)</td>
