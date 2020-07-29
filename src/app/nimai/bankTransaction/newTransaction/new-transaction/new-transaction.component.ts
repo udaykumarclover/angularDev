@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import {bankActiveTransaction,custActiveTransaction} from 'src/assets/js/commons'
+import {bankNewTransaction,custActiveTransaction} from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -40,7 +40,9 @@ export class NewTransactionComponent implements OnInit {
 
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
+    bankNewTransaction();
     this.titleService.quote.next(false);
+    
     this.data = {
       transactionId: "",
       userId: "",
@@ -103,8 +105,8 @@ export class NewTransactionComponent implements OnInit {
     }
   }
   ngOnInit() {
-  //  bankActiveTransaction();
-    custActiveTransaction();
+   // bankNewTransaction();
+  //  custActiveTransaction();
   }
 
 

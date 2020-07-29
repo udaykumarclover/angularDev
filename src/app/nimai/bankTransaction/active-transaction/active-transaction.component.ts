@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { NewTransaction, NTBean } from 'src/app/beans/BankNewTransaction';
-
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
 import { custActiveTransaction ,bankActiveTransaction} from 'src/assets/js/commons';
 import { ConfirmationComponent } from '../newTransaction/quotes/confirmation/confirmation.component';
@@ -38,8 +35,9 @@ export class ActiveTransactionComponent implements OnInit {
   detail: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
+   
     this.titleService.quote.next(false);
-
+    bankActiveTransaction();
   }
 
   public getAllnewTransactions() {
@@ -65,7 +63,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-    bankActiveTransaction();
+  // bankActiveTransaction();
   }
 
   ngAfterViewInit() {
@@ -81,6 +79,7 @@ export class ActiveTransactionComponent implements OnInit {
   showQuotePage(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
@@ -99,7 +98,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinance') {
+    } else if (pagename === 'refinancing') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

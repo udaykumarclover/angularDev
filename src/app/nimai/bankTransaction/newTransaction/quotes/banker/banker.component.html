@@ -11,27 +11,27 @@
                            <tbody>
                               <tr>
                                  <td>Banker's Acceptance Charges p.a.</td>
-                                 <td><input type="text" name="" placeholder="0.00"><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.bankAcceptCharges" placeholder="0.00"><span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
                                     
                                  </td>
-                                 <td><input type="text" name="" readonly placeholder="2.4780"><span class="pull-right percent">%</span>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" readonly placeholder="2.4780"><span class="pull-right percent">%</span>
                                  <textarea rows="3" placeholder="Comments for Applicable Benchmark"></textarea></td>
                               </tr>
                               <tr>
                                  <td>
                                     Negotiation Charges 
                                     <select class="halfauto">
-                                       <option value="Fixed">Fixed</option>
+                                       <option value="Fixed" >Fixed</option>
                                     </select>
                                  </td>
                                  <td>
                                     
- <input class="halfleft" type="text" name="" placeholder="0.00" />
+                          <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" />
  
-  <select class="halfright">
+                                   <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
                                  </td>
@@ -45,18 +45,18 @@
                                  </td>
                                  <td>
                                   
- <input class="" type="text" name="" placeholder="0.00" />
+                 <input class="" type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" />
  
- <span class="pull-right percent">%</span>
+                          <span class="pull-right percent">%</span>
                                  </td>
                               </tr>
                               <tr>
                                  <td>Document Handling Charges</td>
                                  <td>
                                    
- <input class="halfleft" type="text" name="" placeholder="0.00" />
+                      <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="0.00" />
  
-  <select class="halfright">
+                       <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
                                  </td>
@@ -65,9 +65,9 @@
                                  <td>Minimum Transaction Charges</td>
                                  <td>
                                    
- <input class="halfleft" type="text" name="" placeholder="0.00" />
- 
-  <select class="halfright">
+                     <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00" />
+                     
+                     <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
                                  </td>
@@ -78,9 +78,9 @@
                                  </td>
                                  <td>
                                    
- <input class="halfleft" type="text" name="" placeholder="0.00" />
- 
-  <select class="halfright">
+               <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" />
+               
+               <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
                                      <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
@@ -88,7 +88,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="text" name="" placeholder="28/03/2020"></td>
+                                 <td><input type="date" [(ngModel)]="dataViewEdit.validity" placeholder="28/03/2020"></td>
                               </tr> 
                                 <tr>
                                  <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</td>
@@ -100,10 +100,10 @@
                               Preview
                               <div class="ripple-container" ></div>
                            </button>
-                           <button class="btn btn-info" (click)="transaction('ok')">
+                           <!-- <button class="btn btn-info" (click)="transaction('ok')">
                               Save
                               <div class="ripple-container"></div>
-                           </button>
+                           </button> -->
                         </div>
                      </div>
                   </div>
@@ -113,51 +113,51 @@
                            <tbody>
                               <tr>
                                  <td>Banker's Acceptance Charges p.a.</td>
-                                 <td>1.23%</td>
+                                 <td>{{dataViewEdit.bankAcceptCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark p.a. (Libor/Euribor)
                                  </td>
-                                 <td>2.8740%<br><small>Standard Libor applied on the LC value</small></td>
+                                 <td>{{dataViewEdit.applicableBenchmark}}<br><small>Standard Libor applied on the LC value</small></td>
                               </tr>
                               <tr>
-                                 <td>Negotiation Charges</td>
+                                 <td>Negotiation Charges (Fixed)</td>
                                  <td>
-                                    USD $200
+                                    {{dataViewEdit.negotiationChargesFixed}}
                                  </td>
                               </tr>
                               <tr>
-                                 <td>Negotiation Charges</td>
+                                 <td>Negotiation Charges (%)</td>
                                  <td>
-                                    0.125%
+                                    {{dataViewEdit.negotiationChargesPerct}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Document Handling Charges</td>
                                  <td>
-                                    USD $500
+                                    {{dataViewEdit.docHandlingCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Minimum Handling Charges</td>
                                  <td>
-                                    USD $500
+                                    {{dataViewEdit.minTransactionCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Other Charges<br>
                                  </td>
                                  <td>
-                                    USD $50 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                    {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
                                  </td>
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td>28/03/2020</td>
+                                 <td>{{dataViewEdit.validity}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>USD 65,287</th>
+                                 <th>{{dataViewEdit.totalQuoteValue}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
@@ -208,21 +208,22 @@
                <h4>Place Quote</h4>
                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                   <div class="tab-pane active" id="pill1">
-                  
                      <div class="tab">
                         <table>
                            <tbody>
                            <tr>
+                              <td><b>Requirement</b></td>
+                              <td>{{data.requirementType}}</td>
+                                                      
+                              <td><b>CCy</b></td>
+                              <td>{{data.lCCurrency}}</td>
+                           </tr>     
+                           <tr>
                               <td><b>Transaction ID</b></td>
                               <td>{{data.transactionId}}</td>
                             
-                           </tr>     
-                           <tr>
-                             <td><b>Requirement</b></td>
-                             <td>{{data.requirementType}}</td>
-                         
                              <td><b>Amount</b></td>
-                             <td>{{data.lCCurrency}}&nbsp;${{ data.lCValue}}</td>
+                             <td>{{ data.lCValue}}</td>
                           </tr> 
                           <tr>
                              <td><b>IB</b></td>
@@ -317,16 +318,18 @@
                         <table>
                            <tbody>
                            <tr>
+                              <td><b>Requirement</b></td>
+                              <td>{{data.requirementType}}</td>
+                                                      
+                              <td><b>CCy</b></td>
+                              <td>{{data.lCCurrency}}</td>
+                           </tr>     
+                           <tr>
                               <td><b>Transaction ID</b></td>
                               <td>{{data.transactionId}}</td>
                             
-                           </tr>     
-                           <tr>
-                             <td><b>Requirement</b></td>
-                             <td>{{data.requirementType}}</td>
-                         
                              <td><b>Amount</b></td>
-                             <td>{{data.lCCurrency}}&nbsp;${{ data.lCValue}}</td>
+                             <td>{{ data.lCValue}}</td>
                           </tr> 
                           <tr>
                              <td><b>IB</b></td>
