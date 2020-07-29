@@ -22,7 +22,7 @@ import { CustomerCanActiveService } from './services/guards/CustomerCanActive.se
 import { BankCanActiveService } from './services/guards/BankCanActive.service';
 import { UploadLcDetailsCanDeactivate } from './services/guards/UploadDetailsCanDeactivate';
 import { CustomerLoginComponent } from './default/popups/customer-login/customer-login.component';
-
+import { TermAndConditionsComponent } from './default/term-and-conditions/term-and-conditions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { CustomerLoginComponent } from './default/popups/customer-login/customer
     PagenotfoundComponent,
     //ResetPasswordComponent,
     CustomerLoginComponent,
+    TermAndConditionsComponent,
     
   ],
   imports: [
@@ -50,6 +51,9 @@ import { CustomerLoginComponent } from './default/popups/customer-login/customer
   providers: [MatDatepickerModule,
     LoaderServiceService,CustomerCanActiveService,BankCanActiveService,UploadLcDetailsCanDeactivate,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
+  ],
+  entryComponents: [
+    TermAndConditionsComponent,
   ],
   bootstrap: [AppComponent]
 })

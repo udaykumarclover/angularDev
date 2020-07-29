@@ -126,7 +126,7 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="officialMailId">
+                                             <input type="text" formControlName="officialMailId"  oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()">
                                              <label>Official Email ID</label>
                                              <img src="assets/images/mail.png" style="height: 10px;top:15px;" />
                                              <div *ngIf="submittedSignup && suf.officialMailId.errors" class="invalid-feedback">
@@ -140,6 +140,23 @@
                                           </div>
                                        </div>
                                        <div class="col-md-4">
+                                             <div class="inputDiv selectdiv">           
+                                                <select formControlName="country" class="countryddl">
+                                                   <option value=''>Select</option>
+                                                   <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
+                                                   
+                                                </select>
+                                                <label>Select Country</label>
+                                                <img src="assets/images/world.png" />
+                                                <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
+                                                   <div *ngIf="suf.country.errors.required">
+                                                      Country field is required
+                                                   </div>
+                                                </div>
+                                             </div>
+                       
+                                          </div>
+                                       <div class="col-md-4">
                                           <div class="inputDiv">
                                              <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
                                              <label>Mobile No.</label>
@@ -148,6 +165,9 @@
                                                 <div *ngIf="suf.mobileNo.errors.required">
                                                    Mobile Number is required
                                                 </div>
+                                             </div>
+                                             <div *ngIf="suf.mobileNo.errors?.minlength" class="invalid-feedback">
+                                                   Mobile Number is atleast of 7 digits.
                                              </div>
                                           </div>
                                        </div>
@@ -161,26 +181,12 @@
                                                    Landline Number is required
                                                 </div>
                                              </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-4">
-                                          <div class="inputDiv selectdiv">
-                                             
-                                             <select formControlName="country" class="countryddl">
-                                                <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
-                                                
-                                             </select>
-                                             <label>Select Country</label>
-                                             <img src="assets/images/world.png" />
-                                             <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
-                                                <div *ngIf="suf.country.errors.required">
-                                                   Country field is required
-                                                </div>
+                                             <div *ngIf="suf.landlineNo.errors?.minlength" class="invalid-feedback">
+                                                   Landline No. is atleast of 7 digits.
                                              </div>
                                           </div>
-                    
                                        </div>
+
                                        <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="companyName">
@@ -327,11 +333,11 @@
                                        <div class="clearfix"></div>
                                        <div class="checkbox">
                                           <label>
-                                             <input type="checkbox" id="isCheckedForTerms" (change)="acceptTerms()">
+                                             <input type="checkbox" id="isCheckedForTerms" (change)="acceptTerms()" formControlName="termsAndcondition">
                                           </label>
-                                          I agree to <a href="#" class='terms_condition'> terms of service and privacy policy</a>
-                                          <div id="checkboxError" style="display:none;color:#ff0330;font-size: 11px;font-weight: 400;">
-                                             Kindly accept terms of service and privacy policy!
+                                          I agree to <a (click)="openTermAndServiceDialog('Terms and Conditions')" class='terms_condition'> terms of service and privacy policy</a>
+                                          <div id="checkboxError" style="color:#ff0330;font-size: 11px;font-weight: 400;" *ngIf="submittedSignup && suf.termsAndcondition.errors">
+                                             Kindly accept terms of service and privacy policy
                                           </div>
                                        </div>
                     
@@ -354,24 +360,23 @@
                                     <h1>Login</h1>
                                     <span></span>
                                     <div class="inputDiv">
-                                       <input oninput="this.value = this.value.toUpperCase()"  type="text"  maxlength="8" class="first_input has-value" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()" ng-trim="true">
+                                       <input oninput="this.value = this.value.toUpperCase()"  type="text"  maxlength="8" class="has-value first_input" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()" autocomplete="off" >
                                        <label>User ID</label>
                                        <img src="assets/images/user.png" />
                                        <div *ngIf="submitted && lf.username.errors" class="invalid-feedback" >
                                           <div *ngIf="lf.username.errors.required">
-                                             UserID is required
+                                             User ID is required
                                           </div>
                                        </div>
                                     </div>
                                     <div class="inputDiv">
-                                       <input type="password" class="has-value"  maxlength="16"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" (input)="validate()">
+                                       <input [type]="isTextFieldType ? 'text' : 'password'" class="has-value" maxlength="20"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" (input)="validate()" autocomplete="off"> 
                                        <label>Password</label>
+                                       <i (click)="togglePasswordFieldType()" [ngClass]="isTextFieldType ? 'fa fa-eye' : 'fa fa-eye-slash'" class="fa fa-eye-slash eye_icon"></i>
                                        <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
-                                          <div *ngIf="lf.password.errors.required">
-                                             Password field is required
-                                          </div>
-                                       </div>
-                                    </div>
+                                       <div *ngIf="lf.password.errors.required">Password field is required</div>
+                                       </div>       
+                                    </div> 
                                     <button type="submit" class="btnclass">Login</button>
                                     <a (click)="clearInvalidationText()" id="btnForgot" class="extralink">Forgot your password?</a>
                                  </div>
@@ -385,7 +390,7 @@
                                     <h1>Forgot Password</h1>
                                     <div class="form-group"></div>
                                     <div class="inputDiv">
-                                       <input type="email" formControlName="email">
+                                       <input type="email" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()" formControlName="email">
                                        <label>Email</label>
                                        <img src="assets/images/user.png" />
                                        <div *ngIf="forgPassSubmitted && fpf.email.errors" class="invalid-feedback">

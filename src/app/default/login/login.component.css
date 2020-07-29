@@ -172,3 +172,10 @@ select option{
     top: 13px;
     color: skyblue;
 }
+.eye_icon {
+    position: absolute!important;
+    left:90%!important;
+    width: 20px!important;
+    top: 11px!important;
+    cursor: pointer;
+}

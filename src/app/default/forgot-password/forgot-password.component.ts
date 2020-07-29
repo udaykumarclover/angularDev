@@ -85,8 +85,8 @@ export class ForgotPasswordComponent implements OnInit {
      (response)=>{
        const navigationExtras: NavigationExtras = {
          state: {
-           title: 'Congratulations! Your password reset successfully!',
-           message: '',
+           title: 'Congratulations! Your password is set successfully!',
+           message: 'Kindly login with new Password',
            parent: 'forgetpassword'
          }
        };
