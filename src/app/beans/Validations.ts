@@ -14,7 +14,7 @@ export class ValidateRegex {
 
     static alphaOnly(event): any { //// on keydown
         var key = event.keyCode;
-        if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/)) {
+        if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key > 31 && (key < 48 || key > 57))) {
             event.preventDefault();
         }
     };

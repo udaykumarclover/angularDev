@@ -1,7 +1,12 @@
-
-
-
-
+select{
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+::ng-deep.mat-datepicker-content .mat-calendar{
+    zoom:0.87;
+    height: 345px!important;
+}
 .selections input[type=radio] {
 	position: absolute;
 	visibility: hidden;

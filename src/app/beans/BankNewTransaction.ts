@@ -92,6 +92,39 @@ export interface PlaceQuote{
         confChgsNegot:number;
 		}
 
+		export interface editViewQuotation{
+		acceptedOn: Date;
+		applicableBenchmark:number;
+		applicantName: String;
+		bankUserId: String;
+		bankerAcceptCharges: number;
+		beneName:String;
+		chargesType: String;
+		commentsBenchmark: String;
+		confChgsIssuanceToExp: number;
+		confChgsIssuanceToMatur: number;
+		confChgsIssuanceToNegot: number;
+		confirmationCharges: number;
+		discountingCharges: number;
+		docHandlingCharges: number;
+		goodsType: String;
+		lCIssuanceBank: String;
+		lCValue: number;
+		minTransactionCharges: number;
+		negotiationChargesFixed: number;
+		negotiationChargesPerct: number;
+		otherCharges: number;
+		quotationId: number;
+		quotationPlaced: String;
+		refinancingCharges: number;
+		requirementType: String;
+		totalQuoteValue: number;
+		transactionId: String;
+		transactionStatus: String;
+		userId: String;
+		validity: Date;
+		validityDate: Date;
+				}
 
 		export interface newTransactionBean{
 			transactionId:string;

@@ -324,6 +324,329 @@ export function manageSub(){
         });   
 }
 
+export function bankNewTransaction(){
+    $('.collapse').on('shown.bs.collapse', function(){
+    $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    }).on('hidden.bs.collapse', function(){
+    $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+    });
+    
+    setTimeout(() => {
+    $(function(){
+    // prettyPrint();
+    
+    var slider = $("#menu-bar").slideReveal({
+    // width: 100,
+    push: false,
+    position: "right",
+    // speed: 600,
+    trigger: $(".handle"),
+    // autoEscape: false,
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+     $(function(){
+  
+    var slider1 = $("#menubarConfDis").slideReveal({
+    push: false,
+    position: "right",
+    trigger: $(".handle"),
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+    
+     $(function(){
+    var slider2 = $("#menubarDiscounting").slideReveal({
+    push: false,
+    position: "right",
+    trigger: $(".handle"),
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+    
+     $(function(){    
+    var slider3 = $("#menubarRefinancing").slideReveal({
+    push: false,
+    position: "right",
+    trigger: $(".handle"),
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+    
+     
+    $(function(){
+    var slider4 = $("#menubarBanker").slideReveal({
+    push: false,
+    position: "right",
+    trigger: $(".handle"),
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+     
+    
+     
+    $(function(){    
+    var slider4 = $("#menubarDetail").slideReveal({
+    push: false,
+    position: "right",
+    trigger: $(".handleDetail"),
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+    
+
+    $(function(){
+    
+    var slider4 = $("#menubarDetail1").slideReveal({
+    // width: 100,
+    push: false,
+    position: "right",
+    // speed: 600,
+    trigger: $(".handleDetail1"),
+    // autoEscape: false,
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+    
+     
+    $(function(){
+    // prettyPrint();
+    
+    var slider4 = $("#menubarReopen").slideReveal({
+    // width: 100,
+    push: false,
+    position: "right",
+    // speed: 600,
+    trigger: $(".handleReopen"),
+    // autoEscape: false,
+    shown: function(obj){
+    obj.find(".handle").html('<span class="fas fa-times"></span>');
+    obj.addClass("left-shadow-overlay");
+    },
+    hidden: function(obj){
+    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+    obj.removeClass("left-shadow-overlay");
+    }
+    });
+    });
+    
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    
+    
+      $('#menu-bar #tab2').hide();
+      $('#menu-bar #tab3').hide();
+      $('#menu-bar #btnpreview').click(function(){
+          $('#menu-bar #tab1').slideUp();
+           $('#menu-bar #tab2').slideDown();
+      });
+    
+      $('#menu-bar #btnEdit').click(function(){
+          $('#menu-bar #tab1').slideDown();
+           $('#menu-bar #tab2').slideUp();
+      });
+    
+    
+      $('#menu-bar #btnSubmit').click(function(){
+          $('#menu-bar #tab2').slideUp();
+          $('#menu-bar #tab1').slideUp();
+           $('#menu-bar #tab3').slideDown();
+      });
+
+      $('#menubarDiscounting #tab2').hide();
+      $('#menubarDiscounting #tab3').hide();
+      $('#menubarDiscounting #btnpreview').click(function(){
+          $('#menubarDiscounting #tab1').slideUp();
+           $('#menubarDiscounting #tab2').slideDown();
+      });
+    
+      $('#menubarDiscounting #btnEdit').click(function(){
+          $('#menubarDiscounting #tab1').slideDown();
+           $('#menubarDiscounting #tab2').slideUp();
+      });
+
+       $('#menubarDiscounting #btnSubmit').click(function(){
+          $('#menubarDiscounting #tab2').slideUp();
+          $('#menubarDiscounting #tab1').slideUp();
+           $('#menubarDiscounting #tab3').slideDown();
+      });
+
+      $('#menubarConfDis #tab2').hide();
+      $('#menubarConfDis #tab3').hide();
+      $('#menubarConfDis #btnpreview').click(function(){
+          $('#menubarConfDis #tab1').slideUp();
+           $('#menubarConfDis #tab2').slideDown();
+      });
+    
+      $('#menubarConfDis #btnEdit').click(function(){
+          $('#menubarConfDis #tab1').slideDown();
+           $('#menubarConfDis #tab2').slideUp();
+      });
+
+      $('#menubarConfDis #btnSubmit').click(function(){
+          $('#menubarConfDis #tab2').slideUp();
+          $('#menubarConfDis #tab1').slideUp();
+           $('#menubarConfDis #tab3').slideDown();
+      });
+
+      $('#menubarRefinancing #tab2').hide();
+       $('#menubarRefinancing #tab3').hide();
+      $('#menubarRefinancing #btnpreview').click(function(){
+          $('#menubarRefinancing #tab1').slideUp();
+           $('#menubarRefinancing #tab2').slideDown();
+      });
+    
+      $('#menubarRefinancing #btnEdit').click(function(){
+          $('#menubarRefinancing #tab1').slideDown();
+           $('#menubarRefinancing #tab2').slideUp();
+      });
+
+
+       $('#menubarRefinancing #btnSubmit').click(function(){
+          $('#menubarRefinancing #tab2').slideUp();
+          $('#menubarRefinancing #tab1').slideUp();
+           $('#menubarRefinancing #tab3').slideDown();
+      });
+    
+    
+      $('#menubarBanker #tab2').hide();
+      $('#menubarBanker #tab3').hide();
+      $('#menubarBanker #btnpreview').click(function(){
+          $('#menubarBanker #tab1').slideUp();
+           $('#menubarBanker #tab2').slideDown();
+      });
+    
+      $('#menubarBanker #btnEdit').click(function(){
+          $('#menubarBanker #tab1').slideDown();
+           $('#menubarBanker #tab2').slideUp();
+      });
+
+      $('#menubarBanker #btnSubmit').click(function(){
+          $('#menubarBanker #tab2').slideUp();
+          $('#menubarBanker #tab1').slideUp();
+           $('#menubarBanker #tab3').slideDown();
+      });
+    
+    
+    
+     
+      $('#menubarReopen #tab2').hide();
+      $('#menubarReopen #tab3').hide();
+      $('#menubarReopen #btnpreview').click(function(){
+          $('#menubarReopen #tab1').slideUp();
+           $('#menubarReopen #tab2').slideDown();
+      });
+
+      $('#menubarReopen #btnSubmit').click(function(){ 
+          $('#menubarReopen #tab1').slideUp();
+           $('#menubarReopen #tab3').slideDown();
+      });
+    
+      $('#menubarReopen #btnEdit').click(function(){
+          $('#menubarReopen #tab1').slideDown(); 
+      });
+    
+    });
+    $(document).ready(function() {
+       $('select').css('color', '#333');
+      $('#datatables').DataTable({
+        "pagingType": "full_numbers","scrollX": true,
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        responsive: false,
+        language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search records",
+        }
+    
+      });
+    
+    
+      var table = $('#datatables').DataTable();
+    
+      // Edit record
+      table.on( 'click', '.edit', function () {
+        $tr = $(this).closest('tr');
+    
+        var data = table.row($tr).data();
+        alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+      } );
+    
+      // Delete a record
+      table.on( 'click', '.remove', function (e) {
+        $tr = $(this).closest('tr');
+        table.row($tr).remove().draw();
+        e.preventDefault();
+      } );
+    
+      //Like record
+      table.on( 'click', '.like', function () {
+        alert('You clicked on Like button');
+      });
+    
+      $('.card .material-datatables label').addClass('form-group');
+    });
+    
+
+    $(document).ready(function(){
+    //  md.initSliders()
+      demo.initFormExtendedDatetimepickers();
+    });
+
+}, 5000);
+}
+
+
+
+
 export function bankActiveTransaction(){
     $('.collapse').on('shown.bs.collapse', function(){
     $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
@@ -641,9 +964,8 @@ export function bankActiveTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 500);
+}, 1000);
 }
-
 
 export function loadLogin() {
     $('#signUp').click(function () {

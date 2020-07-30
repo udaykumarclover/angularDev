@@ -77,8 +77,7 @@
         <div class="modal-content">
             <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
-                    <h2><span class="refer_span">Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.</span>
-                        
+                    <h2>Refer <span class="refer_span">Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.</span>
                         <button type="button" class="close" (click)="close()">&times;</button>
                     </h2>
                     <div class="padnew">
@@ -111,13 +110,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" maxlength="12" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'number')">
+                                                    <input type="text" maxlength="12" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
                                                     <label>Mobile No.</label>      
                                                     <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
                                                         Mobile No. is required.
                                                     </div>
                                                     <div *ngIf="referDetails.mobileNo.errors?.minlength" class="invalid-feedback">
-                                                        Mobile No atleast of 10 digits.
+                                                        Mobile No atleast of 11 digits.
                                                     </div>
                                                 </div>
                                             </div>

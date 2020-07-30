@@ -21,7 +21,7 @@
                                     <tbody>
                                     <tr *ngFor="let list of draftData; let i = index">
                                         <td>{{i+1}}</td>
-                                        <!-- <td>
+                                        <!-- <td (click)="deleteDraft(list)">
                                             <div class="checkbox">
                                                 <label>
                                                 <input type="checkbox" name="optionsCheckboxes">
@@ -33,6 +33,7 @@
                                         <td>{{list.transactionId}}</td>
                                         <td>{{list.modifiedDate}}</td>
                                         <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="editDraft(list.transactionId)">Edit</button></td>
+                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft(list)">Delete</button></td>
                                     </tr>
 
                                     </tbody>

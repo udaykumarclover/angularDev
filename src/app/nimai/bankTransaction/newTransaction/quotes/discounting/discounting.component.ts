@@ -3,9 +3,10 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
-import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
+import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-discounting',
   templateUrl: './discounting.component.html',
@@ -16,11 +17,22 @@ export class DiscountingComponent implements OnInit {
   public isActive: boolean = false;
   public isActiveQuote :boolean=false;
   public data: PlaceQuote;
+  public dataViewEdit:editViewQuotation;
   public title: string = "";
   public tab = 'tab1';
   detail:any;
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public upls: UploadLcService) { 
-    
+  public parentURL: string = "";
+  public subURL: string = "";
+
+
+ constructor(public titleService: TitleService, public ts: NewTransactionService, 
+    public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
+   this.activatedRoute.parent.url.subscribe((urlPath) => {
+     this.parentURL = urlPath[urlPath.length - 1].path;
+   });
+   this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+     this.subURL = urlPath[urlPath.length - 1].path;
+   })
     this.data = {        
       transactionId: "",
       userId: "",
@@ -52,10 +64,42 @@ export class DiscountingComponent implements OnInit {
       sumOfQuote: 0  ,
       confChgsMatur: 0,
       confChgsNegot:0
-    
-    
-    }
-  }
+       }
+  
+this.dataViewEdit={
+  acceptedOn:null,
+		applicableBenchmark:0,
+		applicantName:"",
+		bankUserId:"",
+		bankerAcceptCharges: 0,
+		beneName:"",
+		chargesType:"",
+		commentsBenchmark:"",
+		confChgsIssuanceToExp: 0,
+		confChgsIssuanceToMatur: 0,
+		confChgsIssuanceToNegot: 0,
+		confirmationCharges: 0,
+		discountingCharges: 0,
+		docHandlingCharges: 0,
+		goodsType: "",
+		lCIssuanceBank: "",
+		lCValue: 0,
+		minTransactionCharges: 0,
+		negotiationChargesFixed: 0,
+		negotiationChargesPerct: 0,
+		otherCharges: 0,
+		quotationId: 0,
+		quotationPlaced: "",
+		refinancingCharges: 0,
+		requirementType: "",
+		totalQuoteValue: 0,
+		transactionId: "",
+		transactionStatus: "",
+		userId: "",
+		validity: null,
+		validityDate: null,
+}
+      }
 
   ngOnInit() {
   }
@@ -66,11 +110,11 @@ export class DiscountingComponent implements OnInit {
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
-        this.data = data;
+        this.dataViewEdit = data;
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
-        this.data = data;
+        this.dataViewEdit = data;
         $('input').attr('readonly', false);
       }else if(type===Tflag.PLACE_QUOTE){
         this.isActiveQuote = flag;
@@ -110,7 +154,7 @@ export class DiscountingComponent implements OnInit {
         break;
 
       case 'submit': {
-        this.ts.updateBankTransaction(this.data).subscribe(
+        this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
           (response) => {
             this.tab = 'tab3';
           },
@@ -132,6 +176,22 @@ export class DiscountingComponent implements OnInit {
         setTimeout(() => {
           $('input').attr('readonly', true);
         }, 200);
+        this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
+          (response) => {
+           
+            this.detail = JSON.parse(JSON.stringify(response)).data;
+            //this.data=data;
+            // this.data.TotalQuote=this.detail.TotalQuote;
+            // this.data.confChgsMatur=this.detail.confChgsMatur;
+            // this.data.confChgsNegot=this.detail.confChgsNegot;
+
+          },
+          error => {
+            alert('error')
+            this.closed();
+            this.tab = 'tab1';
+          }
+        )
       }
         break;
     }
@@ -177,6 +237,16 @@ export class DiscountingComponent implements OnInit {
       case 'ok': {
            this.closedQuote();
            this.tab = 'tab1';
+           const navigationExtras: NavigationExtras = {
+            state: {
+              redirectedFrom: "discounting",
+              trnsactionID: data.transactionId
+            }
+          };
+           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+           .then(success => console.log('navigation success?', success))
+           .catch(console.error);    
+              
               }
         break;
       case 'preview': {

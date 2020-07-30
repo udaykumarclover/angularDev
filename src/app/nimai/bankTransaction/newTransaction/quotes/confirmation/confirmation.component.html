@@ -9,7 +9,7 @@
                            <tbody>
                               <tr>
                                  <td>Confirmation Charges p.a.</td>
-                                 <td><input type="text" name="" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                                 <td *ngIf="dataViewEdit"><input type="text"  [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00"> <span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
@@ -20,14 +20,14 @@
                                
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                                  <td><select readonly="readonly">
-                                       <option value="Yes">Yes</option>
+                                  <td><select readonly="readonly" >
+                                       <option value="Yes" >Yes</option>
                                     </select></td>
                               </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" class="halfleft" placeholder="0.00" style="width:50%;" />
                                     <select class="halfright" style="color: #333 !important;">
                                        <option value="USD">USD</option>
                                     </select>
@@ -36,7 +36,7 @@
                               <tr>
                                  <td>Other Charges</td>
                                  <td>
-                                    <input type="text" name="" class="halfleft" placeholder="0.00" style="width:50%;" />
+                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" class="halfleft" placeholder="0.00" style="width:50%;" />
                                     <select class="halfright" style="color: #333 !important;">
                                        <option value="USD">USD</option>
                                     </select>
@@ -45,12 +45,12 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="text" name=""  placeholder="28/03/2020"></td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.validity"  placeholder="28/03/2020"></td>
                               </tr>
-                              <tr>
+                              <!-- <tr>
                                  <th>Total Quote</th>
-                                 <th>USD 65,287</th>
-                              </tr>
+                                 <th><input type="text" [(ngModel)]="dataViewEdit.totalQuoteValue"></th>
+                              </tr> -->
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr>
@@ -62,10 +62,10 @@
                               Preview
                               <div class="ripple-container" ></div>
                            </button>
-                           <button class="btn btn-info" (click)="transaction('ok')">
+                           <!-- <button class="btn btn-info" (click)="transaction('ok')">
                               Save
                               <div class="ripple-container"></div>
-                           </button>
+                           </button> -->
 
                         </div>
                      </div>
@@ -76,35 +76,35 @@
                            <tbody>
                               <tr>
                                  <td>Confirmation Charges p.a.</td>
-                                 <td>1.23%</td>
+                                 <td>{{dataViewEdit.confirmationCharges}}</td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                 <td>Yes</td>
+                                 <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
                               </tr>
                            
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                                 <td>Yes</td>
+                                 <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
                               </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    $500 USD
+                                   {{dataViewEdit.minTransactionCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Other Charges</td>
-                                 <td>USD $500 <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                 <td>{{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
                                  </td>
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td>28/03/2020</td>
+                                 <td>{{dataViewEdit.validity}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>USD 65,287</th>
+                                 <th *ngIf="detail">{{detail.totalQuoteValue}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
@@ -153,24 +153,24 @@
          <div class="card">
             <div class="card-content">
                <h4>{{title}}</h4>
-              
-
                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                   <div class="tab-pane active" id="pill1">
                      <div class="tab">
                         <table>
                            <tbody>
                            <tr>
+                              <td><b>Requirement</b></td>
+                              <td>{{data.requirementType}}</td>
+                                                      
+                              <td><b>CCy</b></td>
+                              <td>{{data.lCCurrency}}</td>
+                           </tr>     
+                           <tr>
                               <td><b>Transaction ID</b></td>
                               <td>{{data.transactionId}}</td>
                             
-                           </tr>     
-                           <tr>
-                             <td><b>Requirement</b></td>
-                             <td>{{data.requirementType}}</td>
-                         
                              <td><b>Amount</b></td>
-                             <td>{{data.lCCurrency}}&nbsp;${{ data.lCValue}}</td>
+                             <td>{{ data.lCValue}}</td>
                           </tr> 
                           <tr>
                              <td><b>IB</b></td>
@@ -193,29 +193,21 @@
                            </tr>
                            <tr>
                               <td>
-                                 <input type="radio" id="optn"value="negotiation" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
-                              <td>
-                                 <select [(ngModel)]="data.confChgsIssuanceToNegot">
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                 </select></td>                 
-                               </tr>
-                           
+                                 <input type="radio" id="optn" [checked]="false" name="charges" 
+                                 (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                 <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" readonly="readonly">
+                           </tr>
                            <tr>
                               <td>
-                                 <input type="radio" id="optn"value="negotiation" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
-                                 <td>
-                                    <select [(ngModel)]="data.confChgsIssuanceToMatur">
-                                       <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                    </select>
-                                 </td>  
+                                 <input type="radio" id="optn"[checked]="false" name="charges" 
+                                 (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                 <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" readonly="readonly">
                             </tr>
                             <tr>
                               <td>Other Charges</td>
                               <td><input type="text" [(ngModel)]="data.otherCharges" placeholder="0.00">
                            </tr>
-                           <textarea placeholder="Specify the type of charge (Swift, P&T, etc)" 
+                           <textarea style="width:320px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
                            rows="3"></textarea>
                           
                            <!-- <tr>
@@ -230,14 +222,14 @@
                            
                            <tr>
                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td><input type="text" [(ngModel)]="data.validityDate"  placeholder="28/03/2020"></td>
+                              <td><input type="date" [(ngModel)]="data.validityDate"  placeholder="28/03/2020"></td>
                            </tr>
                            <tr>
                               <td>Other terms and conditions</td>
                            </tr>
                           
-                           <textarea  placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
-                           rows="3" style="margin: 6px 0px 0px; width: 374px; height: 60px;"></textarea>
+                           <textarea placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                           rows="3" style="margin: 6px 0px 0px; width: 320px; height: 60px;"></textarea>
                           
                            <tr>
                               <td>
@@ -263,31 +255,33 @@
               
                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                   <div class="tab-pane active" id="pill1">
-                     <div class="tab">
-                        <table>
-                           <tbody>
-                           <tr>
-                              <td><b>Transaction ID</b></td>
-                              <td>{{data.transactionId}}</td>
+                    <div class="tab">
+                           <table>
+                              <tbody>
+                              <tr>
+                                 <td><b>Requirement</b></td>
+                                 <td>{{data.requirementType}}</td>
+                                                         
+                                 <td><b>CCy</b></td>
+                                 <td>{{data.lCCurrency}}</td>
+                              </tr>     
+                              <tr>
+                                 <td><b>Transaction ID</b></td>
+                                 <td>{{data.transactionId}}</td>
+                               
+                                <td><b>Amount</b></td>
+                                <td>{{ data.lCValue}}</td>
+                             </tr> 
+                             <tr>
+                                <td><b>IB</b></td>
+                                <td>{{data.lCIssuanceBank}}</td>
                             
-                           </tr>     
-                           <tr>
-                             <td><b>Requirement</b></td>
-                             <td>{{data.requirementType}}</td>
-                         
-                             <td><b>Amount</b></td>
-                             <td>{{data.lCCurrency}}&nbsp;${{ data.lCValue}}</td>
-                          </tr> 
-                          <tr>
-                             <td><b>IB</b></td>
-                             <td>{{data.lCIssuanceBank}}</td>
-                         
-                             <td><b>Tenor</b></td>
-                             <td>{{data.usanceDays}} Days</td>
-                          </tr>  
-                        </tbody>
-                         </table>
-                        </div>
+                                <td><b>Tenor</b></td>
+                                <td>{{data.usanceDays}} Days</td>
+                             </tr>  
+                           </tbody>
+                            </table>
+                           </div>
                      <table class="table">
                         <tbody>
                            <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr>
@@ -298,11 +292,11 @@
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                              <td>{{detail.confChgsNegot}}</td>
+                              <td>{{data.confChgsNegot}}</td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                              <td>{{detail.confChgsMatur}}</td>
+                              <td>{{data.confChgsMatur}}</td>
                            </tr>
                            <tr>
                               <td>Other Charges<br><small style="color: #b6a3a3;">Customer needs to pay standard swift transfer charges.</small>
@@ -324,7 +318,7 @@
                            </tr>
                            <tr>
                               <th>Total Quote</th>
-                              <th>{{detail.TotalQuote}}</th>
+                              <th>{{data.TotalQuote}}</th>
                            </tr><br>
                            <tr>
                               <td><small>Others terms and conditions</small></td>
