@@ -140,6 +140,24 @@
                                           </div>
                                        </div>
                                        <div class="col-md-4">
+                                          <div class="inputDiv selectdiv">
+                                             
+                                             <select formControlName="country" class="countryddl">
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
+                                                
+                                             </select>
+                                             <label>Select Country</label>
+                                             <img src="assets/images/world.png" />
+                                             <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
+                                                <div *ngIf="suf.country.errors.required">
+                                                   Country field is required
+                                                </div>
+                                             </div>
+                                          </div>
+                    
+                                       </div>
+                                       <div class="col-md-4">
                                           <div class="inputDiv">
                                              <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
                                              <label>Mobile No.</label>
@@ -162,24 +180,6 @@
                                                 </div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <div class="col-md-4">
-                                          <div class="inputDiv selectdiv">
-                                             
-                                             <select formControlName="country" class="countryddl">
-                                                <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
-                                                
-                                             </select>
-                                             <label>Select Country</label>
-                                             <img src="assets/images/world.png" />
-                                             <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
-                                                <div *ngIf="suf.country.errors.required">
-                                                   Country field is required
-                                                </div>
-                                             </div>
-                                          </div>
-                    
                                        </div>
                                        <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">

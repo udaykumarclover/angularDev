@@ -25,6 +25,7 @@ export class SubscriptionComponent implements OnInit {
   public timeStamp = new Date();
   public parentURL: string = "";
   public subURL: string = "";
+
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -67,15 +68,25 @@ export class SubscriptionComponent implements OnInit {
     this.isOrder = false;
     this.isPayment = true;
     const sd = this;
+    $('.green').hide();
+    $('.selection').hide();
+    $('.red').hide();
+    $('.green').slideUp();
+    $('.red').slideUp();
+    $('#planUnlimited').show();
+    $("#option-one"). prop("checked", true);
+
+
     // this.titleService.loading.next(true);
     $(document).ready(function () {
       if(planType == "unlimited"){
-        $("#option-two"). prop("checked", true);
         $('.green').show();
         $('.selection').hide();
+        $('#planUnlimited').hide();
       }else{
         $('.red').show();
         $('.selection').show();
+        $('#planUnlimited').show();
       }
       $('input[type="radio"]').click(function () {
         sd.loading = true;
@@ -136,6 +147,14 @@ export class SubscriptionComponent implements OnInit {
   }
   nextModule(){
     this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
+  }
+
+  addAdvService(event){
+    if (event.target.value === "Add") {
+      event.target.value = "Remove";
+      } else {
+      event.target.value = "Add";
+      }
   }
 
 }

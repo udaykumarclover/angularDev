@@ -123,18 +123,18 @@
                   <div class="form-group"></div>
                   <div class="col-md-6">
                       <div class="inputDiv">
-                        <input type="text" formControlName="emailId">
+                        <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                         <label>First Name</label>
-                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
+                        <div *ngIf="submitted && manageSubDetails.firstName.errors?.required" class="invalid-feedback">
                           First Name is required
                         </div>
                     </div>
                   </div>
                   <div class="col-md-6">
                       <div class="inputDiv">
-                        <input type="text" formControlName="emailId">
+                        <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
                         <label>Last Name</label>
-                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
+                        <div *ngIf="submitted && manageSubDetails.lastName.errors?.required" class="invalid-feedback">
                           Last Name is required
                         </div>
                     </div>
@@ -152,23 +152,12 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                      <div class="inputDiv">
-                        <input type="text" formControlName="emailId">
-                        <label>Mobile No.</label>
-                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
-                          Mobile No is required
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
                     <div class="inputDiv selectdiv">                                             
                       <select formControlName="country" class="countryddl">
                          <option value=''>Select</option>
-                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
-                         
+                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                         
                       </select>
                       <label>Select Country</label>
-                      <img src="assets/images/world.png" />
                       <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
                          <div *ngIf="suf.country.errors.required">
                             Country field is required
@@ -178,14 +167,17 @@
                   </div>
                   <div class="col-md-6">
                       <div class="inputDiv">
-                        <input type="text" formControlName="emailId">
-                        <label>Your Email ID</label>
-                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
-                          Email is required
+                        <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                        <label>Mobile No.</label>
+                        <div *ngIf="submitted && manageSubDetails.mobileNo.errors?.required" class="invalid-feedback">
+                          Mobile No is required
                         </div>
-                        <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern" class="invalid-feedback">
-                          Invalid Email id
-                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="landlineNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                        <label>Landline No.</label>
                     </div>
                   </div>
                 </div>

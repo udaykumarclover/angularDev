@@ -13,6 +13,7 @@ import { ResetPasswordService } from 'src/app/services/reset-password/reset-pass
 import { Email } from 'src/app/beans/Email';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import  { ValidateRegex } from 'src/app/beans/Validations';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
   public submittedSignup = false;
   public forgPassSubmitted: boolean = false;
   resp: any;
+  todaysDate: any;
 
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef) {
     $('#checkboxError').hide();
@@ -436,7 +438,7 @@ export class LoginComponent implements OnInit {
     if(minValue == ""){
       minValue = '0';
     }
-
+    this.todaysDate = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
 
 
     let data = {
@@ -456,7 +458,12 @@ export class LoginComponent implements OnInit {
 
       minLCValue: minValue,
       interestedCountry: this.intCountries,
-      blacklistedGoods: this.blg
+      blacklistedGoods: this.blg,
+      account_source: "WEBSITE",
+      account_type: "MASTER",
+      account_status: "ACTIVE",
+      account_created_date: this.todaysDate,
+      regCurrency: "",
 
     }
     return data;
