@@ -1,5 +1,5 @@
 
 
 export enum Tflag {
-    VIEW, EDIT ,PLACE_QUOTE
+    VIEW, EDIT ,PLACE_QUOTE,
 }

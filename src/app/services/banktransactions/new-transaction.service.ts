@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
-import { PlaceQuote } from 'src/app/beans/BankNewTransaction';
+import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +35,8 @@ export class NewTransactionService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
   }
 
-  public updateBankTransaction(data: PlaceQuote): Observable<any> {
-    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
+  public updateBankTransaction(data: editViewQuotation): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterQuotation`, data, { headers: { 'content-types': 'application/json' } });
   }
   
   public confirmQuotation(data: any): Observable<any> {
