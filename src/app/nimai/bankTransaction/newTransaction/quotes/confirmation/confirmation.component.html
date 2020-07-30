@@ -1,3 +1,4 @@
+
 <div id="menu-bar" [hidden]="!isActive"  (blur)="closed()" style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
          <div class="popupcontent">
             <div class="card">
@@ -9,19 +10,19 @@
                            <tbody>
                               <tr>
                                  <td>Confirmation Charges p.a.</td>
-                                 <td *ngIf="dataViewEdit"><input type="text"  [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00"> <span class="pull-right percent">%</span></td>
+                                 <td><input type="text"  [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00"> <span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                  <td><select readonly="readonly">
-                                       <option value="Yes">Yes</option>
+                                  <td><select readonly="readonly" >
+                                       <option value="dataViewEdit.confChgsIssuanceToNegot" *ngIf="dataViewEdit.confChgsIssuanceToNegot=='yes'">{{dataViewEdit.confChgsIssuanceToNegot}}</option>
                                     </select></td>
                               </tr>
                                
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
                                   <td><select readonly="readonly" >
-                                       <option value="Yes" >Yes</option>
+                                       <option value="dataViewEdit.confChgsIssuanceToMatur" *ngIf="dataViewEdit.confChgsIssuanceToMatur==!null">{{dataViewEdit.confChgsIssuanceToMatur}}</option>
                                     </select></td>
                               </tr>
                               <tr>
@@ -148,7 +149,8 @@
       </div>
 
 
-      <div id="menu-bar" [hidden]="!isActiveQuote"  (blur)="closedQuote()" style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
+      <div id="menu-bar" [hidden]="!isActiveQuote"  (blur)="closedQuote()" 
+      style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
        <div class="popupcontent">
          <div class="card">
             <div class="card-content">
@@ -222,7 +224,7 @@
                            
                            <tr>
                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td><input type="date" [(ngModel)]="data.validityDate"  placeholder="28/03/2020"></td>
+                              <td><input type="date" [(ngModel)]="data.validity"  placeholder="28/03/2020"></td>
                            </tr>
                            <tr>
                               <td>Other terms and conditions</td>
@@ -314,7 +316,7 @@
                           
                            <tr>
                                <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td>{{data.validityDate}}</td>
+                              <td>{{data.validity}}</td>
                            </tr>
                            <tr>
                               <th>Total Quote</th>

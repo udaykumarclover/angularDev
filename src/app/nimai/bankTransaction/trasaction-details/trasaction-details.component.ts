@@ -13,7 +13,6 @@ import * as $ from 'src/assets/js/jquery.min';
 })
 export class TrasactionDetailsComponent {
   
-dataSource: MatTableDataSource<any>;
 public ntData: any[] = [];
 
 public whoIsActive: string = "";
@@ -28,8 +27,9 @@ constructor(public titleService: TitleService, public nts: NewTransactionService
 }
 
 ngOnInit() {
-  custTrnsactionDetail();
+ 
   this.getAllnewTransactions('Accepted');
+ 
 }
 
 public getAllnewTransactions(status) {
@@ -43,9 +43,12 @@ public getAllnewTransactions(status) {
 
   this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
     (response) => {
+     
+      custTrnsactionDetail();
+      
       this.data = [];
       this.data = JSON.parse(JSON.stringify(response)).data;
-      console.log(this.data);
+     
       if (!this.data) {
         // this.hasNoRecord = true;
       }
@@ -59,41 +62,50 @@ public getAllnewTransactions(status) {
 }
 
 getDetail(detail){
-
-  console.log(detail);
+  this.quotationdata = detail;
   this.specificDetail = detail;
   
 }
 
 changeStatusCall(status){
   this.getAllnewTransactions(status);
-  custTrnsactionDetail();
-}
-
-displayQuoteDetails(transactionId){
-  let data = {
-    "userId": sessionStorage.getItem('userID'),
-    "transactionId": transactionId
-  }
   
-  this.nts.getQuotationDetails(data).subscribe(
-      (response) => {
-        this.quotationdata = JSON.parse(JSON.stringify(response)).data;
-      console.log(this.quotationdata);
-      },
-      (error) => {}
-  )
 }
 
-openOffcanvas() {
-  document.getElementById("menu-barnew").style.width = "450px"; 
+// displayQuoteDetails(transactionId){
+//   let data = {
+//     "userId": sessionStorage.getItem('userID'),
+//     "transactionId": transactionId
+//   }
+  
+//   this.nts.getQuotationDetails(data).subscribe(
+//       (response) => {
+        
+//         this.quotationdata = JSON.parse(JSON.stringify(response)).data;
+//       console.log(this.quotationdata);
+//       },
+//       (error) => {}
+//   )
+// }
+
+openOffcanvas(status) {
+  if(status==="Accepted"){
+        document.getElementById("menu-barnew").style.width = "450px"; 
+      }else if(status==="Rejected"){
+        document.getElementById("menubarDetailreject").style.width = "450px"; 
+      }else{
+    console.log('expired')
+      }
+ // document.getElementById("menu-barnew").style.width = "450px"; 
 }
 openNav3() {
+ 
   document.getElementById("myCanvasNav").style.width = "100%";
   document.getElementById("myCanvasNav").style.opacity = "0.6";  
 }
 closeOffcanvas() {
   document.getElementById("menu-barnew").style.width = "0%"; 
+  document.getElementById("menubarDetailreject").style.width = "0%";
   document.getElementById("myCanvasNav").style.width = "0%";
   document.getElementById("myCanvasNav").style.opacity = "0"; 
 } 
@@ -111,7 +123,9 @@ let data = {
   }
 
 this.nts.custRejectBankQuote(data, quoteId).subscribe(
-    (response) => {},
+    (response) => {
+      console.log(response)
+    },
     (err) => {}
 )
 }

@@ -117,35 +117,103 @@
             </h2>
             <div class="padnew">
               <div class="row">
-                <div class="col-md-12">
-                  <div id="authemaildiv">
-                    <p><strong>Enter an email address of an Authorized user</strong></p>
-                    <div class="form-group"></div>
-                    <div class="col-md-12">
-                      <div class="row">
-                        <div class="inputDiv">
-                          <input type="text" formControlName="emailId">
-                          <label>Your Email ID</label>
-                          <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
-                            Email is required
-                          </div>
-                          <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern" class="invalid-feedback">
-                            Invalid Email id
-                          </div>
+              <div class="col-md-12">
+                <div id="authemaildiv">
+                  <p><strong>Enter an email address of an Authorized user</strong></p>
+                  <div class="form-group"></div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                        <label>First Name</label>
+                        <div *ngIf="submitted && manageSubDetails.firstName.errors?.required" class="invalid-feedback">
+                          First Name is required
                         </div>
-                      </div>
                     </div>
                   </div>
-  
-                  <p id="paradiv">
-                    {{respMessage}}
-                  </p>
-                  <div class="clearfix"></div>
-                  <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
-                  <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
+                        <label>Last Name</label>
+                        <div *ngIf="submitted && manageSubDetails.lastName.errors?.required" class="invalid-feedback">
+                          Last Name is required
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="emailId">
+                        <label>Your Email ID</label>
+                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
+                          Email is required
+                        </div>
+                        <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern" class="invalid-feedback">
+                          Invalid Email id
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="inputDiv selectdiv">                                             
+                      <select formControlName="country" class="countryddl">
+                         <option value=''>Select</option>
+                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                         
+                      </select>
+                      <label>Select Country</label>
+                      <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
+                         <div *ngIf="suf.country.errors.required">
+                            Country field is required
+                         </div>
+                      </div>
+                   </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                        <label>Mobile No.</label>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="landlineNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                        <label>Landline No.</label>
+                        <div *ngIf="submitted && manageSubDetails.landlineNo.errors?.required" class="invalid-feedback">
+                          landline No is required
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="inputDiv">
+                      <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                      <label class="dropdownlabel">Countries Interested</label>
+                      <div *ngIf="submitted && manageSubDetails.countriesInt.errors?.required" class="invalid-feedback">
+                        Select Countries Interested
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="inputDiv">
+                    <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
+                    <label>Minimum Value of LC</label>
                 </div>
               </div>
-  
+              <div class="col-md-6">
+                <div class="inputDiv">
+                  <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                  <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
+                  <div *ngIf="submitted && manageSubDetails.blacklistedGC.errors?.required" class="invalid-feedback">
+                    Select Blacklisted Goods
+                  </div>
+              </div>
+            </div>
+          </div>
+
+                <p id="paradiv">
+                  {{respMessage}}
+                </p>
+                <div class="clearfix"></div>
+                <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
+                <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+              </div>
+            </div>
             </div>
           </div>
         </form>

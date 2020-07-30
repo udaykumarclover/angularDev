@@ -3,7 +3,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction ,bankActiveTransaction} from 'src/assets/js/commons';
+import { custActiveTransaction ,bankActiveTransaction,bankNewTransaction} from 'src/assets/js/commons';
 import { ConfirmationComponent } from '../newTransaction/quotes/confirmation/confirmation.component';
 import { ConfirmAndDiscountComponent } from '../newTransaction/quotes/confirm-and-discount/confirm-and-discount.component';
 import { RefinancingComponent } from '../newTransaction/quotes/refinancing/refinancing.component';
@@ -37,7 +37,7 @@ export class ActiveTransactionComponent implements OnInit {
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
    
     this.titleService.quote.next(false);
-    bankActiveTransaction();
+   
   }
 
   public getAllnewTransactions() {
@@ -50,7 +50,7 @@ export class ActiveTransactionComponent implements OnInit {
     
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
-     
+        bankNewTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
         if (!this.detail) {
           this.hasNoRecord = true;

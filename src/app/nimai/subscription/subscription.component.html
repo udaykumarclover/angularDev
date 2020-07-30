@@ -46,7 +46,7 @@
                                         <ul class="plan-features">
                                             <li class="plan-feature">Unlimited <span class="plan-feature-name">Transaction Credits</span></li>
                                             <li class="plan-feature">Unlimited <span class="plan-feature-name">Branches</span></li>
-                                            <li class="plan-feature">24x7 <span class="plan-feature-name">Customer Support</span></li>
+                                            <li class="plan-feature">24X7 <span class="plan-feature-name">Customer Support</span></li>
                                             <li class="plan-feature">1 <span class="plan-feature-name">Year Validity</span></li>
                                             <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - Yes</span></li>  
                                         </ul>
@@ -73,12 +73,12 @@
                         <div class="card-content">
                             <h4 class="card-title">
                                 <ol class="breadcrumb">
-                                    <li><a href="subscription.html">Subscription Plans</a></li>
-                                    <li class="active"><a href="#">Order Details</a></li>
+                                    <li><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li class="active"><a>Order Details</a></li>
                                 </ol>
                             </h4>
                             <div class="plans">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="plan plan-highlight">
                                         <p class="plan-recommended">Selected</p>
                                         <h3 class="plan-title">{{choosedPlan.subscriptionName}}</h3>
@@ -99,6 +99,29 @@
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-4">
+                                    <div class="boxline">
+                                        <p>
+                                           <strong>Advisory Services</strong>
+                                        </p>
+                                        <table>
+                                           <tr>
+                                              <td class="text-left">
+                                                 <ul>
+                                                    <li>Advisory Services will be provided</li>
+                                                    <li>Experienced Advisors</li>
+                                                 </ul>
+                                              </td>
+                                              <td  class="text-right">
+                                                 <p><strong>USD $99</strong></p>
+                                              </td>
+                                           </tr>
+                                           <tr>
+                                              <td colspan="2">
+                                                 <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                              </td>
+                                           </tr>
+                                        </table>
+                                     </div>
                                     <table class="table">
                                         <tr>
                                             <td>
@@ -112,7 +135,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="" class="coupantext" maxlength="15" />
-                                                <a href="ordersummeryCoupon.html"
+                                                <a 
                                                     class="btn btn-info btn-xs pull-right marginzero">
                                                     Apply
                                                     <div class="ripple-container"></div>
@@ -159,9 +182,9 @@
                         <div class="card-content">
                             <h4 class="card-title">
                                 <ol class="breadcrumb">
-                                    <li><a href="subscription.html">Subscription Plans</a></li>
-                                    <li><a href="ordersummery.html">Order Details</a></li>
-                                    <li class="active"><a href="#">Payment Details</a></li>
+                                    <li><a (click)="isNew = true;isOrder = false;isPayment=false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li id="planUnlimited"><a (click)="isNew = false;isOrder = true;isPayment=false;" style="cursor: pointer;">Order Details</a></li>
+                                    <li class="active"><a>Payment Details</a></li>
                                 </ol>
                             </h4>
                             <form [formGroup]="paymentForm"  class="col-md-12">
@@ -232,11 +255,11 @@
                         <div class="card-content">
                             <h4 class="card-title">
                                 <ol class="breadcrumb">
-                                    <li><a href="subscription.html">Payment Successful</a></li>
+                                    <li><a>Payment Successful</a></li>
                                 </ol>
                             </h4>
                             <div class="plans">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="plan plan-success">
                                         <p class="plan-success-recommended">Purchased</p>
                                         <h3 class="plan-title">{{choosedPlan.subscriptionName}}</h3>
