@@ -16,7 +16,8 @@ export class ForgotPasswordComponent implements OnInit {
   public forgetPassword: FormGroup;
   public userID: string = null;
   submitted: boolean = false;
-
+  isTextFieldType: boolean;
+  isreTextFieldType: boolean;
   constructor(public router: ActivatedRoute, public route: Router, public lgsc: LoginService, public rsc: ForgetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
@@ -56,6 +57,12 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     loads();
+  }
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
+  }
+  togglerePasswordFieldType(){
+    this.isreTextFieldType = !this.isreTextFieldType;
   }
   returntologin(){
     this.route.navigate(['/login']);

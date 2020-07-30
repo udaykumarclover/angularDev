@@ -169,8 +169,6 @@ export class LoginComponent implements OnInit {
   }
 
   signUp() {
-    let planYearTextString =`<b>AShvini</b>`
-    console.log("planYearTextString---",planYearTextString)
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
     var isChecked = element.checked;
     //$('#checkboxError').hide();
@@ -267,6 +265,9 @@ export class LoginComponent implements OnInit {
     this.resetLoginForm();
   }
   public checkUserType(value: string) {
+    // this.signupForm.get('termsAndcondition').clearValidators();
+    // this.signupForm.get('termsAndcondition').updateValueAndValidity(); 
+    $('#checkboxError').hide();  
     this.clearSignupValidation();
     this.updateValidation();
     if (value === 'customer') {
@@ -310,7 +311,6 @@ export class LoginComponent implements OnInit {
 
   togglePasswordFieldType(){
     this.isTextFieldType = !this.isTextFieldType;
-    console.log("this.isTextFieldType",this.isTextFieldType)
   }
 
   forgotPassword(): void {
@@ -363,6 +363,7 @@ export class LoginComponent implements OnInit {
   }
 
   validateCommons() {
+    $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
@@ -376,6 +377,7 @@ export class LoginComponent implements OnInit {
 
   validateBank() {
     // this.signupForm.get('minLCValue').setValidators(Validators.required);
+    $('#checkboxError').show();
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
     this.signupForm.get('mobileNo').clearValidators();
@@ -390,8 +392,9 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('businessType').clearValidators();
     this.updateValidation();
 
-  }
+  }e
   validateReferrerForm() {
+    $('#checkboxError').show();
     this.signupForm.get('designation').setValidators(Validators.required);
     this.signupForm.get('companyName').setValidators(Validators.required);
     this.signupForm.get('businessType').setValidators(Validators.required);
@@ -400,8 +403,8 @@ export class LoginComponent implements OnInit {
   }
   openTermAndServiceDialog(title): void {
     const dialogRef = this.dialog.open(TermAndConditionsComponent, {
-      width: '60%',
-      height: '70%',
+      height: '90%',
+      width: '88%',
       data: { title: title },
       disableClose: true
     });
@@ -583,6 +586,7 @@ export class LoginComponent implements OnInit {
 
 
   validateRegexFields(event, type){
+    var key = event.keyCode;
     if(type == "number"){
       ValidateRegex.validateNumber(event);
     }
@@ -592,10 +596,13 @@ export class LoginComponent implements OnInit {
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
     }else if(type=="name_validation"){
-      var key = event.keyCode;
       if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
           event.preventDefault();
       }    
+    }else if(type=="mobile_number_validations"){
+      if (key!= 43 && key > 31 && (key < 48 || key > 57)) {
+        event.preventDefault();
+    }
     }
   }
 
