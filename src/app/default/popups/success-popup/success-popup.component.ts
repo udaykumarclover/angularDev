@@ -15,7 +15,6 @@ export class SuccessPopupComponent implements OnInit {
   constructor(public router: Router) {
 
     let navigation = this.router.getCurrentNavigation();
-    console.log(navigation)
     const state = navigation.extras.state as {
       title: string,
       message: string,

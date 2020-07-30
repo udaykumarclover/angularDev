@@ -1,0 +1,13 @@
+.pophead{
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 15px;
+    margin: 0 0 20px;
+    background: #00bcd4;
+    color: #fff;
+}
+
+.mat-dialog-title {
+    margin: 0;
+    display: block;
+}

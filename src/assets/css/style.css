@@ -376,14 +376,14 @@ body:after{
 
 
 
-.loginbody .inputDiv .ng-invalid {
+/* .loginbody .inputDiv .ng-invalid {
 	outline: none;
     background-image: linear-gradient(#ff0330, #ff0330), linear-gradient(#ff0330, #ff0330);
     background-size: 100% 2px, 100% 1px;
     box-shadow: none;
     transition-duration: 0.3s;
 
-}
+} */
 
 .loginbody .inputDiv .invalid-feedback {
 	display: block;
@@ -402,7 +402,7 @@ body:after{
 	padding-top: 25px;
 }
 
-.loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
+/* .loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
     position: absolute;
     content: '';
     width: 0;
@@ -411,7 +411,7 @@ body:after{
     border-top-color: #ff0330;
     right: 10px;
     bottom: -10px;
-}
+} */
 
 .inputDiv.is-focused input, .inputDiv.is-focused select, .inputDiv.is-focused textarea {
     outline: none;

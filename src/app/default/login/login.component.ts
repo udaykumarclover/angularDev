@@ -14,7 +14,8 @@ import { Email } from 'src/app/beans/Email';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import  { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
-
+import { MatDialog } from '@angular/material';
+import { TermAndConditionsComponent } from '../term-and-conditions/term-and-conditions.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -39,10 +40,11 @@ export class LoginComponent implements OnInit {
   public submittedSignup = false;
   public forgPassSubmitted: boolean = false;
   resp: any;
+  isTextFieldType: boolean;
   todaysDate: any;
-
-  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef) {
-    $('#checkboxError').hide();
+  
+  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog) {
+   // $('#checkboxError').hide();
   }
 
   ngOnInit() {
@@ -67,7 +69,8 @@ export class LoginComponent implements OnInit {
       countriesInt: [''],
       minLCValue: ['0'],
       blacklistedGC: [''],
-      companyName: ['']
+      companyName: [''],
+      termsAndcondition: [false, Validators.requiredTrue]
     });
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
@@ -83,9 +86,31 @@ export class LoginComponent implements OnInit {
     }
     this.getCountryData();
   }
+
   ngAfterViewInit() {    
     const first_input = this.el.nativeElement.querySelector('.first_input');
     first_input.focus();
+    const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
+    
+    inputList.forEach((input: HTMLElement) => {
+        input.addEventListener('focus', () => {
+         if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id===""){
+            if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+             input.className="ng-valid ng-dirty ng-touched"   
+            else 
+             input.className="ng-valid ng-dirty ng-touched has-value"
+         }   
+        });
+           input.addEventListener('blur', () => {
+             if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id==="")
+             {
+             if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
+               input.className="ng-valid ng-dirty ng-touched"   
+             else
+             input.className="ng-valid ng-dirty ng-touched has-value"
+             }
+        });
+    });
   }
   get lf() {
     return this.loginForm.controls;
@@ -112,6 +137,7 @@ export class LoginComponent implements OnInit {
       subscribe(
         (response) => {
           this.Removevalidate();
+          console.log("response--------",response)
           let responseData = JSON.parse(JSON.stringify(response));
           sessionStorage.setItem('userID', loginData.userId);
           if (loginData.userId.startsWith('RE')) {
@@ -129,22 +155,25 @@ export class LoginComponent implements OnInit {
         (error) => {
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Username or Password is incorrect!',
-              message: 'Username or Password is incorrect',
+              title: 'User ID or Password is incorrect!',
+              message: '',
               parent: 'login'
             }
           };
           this.router.navigate(['/login/error'], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+           // this.resetLoginForm();
         }
       )
   }
 
   signUp() {
+    let planYearTextString =`<b>AShvini</b>`
+    console.log("planYearTextString---",planYearTextString)
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
     var isChecked = element.checked;
-    $('#checkboxError').hide();
+    //$('#checkboxError').hide();
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
@@ -169,10 +198,10 @@ export class LoginComponent implements OnInit {
       }
 
     }
-    if(!isChecked){
-    $('#checkboxError').show();
-      return;
-    }
+    // if(!isChecked){
+    // $('#checkboxError').show();
+    //   return;
+    // }
 
     this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
@@ -235,6 +264,7 @@ export class LoginComponent implements OnInit {
   public sugnUpView() {
     this.clearSignupValidation();
     this.updateValidation();
+    this.resetLoginForm();
   }
   public checkUserType(value: string) {
     this.clearSignupValidation();
@@ -278,7 +308,10 @@ export class LoginComponent implements OnInit {
 
   }
 
-
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
+    console.log("this.isTextFieldType",this.isTextFieldType)
+  }
 
   forgotPassword(): void {
     this.forgPassSubmitted = true;
@@ -301,7 +334,7 @@ export class LoginComponent implements OnInit {
           this.forgotPasswordForm.reset();
           const navigationExtras: NavigationExtras = {
             state: {
-              title: 'Congratulations! Password reset link is sent to email id '+ emailValue +'.',
+              title: 'Congratulations! Password reset link is sent to email id '+ emailValue,
               message: '',
               parent: 'login'
             }
@@ -330,11 +363,12 @@ export class LoginComponent implements OnInit {
   }
 
   validateCommons() {
-    this.signupForm.get('firstName').setValidators([Validators.required,Validators.minLength(2)]);
+    this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
-    this.signupForm.get('mobileNo').setValidators(Validators.required);
+    this.signupForm.get('mobileNo').setValidators([Validators.required,Validators.minLength(7)]);
     this.signupForm.get('country').setValidators(Validators.required);
+    this.signupForm.get('landlineNo').setValidators(Validators.minLength(7));
     this.removeBankValidation();
     this.removeReferrerValidation();
     this.updateValidation();
@@ -345,7 +379,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
     this.signupForm.get('mobileNo').clearValidators();
-    this.signupForm.get('landlineNo').setValidators(Validators.required);
+    this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);
     this.updateValidation();
   }
 
@@ -363,6 +397,16 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('businessType').setValidators(Validators.required);
     this.updateValidation();
 
+  }
+  openTermAndServiceDialog(title): void {
+    const dialogRef = this.dialog.open(TermAndConditionsComponent, {
+      width: '60%',
+      height: '70%',
+      data: { title: title },
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   removeBankValidation() {
@@ -412,11 +456,8 @@ export class LoginComponent implements OnInit {
 
     this.blgValue = this.signupForm.get('blacklistedGC').value;
     this.intCountriesValue = this.signupForm.get('countriesInt').value;
-    console.log(this.intCountriesValue+"========"+this.blgValue);
-    
     this.blg = [];
     this.intCountries = [];
-
     for (let vlg of this.blgValue) {
       let blgData = {
         goods_ID: null,
@@ -498,6 +539,12 @@ export class LoginComponent implements OnInit {
     console.log(item);
   }
 
+  resetLoginForm() {
+    this.loginForm = this.fb.group({
+      username: [''],
+      password: ['']
+    });
+  }
 
   resetSignUpForm() {
     this.signupForm.patchValue({
@@ -567,10 +614,11 @@ export class LoginComponent implements OnInit {
   }
 
   clearInvalidationText() {
+    this.resetLoginForm();
     this.Removevalidate();
     this.forgotPasswordForm.get('email').clearValidators();
     this.forgotPasswordForm.get('email').updateValueAndValidity();
-    $('#checkboxError').hide();
+    //$('#checkboxError').hide();
     $("#isCheckedForTerms"). prop("checked", false);
   }
 
@@ -588,7 +636,7 @@ export class LoginComponent implements OnInit {
   }
 
   acceptTerms(){
-    $('#checkboxError').hide();
+    // $('#checkboxError').hide();
   }
 
 }
