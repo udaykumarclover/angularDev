@@ -142,9 +142,9 @@
                                        <div class="col-md-4">
                                           <div class="inputDiv selectdiv">
                                              
-                                             <select formControlName="country" class="countryddl">
+                                             <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
                                                 <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>
                                                 
                                              </select>
                                              <label>Select Country</label>
@@ -158,8 +158,9 @@
                     
                                        </div>
                                        <div class="col-md-4">
-                                          <div class="inputDiv">
-                                             <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                                          <div class="inputDiv divmob">
+                                             <div class="countrycode">+{{countryCode}}</div>
+                                             <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'mobile_number_validations')">
                                              <label>Mobile No.</label>
                                              <img src="assets/images/mobile.png" style="width: 10px;height: 15px;" />
                                              <div *ngIf="submittedSignup && suf.mobileNo.errors" class="invalid-feedback">
@@ -228,14 +229,18 @@
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
-                                             <label>Minimum Value of LC</label>
+                                             <input type="text" class="currencyleft" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
+                                             <label>Min LC Value</label>
                                              <img src="assets/images/cash.png" style="height: 14px;width: 10px;" />
                                              <!-- <div *ngIf="submittedSignup && suf.minLCValue.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.minLCValue.errors.required">
                                                    Minimum LC value is required
                                                 </div>
                                              </div> -->
+                                             <select class="currency">
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
+                                             </select>
                                           </div>
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">

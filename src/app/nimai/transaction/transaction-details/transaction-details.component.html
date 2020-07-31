@@ -46,7 +46,7 @@
                                    <tr *ngFor="let record of data; let i = index">
                                       <td>{{i+1}}</td>
                                       <td>{{record.transactionId}}</td>
-                                      <td>{{record.insertedDate}}</td>
+                                      <td>{{record.insertedDate  | date : "dd-MM-y h:mm:ss z"}}</td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.requirementType}}</td>
                                       <td>{{record.lCValue}}</td>
@@ -61,6 +61,7 @@
                                       </td>
                                       <td> 
                                          <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas();">Detail</a>
+                                         <a style="cursor: pointer;" (click)="cloneTransaction(record.transactionId)">Clone</a>
                                       </td>
                                    </tr>
                                 </tbody>
@@ -901,7 +902,7 @@
                        <label>Select your reason for rejecting the transaction</label>
                        <div class="form-group"></div>
                        <div class="inputDiv selectdiv">
-                          <select>
+                          <select id="rejectReason">
                              <option value=''>Select</option>
                              <option value="1">Bank not acceptable</option>
                              <option>Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
@@ -912,7 +913,7 @@
                        <div class="form-group"></div>
                        <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal" (click)="rejectBankQuote()">Submit</button> 
+                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal" (click)="rejectBankQuote(quotationdata.quotationId)">Submit</button> 
                  </div>
               </div>
            </div>

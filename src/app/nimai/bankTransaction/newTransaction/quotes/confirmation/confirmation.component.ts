@@ -104,40 +104,41 @@ this.dataViewEdit={
      }
 
   ngOnInit() {
+
   }
 
   onNegotChange(value){
     this.data.confChgsIssuanceToMatur='';
     this.data.confChgsIssuanceToNegot='yes';     
-     }
+    }
  
  onMatureChange(value){
   this.data.confChgsIssuanceToNegot='';
   this.data.confChgsIssuanceToMatur='yes';
-   }
+  }
 
 
   public action(flag: boolean, type: Tflag, data: any) {
- 
     if (flag) {
-     
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
-     this.dataViewEdit=data;
+        this.dataViewEdit=data;
        
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
         this.dataViewEdit=data;
         $('input').attr('readonly', false);
-      }else if (type === Tflag.PLACE_QUOTE){    
-     this.isActiveQuote = flag;
+      }else if (type === Tflag.PLACE_QUOTE){  
+        console.log(data)
+        this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
         $('input').attr('readonly', false);
-        
+        $('#selectid1').attr('readonly', true);
+        $('#selectid2').attr('readonly', true);
       }
     } else {
       this.isActive = flag;

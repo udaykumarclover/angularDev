@@ -46,7 +46,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.validity"  placeholder="28/03/2020"></td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.validityDate"  placeholder="28/03/2020"></td>
                               </tr>
                               <!-- <tr>
                                  <th>Total Quote</th>
@@ -101,11 +101,11 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td>{{dataViewEdit.validity}}</td>
+                                 <td>{{dataViewEdit.validityDate | date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th *ngIf="detail">{{detail.totalQuoteValue}}</th>
+                                 <th *ngIf="detail">{{dataViewEdit.totalQuoteValue}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
@@ -148,10 +148,10 @@
          </div>
       </div>
 
-
-      <div id="menu-bar" [hidden]="!isActiveQuote"  (blur)="closedQuote()" 
+      <div [hidden]="!isActiveQuote" >
+      <div id="menubarConfirmQuote"  
       style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
-       <div class="popupcontent">
+      <div class="popupcontent">
          <div class="card">
             <div class="card-content">
                <h4>{{title}}</h4>
@@ -197,19 +197,19 @@
                               <td>
                                  <input type="radio" id="optn" [checked]="false" name="charges" 
                                  (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                 <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" readonly="readonly">
+                                 <td><input type="text" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" readonly>
                            </tr>
                            <tr>
                               <td>
                                  <input type="radio" id="optn"[checked]="false" name="charges" 
                                  (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
-                                 <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" readonly="readonly">
+                                 <td><input type="text" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" readonly>
                             </tr>
                             <tr>
                               <td>Other Charges</td>
                               <td><input type="text" [(ngModel)]="data.otherCharges" placeholder="0.00">
                            </tr>
-                           <textarea style="width:320px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
+                           <textarea style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
                            rows="3"></textarea>
                           
                            <!-- <tr>
@@ -224,7 +224,7 @@
                            
                            <tr>
                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td><input type="date" [(ngModel)]="data.validity"  placeholder="28/03/2020"></td>
+                              <td><input type="date" [(ngModel)]="data.validityDate"  placeholder="mm/dd/yyyy"></td>
                            </tr>
                            <tr>
                               <td>Other terms and conditions</td>
@@ -290,7 +290,7 @@
 
                            <tr>
                               <td>Confirmation Charges p.a.</td>
-                              <td>{{data.confirmationCharges}}</td>
+                              <td>{{data.confirmationCharges}} %</td>
                            </tr>
                            <tr>
                               <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
@@ -316,7 +316,7 @@
                           
                            <tr>
                                <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td>{{data.validity}}</td>
+                              <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                            </tr>
                            <tr>
                               <th>Total Quote</th>
@@ -369,3 +369,4 @@
          </div>
       </div>
    </div>
+</div>

@@ -30,13 +30,13 @@
                                   <tr>
                                     <th class="disabled-sorting text-center">#</th> 
                                     <th style="min-width: 150px;">Beneficiary</th>
-                                    <th>Country</th>
+                                    <th style="min-width: 150px;">Country</th>
                                     <th style="min-width: 150px;">Applicant</th>
                                     <th nowrap>Country</th>
                                     <th nowrap>Txn ID</th>
-                                    <th style="min-width: 100px;width: 100px !important;">Date & Time</th>
+                                    <th style="min-width: 166px;">Date & Time</th>
                                     <th style="min-width: 100px;width: 100px !important;">Validity</th>
-                                    <th nowrap>IB</th>
+                                    <th style="min-width: 150px;">IB</th>
                                     <th style="min-width: 80px;">Amount</th>
                                     <th style="min-width: 60px;">Ccy</th>
                                     <th style="min-width: 80px;">Goods</th>
@@ -52,8 +52,8 @@
                                     <td>{{record.applicantName}}</td>
                                     <td>{{record.applicantCountry}}</td>
                                     <td>{{record.transactionId}}</td>
-                                    <td nowrap>{{record.insertedDate}}</td>
-                                    <td nowrap>{{record.validity}}</td>
+                                    <td nowrap>{{record.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                                    <td nowrap>{{record.validity | date : "dd-MM-y"}}</td>
                                     <td>{{record.lCIssuanceBank}}</td>
                                     <td>{{record.lCValue}}</td>
                                      <td>{{record.lCCurrency}}</td>

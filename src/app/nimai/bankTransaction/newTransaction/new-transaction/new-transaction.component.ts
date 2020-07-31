@@ -11,6 +11,7 @@ import { BankerComponent } from '../quotes/banker/banker.component';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Tflag } from 'src/app/beans/Tflag';
 import { newTransactionBean } from 'src/app/beans/BankNewTransaction';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class NewTransactionComponent implements OnInit {
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
+  public date: string = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
+
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public detail: any;
@@ -146,6 +149,7 @@ export class NewTransactionComponent implements OnInit {
   
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+   
     const data = {
       "bankUserId":sessionStorage.getItem('userID'),
       "userId":val.userId,
@@ -154,8 +158,11 @@ export class NewTransactionComponent implements OnInit {
       "lCIssuanceBank":val.lCIssuanceBank,
       "lCValue":val.lCValue,
       "lCCurrency":val.lCCurrency,
-      "usanceDays":val.usanceDays
-     
+      "usanceDays":val.usanceDays,
+       "insertedDate":this.date,
+      "insertedBy":sessionStorage.getItem('userID'),
+      "modifiedDate":this.date,
+      "modifiedBy":sessionStorage.getItem('userID'),
   }
   
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {

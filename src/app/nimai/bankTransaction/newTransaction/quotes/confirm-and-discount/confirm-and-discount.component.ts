@@ -133,8 +133,8 @@ this.dataViewEdit={
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-        console.log(this.data)
-        $('input').attr('readonly', false);
+        $('#selectid1').attr('readonly', true);
+        $('#selectid2').attr('readonly', true);
       }
     } else {
       this.isActive = flag;

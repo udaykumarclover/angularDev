@@ -119,7 +119,7 @@
               <div class="row">
               <div class="col-md-12">
                 <div id="authemaildiv">
-                  <p><strong>Enter an email address of an Authorized user</strong></p>
+                  <p><strong>Enter details of an Authorized user</strong></p>
                   <div class="form-group"></div>
                   <div class="col-md-6">
                       <div class="inputDiv">
@@ -141,7 +141,7 @@
                   </div>
                   <div class="col-md-6">
                       <div class="inputDiv">
-                        <input type="text" formControlName="emailId">
+                        <input type="text" formControlName="emailId" oninput="this.value = this.value.toLowerCase()">
                         <label>Your Email ID</label>
                         <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
                           Email is required
