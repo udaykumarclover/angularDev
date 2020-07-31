@@ -178,6 +178,7 @@ select option{
     width: 20px!important;
     top: 11px!important;
     cursor: pointer;
+    color: deepskyblue!important;
 }
 .divmob input[type=text] {
     padding-left: 55px !IMPORTANT;
