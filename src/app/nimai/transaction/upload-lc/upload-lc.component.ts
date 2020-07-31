@@ -43,6 +43,7 @@ export class UploadLCComponent implements OnInit {
   showUpdateButton: boolean = false;
   isUpdate: boolean = false;
   draftData: any;
+  cloneData: any;
   dateToPass: any;
 
 
@@ -60,9 +61,15 @@ export class UploadLCComponent implements OnInit {
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation);
     if(navigation.extras.state){
-      console.log("..."+ navigation.extras.state.redirectedFrom);
-      var trnsactionID = navigation.extras.state.trnsactionID;
-      this.callDraftTransaction(trnsactionID);
+      if(navigation.extras.state.redirectedFrom == "draftTransaction"){
+        console.log("..."+ navigation.extras.state.redirectedFrom);
+        var trnsactionID = navigation.extras.state.trnsactionID;
+        this.callDraftTransaction(trnsactionID);
+      }
+      else if(navigation.extras.state.redirectedFrom == "cloneTransaction"){
+        var trnsactionID = navigation.extras.state.trnsactionID;
+        this.callCloneTransaction(trnsactionID);
+      }
     }
 
     this.setForm();
@@ -627,6 +634,91 @@ export class UploadLCComponent implements OnInit {
       },(error) =>{
       }
       )
+  }
+
+  callCloneTransaction(trnsactionID){
+    var data = {
+      "transactionId":trnsactionID
+      }
+  
+      this.upls.custCloneTransaction(data).subscribe(
+        (response) => {
+
+          this.cloneData = JSON.parse(JSON.stringify(response)).data;
+          console.log(this.cloneData);
+         
+        this.lcDetailForm.patchValue({
+          userId: this.cloneData.userId,
+          selector: this.cloneData.requirementType,
+          lCIssuanceBank: this.cloneData.lCIssuanceBank,
+          lCIssuanceBranch: this.cloneData.lCIssuanceBranch,
+          swiftCode: this.cloneData.swiftCode,
+          lCIssuanceCountry: this.cloneData.lCIssuanceCountry,
+      
+          lCValue: this.cloneData.lCValue,
+          lCCurrency: this.cloneData.lCCurrency,
+          lCIssuingDate: this.cloneData.lCIssuingDate,
+          lastShipmentDate: this.cloneData.lastShipmentDate,
+          negotiationDate: this.cloneData.negotiationDate,
+          goodsType:this.cloneData.goodsType,
+      
+      
+          // For Confirmation 
+          paymentPeriod: this.cloneData.paymentPeriod,
+          paymentTerms: this.cloneData.paymentTerms,
+          startDate:this.cloneData.startDate,
+          // tenorEndDate: this.cloneData.tenorEndDate,
+      
+          // For Discounting 
+          discountingPeriod:this.cloneData.discountingPeriod,
+          remarks:this.cloneData.remarks,
+      
+          //For Refinancing
+          originalTenorDays:this.cloneData.originalTenorDays,
+          refinancingPeriod:this.cloneData.refinancingPeriod,
+          lcMaturityDate:this.cloneData.lcMaturityDate,
+          lcNumber:this.cloneData.lcNumber,
+          lastBeneBank:this.cloneData.lastBeneBank,
+          lastBeneSwiftCode:this.cloneData.lastBeneSwiftCode,
+          lastBankCountry:this.cloneData.lastBankCountry,
+      
+          
+          applicantName:this.cloneData.applicantName,
+          applicantCountry:this.cloneData.applicantCountry,
+      
+          beneName:this.cloneData.beneName,
+          beneBankCountry:this.cloneData.beneBankCountry,
+          beneBankName:this.cloneData.beneBankName,
+          beneSwiftCode:this.cloneData.beneSwiftCode,
+          beneCountry:this.cloneData.beneCountry,
+          
+         
+          loadingCountry:this.cloneData.loadingCountry,
+          loadingPort:this.cloneData.loadingPort,
+          dischargeCountry:this.cloneData.dischargeCountry,
+          dischargePort:this.cloneData.dischargePort,
+      
+          chargesType: this.cloneData.chargesType,
+          validity:this.cloneData.validity,
+          lcProForma:this.cloneData.lcProForma,
+      
+          lCExpiryDate:this.cloneData.lCExpiryDate,    
+          
+          insertedDate: this.cloneData.insertedDate,
+          insertedBy: this.cloneData.insertedBy,
+          modifiedDate: this.cloneData.modifiedDate,
+          modifiedBy: this.cloneData.modifiedBy,
+          transactionflag: this.cloneData.transactionflag,
+          transactionStatus: this.cloneData.transactionStatus,
+          userType:this.cloneData.userType,
+          applicantContactPerson:this.cloneData.applicantContactPerson,
+          applicantContactPersonEmail:this.cloneData.applicantContactPersonEmail,
+          beneContactPerson:this.cloneData.beneContactPerson,
+          beneContactPersonEmail:this.cloneData.beneContactPersonEmail,
+        });
+        },
+        (err) => {}
+    ) 
   }
 
 }

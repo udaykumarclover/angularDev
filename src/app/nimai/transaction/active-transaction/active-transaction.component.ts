@@ -166,7 +166,7 @@ export class ActiveTransactionComponent implements OnInit {
     this.getSpecificDetail = detail;
  }
 
- showAcceptedDetails(index,qId, tId, userID,sel){
+ showAcceptedDetails(index,qId, tId, quotationDetails){
   let req = {
     "quotationId": qId,
 	  "transactionId": tId
@@ -174,11 +174,8 @@ export class ActiveTransactionComponent implements OnInit {
 
   index = index + 1;
 
-  this.bds.viewBusinessDetails(userID).subscribe(
-    (response) => {
-      let responseData = JSON.parse(JSON.stringify(response));
-      this.acceptedDetails = responseData.data;
-      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ', ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.registeredCountry);
+      this.acceptedDetails = quotationDetails;
+      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ' - ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.countryName);
       $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
       this.nts.acceptBankQuote(req).subscribe(
         (response) => {
@@ -188,8 +185,7 @@ export class ActiveTransactionComponent implements OnInit {
           console.log("Failure");
         }
       )
-    },
-    (err) => {})
+    
  }
 
  redirectAsAccepted(){

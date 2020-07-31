@@ -88,8 +88,8 @@
                                     Quotes for Matress 23</td>
                                   <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
-                                  <td>{{QRrecord.validityDate}}</td>
-                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord.bankUserId, true);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" data-target="#myModal4">Accept</button></td>
+                                  <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" data-target="#myModal4">Accept</button></td>
                                 </tr>                          
                               </tbody>
                             </table>
@@ -157,7 +157,7 @@
                 </tr>
                 <tr>
                   <td>Valid Till</td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate}}</td>
+                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
                 </tr>
                 <tr>
                   <th>Total Quote</th>
@@ -221,10 +221,10 @@
                   <li><strong>Bank Details</strong></li>
                   <li>Bank : {{acceptedDetails.bankName}}</li>
                   <li>Branch : {{acceptedDetails.branchName}}</li>
-                  <li>Country : {{acceptedDetails.registeredCountry}}</li>
-                  <li>Email : {{acceptedDetails.emailId}}</li>
-                  <li>Contact : {{acceptedDetails.telephone}}</li>
-                  <li>Contact Person : {{acceptedDetails.firstName}}{{acceptedDetails.lastName}}</li>
+                  <li>Country : {{acceptedDetails.countryName}}</li>
+                  <li>Email : {{acceptedDetails.emailAddress}}</li>
+                  <li>Contact : {{acceptedDetails.mobileNumber}}</li>
+                  <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li>
                 </ul>
                 <p>Details are saved in the Transaction Details section.</p>
                 <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">Ok<div

@@ -107,12 +107,13 @@
                                            <tr>
                                               <td class="text-left">
                                                  <ul>
-                                                    <li>Advisory Services will be provided</li>
-                                                    <li>Experienced Advisors</li>
+                                                    <li>{{advDetails.plan_name}}</li>
+                                                    <li>{{advDetails.description_1}}</li>
+                                                    <li>{{advDetails.description_3}}</li>
                                                  </ul>
                                               </td>
                                               <td  class="text-right">
-                                                 <p><strong>USD $99</strong></p>
+                                                 <p><strong>US ${{advDetails.pricing}}</strong></p>
                                               </td>
                                            </tr>
                                            <tr>
@@ -127,7 +128,7 @@
                                             <td>
                                                 <label class="customlabel">Sub Total</label>
                                             </td>
-                                            <td>US ${{choosedPlan.subscriptionAmount}}</td>
+                                            <td>US ${{addedAmount}}</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -153,7 +154,7 @@
                                                 Grand Total
                                             </th>
                                             <th>
-                                                US ${{choosedPlan.subscriptionAmount}}
+                                                US ${{addedAmount}}
                                             </th>
                                         </tr>
                                     </table>
