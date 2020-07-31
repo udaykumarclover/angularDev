@@ -333,7 +333,7 @@ export function bankNewTransaction(){
     
     setTimeout(() => {
     $(function(){
-    // prettyPrint();
+    prettyPrint();
     
     var slider = $("#menu-bar").slideReveal({
     // width: 100,
@@ -349,9 +349,33 @@ export function bankNewTransaction(){
     hidden: function(obj){
     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
     obj.removeClass("left-shadow-overlay");
+    
     }
+    
     });
     });
+
+
+  
+
+    $(function(){
+  
+        var slider1 = $(".test").slideReveal({
+        push: false,
+        position: "right",
+        trigger: $(".handle"),
+        shown: function(obj){
+        obj.find(".handle").html('<span class="fas fa-times"></span>');
+        obj.addClass("left-shadow-overlay");
+        },
+        hidden: function(obj){
+        obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+        obj.removeClass("left-shadow-overlay");
+        }
+        });
+        });
+        
+    
      $(function(){
   
     var slider1 = $("#menubarConfDis").slideReveal({
@@ -483,24 +507,24 @@ export function bankNewTransaction(){
       $('[data-toggle="tooltip"]').tooltip();   
     
     
-      $('#menu-bar #tab2').hide();
-      $('#menu-bar #tab3').hide();
-      $('#menu-bar #btnpreview').click(function(){
-          $('#menu-bar #tab1').slideUp();
-           $('#menu-bar #tab2').slideDown();
-      });
+    //   $('#menu-bar #tab2').hide();
+    //   $('#menu-bar #tab3').hide();
+    //   $('#menu-bar #btnpreview').click(function(){
+    //       $('#menu-bar #tab1').slideUp();
+    //        $('#menu-bar #tab2').slideDown();
+    //   });
     
-      $('#menu-bar #btnEdit').click(function(){
-          $('#menu-bar #tab1').slideDown();
-           $('#menu-bar #tab2').slideUp();
-      });
+    //   $('#menu-bar #btnEdit').click(function(){
+    //       $('#menu-bar #tab1').slideDown();
+    //        $('#menu-bar #tab2').slideUp();
+    //   });
     
     
-      $('#menu-bar #btnSubmit').click(function(){
-          $('#menu-bar #tab2').slideUp();
-          $('#menu-bar #tab1').slideUp();
-           $('#menu-bar #tab3').slideDown();
-      });
+    //   $('#menu-bar #btnSubmit').click(function(){
+    //       $('#menu-bar #tab2').slideUp();
+    //       $('#menu-bar #tab1').slideUp();
+    //        $('#menu-bar #tab3').slideDown();
+    //   });
 
       $('#menubarDiscounting #tab2').hide();
       $('#menubarDiscounting #tab3').hide();
@@ -641,7 +665,7 @@ export function bankNewTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 5000);
+}, 100);
 }
 
 
@@ -1507,26 +1531,26 @@ export function custTrnsactionDetail() {
             });
         });
 
-        $(function () {
-            // prettyPrint();
+        // $(function () {
+        //     // prettyPrint();
 
-            var slider8 = $("#menubarDetailreject").slideReveal({
-                width: 450,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handleDetailreject"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-        });
+        //     var slider8 = $("#menubarDetailreject").slideReveal({
+        //         width: 450,
+        //         push: false,
+        //         position: "right",
+        //         // speed: 600,
+        //         trigger: $(".handleDetailreject"),
+        //         // autoEscape: false,
+        //         shown: function (obj) {
+        //             obj.find(".handle").html('<span class="fas fa-times"></span>');
+        //             obj.addClass("left-shadow-overlay");
+        //         },
+        //         hidden: function (obj) {
+        //             obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+        //             obj.removeClass("left-shadow-overlay");
+        //         }
+        //     });
+        // });
 
         $(function () {
             // prettyPrint();

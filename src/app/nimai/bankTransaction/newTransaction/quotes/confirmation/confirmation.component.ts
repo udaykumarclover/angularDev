@@ -1,11 +1,8 @@
-// import { Component, OnInit, ViewChild } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { Tflag } from 'src/app/beans/Tflag';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import * as $ from 'src/assets/js/jquery.min';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { ViewChild, OnInit, Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { formatDate } from '@angular/common';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
@@ -16,8 +13,6 @@ import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
 })
 export class ConfirmationComponent implements OnInit {
  
-  
-  public confirmationForm: FormGroup;
   public isActive: boolean = false;
   public isActiveQuote: boolean = false;
   public data: PlaceQuote;
@@ -38,7 +33,7 @@ export class ConfirmationComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
-    this.getCurrentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
+   
     this.data = {        
 		transactionId: "",
 		userId: "",
@@ -111,11 +106,6 @@ this.dataViewEdit={
   ngOnInit() {
   }
 
-
-  public dateFormat(date: string): string {
-    let formatedDate = formatDate(new Date(date), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
-    return formatedDate;
-  }
   onNegotChange(value){
     this.data.confChgsIssuanceToMatur='';
     this.data.confChgsIssuanceToNegot='yes';     
@@ -142,12 +132,12 @@ this.dataViewEdit={
         this.title = 'Edit';
         this.dataViewEdit=data;
         $('input').attr('readonly', false);
-      }else if (type === Tflag.PLACE_QUOTE){      
-        this.isActiveQuote = flag;
-       $('input').attr('readonly', false);
+      }else if (type === Tflag.PLACE_QUOTE){    
+     this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-      
+        $('input').attr('readonly', false);
+        
       }
     } else {
       this.isActive = flag;
@@ -207,22 +197,8 @@ this.dataViewEdit={
         setTimeout(() => {
           $('input').attr('readonly', true);
         }, 200);
-        this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
-          (response) => {
-           
-            this.detail = JSON.parse(JSON.stringify(response)).data;
-            //this.data=data;
-            // this.data.TotalQuote=this.detail.TotalQuote;
-            // this.data.confChgsMatur=this.detail.confChgsMatur;
-            // this.data.confChgsNegot=this.detail.confChgsNegot;
-
-          },
-          error => {
-            alert('error')
-            this.closed();
-            this.tab = 'tab1';
-          }
-        )
+   
+        
 
       }
         break;
@@ -248,10 +224,10 @@ this.dataViewEdit={
                       "userId":data.userId
          }
 
-       
+         this.tab = 'tab3';
       this.ts.confirmQuotation(param).subscribe(
         (response) => {
-          this.tab = 'tab3';
+         
           let emailBodyUpdate = {
             "transactionid": data.transactionId,
             "userId": data.userId,

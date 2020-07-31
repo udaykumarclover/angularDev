@@ -40,9 +40,9 @@ export class NewTransactionComponent implements OnInit {
 
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
-    bankNewTransaction();
+   
     this.titleService.quote.next(false);
-    
+   
     this.data = {
       transactionId: "",
       userId: "",
@@ -118,6 +118,7 @@ export class NewTransactionComponent implements OnInit {
   this.nts.getAllNewBankRequest(data).subscribe(
           (response) => {
              this.detail = JSON.parse(JSON.stringify(response)).data;
+             bankNewTransaction();
           if (!this.detail) {
           this.hasNoRecord = true;
         }
@@ -189,4 +190,6 @@ export class NewTransactionComponent implements OnInit {
       this.banker.action(true,action,data);
     }
   }
+
+  
 }
