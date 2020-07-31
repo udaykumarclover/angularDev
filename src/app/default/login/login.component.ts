@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
   resp: any;
   isTextFieldType: boolean;
   todaysDate: any;
+  countryCode: any = "";
+  countryName: any;
   
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog) {
    // $('#checkboxError').hide();
@@ -488,7 +490,7 @@ export class LoginComponent implements OnInit {
       lastName: this.signupForm.get('lastName').value,
       emailAddress: this.signupForm.get('officialMailId').value,
       mobileNum: this.signupForm.get('mobileNo').value,
-      countryName: this.signupForm.get('country').value,
+      countryName: this.countryName,
       landLinenumber: this.signupForm.get('landlineNo').value,
       companyName: this.signupForm.get('companyName').value,
       designation: this.signupForm.get('designation').value,
@@ -637,6 +639,11 @@ export class LoginComponent implements OnInit {
 
   acceptTerms(){
     // $('#checkboxError').hide();
+  }
+
+  showCountryCode(data){
+    this.countryName = data.country;
+    this.countryCode = data.code;
   }
 
 }

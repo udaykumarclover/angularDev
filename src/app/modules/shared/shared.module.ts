@@ -23,6 +23,7 @@ import { ChangePasswordComponent } from 'src/app/default/change-password/change-
 import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/manage-user.component';
+import { SupportComponent } from 'src/app/default/support/support/support.component';
 
 
 
@@ -43,7 +44,8 @@ import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/man
     ManageSubsidiaryComponent,
     ReferComponent,
     CreditAndTransactionsComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    SupportComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +74,8 @@ import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/man
     ManageSubsidiaryComponent,
     ManageUserComponent,
     ReferComponent,
-    CreditAndTransactionsComponent
+    CreditAndTransactionsComponent,
+    SupportComponent
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,

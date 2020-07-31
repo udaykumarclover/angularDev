@@ -78,9 +78,9 @@ export class TransactionDetailsComponent {
       "transactionId": transactionId
     }
     
-    this.nts.getQuotationDetails(data).subscribe(
+    this.nts.getAllQuotationDetails(data).subscribe(
         (response) => {
-          this.quotationdata = JSON.parse(JSON.stringify(response)).data;
+          this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
         console.log(this.quotationdata);
         },
         (error) => {}
@@ -108,14 +108,26 @@ close(){
 }
 
 rejectBankQuote(quoteId){
+  var statusReason = $("#rejectReason option:selected").text();
   let data = {
-    "statusReason":"ABC"
+    "statusReason" : statusReason
     }
   
   this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {},
       (err) => {}
   )
+}
+
+cloneTransaction(transactionId){
+  var data = {
+    "transactionId":transactionId
+    }
+
+    this.nts.custCloneTransaction(data).subscribe(
+      (response) => {},
+      (err) => {}
+  )    
 }
 
 
