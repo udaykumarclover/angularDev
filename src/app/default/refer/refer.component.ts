@@ -78,12 +78,26 @@ export class ReferComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
   }
+resetreferform(){
+  
+  this.referForm.get('firstName').clearValidators();
+  this.referForm.get('lastName').clearValidators();
+  this.referForm.get('mobileNo').clearValidators();
+  this.referForm.get('emailAddress').clearValidators();
+  this.referForm.get('countryName').clearValidators();
+  this.referForm.get('companyName').clearValidators();
 
+  this.referForm.patchValue({
+    firstName: '',
+    lastName: '',
+    mobileNo: '',
+    emailAddress:'',
+    countryName: '',
+    companyName: ''
+  })
+}
   close() {
-    //this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //     this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
-    // });
+    this.resetreferform();
     $("#addsub").hide();
   }
 

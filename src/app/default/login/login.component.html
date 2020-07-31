@@ -160,7 +160,7 @@
                                        <div class="col-md-4">
                                           <div class="inputDiv divmob">
                                              <div class="countrycode">+{{countryCode}}</div>
-                                             <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'mobile_number_validations')">
+                                             <input type="text" formControlName="mobileNo" maxlength="13" [ngClass]="hasCountrycode ? 'has-value' : ''" (keypress)="validateRegexFields($event,'mobile_number_validations')">
                                              <label>Mobile No.</label>
                                              <img src="assets/images/mobile.png" style="width: 10px;height: 15px;" />
                                              <div *ngIf="submittedSignup && suf.mobileNo.errors" class="invalid-feedback">

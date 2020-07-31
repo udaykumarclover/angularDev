@@ -65,14 +65,11 @@
                                     <!--added by ashvini - validation added for mobile number and landline number-->
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" formControlName="mobileNo" maxlength="13" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Mobile No.</label>
                                             <div *ngIf="submitted && perDetails.mobileNo.errors" class="invalid-feedback">
                                                 <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
                                                     Mobile No is required
-                                                </div>
-                                                <div *ngIf="perDetails.mobileNo.errors?.minlength">
-                                                    Mobile No must of 12 digits.
                                                 </div>
                                             </div>
                                         </div>
@@ -121,6 +118,11 @@
                                         <div class="inputDiv">
                                             <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Designation</label>
+                                            <div *ngIf="submitted && perDetails.designation.errors" class="invalid-feedback">
+                                                <div *ngIf="submitted && perDetails.designation.errors.required" >
+                                                    Select Company Name
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="isReferrer">
