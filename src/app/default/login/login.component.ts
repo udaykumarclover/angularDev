@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   interestedCountryList = this.countryService();
   blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
-
+  public hasCountrycode=false;
   public submitted = false;
   public submittedSignup = false;
   public forgPassSubmitted: boolean = false;
@@ -653,6 +653,9 @@ export class LoginComponent implements OnInit {
   showCountryCode(data){
     this.countryName = data.country;
     this.countryCode = data.code;
+    if(this.countryCode){
+      this.hasCountrycode=true;
+    }
   }
 
 }

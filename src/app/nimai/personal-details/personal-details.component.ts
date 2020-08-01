@@ -122,15 +122,19 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalDetailsForm.get('companyName').updateValueAndValidity();
     this.personalDetailsForm.get('businessType').setValidators([Validators.required])
     this.personalDetailsForm.get('businessType').updateValueAndValidity();
+    this.personalDetailsForm.get('designation').setValidators([Validators.required])
+    this.personalDetailsForm.get('designation').updateValueAndValidity();
   }
   setBankValidators(){
     this.personalDetailsForm.get('blacklistedGC').setValidators([Validators.required])
     this.personalDetailsForm.get('blacklistedGC').updateValueAndValidity();
     this.personalDetailsForm.get('countriesInt').setValidators([Validators.required])
     this.personalDetailsForm.get('countriesInt').updateValueAndValidity();
+    this.personalDetailsForm.get('mobileNo').clearValidators();
    }
   submit(): void {
     this.submitted = true;
+    console.log("this.personalDetailsForm-----",this.personalDetailsForm)
     if(this.personalDetailsForm.invalid) {
       return;
     }
