@@ -50,7 +50,7 @@ export class ActiveTransactionComponent implements OnInit {
     
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
-        bankNewTransaction();
+        bankActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
         if (!this.detail) {
           this.hasNoRecord = true;
@@ -79,7 +79,7 @@ export class ActiveTransactionComponent implements OnInit {
   showQuotePage(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-
+   
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;

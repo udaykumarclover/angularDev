@@ -72,4 +72,8 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/rejectQuote/`+ quoteId, data , { headers: { 'content-types': 'application/json' } });
   }
 
+  public custCloneTransaction(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/cloneLC`, data , { headers: { 'content-types': 'application/json' } });
+  }
+
 }

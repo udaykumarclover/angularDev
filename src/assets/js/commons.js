@@ -331,37 +331,11 @@ export function bankNewTransaction(){
     $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
     });
     
-    setTimeout(() => {
-    $(function(){
-    prettyPrint();
-    
-    var slider = $("#menu-bar").slideReveal({
-    // width: 100,
-    push: false,
-    position: "right",
-    // speed: 600,
-    trigger: $(".handle"),
-    // autoEscape: false,
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    
-    }
-    
-    });
-    });
-
-
-  
-
     $(function(){
   
-        var slider1 = $(".test").slideReveal({
+        var slider1 = $("#menubarConfirmQuote").slideReveal({
         push: false,
+        width: 510,
         position: "right",
         trigger: $(".handle"),
         shown: function(obj){
@@ -375,74 +349,86 @@ export function bankNewTransaction(){
         });
         });
         
-    
-     $(function(){
-  
-    var slider1 = $("#menubarConfDis").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-    
-     $(function(){
-    var slider2 = $("#menubarDiscounting").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-    
-     $(function(){    
-    var slider3 = $("#menubarRefinancing").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-    
-     
+        
     $(function(){
-    var slider4 = $("#menubarBanker").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-     
+  
+        var slider1 = $("#menubarBankerQuote").slideReveal({
+        push: false,
+        width: 510,
+        position: "right",
+        trigger: $(".handle"),
+        shown: function(obj){
+        obj.find(".handle").html('<span class="fas fa-times"></span>');
+        obj.addClass("left-shadow-overlay");
+        },
+        hidden: function(obj){
+        obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+        obj.removeClass("left-shadow-overlay");
+        }
+        });
+        });
     
+
+
+        $(function(){
+  
+            var slider1 = $("#menubarDiscountQuote").slideReveal({
+            push: false,
+            width: 510,
+            position: "right",
+            trigger: $(".handle"),
+            shown: function(obj){
+            obj.find(".handle").html('<span class="fas fa-times"></span>');
+            obj.addClass("left-shadow-overlay");
+            },
+            hidden: function(obj){
+            obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+            obj.removeClass("left-shadow-overlay");
+            }
+            });
+            });
+
+
+
+            $(function(){
+  
+                var slider1 = $("#menubarConDisQuote").slideReveal({
+                push: false,
+                width: 510,
+                position: "right",
+                trigger: $(".handle"),
+                shown: function(obj){
+                obj.find(".handle").html('<span class="fas fa-times"></span>');
+                obj.addClass("left-shadow-overlay");
+                },
+                hidden: function(obj){
+                obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                obj.removeClass("left-shadow-overlay");
+                }
+                });
+                });
+
+
+
+                $(function(){
+  
+                    var slider1 = $("#menubarRefinanceQuote").slideReveal({
+                    push: false,
+                    width: 510,
+                    position: "right",
+                    trigger: $(".handle"),
+                    shown: function(obj){
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                    },
+                    hidden: function(obj){
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                    }
+                    });
+                    });
+
+     
      
     $(function(){    
     var slider4 = $("#menubarDetail").slideReveal({
@@ -507,24 +493,45 @@ export function bankNewTransaction(){
       $('[data-toggle="tooltip"]').tooltip();   
     
     
-    //   $('#menu-bar #tab2').hide();
-    //   $('#menu-bar #tab3').hide();
-    //   $('#menu-bar #btnpreview').click(function(){
-    //       $('#menu-bar #tab1').slideUp();
-    //        $('#menu-bar #tab2').slideDown();
-    //   });
+      $('#menu-bar #tab2').hide();
+      $('#menu-bar #tab3').hide();
+      $('#menu-bar #btnpreview').click(function(){
+          $('#menu-bar #tab1').slideUp();
+           $('#menu-bar #tab2').slideDown();
+      });
     
-    //   $('#menu-bar #btnEdit').click(function(){
-    //       $('#menu-bar #tab1').slideDown();
-    //        $('#menu-bar #tab2').slideUp();
-    //   });
+      $('#menu-bar #btnEdit').click(function(){
+          $('#menu-bar #tab1').slideDown();
+           $('#menu-bar #tab2').slideUp();
+      });
     
     
-    //   $('#menu-bar #btnSubmit').click(function(){
-    //       $('#menu-bar #tab2').slideUp();
-    //       $('#menu-bar #tab1').slideUp();
-    //        $('#menu-bar #tab3').slideDown();
-    //   });
+      $('#menu-bar #btnSubmit').click(function(){
+          $('#menu-bar #tab2').slideUp();
+          $('#menu-bar #tab1').slideUp();
+           $('#menu-bar #tab3').slideDown();
+      });
+
+
+      $('#menubarConfirmQuote #tab2').hide();
+      $('#menubarConfirmQuote #tab3').hide();
+      $('#menubarConfirmQuote #btnpreview').click(function(){
+          $('#menubarConfirmQuote #tab1').slideUp();
+           $('#menubarConfirmQuote #tab2').slideDown();
+      });
+    
+      $('#menubarConfirmQuote #btnEdit').click(function(){
+          $('#menubarConfirmQuote #tab1').slideDown();
+           $('#menubarConfirmQuote #tab2').slideUp();
+      });
+    
+    
+      $('#menubarConfirmQuote #btnSubmit').click(function(){
+          $('#menubarConfirmQuote #tab2').slideUp();
+          $('#menubarConfirmQuote #tab1').slideUp();
+           $('#menubarConfirmQuote #tab3').slideDown();
+      });
+
 
       $('#menubarDiscounting #tab2').hide();
       $('#menubarDiscounting #tab3').hide();
@@ -665,7 +672,6 @@ export function bankNewTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 100);
 }
 
 
@@ -678,7 +684,7 @@ export function bankActiveTransaction(){
     $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
     });
     
-    setTimeout(() => {
+  //  setTimeout(() => {
     $(function(){
     // prettyPrint();
     
@@ -988,7 +994,7 @@ export function bankActiveTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 1000);
+//}, 1000);
 }
 
 export function loadLogin() {

@@ -79,7 +79,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.validity" placeholder="28/03/2020"></td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.validityDate" placeholder="28/03/2020"></td>
                               </tr> 
                               <!-- <tr>
                                  <th>Total Quote</th>
@@ -151,7 +151,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td>{{dataViewEdit.validity}}</td>
+                                 <td>{{dataViewEdit.validityDate| date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
@@ -200,9 +200,10 @@
          </div>
       </div>
 
-      <div id="menubarDiscountingQuote" [hidden]="!isActiveQuote" (blur)="closedQuote()"
-      style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
-             <div class="popupcontent">
+      <div [hidden]="!isActiveQuote">
+      <div id="menubarDiscountQuote" 
+            style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+            <div class="popupcontent">
             <div class="card">
                <div class="card-content">
                   <h4>Place Quote</h4>
@@ -374,7 +375,7 @@
                              
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                 <td>{{data.validityDate}}</td>
+                                 <td>{{data.validityDate| date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
@@ -429,3 +430,4 @@
             </div>
          </div>
       </div>
+   </div>

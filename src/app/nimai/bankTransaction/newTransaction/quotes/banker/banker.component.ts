@@ -180,22 +180,8 @@ this.dataViewEdit={
         this.tab = 'tab2';
         setTimeout(() => {
           $('input').attr('readonly', true);
-        }, 200); this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
-          (response) => {
-           
-            this.detail = JSON.parse(JSON.stringify(response)).data;
-            //this.data=data;
-            // this.data.TotalQuote=this.detail.TotalQuote;
-            // this.data.confChgsMatur=this.detail.confChgsMatur;
-            // this.data.confChgsNegot=this.detail.confChgsNegot;
-
-          },
-          error => {
-            alert('error')
-            this.closed();
-            this.tab = 'tab1';
-          }
-        )
+        }, 200);
+        
 
       }
         break;

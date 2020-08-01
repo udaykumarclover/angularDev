@@ -104,7 +104,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.validity" placeholder="28/03/2020"></td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.validityDate" placeholder="28/03/2020"></td>
                               </tr> 
                               <!-- <tr>
                                  <th>Total Quote</th>
@@ -185,7 +185,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td>{{dataViewEdit.validity}}</td>
+                                 <td>{{dataViewEdit.validityDate| date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
@@ -236,10 +236,9 @@
 
       
       
-
-      <div id="menubarConfDis" [hidden]="!isActiveQuote" (blur)="closedQuote()"
+      <div [hidden]="!isActiveQuote">
+      <div id="menubarConDisQuote" 
       style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
-    
          <div class="popupcontent">
             <div class="card">
                <div class="card-content">
@@ -282,7 +281,7 @@
                                     <span class="pull-right percent">%</span></td>
                                  </tr>
                                 
-                                 <textarea style="width:331px;margin: 6px 0px 0px;height: 57px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
+                                 <textarea style="width:312px;margin: 6px 0px 0px;height: 62px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
                                  rows="3"></textarea>
                                  <tr>
                                     <td>Confirmation interest p.a ( spread over benchmark)</td>
@@ -299,13 +298,13 @@
                                     <td>
                                        <input type="radio" [checked]="false" name="charges" 
                                        (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                       <td><input type="text" [(ngModel)]="data.confChgsIssuanceToNegot" placeholder="" readonly>
+                                       <td><input type="text" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" placeholder="" readonly>
                                  </tr>
                                  <tr>
                                     <td>
                                        <input type="radio" [checked]="false" name="charges"
                                        (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
-                                       <td><input type="text" [(ngModel)]="data.confChgsIssuanceToMatur" placeholder="" readonly>
+                                       <td><input type="text" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" placeholder="" readonly>
                                   </tr>
                                  <tr>
                                     <td>Negotiation Charges (Fixed)</td>
@@ -338,7 +337,7 @@
                                  </tr>
                                  <tr>
                                     <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                    <td><input type="date" [(ngModel)]="data.validity"  placeholder="28/03/2020"></td>
+                                    <td><input type="date" [(ngModel)]="data.validityDate"  placeholder="28/03/2020"></td>
                                  </tr>
                               </tbody>
                            </table>
@@ -438,7 +437,7 @@
                              
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                 <td>{{data.validityDate}}</td>
+                                 <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
@@ -491,3 +490,4 @@
             </div>
          </div>
       </div>
+   </div>
