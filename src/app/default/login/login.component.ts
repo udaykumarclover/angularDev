@@ -72,7 +72,8 @@ export class LoginComponent implements OnInit {
       minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: [''],
-      termsAndcondition: [false, Validators.requiredTrue]
+      termsAndcondition: [false, Validators.requiredTrue],
+      regCurrency:['']
     });
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
@@ -492,7 +493,7 @@ export class LoginComponent implements OnInit {
       firstName: this.signupForm.get('firstName').value,
       lastName: this.signupForm.get('lastName').value,
       emailAddress: this.signupForm.get('officialMailId').value,
-      mobileNum: this.signupForm.get('mobileNo').value,
+      mobileNum: this.countryCode+this.signupForm.get('mobileNo').value,
       countryName: this.countryName,
       landLinenumber: this.signupForm.get('landlineNo').value,
       companyName: this.signupForm.get('companyName').value,
@@ -509,7 +510,7 @@ export class LoginComponent implements OnInit {
       account_type: "MASTER",
       account_status: "ACTIVE",
       account_created_date: this.todaysDate,
-      regCurrency: "",
+      regCurrency: this.signupForm.get('regCurrency').value,
 
     }
     return data;
@@ -566,7 +567,8 @@ export class LoginComponent implements OnInit {
       countriesInt: '',
       minLCValue: '',
       blacklistedGC: '',
-      companyName: ''
+      companyName: '',
+      regCurrency:''
     })
     $("#isCheckedForTerms"). prop("checked", false);
   }

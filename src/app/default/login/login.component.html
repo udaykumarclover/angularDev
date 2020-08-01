@@ -237,7 +237,7 @@
                                                    Minimum LC value is required
                                                 </div>
                                              </div> -->
-                                             <select class="currency">
+                                             <select class="currency" formControlName="regCurrency">
                                                 <option value=''>Select</option>
                                                 <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
                                              </select>
