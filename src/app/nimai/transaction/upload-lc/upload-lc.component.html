@@ -396,7 +396,14 @@
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">
                                         <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'Discounting' || lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Banker'">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Period for which discounting is required(days)</span>
+                                               <span class="labeltext">{{lc.paymentPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                            </div>
+                                         </div>
+                                        <div class="col-md-3" *ngIf="lc.selector != 'Discounting' || lc.selector != 'Banker'">
                                            <div class="inputDiv">
                                               <span class="customspan">Period for which confirmation is required</span>
                                               <span class="labeltext">{{lc.paymentPeriod}}</span>
@@ -406,18 +413,18 @@
                                         <div class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">Payments terms to be seller as per LC</span>
-                                              <span class="labeltext">{{lc.paymentPeriod}}</span>
-                                              <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                              <span class="labeltext">{{lc.paymentTerms}}</span>
+                                              <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
                                            </div>
                                         </div>
-                                        <div *ngIf="lc.selector == 'Discounting'" class="col-md-3">
+                                        <div *ngIf="lc.selector == 'Discounting' || lc.selector == 'Banker'" class="col-md-3">
                                             <div class="inputDiv">
                                                <span class="customspan">Remarks</span>
                                                <span class="labeltext">{{lc.remarks}}</span>
                                                <span class="labeltext" *ngIf="!lc.remarks">-</span>
                                             </div>
                                          </div>
-                                        <div *ngIf="lc.selector != 'Discounting'" class="col-md-3">
+                                        <div *ngIf="lc.selector != 'Discounting' || lc.selector != 'Banker'" class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">Start Date</span>
                                               <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</span>
