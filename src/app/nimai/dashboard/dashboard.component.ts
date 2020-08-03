@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
-
+import { load_dashboard } from '../../../assets/js/commons'
 
 @Component({
   selector: 'app-dashboard',
@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    load_dashboard();
     if (this.router.url===`/${this.parentURL}/dsb/personal-details` || this.router.url===`/${this.parentURL}/dsb/business-details` || this.router.url===`/${this.parentURL}/dsb/subscription` || this.router.url===`/${this.parentURL}/dsb/kyc-details`)
     {      
       this.accountPages="in"
