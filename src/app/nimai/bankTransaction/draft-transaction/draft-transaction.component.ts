@@ -64,6 +64,7 @@ export class DraftTransactionComponent implements OnInit {
    this.service.getBankDraftQuotation(param).subscribe(
       (response) => {
         this.draftData = JSON.parse(JSON.stringify(response)).data;
+        bankNewTransaction();
         console.log(this.draftData);
         if(!this.draftData){
           this.noData = true;
@@ -82,12 +83,6 @@ export class DraftTransactionComponent implements OnInit {
     this.whoIsActive = pagename;
     pagename="Confirmation"
     
-    // const data = {
-    //   "userId":sessionStorage.getItem('userID'),
-    //   "transactionId":this.draftData.transactionId,
-    //   "quotationId":this.draftData.quotationId,
-    //    }
-
        const data = {
         "bankUserId":sessionStorage.getItem('userID'),
         "userId":val.userId,

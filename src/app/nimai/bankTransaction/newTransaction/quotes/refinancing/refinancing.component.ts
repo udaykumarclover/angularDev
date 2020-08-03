@@ -255,9 +255,9 @@ case 'calculateQuote':{
     }
   )
 }break;
-case 'generateQuote': {
+case 'generateQuote': { 
   this.tab = 'tab2';
-  this.ts.saveQuotationToDraft(this.data).subscribe(
+    this.ts.saveQuotationToDraft(this.data).subscribe(
     (response) => {
       this.detail = JSON.parse(JSON.stringify(response)).data;
       this.data=data;

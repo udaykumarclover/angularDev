@@ -25,6 +25,10 @@ export class SubscriptionComponent implements OnInit {
   public timeStamp = new Date();
   public parentURL: string = "";
   public subURL: string = "";
+  advDetails: any = "";
+  advPrice: any;
+  choosedPrice: any;
+  addedAmount: any;
 
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
@@ -58,9 +62,15 @@ export class SubscriptionComponent implements OnInit {
    }
   public choosePlan(plan: Subscription) {
     this.choosedPlan = plan;
+    this.choosedPrice = this.choosedPlan.subscriptionAmount;
+    this.addedAmount = this.choosedPrice;
     this.choosedPlan.userId = sessionStorage.getItem('userID');
     this.isNew = false;
     this.isOrder = true;
+    this.subscriptionService.viewAdvisory().subscribe(response => {
+      this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
+      this.advPrice = this.advDetails.pricing;
+    })
   }
 
   public payNow(planType) {
@@ -151,9 +161,11 @@ export class SubscriptionComponent implements OnInit {
 
   addAdvService(event){
     if (event.target.value === "Add") {
+      this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
       event.target.value = "Remove";
       } else {
       event.target.value = "Add";
+      this.addedAmount = this.choosedPrice;
       }
   }
 

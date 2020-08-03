@@ -16,7 +16,6 @@ import { ValidateRegex } from '../../beans/Validations';
   styleUrls: ['./business-details.component.css']
 })
 export class BusinessDetailsComponent implements OnInit {
-
   public loading = true;
   public businessDetailsForm: FormGroup;
   public bd: Business = null;

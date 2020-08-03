@@ -4,6 +4,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { custTrnsactionDetail } from 'src/assets/js/commons';
 import * as $ from 'src/assets/js/jquery.min';
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -22,9 +23,17 @@ export class TransactionDetailsComponent {
   public specificDetail: any;
   quotationdata: any;
   document: any;
+  public parentURL: string = "";
+  public subURL: string = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router ) {
     this.titleService.quote.next(false);
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
   }
 
   ngOnInit() {
@@ -114,20 +123,27 @@ rejectBankQuote(quoteId){
     }
   
   this.nts.custRejectBankQuote(data, quoteId).subscribe(
-      (response) => {},
+      (response) => {
+        this.getAllnewTransactions('Rejected');
+        custTrnsactionDetail();
+        this.closeOffcanvas();
+        $('#addOptions select').val('Rejected').change();
+      },
       (err) => {}
   )
 }
 
 cloneTransaction(transactionId){
-  var data = {
-    "transactionId":transactionId
+  
+  const navigationExtras: NavigationExtras = {
+    state: {
+      redirectedFrom: "cloneTransaction",
+      trnsactionID: transactionId
     }
-
-    this.nts.custCloneTransaction(data).subscribe(
-      (response) => {},
-      (err) => {}
-  )    
+  };
+  this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
+    .then(success => console.log('navigation success?', success))
+    .catch(console.error);   
 }
 
 

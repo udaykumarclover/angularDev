@@ -108,8 +108,6 @@ export class NewTransactionComponent implements OnInit {
     }
   }
   ngOnInit() {
-   // bankNewTransaction();
-  //  custActiveTransaction();
   }
 
 
@@ -165,7 +163,7 @@ export class NewTransactionComponent implements OnInit {
       "modifiedBy":sessionStorage.getItem('userID'),
   }
   
-    if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
+    if (pagename == 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
@@ -177,19 +175,19 @@ export class NewTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount') {    
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {    
       this.confirmAndDiscount.action(true,action,data);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinancing') {
+    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename==='refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,data);
       this.banker.isActive = false;
-    } else if (pagename === 'banker') {
+    } else if (pagename === 'banker' || pagename === "Banker") {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

@@ -50,12 +50,12 @@
             </div>
             <div class="col-md-6">
               <div class="inputDiv">
-                <input type="text" maxlength="30" formControlName="employee_name" (keydown)="validateRegexFields($event, 'name_validation')">
+                <input type="text" maxlength="30" formControlName="employee_name" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Name</label>
-                <div *ngIf="submitted && custLogDetails.employee_name.errors?.required" class="invalid-feedback">
-                  Name is required
-              </div>
-              <div *ngIf="custLogDetails.employee_id.errors?.minlength" class="invalid-feedback">
+                <div *ngIf="submitted && custLogDetails.employee_name.errors?.required" class="invalid-feedback">                 
+                    Name is required
+                </div>
+              <div *ngIf="custLogDetails.employee_name.errors?.minlength" class="invalid-feedback">
                 Enter 2 characters long Name.
               </div>
               </div>
@@ -87,12 +87,12 @@
         <div class="col-md-12">
           <div class="text-center">
             <p><strong>Thank you for sharing access details!</strong></p>
-            <p class="ptext">We have sent a 4-digit passcode to your registered email address <b>{{emailAddress}}</b>. Check your
+            <p class="ptext">We have sent a 5-digit passcode to your registered email address <b>{{emailAddress}}</b>. Check your
               spam folder just in case our email has skipped your inbox.</p>
             <div class="form-group"></div>
             <div class="col-md-4 col-md-offset-4">
               <div class="inputDiv">
-                <input type="text" [(ngModel)]="passValue" (click)="passCodeValue()" (keypress)="validateRegexFields($event, 'number')">
+                <input type="text" [(ngModel)]="passValue" (click)="passCodeValue()" (keypress)="validateRegexFields($event, 'number')" maxlength="5">
                 <label>Enter Passcode</label>
                 <div class="invalid-feedback">{{errMessage}}</div>
               </div>

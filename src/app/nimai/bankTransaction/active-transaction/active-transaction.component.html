@@ -30,7 +30,6 @@
                                       <th class="disabled-sorting text-center">#</th> 
                                       <th nowrap>LC Issuing Bank</th>
                                       <th nowrap>Transaction ID</th>
-                                      <th style="min-width: 130px;">Requirement</th>
                                       <th style="min-width: 80px;">Goods</th>
                                       <th style="min-width: 150px;">Applicant Name</th>
                                       <th style="min-width: 150px;">Beneficiary Name</th>
@@ -38,6 +37,7 @@
                                       <th style="min-width: 80px;">Quote</th>
                                       <th style="min-width: 80px;">Transaction Valid Till</th>
                                       <th style="min-width: 80px;">Quote Valid Till</th>
+                                      <th style="min-width: 130px;">Requirement</th>
                                       <th style="min-width: 130px;">Quotes Rank</th>
                                       <th style="min-width: 130px;">Action</th>
                                    </tr>
@@ -47,7 +47,6 @@
                                       <td>{{i+1}}</td>
                                       <td>{{record.transactionId}}</td>
                                       <td>{{record.lCIssuanceBank}}</td>
-                                      <td>{{record.requirementType}}</td>
                                       <td>{{record.goodsType}}</td>
                                       <td>{{record.applicantName}}</td>
                                       <td>{{record.beneBankName}}</td>
@@ -55,6 +54,7 @@
                                       <td>{{record.totalQuoteValue}}</td>
                                       <td nowrap>{{record.validity| date : "dd-MM-y"}}</td>
                                       <td nowrap>{{record.validityDate| date : "dd-MM-y"}}</td>
+                                      <td>{{record.requirementType}}</td>
                                       <td><span id="transactionDiv" style="cursor: pointer;" class="transactionDiv">{{record.quotationReceived}}</span></td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                               class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>

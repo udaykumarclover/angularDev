@@ -52,6 +52,18 @@
                               <span class="labeltext">{{this.personalDetails.countryName}}</span>
                            </div>
                         </div>
+                        <div class="col-md-3" *ngIf="isReferrer">
+                              <div class="inputDiv">
+                                 <span class="customspan">Company Name</span>
+                                 <span class="labeltext">{{this.personalDetails.companyName}}</span>
+                              </div>
+                           </div>
+                           <div class="col-md-3" *ngIf="isReferrer">
+                              <div class="inputDiv">
+                                 <span class="customspan">Designation</span>
+                                 <span class="labeltext">{{this.personalDetails.designation}}</span>
+                              </div>
+                           </div>
                         <div class="col-md-3" *ngIf="isBank">
                            <div class="inputDiv">
                               <span class="customspan">Minimum Value of LC (USD)</span>
@@ -88,18 +100,7 @@
                               
                            </div>
                         </div>
-                        <div class="col-md-3" *ngIf="isReferrer">
-                           <div class="inputDiv">
-                              <span class="customspan">Company Name</span>
-                              <span class="labeltext">{{this.personalDetails.companyName}}</span>
-                           </div>
-                        </div>
-                        <div class="col-md-3" *ngIf="isReferrer">
-                           <div class="inputDiv">
-                              <span class="customspan">Designation</span>
-                              <span class="labeltext">{{this.personalDetails.designation}}</span>
-                           </div>
-                        </div>
+                        
                         <div class="col-md-3" *ngIf="isReferrer">
                            <div class="inputDiv">
                               <span class="customspan">Business Type</span>

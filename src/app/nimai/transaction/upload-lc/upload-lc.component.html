@@ -82,6 +82,7 @@
 
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv selectdiv">
+                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title=""><i class="fas fa-info-circle" style="font-size: 11px !important;"></i></a> 
                                                                             <select formControlName="lCIssuanceCountry">
                                                                                 <!-- <option value="">Select Country</option> -->
                                                                                 <option value="INDIA">India</option>
@@ -254,6 +255,20 @@
                                           <span class="labeltext" *ngIf="!lc.applicantCountry">-</span>
                                        </div>
                                     </div>
+                                    <div *ngIf="userType == 'Applicant'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Applicant Contact Person</span>
+                                           <span class="labeltext">{{lc.applicantContactPerson}}</span>
+                                           <span class="labeltext" *ngIf="!lc.applicantContactPerson">-</span>  
+                                        </div>
+                                     </div>
+                                     <div *ngIf="userType == 'Applicant'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Applicant Email Id</span>
+                                           <span class="labeltext">{{lc.applicantContactPersonEmail}}</span>
+                                           <span class="labeltext" *ngIf="!lc.applicantContactPersonEmail">-</span>  
+                                        </div>
+                                     </div>
                                     <div class="col-md-3">
                                        <div class="inputDiv">
                                           <span class="customspan">Beneficiary Name</span>
@@ -268,6 +283,20 @@
                                           <span class="labeltext" *ngIf="!lc.beneCountry">-</span>  
                                        </div>
                                     </div>
+                                    <div *ngIf="userType == 'Beneficiary'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Beneficiary Contact Person</span>
+                                           <span class="labeltext">{{lc.beneContactPerson}}</span>
+                                           <span class="labeltext" *ngIf="!lc.beneContactPerson">-</span>  
+                                        </div>
+                                     </div>
+                                     <div *ngIf="userType == 'Beneficiary'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Beneficiary Email Id</span>
+                                           <span class="labeltext">{{lc.beneContactPersonEmail}}</span>
+                                           <span class="labeltext" *ngIf="!lc.beneContactPersonEmail">-</span>  
+                                        </div>
+                                     </div>
                                     <div class="col-md-3">
                                        <div class="inputDiv">
                                           <span class="customspan">Bank</span>
@@ -338,21 +367,21 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">LC Issuing Date</span>
-                                            <span class="labeltext">{{lc.lCIssuingDate}}</span>
+                                            <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">LC Expiry Date</span>
-                                            <span class="labeltext">{{lc.lCExpiryDate}}</span>
+                                            <span class="labeltext">{{lc.lCExpiryDate | date : "dd-MM-y h:mm:ss z"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LSD</span>
-                                            <span class="labeltext">{{lc.lastShipmentDate}}</span>
+                                            <span class="customspan">Last Shipment Date(LSD)</span>
+                                            <span class="labeltext">{{lc.lastShipmentDate | date : "dd-MM-y h:mm:ss z"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
                                         </div>
                                     </div>
@@ -367,7 +396,14 @@
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">
                                         <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'Discounting' || lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Banker'">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Period for which discounting is required(days)</span>
+                                               <span class="labeltext">{{lc.paymentPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                            </div>
+                                         </div>
+                                        <div class="col-md-3" *ngIf="lc.selector != 'Discounting' || lc.selector != 'Banker'">
                                            <div class="inputDiv">
                                               <span class="customspan">Period for which confirmation is required</span>
                                               <span class="labeltext">{{lc.paymentPeriod}}</span>
@@ -377,14 +413,21 @@
                                         <div class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">Payments terms to be seller as per LC</span>
-                                              <span class="labeltext">{{lc.paymentPeriod}}</span>
-                                              <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                              <span class="labeltext">{{lc.paymentTerms}}</span>
+                                              <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
                                            </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div *ngIf="lc.selector == 'Discounting' || lc.selector == 'Banker'" class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Remarks</span>
+                                               <span class="labeltext">{{lc.remarks}}</span>
+                                               <span class="labeltext" *ngIf="!lc.remarks">-</span>
+                                            </div>
+                                         </div>
+                                        <div *ngIf="lc.selector != 'Discounting' || lc.selector != 'Banker'" class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">Start Date</span>
-                                              <span class="labeltext">{{lc.lCIssuingDate}}</span>
+                                              <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</span>
                                               <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                            </div>
                                         </div>
@@ -401,9 +444,23 @@
                                     <p class="col-md-12"><strong>Others</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.loadingCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.loadingCountry">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
                                             <span class="customspan">Port of Loading</span>
                                             <span class="labeltext">{{lc.loadingPort}}</span>
                                             <span class="labeltext" *ngIf="!lc.loadingPort">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.dischargeCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.dischargeCountry">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -423,7 +480,7 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Validity</span>
-                                            <span class="labeltext">{{lc.validity}}</span>
+                                            <span class="labeltext">{{lc.validity | date : "dd-MM-y h:mm:ss z"}}</span>
                                             <span class="labeltext" *ngIf="!lc.validity">-</span>
                                         </div>
                                     </div>

@@ -204,15 +204,15 @@
                               </tr>
                               <tr>
                                  <td>LC Issuing Date</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.lCIssuingDate}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</th>
                               </tr>
                               <tr>
                                  <td>LC Expiry Date</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.lCExpiryDate}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.lCExpiryDate | date : "dd-MM-y h:mm:ss z"}}</th>
                               </tr>
                               <tr>
                                  <td>Last Shipment Date(LSD)</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.lastShipmentDate}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.lastShipmentDate | date : "dd-MM-y h:mm:ss z"}}</th>
                               </tr>
                               <tr>
                                  <td>Goods</td>
@@ -234,7 +234,7 @@
                               </tr>
                               <tr>
                                  <td>Start Date</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.startDate}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.startDate | date : "dd-MM-y h:mm:ss z"}}</th>
                               </tr>
                               <!-- <tr>
                                  <td>End Date</td>
@@ -297,7 +297,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.validity}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.validity | date : "dd-MM-y h:mm:ss z"}}</th>
                               </tr>
                               <tr>
                                  <td>Pro Forma</td>
@@ -309,6 +309,67 @@
                   </div>
                </div>
                 <div class="tab-pane" id="tab2">
+                  <div class="col-md-12">
+                     <div class="row">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th>Transaction ID</th>
+                                 <th *ngIf="quotationdata">{{quotationdata.transactionId}}</th>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="form-group clearfix"></div>
+                  <div class="row" style="background: #eee;
+                     padding: 5px 0;">
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th colspan="2">Discounting Bank Details</th>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-6">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th style="width: 50%;">Bank</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.bankName}}</td>
+                              </tr>
+                              <tr>
+                                 <th>Country</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.countryName}}</td>
+                              </tr>
+                              <tr>
+                                 <th>Email</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.emailAddress}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-6">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th style="width: 50%;">Branch</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.branchName}}</td>
+                              </tr>
+                              <tr>
+                                 <th nowrap>Name</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
+                              </tr>
+                              <tr>
+                                 <th nowrap>Mobile No.</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.mobileNumber}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
                    
                   
                   <div class="row" > 
@@ -317,7 +378,7 @@
                            <tbody>
                               <tr>
                                  <td style="width: 50%;">Date & Time</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate}}</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
                               </tr>
                                <tr>
                                  <td>Confirmation Charges</td>
@@ -337,7 +398,7 @@
                               </tr>
                               <tr>
                                  <td>Libor</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate}}</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
                               </tr>
                               <tr>
                                  <td>Negotiation Charges p.a.</td>
@@ -357,7 +418,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.validityDate}}</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
@@ -403,7 +464,7 @@
                     </div>
                  </div>
                  <div class="form-group clearfix"></div>
-                 <div class="row" style="    background: #eee;
+                 <div class="row" style="background: #eee;
                     padding: 5px 0;">
                     <div class="col-md-12">
                        <table class="table">

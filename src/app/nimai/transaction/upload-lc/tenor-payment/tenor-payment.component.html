@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" maxlength="300" formControlName="paymentTerms"
                 (keypress)="validateRegexFields($event, 'alphaNum')">
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="inputDiv">
             <textarea rows="4" maxlength="300" formControlName="paymentTerms" (keypress)="validateRegexFields($event, 'alphaNum')"></textarea>
             <label>Payment terms to seller as per LC</label>
@@ -70,7 +70,7 @@
     </div>
     <div class="col-md-6">
         <div class="inputDiv">
-            <textarea maxlength="50" rows="4"></textarea>
+            <textarea maxlength="50" rows="4" formControlName="remarks"></textarea>
             <label>Remarks</label>
         </div>
     </div>
