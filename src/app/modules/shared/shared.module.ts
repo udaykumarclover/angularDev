@@ -24,6 +24,7 @@ import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/manage-user.component';
 import { SupportComponent } from 'src/app/default/support/support/support.component';
+import { weightDirective } from './directive/weight.directive';
 
 
 
@@ -45,7 +46,8 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
     ReferComponent,
     CreditAndTransactionsComponent,
     ManageUserComponent,
-    SupportComponent
+    SupportComponent,
+    weightDirective
   ],
   imports: [
     CommonModule,
@@ -75,7 +77,8 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
     ManageUserComponent,
     ReferComponent,
     CreditAndTransactionsComponent,
-    SupportComponent
+    SupportComponent,
+    weightDirective
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,

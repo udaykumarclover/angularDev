@@ -5,29 +5,30 @@
             <div class="card">
                <div class="card-content">
                   <h4>{{title}}</h4>
-                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
+                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 50px;">
                      <div class="tab-pane active" id="pill1">
                         <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before submitting it or click cancel if do not want to quote again for this transaction.</p>
                         <table class="table">
                            <tbody>
                               <tr>
                                  <td>Refinancing Charges p.a.</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.refinancingCharges" placeholder="1.23"><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.refinancingCharges" placeholder="1.23" weightDirective>
+                                    <span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
                                    
                                  </td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.4780">
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.4780" weightDirective>
                                  <span class="pull-right percent">%</span>
                                 <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea></td>
                               </tr>
                               <tr>
                                  <td>Document Transaction Charges</td>
                                  <td>
-                                  <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="200.00" />
+                                  <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="200.00" weightDirective/>
  
-  <select class="halfright">
+                               <select class="halfright">
                                        <option value="USD">USD</option>
                                     </select>
                                  </td>
@@ -35,7 +36,7 @@
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="500.00" />
+                                    <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="500.00" weightDirective/>
  
   <select class="halfright">
                                        <option value="USD">USD</option>
@@ -47,7 +48,7 @@
                                    
                                  </td>
                                  <td>
-                                   <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="50.00" />
+                                   <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="50.00" weightDirective/>
  
   <select class="halfright">
                                        <option value="USD">USD</option>
@@ -64,7 +65,7 @@
                               </tr>
                            </tbody>
                         </table>
-                         <div class="posfix">
+                         <div>
                            <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
                               Preview
                               <div class="ripple-container" ></div>
@@ -76,7 +77,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
+                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 50px;">
                      <div class="tab-pane active" id="pill1">
                         <table class="table">
                            <tbody>
@@ -121,7 +122,7 @@
                               </tr> 
                            </tbody>
                         </table>
-                        <div class="posfix">
+                        <div>
                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
                               Submit
                               <div class="ripple-container"></div>
@@ -166,7 +167,7 @@
             <div class="card">
                <div class="card-content">
                   <h4>Place Quote</h4>
-                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
+                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 50px;">
                      <div class="tab-pane active" id="pill1">
                         <div class="tab">
                            <table>
@@ -200,7 +201,7 @@
                               <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr>
                               <tr>
                                  <td>Applicable Benchmark , if any</td>
-                                 <td><input type="text" [(ngModel)]="data.applicableBenchmark" placeholder="0.00">
+                                 <td><input type="text" [(ngModel)]="data.applicableBenchmark" placeholder="0.00" weightDirective>
                                  <span class="pull-right percent">%</span></td>
                               </tr>
                              
@@ -209,17 +210,17 @@
                              
                               <tr>
                                  <td>Refinancing interest p.a ( spread over benchmark)</td>
-                                 <td><input type="text" [(ngModel)]="data.refinancingCharges" placeholder="0.00">
+                                 <td><input type="text" [(ngModel)]="data.refinancingCharges" placeholder="0.00" weightDirective>
                                     <span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Document Handling Charges</td>
-                                 <td><input type="text" [(ngModel)]="data.docHandlingCharges" placeholder="0.00">
+                                 <td><input type="text" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
                               </tr>
 
                               <tr>
                                  <td>Other Charges</td>
-                                 <td><input type="text" [(ngModel)]="data.otherCharges" placeholder="200.00">
+                                 <td><input type="text" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective>
                               </tr>
                               <textarea class="textarea-pad" placeholder="Customer needs to pay standard swift transfer  &#10; charges" 
                               rows="3"></textarea>
@@ -230,7 +231,7 @@
                               </tr> -->
                               <tr>
                                  <td>Minimum Transaction Charges</td>
-                                 <td><input type="text" [(ngModel)]="data.minTransactionCharges" placeholder="50.00">
+                                 <td><input type="text" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
                               </tr>
                               <tr>
                                   <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
@@ -252,7 +253,7 @@
                            </tbody>
                         </table>
                    
-                        <div class="posfix">
+                        <div>
                            <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote',data)">
                               Save/Generate Quote
                               <div class="ripple-container" ></div>
@@ -260,7 +261,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
+                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 50px;">
                      <div class="tab-pane active" id="pill1">
                         <div class="tab">
                            <table>
@@ -329,7 +330,7 @@
                               </tr>
                               <tr>
                                  <th>Total Quote</th>
-                                 <th>{{detail.TotalQuote}}</th>
+                                 <th *ngIf="detail.TotalQuote">{{detail.TotalQuote}}</th>
                               </tr>
                               <br>
                               <br>
@@ -345,7 +346,7 @@
                               </tr> 
                            </tbody>
                         </table>
-                        <div class="posfix">
+                        <div>
                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data,detail)">
                               Confirm
                               <div class="ripple-container"></div>

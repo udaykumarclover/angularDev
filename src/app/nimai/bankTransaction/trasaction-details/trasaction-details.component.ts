@@ -25,23 +25,17 @@ quotationdata: any;
 document: any;
 
 constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  
   this.titleService.quote.next(false);
 }
 
 ngOnInit() {
  
   this.getAllnewTransactions('Accepted');
- 
+  
 }
 
 public getAllnewTransactions(status) {
-  // if(status==="Accepted"){
-  //   this.accepted=true; 
-  //     }else if(status==="Rejected"){
-  //   this.accepted=false;  
-  // }else if(status==="Expired"){
-  //   this.expired=true;
-  // }
   const data = {
     "bankUserId":sessionStorage.getItem('userID'),
     "quotationPlaced":"Yes",
@@ -75,6 +69,7 @@ getDetail(detail){
 }
 
 changeStatusCall(status){
+  
   this.getAllnewTransactions(status);
  
   
@@ -118,9 +113,10 @@ let data = {
 
 this.nts.custRejectBankQuote(data, quoteId).subscribe(
     (response) => {
-      console.log(response)
-      this.getAllnewTransactions('Accepted');
-
+      this.closeOffcanvas();
+      this.getAllnewTransactions('Rejected');
+      $('#addOptions select').val('Rejected').change();
+      
     },
     (err) => {}
 )
