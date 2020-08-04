@@ -1,67 +1,131 @@
 <div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
+
 <div class="content">
-  <div class="container-fluid">
-     <div class="row">
+    <div class="container-fluid">
+      <div class="row">
         <div class="col-md-12">
-           <div class="card">
-              <div class="card-header card-header-icon" data-background-color="blue">
-                 <i class="fa fa-check-square-o"></i>
+          <div class="card">
+            <div class="card-header card-header-icon" data-background-color="blue">
+              <i class="fa fa-check-square-o"></i>
+            </div>
+            <div class="card-content">
+              <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
+              <!-- <form> -->
+              <div class="row" [hidden]="!hasNoRecord">
+                <div class="col-12">
+                  <table class="table">
+                    <thead>
+                      <th>
+                        <p>No records available. </p>
+                      </th>
+                    </thead>
+  
+                  </table>
+                </div>
               </div>
-              <div class="card-content">
-                <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
-                 <form>
-                  <div class="row" *ngIf="hasNoRecord">
-                    <div class="col-md-12">
-                        No records available
-                      </div>
-                  </div>
-                    <div class="row" *ngIf="!hasNoRecord">
-                       <div class="col-md-12">
-                          <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
-                             <table class="table table-hover" id="datatables">
-                                <thead>
-                                  <tr>
-                                    <th class="disabled-sorting text-center">#</th> 
-                                    <th style="min-width: 150px;">Beneficiary</th>
-                                    <th nowrap>Country</th>
-                                    <th style="min-width: 150px;">Applicant</th>
-                                    <th nowrap>Country</th>
-                                    <th nowrap>Txn ID</th>
-                                    <th style="min-width: 100px;width: 100px !important;">Date & Time</th>
-                                    <th style="min-width: 100px;width: 100px !important;">Validity</th>
-                                    <th nowrap>IB</th>
-                                    <th style="min-width: 80px;">Amount</th>
-                                    <th style="min-width: 60px;">Ccy</th>
-                                    <th style="min-width: 80px;">Goods</th>
-                                    <th style="min-width: 130px;">Requirement</th>
-                                    <th style="min-width: 130px;">Quotes Received</th>
-                                    <th style="min-width: 130px;">Action</th>
-                                 </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let record of detail; let i = index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{record.beneName}}</td>
-                                    <td>{{record.beneCountry}}</td>
-                                    <td>{{record.applicantName}}</td>
-                                    <td>{{record.applicantCountry}}</td>
-                                    <td>{{record.transactionId}}</td>
-                                    <td nowrap>{{record.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                                    <td nowrap>{{record.validity | date : "dd-MM-y"}}</td>
-                                    <td>{{record.lCIssuanceBank}}</td>
-                                    <td>{{record.lCValue}}</td>
-                                    <td>{{record.lCCurrency}}</td>
-                                    <td>{{record.goodsType}}</td>
-                                    <td>{{record.requirementType}}</td>
-                                    <td *ngIf="record.quotationReceived == 0"><span>{{record.quotationReceived}}</span></td>
-                                    <td *ngIf="record.quotationReceived != 0"><span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.transactionId)" class="transactionDiv">{{record.quotationReceived}}</span></td>
-                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                            class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
-                                </tr>
-                                </tbody>
-                             </table>
+              <div class="row" [hidden]="hasNoRecord">
+                <div class="col-md-12">
+                  <mat-form-field id="transactionFilter">
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+                  </mat-form-field>
+  
+                  <!-- <div class="mat-elevation-z8 table-responsive table-bordered material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%"> -->
+                  <div class="table-responsive material-datatables" id="transactionID"  width="100%" style="width:100%">
+
+                    <table mat-table [dataSource]="dataSource" matSort>
+  
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="id" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
+                        <td mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
+                      </ng-container>
+  
+                      <!-- Progress Column -->
+                      <ng-container matColumnDef="beneficiary"  >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary </th>
+                        <td mat-cell *matCellDef="let row"> {{row.beneName}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="bcountry" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                        <td mat-cell *matCellDef="let row"> {{row.beneCountry}} </td>
+                      </ng-container>
+  
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="applicant" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant </th>
+                        <td mat-cell *matCellDef="let row"> {{row.applicantName}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="acountry" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                        <td mat-cell *matCellDef="let row"> {{row.applicantCountry}} </td>
+                      </ng-container>
+  
+                      <!-- Color Column -->
+                     
+                      <ng-container matColumnDef="txnID" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction ID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.transactionId}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="dateTime" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date&Time </th>
+                        <td mat-cell *matCellDef="let row"> {{row.insertedDate | date : "dd-MM-y h:mm:ss z"}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="validity" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Validity </th>
+                        <td mat-cell *matCellDef="let row"> {{row.validity | date : "dd-MM-y"}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ib">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> IB </th>
+                        <td mat-cell *matCellDef="let row"> {{row.lCIssuanceBank}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+                        <td mat-cell *matCellDef="let row"> {{row.lCValue}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ccy">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ccy </th>
+                        <td mat-cell *matCellDef="let row"> {{row.lCCurrency}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="goods">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
+                        <td mat-cell *matCellDef="let row"> {{row.goodsType}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="requirement">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
+                        <td mat-cell *matCellDef="let row"> {{row.requirementType}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="receivedQuotes">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Received Quotes </th>
+                        <td mat-cell *matCellDef="let row" >
+                          <div *ngIf="row.quotationReceived == 0"> 
+                            {{row.quotationReceived}}
                           </div>
-                          <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
+                          <div *ngIf="row.quotationReceived != 0"> 
+                            <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(row.transactionId)" class="transactionDiv">
+                              {{row.quotationReceived}}
+                            </span>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="star">
+                        <th mat-header-cell *matHeaderCellDef="let row">Actions</th>
+                        <td mat-cell *matCellDef="let row">
+                          <a href="javascript:void()" (click)="showQuotePage(row.requirementType,0,row)"
+                                            class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
+                        </td>
+                      </ng-container>
+                      
+  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                      </tr>
+                    </table>
+  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                  </div>
+
+                  <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
                             style="width:100%">
                             <div *ngIf="noQRdetail">
                               No Records available
@@ -102,16 +166,16 @@
                               <li><a href="javascript:void()" class="excel"><span class="fas fa-file-excel"></span></a></li>
                             </ul>
                           </div>
-                       </div>
-                    </div>
-                    <div class="clearfix"></div>
-                 </form>
+                </div>
               </div>
-           </div>
+              <div class="clearfix"></div>
+              <!-- </form> -->
+            </div>
+          </div>
         </div>
-     </div>
+      </div>
+    </div>
   </div>
-</div>
 
 <div id="menu-barnew" class="offcanvas">
   <div class="popupcontent">

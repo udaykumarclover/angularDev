@@ -1634,37 +1634,10 @@ export function custActiveTransaction() {
                 }
             });
         });
-
-        $(document).ready(function () {
-            $('#TransactionDetailDiv').hide();
-            $('#backbtn').hide();
-            $('.transactionDiv').click(function () {
-                $('#changetext').html('Bank Quotes');
-                $('#transactionID').slideUp();
-                $('#TransactionDetailDiv').slideDown();
-                $('#backbtn').fadeIn();
-            });
-
-            $('#backbtn').click(function () {
-                $('#changetext').html('Active Transactions');
-                $('#TransactionDetailDiv').slideUp();
-                $('#transactionID').slideDown();
-                $('#TransactionDetailDiv').hide();
-                $('#backbtn').fadeOut();
-            });
-
-            $('#menu-bar1 #tab3').hide();
-
-            $('#menu-bar1 #btnSubmit').click(function () {
-                $('#menu-bar1 #tab2').slideUp();
-                $('#menu-bar1 #tab1').slideUp();
-                $('#menu-bar1 #tab3').slideDown();
-            });
-
-
-
-            $('.popupcontent select').css('color', '#333');
     }, 500);
+
+        
+            $('.popupcontent select').css('color', '#333');
 
         setTimeout(() => {
             $('#datatables').DataTable({
@@ -1681,7 +1654,7 @@ export function custActiveTransaction() {
             $('.card .material-datatables label').addClass('form-group');
 
             //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
-        });
+        
     }, 1000);
 }
 
