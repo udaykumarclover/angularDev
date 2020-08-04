@@ -170,7 +170,7 @@
                                     {{respMessage}}
                                 </p>
                                 <div class="clearfix"></div>
-                                <button type="submit"  id="btninvite" class="btn btn-info pull-right">Invite
+                                <button type="submit" [disabled]="!referForm.valid" id="btninvite" class="btn btn-info pull-right">Invite
                                     User</button>
                                 <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
                             </div>

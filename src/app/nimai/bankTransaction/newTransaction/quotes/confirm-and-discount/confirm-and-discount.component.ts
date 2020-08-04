@@ -77,10 +77,10 @@ this.dataViewEdit={
 		bankerAcceptCharges: 0,
 		beneName:"",
 		chargesType:"",
-		commentsBenchmark:"",
-		confChgsIssuanceToExp: 0,
-		confChgsIssuanceToMatur: 0,
-		confChgsIssuanceToNegot: 0,
+    commentsBenchmark:"",	
+    confChgsIssuanceToExp: "",
+		confChgsIssuanceToMatur:"",
+		confChgsIssuanceToNegot: "",
 		confirmationCharges: 0,
 		discountingCharges: 0,
 		docHandlingCharges: 0,
@@ -108,14 +108,21 @@ this.dataViewEdit={
   }
 
   onNegotChange(value){
-    this.data.confChgsIssuanceToMatur='';
+    this.data.confChgsIssuanceToMatur='no';
     this.data.confChgsIssuanceToNegot='yes';     
      }
  
  onMatureChange(value){
-  this.data.confChgsIssuanceToNegot='';
+  this.data.confChgsIssuanceToNegot='no';
   this.data.confChgsIssuanceToMatur='yes';
    }
+
+   onNegoEdit(){
+    this.dataViewEdit.confChgsIssuanceToNegot=$( "#selectid3 option:selected" ).text();   
+  }
+  onMaturEdit(){
+    this.dataViewEdit.confChgsIssuanceToMatur=$( "#selectid4 option:selected" ).text();   
+     }
 
   public action(flag: boolean, type: Tflag, data: any) {
     if (flag) {
@@ -123,11 +130,11 @@ this.dataViewEdit={
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
-        this.dataViewEdit = data;
+        this.dataViewEdit = data;   
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
-        this.dataViewEdit = data;
+        this.dataViewEdit = data;       
         $('input').attr('readonly', false);
       }else if(type===Tflag.PLACE_QUOTE){
         this.isActiveQuote = flag;
@@ -162,6 +169,16 @@ this.dataViewEdit={
       case 'edit': {
         this.tab = 'tab1'
         setTimeout(() => {
+          if($( "#selectid3 option:selected" ).text()==='yes'){
+            $("#selectid3").append(new Option("no", "value"));
+          }else if($( "#selectid3 option:selected" ).text()==='no'){
+            $("#selectid3").append(new Option("yes", "value"));
+          }
+          if($( "#selectid4 option:selected" ).text()==='yes'){
+            $("#selectid4").append(new Option("no", "value"));
+          }else if($("#selectid4 option:selected" ).text()==='no'){
+            $("#selectid4").append(new Option("yes", "value"));
+          }     
           $('input').attr('readonly', false);
         }, 100);
         this.title = 'Edit';
