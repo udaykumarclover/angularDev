@@ -559,8 +559,7 @@ export class UploadLCComponent implements OnInit {
 
          this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);
-        this.dateToPass = new Date(this.draftData.lCIssuingDate);
-         
+        this.dateToPass = new Date(this.draftData.lCIssuingDate); 
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
