@@ -57,6 +57,21 @@ export function selectpickercall() {
     }
 
 }
+export function load_dashboard() {
+    var sidebar_mini=false
+    if($('body').hasClass('sidebar-mini')){
+        sidebar_mini = true;
+    }
+    $("#minimizeSidebar").click(function(){
+       if(sidebar_mini==true){
+        $('body').removeClass('sidebar-mini');
+        sidebar_mini=false;
+       }else{
+        $('body').addClass('sidebar-mini');
+        sidebar_mini=true;
+       }
+    })
+}
 export function loads() {
     const inputs = $('.inputDiv').find('input');
     for (let input of inputs) {
@@ -491,8 +506,6 @@ export function bankNewTransaction(){
     
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();   
-    
-    
       $('#menu-bar #tab2').hide();
       $('#menu-bar #tab3').hide();
       $('#menu-bar #btnpreview').click(function(){
