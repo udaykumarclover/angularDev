@@ -20,7 +20,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
+  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goods', 'requirement', 'receivedQuotes', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
 
@@ -70,6 +70,9 @@ export class ActiveTransactionComponent implements OnInit {
         if (!this.detail) {
           this.hasNoRecord = true;
         }
+        this.dataSource = new MatTableDataSource(this.detail);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
       },(error) =>{
         this.hasNoRecord = true;
@@ -79,6 +82,17 @@ export class ActiveTransactionComponent implements OnInit {
 
   ngOnInit() {
     custActiveTransaction();
+      $('#TransactionDetailDiv').hide();
+      $('#backbtn').hide();
+
+      $('#backbtn').click(function () {
+          $('#changetext').html('Active Transactions');
+          $('#TransactionDetailDiv').slideUp();
+          $('#transactionID').slideDown();
+          $('#TransactionDetailDiv').hide();
+          $('#transactionFilter').show();
+          $('#backbtn').fadeOut();
+  });
   }
 
   ngAfterViewInit() {
@@ -127,6 +141,11 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   showQuoteDetail(transactionId){
+    $('#changetext').html('Bank Quotes');
+    $('#transactionID').slideUp();
+    $('#TransactionDetailDiv').slideDown();
+    $('#transactionFilter').hide();
+    $('#backbtn').fadeIn();
     this.noQRdetail = false;
 
     let data = {

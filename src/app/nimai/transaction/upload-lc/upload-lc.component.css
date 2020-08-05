@@ -54,6 +54,15 @@ select{
 ::ng-deep .mat-input-element {
     caret-color: #00b5de;
 }
+::ng-deep .mat-datepicker-content .mat-calendar-next-button:hover{
+    color: navy!important;
+}
+::ng-deep .mat-datepicker-content .mat-calendar-previous-button:hover{
+    color: navy!important;
+}
+::ng-deep .mat-calendar-arrow:hover{
+    color: navy!important;
+}
 .customspan {
     top: 1  px;
     font-size: 9px;

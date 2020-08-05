@@ -48,7 +48,7 @@
                                                             </li>
                                                             <li>
                                                                 <a href="#tab_default_4" data-toggle="tab">
-                                                                    Others </a>
+                                                                    Other Details </a>
                                                             </li>
                                                         </ul>
                                                         <div class="tab-content">
@@ -353,8 +353,12 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Requirement</span>
-                                            <span class="labeltext">{{lc.selector}}</span>
+                                            <span class="customspan">Requirement </span>
+                                            <span class="labeltext" *ngIf="lc.selector=='ConfirmAndDiscount'">Confirmation and Discounting</span>
+                                            <span class="labeltext" *ngIf="lc.selector=='Discounting'">Discounting</span>
+                                            <span class="labeltext" *ngIf="lc.selector=='Banker'">Banker's Acceptance</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
                                             <span class="labeltext" *ngIf="!lc.selector">-</span>
                                         </div>
                                     </div>                
@@ -442,7 +446,7 @@
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">
-                                    <p class="col-md-12"><strong>Others</strong></p>
+                                    <p class="col-md-12"><strong>Other Details</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Country</span>
