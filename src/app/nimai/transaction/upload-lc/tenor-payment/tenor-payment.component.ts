@@ -4,8 +4,6 @@ import { DataServiceService } from 'src/app/services/upload-lc/data-service.serv
 import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
-
-
 @Component({
   selector: 'app-tenor-payment',
   templateUrl: './tenor-payment.component.html',
