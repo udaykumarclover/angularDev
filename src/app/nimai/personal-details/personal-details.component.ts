@@ -288,7 +288,7 @@ export class PersonalDetailsComponent implements OnInit {
 
 
   goodsService() {
-    return [{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+    return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
   }
 
 
