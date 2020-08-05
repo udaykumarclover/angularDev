@@ -1,7 +1,7 @@
 <div class="row" [hidden]="!confirmation" [formGroup]="LcDetail">
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="5" formControlName="paymentPeriod"
+            <input type="text" maxlength="5" formControlName="confirmationPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
             <!--added by ashvini Label Change-->    
             <label>Period for which Confirmation is required</label>
@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <div class="col-md-4" [hidden]="!CandD">
         <div class="inputDiv">
-            <input type="text" maxlength="5" formControlName="paymentPeriod"
+            <input type="text" maxlength="5" formControlName="discountingPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
             <!--added by ashvini Label Change-->    
             <label>Period for which discounting is required</label>
@@ -57,7 +57,7 @@
 <div class="row" [hidden]="!discount" [formGroup]="LcDetail">
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="5" formControlName="paymentPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
             <label>Period for which discounting is required (Days)</label>
         </div>
     </div>
@@ -80,13 +80,13 @@
 <div class="row" [hidden]="!refinancing" [formGroup]="LcDetail">
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="5" (keypress)="validateRegexFields($event, 'number')">
+            <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
             <label>Original Tenor of LC (Days)</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="5" formControlName="paymentPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
             <label>Period for which refinancing is required (Days)</label>
         </div>
     </div>
@@ -104,9 +104,16 @@
                         <input type="radio" (change)="handleRadio($event)" value="rdmaturity" id="rdmaturity" name="optionsRadios"
                             ><span class="circle"></span><span class="check"></span><span
                             class="circle"></span><span class="check"></span>
-                        <div class="inputDiv" style="margin: -15px 0 0 0;"><input type="text" readonly="" value="{{LcDetail.get('lCIssuingDate').value | date: 'dd/MM/yyyy'}}"
-                                name="">
-                        </div>
+                            <mat-form-field>                                
+                            <input autocomplete="off" matInput
+                                [matDatepicker]="lcMaturity"
+                                formControlName="lcMaturityDate">
+                            <mat-datepicker-toggle matSuffix
+                                [for]="lcMaturity">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #lcMaturity>
+                            </mat-datepicker>
+                        </mat-form-field>
                     </label>
                 </div>
             </li>
@@ -142,26 +149,26 @@
     <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
     <div class="col-md-4">
         <div class="inputDiv" (keypress)="validateRegexFields($event, 'alphaNum')">
-            <input type="text" maxlength="20" >
+            <input type="text" maxlength="20" formControlName="lcNumber">
             <label>LC Number</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="30">
+            <input type="text" maxlength="30" formControlName="lastBeneBank">
             <label>Beneficiary Bank Name</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNum')">
+            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNum')" formControlName="lastBeneSwiftCode">
             <label>Swift Code</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv selectdiv">
 
-            <select name="country" style="color: transparent;">
+            <select name="country" style="color: transparent;" formControlName="lastBankCountry">
                 <option value="" style="color: rgb(0, 0, 0);">Select</option>
                 <option value="1" style="color: rgb(0, 0, 0);">India</option>
                 <option value="2" style="color: rgb(0, 0, 0);">Bangladesh</option>

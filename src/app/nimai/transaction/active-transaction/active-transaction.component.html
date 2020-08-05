@@ -40,57 +40,54 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
                         <td mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
                       </ng-container>
-  
+                      <ng-container matColumnDef="txnID" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction ID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.transactionId}} </td>
+                      </ng-container>
                       <!-- Progress Column -->
                       <ng-container matColumnDef="beneficiary"  >
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary </th>
                         <td mat-cell *matCellDef="let row"> {{row.beneName}} </td>
                       </ng-container>
-                      <ng-container matColumnDef="bcountry" >
+                      <!-- <ng-container matColumnDef="bcountry" >
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
                         <td mat-cell *matCellDef="let row"> {{row.beneCountry}} </td>
-                      </ng-container>
+                      </ng-container> -->
   
                       <!-- Name Column -->
                       <ng-container matColumnDef="applicant" >
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant </th>
                         <td mat-cell *matCellDef="let row"> {{row.applicantName}} </td>
                       </ng-container>
-                      <ng-container matColumnDef="acountry" >
+                      <!-- <ng-container matColumnDef="acountry" >
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
                         <td mat-cell *matCellDef="let row"> {{row.applicantCountry}} </td>
-                      </ng-container>
+                      </ng-container> -->
   
                       <!-- Color Column -->
                      
-                      <ng-container matColumnDef="txnID" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction ID </th>
-                        <td mat-cell *matCellDef="let row"> {{row.transactionId}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="dateTime" >
+                      
+                      <!-- <ng-container matColumnDef="dateTime" >
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date&Time </th>
                         <td mat-cell *matCellDef="let row"> {{row.insertedDate | date : "dd-MM-y h:mm:ss z"}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="validity" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Validity </th>
-                        <td mat-cell *matCellDef="let row"> {{row.validity | date : "dd-MM-y"}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="ib">
+                      </ng-container> -->
+                      
+                      <!-- <ng-container matColumnDef="ib">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> IB </th>
                         <td mat-cell *matCellDef="let row"> {{row.lCIssuanceBank}} </td>
-                      </ng-container>
+                      </ng-container> -->
                       <ng-container matColumnDef="amount">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
                         <td mat-cell *matCellDef="let row"> {{row.lCValue}} </td>
                       </ng-container>
-                      <ng-container matColumnDef="ccy">
+                      <!-- <ng-container matColumnDef="ccy">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Ccy </th>
                         <td mat-cell *matCellDef="let row"> {{row.lCCurrency}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="goods">
+                      </ng-container> -->
+                      <!-- <ng-container matColumnDef="goods">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
                         <td mat-cell *matCellDef="let row"> {{row.goodsType}} </td>
-                      </ng-container>
+                      </ng-container> -->
                       <ng-container matColumnDef="requirement">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
                         <td mat-cell *matCellDef="let row"> {{row.requirementType}} </td>
@@ -108,6 +105,11 @@
                           </div>
                         </td>
                       </ng-container>
+                      <ng-container matColumnDef="validity" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Validity </th>
+                        <td mat-cell *matCellDef="let row"> {{row.validity | date : "dd-MM-y"}} </td>
+                      </ng-container>
+                      
                       <ng-container matColumnDef="star">
                         <th mat-header-cell *matHeaderCellDef="let row">Actions</th>
                         <td mat-cell *matCellDef="let row">

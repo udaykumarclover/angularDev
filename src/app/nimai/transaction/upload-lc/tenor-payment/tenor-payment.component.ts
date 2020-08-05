@@ -112,7 +112,7 @@ export class TenorPaymentComponent implements OnInit {
 
     }
     else{
-      this.LcDetail.get('lcMaturityDate').setValue(this.LcDetail.get('lCIssuingDate').value);
+      // this.LcDetail.get('lcMaturityDate').setValue(this.LcDetail.get('lCIssuingDate').value);
     }
   }
 

@@ -468,7 +468,7 @@ export class UploadLCComponent implements OnInit {
   
   
       // For Confirmation 
-      paymentPeriod: [''],
+      confirmationPeriod: [''],
       paymentTerms: [''],
       startDate:[''],
       // tenorEndDate: [''],
@@ -577,7 +577,7 @@ export class UploadLCComponent implements OnInit {
       
       
           // For Confirmation 
-          paymentPeriod: this.draftData.paymentPeriod,
+          confirmationPeriod: this.draftData.confirmationPeriod,
           paymentTerms: this.draftData.paymentTerms,
           startDate:this.draftData.startDate,
           // tenorEndDate: this.draftData.tenorEndDate,
@@ -663,7 +663,7 @@ export class UploadLCComponent implements OnInit {
       
       
           // For Confirmation 
-          paymentPeriod: this.cloneData.paymentPeriod,
+          confirmationPeriod: this.cloneData.confirmationPeriod,
           paymentTerms: this.cloneData.paymentTerms,
           startDate:this.cloneData.startDate,
           // tenorEndDate: this.cloneData.tenorEndDate,
