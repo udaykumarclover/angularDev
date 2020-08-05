@@ -20,8 +20,8 @@
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                  <td>
-                                    <select readonly="readonly">
-                                       <option value="dataViewEdit.confChgsIssuanceToNegot" *ngIf="dataViewEdit.confChgsIssuanceToNegot=='yes'">{{dataViewEdit.confChgsIssuanceToNegot}}</option>
+                                    <select readonly="readonly" id="selectid3" (change)="onNegoEdit()">
+                                       <option >{{dataViewEdit.confChgsIssuanceToNegot}}</option>
                                     </select>
                                  </td>
                               </tr>
@@ -29,8 +29,8 @@
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity  </td>
                                  <td>
-                                    <select readonly="readonly">
-                                       <option value="dataViewEdit.confChgsIssuanceToMatur" *ngIf="dataViewEdit.confChgsIssuanceToMatur=='yes'">{{dataViewEdit.confChgsIssuanceToMatur}}</option>
+                                    <select readonly="readonly" id="selectid3"  (change)="onMaturEdit()">
+                                       <option>{{dataViewEdit.confChgsIssuanceToMatur}}</option>
                                     </select>
                                  </td>
                               </tr>

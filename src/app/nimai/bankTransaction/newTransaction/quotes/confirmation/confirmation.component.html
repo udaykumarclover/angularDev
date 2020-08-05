@@ -1,5 +1,5 @@
 
-<div id="menu-bar" [hidden]="!isActive"  (blur)="closed()" style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
+<div id="menu-bar" [hidden]="!isActive"  style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
          <div class="popupcontent">
             <div class="card">
                <div class="card-content">
@@ -15,14 +15,14 @@
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                   <td><select readonly="readonly" >
-                                       <option value="dataViewEdit.confChgsIssuanceToNegot" *ngIf="dataViewEdit.confChgsIssuanceToNegot=='yes'">{{dataViewEdit.confChgsIssuanceToNegot}}</option>
+                                       <option value="dataViewEdit.confChgsIssuanceToNegot" >{{dataViewEdit.confChgsIssuanceToNegot}}</option>
                                     </select></td>
                               </tr>
                                
                               <tr>
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
                                   <td><select readonly="readonly" >
-                                       <option value="dataViewEdit.confChgsIssuanceToMatur" *ngIf="dataViewEdit.confChgsIssuanceToMatur==!null">{{dataViewEdit.confChgsIssuanceToMatur}}</option>
+                                       <option value="dataViewEdit.confChgsIssuanceToMatur">{{dataViewEdit.confChgsIssuanceToMatur}}</option>
                                     </select></td>
                               </tr>
                               <tr>
@@ -224,7 +224,7 @@
                            
                            <tr>
                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                              <td><input type="date" [(ngModel)]="data.validityDate"  placeholder="mm/dd/yyyy"></td>
+                              <td><input type="date" [(ngModel)]="data.validityDate"   value="data.validityDate" placeholder=""></td>
                            </tr>
                            <tr>
                               <td>Other terms and conditions</td>

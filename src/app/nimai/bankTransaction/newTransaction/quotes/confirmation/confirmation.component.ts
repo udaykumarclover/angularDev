@@ -6,6 +6,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras,ActivatedRoute, Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -76,9 +77,9 @@ this.dataViewEdit={
 		beneName:"",
 		chargesType:"",
 		commentsBenchmark:"",
-		confChgsIssuanceToExp: 0,
-		confChgsIssuanceToMatur: 0,
-		confChgsIssuanceToNegot: 0,
+		confChgsIssuanceToExp: "",
+		confChgsIssuanceToMatur:"",
+		confChgsIssuanceToNegot: "",
 		confirmationCharges: 0,
 		discountingCharges: 0,
 		docHandlingCharges: 0,
@@ -107,6 +108,7 @@ this.dataViewEdit={
 
   }
 
+
   onNegotChange(value){
     this.data.confChgsIssuanceToMatur='';
     this.data.confChgsIssuanceToNegot='yes';     
@@ -132,11 +134,9 @@ this.dataViewEdit={
         this.dataViewEdit=data;
         $('input').attr('readonly', false);
       }else if (type === Tflag.PLACE_QUOTE){  
-        console.log(data)
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-      //  $('input').attr('readonly', false);
         $('#selectid1').attr('readonly', true);
         $('#selectid2').attr('readonly', true);
       }

@@ -79,6 +79,7 @@ export class ActiveTransactionComponent implements OnInit {
   showQuotePage(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
+    //pagename='banker';
    
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);

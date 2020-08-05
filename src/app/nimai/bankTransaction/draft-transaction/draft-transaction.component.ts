@@ -81,8 +81,7 @@ export class DraftTransactionComponent implements OnInit {
   editDraft(pagename: string,action:Tflag,val:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-    pagename="Confirmation"
-    
+console.log(val) 
        const data = {
         "bankUserId":sessionStorage.getItem('userID'),
         "userId":val.userId,
@@ -99,19 +98,19 @@ export class DraftTransactionComponent implements OnInit {
     }
 
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,data);
+      this.confirmation.action(true,action,val);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
-      this.discounting.action(true,action,data);
+      this.discounting.action(true,action,val);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
     } else if (pagename === 'confirmAndDiscount') {      
-      this.confirmAndDiscount.action(true,action,data);
+      this.confirmAndDiscount.action(true,action,val);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
@@ -120,14 +119,14 @@ export class DraftTransactionComponent implements OnInit {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
-      this.refinancing.action(true,action,data);
+      this.refinancing.action(true,action,val);
       this.banker.isActive = false;
     } else if (pagename === 'banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
-      this.banker.action(true,action,data);
+      this.banker.action(true,action,val);
     }
   }
 
