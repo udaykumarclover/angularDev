@@ -211,7 +211,7 @@ this.dataViewEdit={
               let emailBankBody = {
               
                 "event": "QUOTE_ACCEPT_ALERT_ToBanks",
-                "quotationId" : detail.quotationId,
+                "quotationId" : data.quotationId,
                 "transactionId" : data.transactionId,
                 "bankEmail" : sessionStorage.getItem('custUserEmailId')
                 }
