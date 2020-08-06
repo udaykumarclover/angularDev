@@ -196,7 +196,7 @@ this.dataViewEdit={
 
       case 'confirm': {
         const param = {
-                      "quotationId":detail.quotationId,
+                      "quotationId":data.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
