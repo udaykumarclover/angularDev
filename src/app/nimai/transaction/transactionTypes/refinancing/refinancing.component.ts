@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RefinancingComponent implements OnInit {
 
   public isActive: boolean = false;
-  public data: TransactionBean;
+  public data = {};
   public title: string = "";
   public tab = 'tab2';
   document: any;
@@ -29,66 +29,7 @@ export class RefinancingComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
     
-    this.data = {
-      transactionId: "",
-      userId: "",
-      requirementType: "",
-      lCIssuanceBank: "",
-      lCIssuanceBranch: "",
-      swiftCode: 0,
-      lCIssuanceCountry: "",
-      lCIssuingDate: null,
-      lCExpiryDate: null,
-      lCValue: null,
-      lCCurrency: "",
-      lastShipmentDate: null,
-      negotiationDate: null,
-      paymentPeriod: 0,
-      paymentTerms: "",
-      // tenorEndDate: null,
-      applicantName: "",
-      applicantCountry: "",
-      beneName: "",
-      beneBankCountry: "",
-      beneBankName: "",
-      beneSwiftCode: "",
-      beneCountry: "",
-      loadingCountry: "",
-      loadingPort: "",
-      dischargeCountry: "",
-      dischargePort: null,
-      chargesType: "",
-      validity: null,
-      insertedDate: null,
-      insertedBy: "",
-      modifiedDate: null,
-      modifiedBy: "",
-      transactionflag: null,
-      transactionStatus: "",
-      branchUserId: null,
-      branchUserEmail: null,
-      goodsType: "",
-      usanceDays: null,
-      startDate: null,
-      endDate: null,
-      originalTenorDays: null,
-      refinancingPeriod: "",
-      lcMaturityDate: null,
-      lcNumber: '',
-      lastBeneBank: "",
-      lastBeneSwiftCode: "",
-      lastBankCountry: "",
-      remarks: "",
-      discountingPeriod: "",
-      confirmationPeriod: null,
-      financingPeriod: null,
-      lcProForma: "",
-      tenorFile: null,
-      lccountry: [],
-      lcgoods: [],
-      lcbanks: [],
-      lcbranch: []
-    }
+    
   }
 
   ngOnInit() {
@@ -172,7 +113,7 @@ export class RefinancingComponent implements OnInit {
   }
 
   openDocument(file){
-    $('#myModal7').show();
+    $('#myModalR').show();
     this.document = file;
   }
 }

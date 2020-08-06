@@ -1,5 +1,6 @@
-<div id="menu-bar-discounting" [hidden]="!isActive" (blur)="closed()"
-   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+<!-- <div id="menu-bar-discounting" [hidden]="!isActive" (blur)="closed()"
+   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;"> -->
+   <div id="menu-bar-dis" class="offcanvas">
    <div class="popupcontent">
       <div class="card">
          <div class="card-content">
@@ -344,7 +345,7 @@
 </div>
 </div>
 
-<div id="myModal7" class="modal3" style="display: none;">
+<div id="myModalD" class="modal3" style="display: none;">
    <!-- <div class="modal-dialog modal-md emaildiv"> -->
    <!-- Modal content-->
    <div class="modal-content">
@@ -354,7 +355,7 @@
        <div class="row">
          <!--<p><strong>Enter Email ID here</strong></p> -->
          <div class="col-md-12">
-          <img [src]="document" />
+          <img *ngIf="document" [src]="document" />
          </div>
          <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
        </div>

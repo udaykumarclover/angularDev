@@ -81,6 +81,15 @@ export class ActiveTransactionComponent implements OnInit {
     )
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   ngOnInit() {
     custActiveTransaction();
       $('#TransactionDetailDiv').hide();
@@ -114,30 +123,35 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menu-bar-con").style.width = "450px"; 
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
       this.discounting.action(true,action,data);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menu-bar-dis").style.width = "450px"; 
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.action(true,action,data);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menu-bar-conAndDis").style.width = "450px"; 
     } else if (pagename === 'refinance' || pagename === 'Refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,data);
       this.banker.isActive = false;
+      document.getElementById("menu-bar-ref").style.width = "450px"; 
     } else if (pagename === 'banker' || pagename === 'Banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.action(true,action,data);
+      document.getElementById("menu-bar-bank").style.width = "450px";  
     }
   }
 
@@ -170,7 +184,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   openOffcanvas() {
-    document.getElementById("menu-barnew").style.width = "450px"; 
+    document.getElementById("menu-barnew").style.width = "450px";
  }
  openNav3() {
     document.getElementById("myCanvasNav").style.width = "100%";
@@ -178,6 +192,11 @@ export class ActiveTransactionComponent implements OnInit {
  }
  closeOffcanvas() {
     document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("menu-bar-con").style.width = "0%"; 
+    document.getElementById("menu-bar-dis").style.width = "0%"; 
+    document.getElementById("menu-bar-conAndDis").style.width = "0%"; 
+    document.getElementById("menu-bar-ref").style.width = "0%"; 
+    document.getElementById("menu-bar-bank").style.width = "0%";  
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
  } 

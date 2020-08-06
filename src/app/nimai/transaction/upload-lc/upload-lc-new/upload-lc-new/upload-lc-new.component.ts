@@ -197,7 +197,7 @@ export class UploadLcNewComponent implements OnInit {
     let emailBody = {
       "transactionid": sessionStorage.getItem("transactionID"),
       "userId": sessionStorage.getItem('userID'),
-      "event": "LC_Upload"
+      "event": "LC_UPLOAD"
       }
     this.upls.confirmLc(body)
       .subscribe(

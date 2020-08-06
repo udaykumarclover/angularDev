@@ -234,8 +234,16 @@ this.dataViewEdit={
             "userId": data.userId,
             "event": "QUOTE_ACCEPT"
             }
-        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
-
+            let emailBankBody = {
+              
+              "event": "QUOTE_ACCEPT_ALERT_ToBanks",
+              "quotationId" : detail.quotationId,
+              "transactionId" : data.transactionId,
+              "bankEmail" : sessionStorage.getItem('custUserEmailId')
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
           
         },
         error => {

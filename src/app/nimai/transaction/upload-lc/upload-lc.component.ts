@@ -45,6 +45,7 @@ export class UploadLCComponent implements OnInit {
   draftData: any;
   cloneData: any;
   dateToPass: any;
+  document: any;
 
 
   // rds: refinance Data Service
@@ -356,7 +357,13 @@ export class UploadLCComponent implements OnInit {
     let emailBody = {
       "transactionid": sessionStorage.getItem("transactionID"),
       "userId": sessionStorage.getItem('userID'),
-      "event": "LC_Upload"
+      "event": "LC_UPLOAD"
+      }
+    
+    let emailBankBody = {
+      "transactionId": sessionStorage.getItem("transactionID"),
+      "customerUserId": sessionStorage.getItem('userID'),
+      "event": "LC_UPLOAD_ALERT_ToBanks"
       }
     this.upls.confirmLc(body)
       .subscribe(
@@ -365,12 +372,15 @@ export class UploadLCComponent implements OnInit {
           this.edit();
           this.loading = false;
           this.titleService.loading.next(false);
-          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
+          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
+        
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
               message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
-              parent: this.subURL+"/"+this.parentURL + '/new-transaction'
+              parent: this.subURL+"/"+this.parentURL + '/active-transaction'
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
@@ -720,4 +730,12 @@ export class UploadLCComponent implements OnInit {
     ) 
   }
 
+  openDocument(file){
+    $('#myModal7').show();
+    this.document = file;
+  }
+
+  close(){
+    $('.modal3').hide();
+  }
 }
