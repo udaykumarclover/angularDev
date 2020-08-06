@@ -34,6 +34,7 @@ import { TransactionDetailsComponent } from 'src/app/nimai/transaction/transacti
 import { DraftTransactionComponent } from 'src/app/nimai/transaction/draft-transaction/draft-transaction.component';
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 import { SupportComponent } from 'src/app/default/support/support/support.component';
+import { UploadLcNewComponent } from 'src/app/nimai/transaction/upload-lc/upload-lc-new/upload-lc-new/upload-lc-new.component';
 
 
 const routes: Routes = [
@@ -73,6 +74,13 @@ const routes: Routes = [
       },
       {
         path: "new-transaction", component: UploadLCComponent, canDeactivate:[UploadLcDetailsCanDeactivate],
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "new-transaction-new", component: UploadLcNewComponent, canDeactivate:[UploadLcDetailsCanDeactivate],
         children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
@@ -156,7 +164,8 @@ const routes: Routes = [
     RefinancingComponent,
     BankerComponent,
     TransactionDetailsComponent,
-    DraftTransactionComponent
+    DraftTransactionComponent,
+    UploadLcNewComponent
 
   ],
   imports: [
@@ -187,7 +196,8 @@ const routes: Routes = [
     RefinancingComponent,
     BankerComponent,
     TransactionDetailsComponent,
-    DraftTransactionComponent
+    DraftTransactionComponent,
+    UploadLcNewComponent
 
     
   ]

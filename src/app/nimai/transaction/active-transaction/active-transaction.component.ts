@@ -20,7 +20,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goods', 'requirement', 'receivedQuotes', 'star'];
+  // displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goods', 'requirement', 'receivedQuotes', 'star'];
+  displayedColumns: string[] = ['id','txnID', 'beneficiary', 'applicant', 'amount', 'requirement', 'receivedQuotes','validity', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
 

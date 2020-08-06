@@ -81,23 +81,9 @@ export class DraftTransactionComponent implements OnInit {
   editDraft(pagename: string,action:Tflag,val:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-console.log(val) 
-       const data = {
-        "bankUserId":sessionStorage.getItem('userID'),
-        "userId":val.userId,
-        "transactionId":val.transactionId,
-        "requirementType":val.requirementType,
-        "lCIssuanceBank":val.lCIssuanceBank,
-        "lCValue":val.lCValue,
-        "lCCurrency":val.lCCurrency,
-        "usanceDays":val.usanceDays,
-         "insertedDate":this.date,
-        "insertedBy":sessionStorage.getItem('userID'),
-        "modifiedDate":this.date,
-        "modifiedBy":sessionStorage.getItem('userID'),
-    }
+   
 
-    if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
+    if (pagename == 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,val);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
@@ -109,19 +95,19 @@ console.log(val)
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount') {      
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {    
       this.confirmAndDiscount.action(true,action,val);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinance') {
+    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename==='refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,val);
       this.banker.isActive = false;
-    } else if (pagename === 'banker') {
+    } else if (pagename === 'banker' || pagename === "Banker") {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
@@ -130,8 +116,8 @@ console.log(val)
     }
   }
 
-  deleteDraft(data){
-    const index = this.draftData.indexOf(data);
+  deleteDraft(val){
+    const index = this.draftData.indexOf(val);
     this.draftData.splice(index, 1);
   }
 

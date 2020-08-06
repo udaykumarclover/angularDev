@@ -134,6 +134,8 @@ this.dataViewEdit={
         this.dataViewEdit=data;
         $('input').attr('readonly', false);
       }else if (type === Tflag.PLACE_QUOTE){  
+        
+        console.log(data)
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;

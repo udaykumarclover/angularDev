@@ -1,23 +1,22 @@
 import { Component, OnInit, EventEmitter, Output,ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
-import * as $ from '../../../../assets/js/jquery.min';
+import * as $ from 'src/assets/js/jquery.min';
 import { LcDetail } from 'src/app/beans/LCDetails';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { formatDate } from '@angular/common';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import  { ValidateRegex } from '../../../beans/Validations';
+import  { ValidateRegex } from 'src/app/beans/Validations';
 import { call } from 'src/assets/js/bootstrap-filestyle.min'
-
-
+import { newLCUpload } from 'src/assets/js/commons';
 
 @Component({
-  selector: 'app-upload-lc',
-  templateUrl: './upload-lc.component.html',
-  styleUrls: ['./upload-lc.component.css']
+  selector: 'app-upload-lc-new',
+  templateUrl: './upload-lc-new.component.html',
+  styleUrls: ['./upload-lc-new.component.css']
 })
-export class UploadLCComponent implements OnInit {
+export class UploadLcNewComponent implements OnInit {
 
   public lcDetailForm: FormGroup
   public selector: string = "Confirmation";
@@ -47,7 +46,6 @@ export class UploadLCComponent implements OnInit {
   dateToPass: any;
 
 
-  // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
     this.titleService.changeTitle(this.title);
 
@@ -77,165 +75,8 @@ export class UploadLCComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rds.refinanting.subscribe(flag => this.refinancing = flag);
-    const lcd = this;
-    $(document).ready(function () {
-      const anchor: any[] = $('.nav-tabs').find('a');
-      lcd.saveCount = anchor.length;
-
-    })
-    call();
-
+    newLCUpload();
   }
-  ngAfterViewInit() {
-    // document.getElementsByTagName('input') : to gell all Docuement imputs
-    const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
-     inputList.forEach((input: HTMLElement) => {
-         input.addEventListener('focus', () => {
-          if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id===""){
-             if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
-              input.className="ng-valid ng-dirty ng-touched"   
-             else 
-              input.className="ng-valid ng-dirty ng-touched has-value"
-          }   
-         });
-            input.addEventListener('blur', () => {
-              if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id==="")
-              {
-              if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
-                input.className="ng-valid ng-dirty ng-touched"   
-              else
-              input.className="ng-valid ng-dirty ng-touched has-value"
-              }
-         });
-     });
-     const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
-     selectList.forEach((select: HTMLElement) => {
-      select.addEventListener('focus', () => {
-        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
-          select.className="ng-valid ng-dirty ng-touched"   
-        else 
-          select.className="ng-valid ng-dirty ng-touched has-value"
-      });
-      select.addEventListener('blur', () => {
-        if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
-          select.className="ng-valid ng-dirty ng-touched"   
-        else 
-          select.className="ng-valid ng-dirty ng-touched has-value"
-      });
-  });
-    const textareaList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('textarea'));
-    textareaList.forEach((textarea: HTMLElement) => {
-      textarea.addEventListener('focus', () => {
-      if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
-      textarea.className="ng-valid ng-dirty ng-touched"   
-      else 
-      textarea.className="ng-valid ng-dirty ng-touched has-value"
-    });
-    textarea.addEventListener('blur', () => {
-      if((<HTMLInputElement>event.target).value===null || (<HTMLInputElement>event.target).value==="")
-      textarea.className="ng-valid ng-dirty ng-touched"   
-      else 
-      textarea.className="ng-valid ng-dirty ng-touched has-value"
-    });
-  });
- }
-
-  public next() {
-    this.previewShow = false;
-    this.titleService.loading.next(true);
-
-    const anchor: any[] = $('.nav-tabs').find('a');
-
-    for (let index = 0; index < anchor.length; index++) {
-
-
-      if (index == this.counter && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter + 1)) {
-        $(anchor[index]).attr('aria-expanded', 'true');
-        $(anchor[index]).parent().addClass('active')
-
-        const tabpanes: any[] = $('.tab-content').find('.tab-pane')
-        for (let i = 0; i < tabpanes.length; i++) {
-          if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter + 1)) {
-            $(tabpanes[i]).addClass('active');
-          } else {
-            $(tabpanes[i]).removeClass('active');
-          }
-
-        }
-      } else {
-        $(anchor[index]).attr('aria-expanded', 'false');
-        $(anchor[index]).parent().removeClass('active')
-      }
-
-
-    }
-    this.counter++;
-    if (this.saveCount == this.counter) {
-      this.isPrev = true;
-      this.isNext = false;
-      this.isSave = false;
-      if(this.isUpdate){
-        this.showUpdateButton = true;
-        this.isPreview = false;
-      }
-      else{
-        this.showUpdateButton = false;
-        this.isPreview = true;
-      }
-    } else {
-      this.isPrev = true;
-    }
-    this.titleService.loading.next(false);
-
-
-  }
-
-  public prev() {
-    this.previewShow = false;
-    this.titleService.loading.next(true);
-    const anchor: any[] = $('.nav-tabs').find('a');
-    this.counter--;
-
-    for (let index = 0; index < anchor.length; index++) {
-
-      if (index == (this.counter - 1) && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter)) {
-        $(anchor[index]).attr('aria-expanded', 'true');
-        $(anchor[index]).parent().addClass('active');
-
-        const tabpanes: any[] = $('.tab-content').find('.tab-pane')
-        for (let i = 0; i < tabpanes.length; i++) {
-          if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter)) {
-            $(tabpanes[i]).addClass('active');
-          } else {
-            $(tabpanes[i]).removeClass('active');
-          }
-
-        }
-      } else {
-        $(anchor[index]).attr('aria-expanded', 'false');
-        $(anchor[index]).parent().removeClass('active')
-      }
-
-    }
-
-    if (this.counter == 1) {
-      this.isPrev = false;
-      this.isNext = true;
-      this.isSave = false;
-      this.isPreview = false;
-      this.showUpdateButton = false;
-
-    } else {  
-      this.isPrev = true;
-      this.isNext = true;
-      this.isSave = false;
-      this.isPreview = false;
-      this.showUpdateButton = false;
-    }
-    this.titleService.loading.next(false);
-  }
-
 
   public save() {
     this.loading = true;

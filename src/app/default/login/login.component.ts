@@ -518,7 +518,7 @@ export class LoginComponent implements OnInit {
 
 
   goodsService() {
-    return [{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+    return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
   }
 
 
@@ -638,7 +638,6 @@ export class LoginComponent implements OnInit {
       subscribe(
         (response) => {
           this.resp = JSON.parse(JSON.stringify(response));
-          console.log(this.resp);
           sessionStorage.setItem('countryData', JSON.stringify(response));
           
         },
