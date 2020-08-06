@@ -2073,3 +2073,110 @@ export function creditTransaction(){
             });
         });
 }
+
+export function newLCUpload(){
+
+    $(document).ready(function() { 
+      
+        demo.initFormExtendedDatetimepickers(); 
+              
+       //code for tooltip text changes as per country selection
+        $('.textddlV').hide();      
+        $('.countryddl').change(function() {
+       $('.textddlV').show();
+        var textddl = ($(this).val());
+            if (textddl == "India") { 
+       
+              $('.textddlV').attr('data-original-title','32 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Bangladesh") { 
+              $('.textddlV').attr('data-original-title','28 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Kenya") { 
+              $('.textddlV').attr('data-original-title','52 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Nigeria") { 
+              $('.textddlV').attr('data-original-title','54 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "UAE") { 
+              $('.textddlV').attr('data-original-title','44 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Qatar") { 
+              $('.textddlV').attr('data-original-title','12 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+            else{
+             $('.textddlV').hide();
+            }
+        });
+       
+              
+       //code for hide show according to applicant and beneficiary selection 
+            $('#divBene').hide();
+            $("input[name='userType']").click(function () {
+                
+                var radioValue = $("input[name='userType']:checked").val();
+                if (radioValue == "Beneficiary") {
+                $('#divApplicant').hide();
+                $('#divBene').show();
+                }
+                else if (radioValue == "Applicant") {
+                $('#divApplicant').show();
+                $('#divBene').hide();
+                }
+            });
+        //   $("#filestyle-0").filestyle('placeholder', 'Upload Document (only pdf, jpeg, png)');
+          //  md.initSliders()
+            demo.initFormExtendedDatetimepickers();
+             $("[data-toggle='tooltip']").tooltip(); 
+             $('.all, .alltenor').hide();
+             $('.ChkConfirmation, .chkconfirmTenor').show();
+
+             
+        //code for Requirement textbox selection  
+        $(".radio-tile-group input[name='selector']").click(function() {
+             debugger;
+             var radioValue = $("input[name='selector']:checked").val();
+             if (radioValue == "Confirmation") {
+                 $('.all, .alltenor').hide();
+                 $('.ChkConfirmation, .chkconfirmTenor').show();
+             }
+             else if(radioValue == "Discounting"){
+               $('.all, .alltenor').hide();
+                 $('.discounting, .chkDiscountTenor').show();
+             }
+             else if(radioValue == "ConfirmAndDiscount"){
+               $('.all, .alltenor').hide();
+                 $('.confDiscounting, .chkConfDiscTenor').show();
+             }
+             else if(radioValue == "Refinance"){
+               $('.all, .alltenor').hide();
+                 $('.Refinancing, .chkRefinaceTenor').show();
+             }
+             else if(radioValue == "Banker"){
+               $('.all, .alltenor').hide();
+                 $('.Bankers, .chkBankerTenor').show();
+             }
+         });
+
+         $("input[name='optionsRadios']").click(function() {
+            var radioValue1 = $("input[name='optionsRadios']:checked").val();
+            if (radioValue1 == "rdmaturity") {
+                 $('.multipledate').hide();
+            } else {
+                $('.multipledate').show();
+            } 
+          });
+
+    });
+}

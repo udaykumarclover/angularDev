@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent  {
 
-  title = 'NIMAI';
+  title = 'NIMAITRADE';
   
 
   constructor(){
