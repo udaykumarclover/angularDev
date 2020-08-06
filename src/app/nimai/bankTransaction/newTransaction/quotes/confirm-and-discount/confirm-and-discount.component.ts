@@ -26,6 +26,8 @@ public isActiveQuote:boolean=false;
   radioStatus: boolean;
   public parentURL: string = "";
   public subURL: string = "";
+  public selectNego:string="";
+  public selectMature:String="";
 
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
@@ -108,13 +110,13 @@ this.dataViewEdit={
   }
 
   onNegotChange(value){
-    this.data.confChgsIssuanceToMatur='no';
-    this.data.confChgsIssuanceToNegot='yes';     
+    this.selectMature='no';
+    this.selectNego='yes';     
      }
  
  onMatureChange(value){
-  this.data.confChgsIssuanceToNegot='no';
-  this.data.confChgsIssuanceToMatur='yes';
+  this.selectMature='yes';
+  this.selectNego='no';     
    }
 
    onNegoEdit(){
@@ -294,6 +296,9 @@ this.dataViewEdit={
         }break;
         case 'generateQuote': {
           this.tab = 'tab2';
+          this.data.confChgsIssuanceToNegot=this.selectNego;
+          this.data.confChgsIssuanceToMatur=this.selectMature;
+          console.log(this.data)
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
               this.detail = JSON.parse(JSON.stringify(response)).data;
