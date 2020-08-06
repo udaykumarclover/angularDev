@@ -3,3 +3,6 @@ select{
     padding: .5em!important;
     padding-right: 1.5em!important;
 }
+::ng-deep .mat-form-field-infix{
+    width: 196px!important;
+}
