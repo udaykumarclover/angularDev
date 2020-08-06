@@ -34,7 +34,7 @@ export class CustomerLoginComponent implements OnInit {
   customerLoginForm = new FormGroup({
     batch_id: new FormControl('', [Validators.required,Validators.minLength(3)]),
     employee_id: new FormControl('', [Validators.required,Validators.minLength(3)]),
-    email_id: new FormControl('', [Validators.required, Validators.email]),
+    email_id: new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     employee_name: new FormControl('', [Validators.required,Validators.minLength(2)])
   })
 
@@ -67,8 +67,6 @@ export class CustomerLoginComponent implements OnInit {
     this.submitted = false;
 
     this.emailAddress = this.customerLoginForm.get('email_id').value;
-    console.log(this.customerLoginForm.value);
-    console.log("sessionStorage.getItem",sessionStorage.getItem("userID"))
     let userID: string = sessionStorage.getItem('userID');
     this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {
