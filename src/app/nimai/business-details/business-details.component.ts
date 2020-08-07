@@ -29,6 +29,10 @@ export class BusinessDetailsComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
+    setTimeout(() => {
+      this.titleService.loading.next(false);
+      }, 2000);
+
     if(sessionStorage.getItem('userID'))
     {
       this.hasValue=true;

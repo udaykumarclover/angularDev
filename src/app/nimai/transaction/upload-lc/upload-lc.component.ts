@@ -50,6 +50,8 @@ export class UploadLCComponent implements OnInit {
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+    this.checkLcCount();
+
     this.titleService.changeTitle(this.title);
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -368,6 +370,20 @@ export class UploadLCComponent implements OnInit {
     this.upls.confirmLc(body)
       .subscribe(
         (response) => {
+          var resp = JSON.parse(JSON.stringify(response)).status;
+          if(resp == "Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Failed',
+                message: JSON.parse(JSON.stringify(response)).errMessage,
+                parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation error?', success))
+              .catch(console.error);
+          }
+          else{            
           this.setForm();
           this.edit();
           this.loading = false;
@@ -387,6 +403,7 @@ export class UploadLCComponent implements OnInit {
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           this.isUpdate = false;
+        }
 
         },
         (error) => {
@@ -737,5 +754,32 @@ export class UploadLCComponent implements OnInit {
 
   close(){
     $('.modal3').hide();
+  }
+
+  checkLcCount(){
+    var data = {
+      "userId": sessionStorage.getItem("userID")
+      }
+  
+      this.upls.checkLcCount(data).subscribe(
+        (response) => {
+          var resp = JSON.parse(JSON.stringify(response)).status;
+
+          if(resp == "Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Not Allowed !',
+                message: 'You had reached maximum LC Count ! Please Renew Your Subscribe Plan',
+                parent: this.subURL+"/"+this.parentURL + '/subscription',
+                redirectedFrom: "New-Transaction"
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation success?', success))
+              .catch(console.error);
+          }
+        },
+        (err) => {}
+      )
   }
 }

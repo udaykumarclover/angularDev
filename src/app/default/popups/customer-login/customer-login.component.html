@@ -12,12 +12,12 @@
             <div class="col-md-6">
               <div class="inputDiv">
                 <input type="text" maxlength="10" formControlName="batch_id" (keypress)="validateRegexFields($event, 'alphaNum')" class="first_input">
-                <label>Batch ID</label>
+                <label>Branch ID</label>
                 <div *ngIf="submitted && custLogDetails.batch_id.errors?.required" class="invalid-feedback">
-                  Batch Id is required
+                  Branch Id is required
               </div>
               <div *ngIf="custLogDetails.batch_id.errors?.minlength" class="invalid-feedback">
-                Enter 3 characters long Batch ID.
+                Enter 3 characters long Branch ID.
               </div>
               </div>
             </div>
@@ -72,10 +72,8 @@
   <!-- <div class="modal-dialog modal-md emaildiv"> -->
   <!-- Modal content-->
   <div class="modal-content">   
-    <div class="modal-header" id="success_msg">
-      <h3 style="text-align: center!important"><strong> Enter Access Details </strong>
+    <div class="modal-header" id="success_msg" style="text-align: right!important">
         <button type="button" class="close" (click)="close()" id="close">&times;</button>
-      </h3>
     </div>
     <div class="modal-body">
       <h2></h2>

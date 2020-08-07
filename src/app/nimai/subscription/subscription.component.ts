@@ -37,7 +37,16 @@ export class SubscriptionComponent implements OnInit {
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
-    })
+    });
+
+    let navigation = this.router.getCurrentNavigation();
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "New-Transaction"){
+        console.log("..."+ navigation.extras.state.redirectedFrom);
+        this.getSubscriptionDetails();
+      }
+    }
   }
 
   ngOnInit() {

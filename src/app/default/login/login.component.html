@@ -102,7 +102,7 @@
                                        </div> -->
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                             <input type="text" maxlength="20" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>First Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.firstName.errors" class="invalid-feedback">
@@ -114,7 +114,7 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                             <input type="text" maxlength="20" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>Last Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.lastName.errors" class="invalid-feedback">
@@ -348,7 +348,7 @@
                                        </div>
                     
                                        <button type="submit" class="btnclass" style="margin: 5px 0px 0px;">Sign Up</button>
-                                       <p style="font-size: 12px;font-weight: 400;">Already have an account? 
+                                       <p style="font-size: 12px;font-weight: 400;">Already have an account ? 
                                           <a (click)="clearInvalidationText();" class="ghost" style="display: inline-block;cursor: pointer;" id="signIn">Login</a>
                                        </p>
                                     </div>

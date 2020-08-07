@@ -48,4 +48,8 @@ export class UploadLcService {
   public confirmLcMailSentToBank(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiEmail/getEligibleEmails`, body,{headers:{'content-type':'application/json'}})
   }
+
+  public checkLcCount(body:any):Observable<any>{
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/checkLCCount`, body,{headers:{'content-type':'application/json'}})
+  }
 }
