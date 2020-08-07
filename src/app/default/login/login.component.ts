@@ -615,6 +615,7 @@ export class LoginComponent implements OnInit {
   }
 
   callCustomerPopup(){
+    this.titleService.loading.next(false);
     const navigationExtras: NavigationExtras = {
       state: {
         parent: 'login'
