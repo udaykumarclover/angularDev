@@ -270,6 +270,7 @@ export class LoginComponent implements OnInit {
   public checkUserType(value: string) {
     // this.signupForm.get('termsAndcondition').clearValidators();
     // this.signupForm.get('termsAndcondition').updateValueAndValidity(); 
+    this.hasCountrycode=false;
     $('#checkboxError').hide();  
     this.clearSignupValidation();
     this.updateValidation();
@@ -294,6 +295,7 @@ export class LoginComponent implements OnInit {
     }
   }
   bankAsEvent(value: string) {
+    this.hasCountrycode=false;
     this.clearSignupValidation();
     this.updateValidation();
     if (value === 'c') {

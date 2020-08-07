@@ -6,3 +6,6 @@ select{
 ::ng-deep .mat-form-field-infix{
     width: 196px!important;
 }
+.radio label {
+    color: #333!important;
+}
