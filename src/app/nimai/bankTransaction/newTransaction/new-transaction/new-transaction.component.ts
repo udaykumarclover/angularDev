@@ -161,6 +161,12 @@ export class NewTransactionComponent implements OnInit {
       "insertedBy":sessionStorage.getItem('userID'),
       "modifiedDate":this.date,
       "modifiedBy":sessionStorage.getItem('userID'),
+      "quotationId":val.quotationId,
+      "confirmationPeriod":val.confirmationPeriod,
+      "discountingPeriod":val.discountingPeriod,
+      "refinancingPeriod":val.refinancingPeriod,
+
+      
   }
   
     if (pagename == 'confirmation' || pagename === 'Confirmation' ) {

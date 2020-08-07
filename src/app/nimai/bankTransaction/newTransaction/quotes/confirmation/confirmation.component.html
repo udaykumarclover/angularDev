@@ -179,14 +179,14 @@
                              <td>{{data.lCIssuanceBank}}</td>
                          
                              <td><b>Tenor</b></td>
-                             <td>{{data.usanceDays}} Days</td>
+                             <td>{{data.confirmationPeriod}} Days</td>
                           </tr>  
                         </tbody>
                          </table>
                         </div>
                      <table class="table">
                         <tbody>
-                           <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr>
+                           <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
 
                            <tr>
                               <td>Confirmation Charges p.a.</td>
@@ -242,6 +242,7 @@
                            
                         </tbody>
                      </table>
+                
                      <div>
                         <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote',data)">
                            Save/Generate Quote
@@ -279,14 +280,14 @@
                                 <td>{{data.lCIssuanceBank}}</td>
                             
                                 <td><b>Tenor</b></td>
-                                <td>{{data.usanceDays}} Days</td>
+                                <td>{{data.confirmationPeriod}} Days</td>
                              </tr>  
                            </tbody>
                             </table>
                            </div>
                      <table class="table">
                         <tbody>
-                           <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr>
+                           <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
 
                            <tr>
                               <td>Confirmation Charges p.a.</td>
