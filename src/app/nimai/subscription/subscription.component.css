@@ -32,3 +32,30 @@
     .boxline .btn{
     margin: 0;
     }
+  .popupnew .modal-content .modal-body {
+    padding: 0;
+}
+.popupnew .emaildiv h2 {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 15px;
+    margin: 0 0 20px;
+    background: #00bcd4;
+    color: #fff;
+}
+.popupnew .emaildiv .padnew {
+    padding: 0px 25px 10px;
+}
+
+.emaildiv p.head {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 25px;
+    text-align: center;
+}
+.emaildiv{
+    border: 3px solid #00bcd4!important;
+}
+.popupnew{
+    margin-left: 36px!important;
+}

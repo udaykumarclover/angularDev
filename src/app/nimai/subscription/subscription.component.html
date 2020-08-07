@@ -232,7 +232,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="green box paymentpage col-md-12 form-group">
-                                        <span><a href="">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@tradeenabler.com</b>
+                                        <span><a href="#"  data-toggle="modal" data-target="#myModal4">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@tradeenabler.com</b>
                                         </span>
                                         <a (click)="nextModule()" class="btn btn-info pull-right">Next</a>
                                     </div>
@@ -330,6 +330,27 @@
             </div>
         </div>
     </div>
+    <div id="myModal4" class="popupnew modal fade in" role="dialog">
+        <div class="modal-dialog modal-md emaildiv">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+              <h2>Wire Transfer Details</h2>
+              <div class="padnew">
+                <!--<p><strong>Enter Email ID here</strong></p> -->
+                <div class="">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p class="head">We have sent bank details to initiate wire transfer payment on your registered email ID.</p> 
+                      <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div class="ripple-container"><div class="ripple ripple-on ripple-out"></div></div></button> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
     <router-outlet></router-outlet>
     <!-- </div> -->
     <!-- </div> -->

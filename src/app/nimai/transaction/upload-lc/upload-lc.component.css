@@ -49,9 +49,11 @@ select{
     font-family: roboto;
     display: block;
     position: absolute;
-    top: -12px;
+    top: -16px;
 }
-
+.selections{
+    margin-top:10px!important;
+}
 ::ng-deep .mat-input-element {
     caret-color: #00b5de;
 }

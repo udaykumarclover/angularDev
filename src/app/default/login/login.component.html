@@ -141,11 +141,9 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv selectdiv">
-                                             
                                              <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
                                                 <option value=''>Select</option>
                                                 <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>
-                                                
                                              </select>
                                              <label>Select Country</label>
                                              <img src="assets/images/world.png" />
@@ -159,7 +157,8 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv divmob">
-                                             <div class="countrycode">+{{countryCode}}</div>
+                                             <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
+                                             <ng-template #other_content></ng-template>
                                              <input type="text" formControlName="mobileNo" maxlength="13" [ngClass]="hasCountrycode ? 'has-value' : ''" (keypress)="validateRegexFields($event,'mobile_number_validations')">
                                              <label>Mobile No.</label>
                                              <img src="assets/images/mobile.png" style="width: 10px;height: 15px;" />

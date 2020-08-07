@@ -53,7 +53,7 @@ export class BusinessDetailsComponent implements OnInit {
       userId: [''],
       selector: ['', Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
-      bank_designation: ['', [Validators.required,Validators.minLength(3)]],
+      bank_designation: ['', [Validators.required,Validators.minLength(2)]],
       country: ['', Validators.required],
       provinceName: ['',Validators.required],
       city: ['', [Validators.required,Validators.minLength(2)]],
@@ -75,7 +75,7 @@ export class BusinessDetailsComponent implements OnInit {
     return this.fb.group({
     ownerFirstName: ['', Validators.required],
     ownerLastName: ['', Validators.required],
-    designation: ['', [Validators.required,Validators.minLength(3)]],
+    designation: ['', [Validators.required,Validators.minLength(2)]],
     ownerID: ['']
   });
   }
@@ -140,7 +140,7 @@ export class BusinessDetailsComponent implements OnInit {
     this.perDetailsSubmit = true;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     console.log("items",items.controls)
-    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
+    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
       return;
