@@ -196,10 +196,11 @@ this.dataViewEdit={
 
       case 'confirm': {
         const param = {
-                      "quotationId":data.quotationId,
+                      "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
+      
         this.ts.confirmQuotation(param).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -262,6 +263,7 @@ case 'generateQuote': {
       this.detail = JSON.parse(JSON.stringify(response)).data;
       this.data=data;
       this.data.TotalQuote=this.detail.TotalQuote;
+    //  this.data.quotationId=this.detail.quotationId;
     },
     error => {
       alert('error')

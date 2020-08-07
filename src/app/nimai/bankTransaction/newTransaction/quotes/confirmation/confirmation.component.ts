@@ -24,6 +24,8 @@ export class ConfirmationComponent implements OnInit {
    detail: any;
    public parentURL: string = "";
    public subURL: string = "";
+   public selectNego:string="";
+   public selectMature:String="";
  
 
   constructor(public titleService: TitleService, public ts: NewTransactionService, 
@@ -109,16 +111,17 @@ this.dataViewEdit={
   }
 
 
+  
+
   onNegotChange(value){
-    this.data.confChgsIssuanceToMatur='';
-    this.data.confChgsIssuanceToNegot='yes';     
-    }
+    this.selectMature='no';
+    this.selectNego='yes';     
+     }
  
  onMatureChange(value){
-  this.data.confChgsIssuanceToNegot='';
-  this.data.confChgsIssuanceToMatur='yes';
-  }
-
+  this.selectMature='yes';
+  this.selectNego='no';     
+   }
 
   public action(flag: boolean, type: Tflag, data: any) {
     if (flag) {
@@ -209,7 +212,7 @@ this.dataViewEdit={
   }
   
   public transactionForQuotes(act: string,data:any,detail:any) {
-   
+  
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -222,7 +225,7 @@ this.dataViewEdit={
 
       case 'confirm': {
         const param = {
-                      "quotationId":data.quotationId,
+                      "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
                       "userId":data.userId
          }
@@ -287,6 +290,8 @@ this.dataViewEdit={
         }break;
         case 'generateQuote': {
           this.tab = 'tab2';
+          this.data.confChgsIssuanceToNegot=this.selectNego;
+          this.data.confChgsIssuanceToMatur=this.selectMature;
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
               this.detail = JSON.parse(JSON.stringify(response)).data;
