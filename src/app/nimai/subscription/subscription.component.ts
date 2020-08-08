@@ -29,6 +29,7 @@ export class SubscriptionComponent implements OnInit {
   advPrice: any;
   choosedPrice: any;
   addedAmount: any;
+  showVASPlan = false;
 
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
@@ -54,6 +55,10 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.changeTitle(this.title);
     this.getSubscriptionDetails();
     this.getPlan(sessionStorage.getItem("userID"));
+    var userid = sessionStorage.getItem("userID");
+    if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
+      this.showVASPlan = true;
+    }
   }
   subscriptionDetails = [];
 

@@ -3,34 +3,31 @@
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="confirmationPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
-            <!--added by ashvini Label Change-->    
-            <label>Period for which Confirmation is required(Days)</label>
+            <label>Usance (Days)</label>
         </div>
     </div>
-    <div class="clearfix"></div>
+    <!-- <div class="clearfix"></div>
     <div class="col-md-4" [hidden]="!CandD">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="discountingPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
-            <!--added by ashvini Label Change-->    
-            <label>Period for which discounting is required(Days)</label>
+            <label>Usance (Days)</label>
         </div>
-    </div>
+    </div> -->
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="300" formControlName="paymentTerms"
-                (keypress)="validateRegexFields($event, 'alphaNum')">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms" (keypress)="validateRegexFields($event, 'alphaNum')"></textarea>
             <label>Payment terms to seller as per LC</label>
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
             <label>Start Date</label>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="col-md-4 ">
         <div class="selection"><label class="customlabel">End Date</label>
         </div>
@@ -55,10 +52,16 @@
 </div>
 
 <div class="row" [hidden]="!discount" [formGroup]="LcDetail">
-    <div class="col-md-4">
+    <div class="col-md-4" [hidden]="bankerBool">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
-            <label>Period for which discounting is required(Days)</label>
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <div class="col-md-4" [hidden]="!bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which financing is required</label>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -68,12 +71,6 @@
             <label>Payment terms to seller as per LC</label>
         </div>
     </div>
-    <!-- <div class="col-md-6">
-        <div class="inputDiv">
-            <textarea maxlength="50" rows="4" formControlName="remarks"></textarea>
-            <label>Remarks</label>
-        </div>
-    </div> -->
 </div>
 
 <!-- refinancing -->
@@ -81,13 +78,13 @@
     <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
-            <label>Original Tenor of LC (Days)</label>
+            <label>Orignal Usance (Tenor) of LC</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
-            <label>Period for which refinancing is required (Days)</label>
+            <label>Period for which refinancing is required</label>
         </div>
     </div>
 
@@ -120,7 +117,7 @@
     <div class="clearfix"></div>
     <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
     <div class="col-md-4">
-        <div class="inputDiv" (keypress)="validateRegexFields($event, 'alphaNum')">
+        <div class="inputDiv">
             <input type="text" maxlength="20" formControlName="lcNumber">
             <label>LC Number</label>
         </div>

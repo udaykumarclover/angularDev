@@ -155,12 +155,11 @@ export class BusinessDetailsComponent implements OnInit {
           state: {
             title: 'Congratulations! Your Business Details has been successfully submitted!',
             message: '',
-            parent: this.subURL + '/' + this.parentURL + '/business-details'
+            parent: this.subURL + '/' + this.parentURL + '/subscription'
 
           }
         };
         
-        //this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
         this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
           .then(success => console.log('navigation success?', success))
           .catch(console.error);
