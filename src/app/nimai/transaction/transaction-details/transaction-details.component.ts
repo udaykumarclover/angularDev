@@ -5,6 +5,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import { custTrnsactionDetail } from 'src/assets/js/commons';
 import * as $ from 'src/assets/js/jquery.min';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class TransactionDetailsComponent {
   public parentURL: string = "";
   public subURL: string = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router ) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService ) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -116,14 +117,21 @@ close(){
   $('#myModal9').hide();
 }
 
-rejectBankQuote(quoteId){
+rejectBankQuote(quoteId, transactionID){
   var statusReason = $("#rejectReason option:selected").text();
   let data = {
     "statusReason" : statusReason
     }
+  let emailBody = {
+    "transactionid": transactionID,
+    "userId": sessionStorage.getItem('userID'),
+    "event": "LC_REJECT"
+    }
   
   this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {
+        this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
+
         this.getAllnewTransactions('Rejected');
         custTrnsactionDetail();
         this.closeOffcanvas();

@@ -243,7 +243,10 @@
             <div class="card">
                <div class="card-content">
                   <h4>{{title}}</h4>
+
                   <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                     <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data)" #f="ngForm" novalidate>
+
                      <div class="tab-pane active" id="pill1">                      
                         <div class="tab">
                            <table>
@@ -277,7 +280,7 @@
                                  <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
                                  <tr>
                                     <td>Applicable Benchmark , if any</td>
-                                    <td><input type="text" [(ngModel)]="data.applicableBenchmark" placeholder="0.00"weightDirective>
+                                    <td><input type="text" name="applicableBenchmark" [(ngModel)]="data.applicableBenchmark" placeholder="0.00"weightDirective>
                                     <span class="pull-right percent">%</span></td>
                                  </tr>
                                 
@@ -285,44 +288,44 @@
                                  rows="3"></textarea>
                                  <tr>
                                     <td>Confirmation interest p.a ( spread over benchmark)</td>
-                                    <td><input type="text" [(ngModel)]="data.confirmationCharges" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00" weightDirective>
                                        <span class="pull-right percent">%</span></td>
                                  </tr>
                                  <tr>
                                     <td>Discounting interest p.a ( spread over benchmark)</td>
-                                    <td><input type="text" [(ngModel)]="data.discountingCharges" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" weightDirective>
                                        <span class="pull-right percent">%</span></td>
                                  </tr>
                                  
                                  <tr>
                                     <td>
-                                       <input type="radio" [checked]="false" name="charges" 
-                                       (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                       <td><input type="text" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" placeholder="" disabled>
+                                       <input [checked]="charges1" type="radio"  id="optn"  name="charges1" 
+                                       (change)="onNegotChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                       <td><input type="text" name="confChgsIssuanceToNegot" id="selectid1"  [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
                                  </tr>
                                  <tr>
                                     <td>
-                                       <input type="radio" [checked]="false" name="charges"
-                                       (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
-                                       <td><input type="text" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" placeholder="" readonly>
+                                       <input [checked]="charges2" type="radio"  id="optn" name="charges1"  
+                                       (change)="onMatureChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                       <td><input type="text" name="confChgsIssuanceToMatur" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                                   </tr>
                                  <tr>
                                     <td>Negotiation Charges (Fixed)</td>
-                                    <td><input type="text" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
                                  </tr>
                                  <tr>
                                     <td>Negotiation Charges (%)</td>
-                                    <td><input type="text" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
                                     <span class="pull-right percent">%</span></td>
                                  </tr>
                                  <tr>
                                     <td>Document Handling Charges</td>
-                                    <td><input type="text" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
                                  </tr>
    
                                  <tr>
                                     <td>Other Charges</td>
-                                    <td><input type="text" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
                                  </tr>
                                  <textarea class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" 
                                  rows="3"></textarea>
@@ -333,22 +336,28 @@
                                   </tr> -->
                                   <tr>
                                     <td>Minimum Transaction Charges</td>
-                                    <td><input type="text" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
+                                    <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
                                  </tr>
                                  <tr>
                                     <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                    <td><input type="date" [(ngModel)]="data.validityDate"  placeholder="28/03/2020"></td>
+                                    <td><input type="date" name="validityDate" [(ngModel)]="data.validityDate" 
+                                       #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
+                                       <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
+                                          <div *ngIf="validityDate.errors.required">Validity date is required</div>
+                                      </div>
+                                    </td>
                                  </tr>
                               </tbody>
                            </table>
                         <div>
-                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transactionForQuotes('generateQuote',data)">
+                           <button type="submit" class="btn btn-info pull-right">
                               Save/Generate Quote
                               <div class="ripple-container" ></div>
                            </button>
                         </div>
-                     </div>
+                     </div> </form>
                   </div>
+                 
                   <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
                      <div class="tab-pane active" id="pill1">
                         <div class="tab">

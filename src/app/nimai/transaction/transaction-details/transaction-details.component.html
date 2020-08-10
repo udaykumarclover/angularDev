@@ -344,10 +344,6 @@
                                  <th>Country</th>
                                  <td *ngIf="quotationdata">{{quotationdata.countryName}}</td>
                               </tr>
-                              <tr>
-                                 <th>Email</th>
-                                 <td *ngIf="quotationdata">{{quotationdata.emailAddress}}</td>
-                              </tr>
                            </tbody>
                         </table>
                      </div>
@@ -362,15 +358,30 @@
                                  <th nowrap>Name</th>
                                  <td *ngIf="quotationdata">{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
                               </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>                              
                               <tr>
-                                 <th nowrap>Mobile No.</th>
+                                 <th>Mobile No.</th>
                                  <td *ngIf="quotationdata">{{quotationdata.mobileNumber}}</td>
                               </tr>
                            </tbody>
                         </table>
                      </div>
-                  </div>
-                   
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>                              
+                              <tr>
+                                 <th>Email</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.emailAddress}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>                     
+                  </div>                  
                   
                   <div class="row" > 
                      <div class="col-md-12">
@@ -974,7 +985,7 @@
                        <div class="form-group"></div>
                        <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal" (click)="rejectBankQuote(quotationdata.quotationId)">Submit</button> 
+                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal" (click)="rejectBankQuote(quotationdata.quotationId,quotationdata.transactionId)">Submit</button> 
                  </div>
               </div>
            </div>

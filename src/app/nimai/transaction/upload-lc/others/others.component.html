@@ -29,16 +29,16 @@
 
                     <select name="IndiaPort" formControlName="loadingPort">
 
-                        <option value="JNP">
+                        <option value="Jawaharlal Nehru Port">
                             Jawaharlal Nehru Port</option>
-                        <option value="MP">
+                        <option value="Mumbai Port">
                             Mumbai Port </option>
-                        <option value="GP">
+                        <option value="GUJRAT Port">
                             GUJRAT Port </option>
-                        <option value="SPMP">Dr.
+                        <option value="Dr. Syama Prasad Mukherjee Port">Dr.
                             Syama Prasad Mukherjee Port
                         </option>
-                        <option value="RPMP">Dr.
+                        <option value="Dr. Rama Prasad Mukherjee Port">Dr.
                             Rama Prasad Mukherjee Port
                         </option>
                     </select>
@@ -77,13 +77,13 @@
 
                     <select name="Banglaport" formControlName="dischargePort">
 
-                        <option value="POC">
+                        <option value="Port of Chittagong">
                             Port of Chittagong</option>
-                        <option value="POM">
+                        <option value="Port of Mongla">
                             Port of Mongla</option>
-                        <option value="POD">
+                        <option value="Port of Dhaka">
                             Port of Dhaka</option>
-                        <option value="POP">
+                        <option value="Port of Payra">
                             Port of Payra</option>
                     </select>
                     <label>Port of Discharge</label>
@@ -104,7 +104,7 @@
                 <div class="radio">
                     <label >
                         <input type="radio" formControlName="chargesType" name="chargesType"
-                            value="Applicant" ><span class="circle"></span><span
+                            value="{{LcDetail.get('applicantName').value}} (Applicant)" ><span class="circle"></span><span
                             class="check"></span><span class="circle"></span><span class="check"></span>
                         {{LcDetail.get('applicantName').value}} (Applicant)
                     </label>
@@ -114,7 +114,7 @@
                 <div class="radio">
                     <label >
                         <input type="radio" name="chargesType" formControlName="chargesType"
-                            value="Beneficiary"><span class="circle"></span><span
+                            value="{{LcDetail.get('beneName').value}} (Beneficiary)"><span class="circle"></span><span
                             class="check"></span><span class="circle"></span><span class="check"></span>
                         {{LcDetail.get('beneName').value}} (Beneficiary)
                     </label>
@@ -125,7 +125,7 @@
     <div class="col-md-6">
             <mat-form-field>
                 <mat-label>Validity</mat-label>
-                <input matInput [matDatepicker]="validity" formControlName="validity" autocomplete="off">
+                <input matInput [matDatepicker]="validity" formControlName="validity" autocomplete="off" class="validity">
                 <mat-datepicker-toggle matSuffix [for]="validity">
                 </mat-datepicker-toggle>
                 <mat-datepicker #validity>

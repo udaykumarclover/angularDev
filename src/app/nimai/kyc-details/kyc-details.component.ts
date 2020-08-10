@@ -22,7 +22,11 @@ export class KycDetailsComponent implements OnInit {
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
-    loadFilestyle()
+    loadFilestyle();
+
+    setTimeout(() => {
+      this.titleService.loading.next(false);
+      }, 2000);
 
     let navigation = this.router.getCurrentNavigation();
 

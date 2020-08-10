@@ -16,6 +16,7 @@ import  { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { TermAndConditionsComponent } from '../term-and-conditions/term-and-conditions.component';
+import { TitleService } from 'src/app/services/titleservice/title.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
   countryCode: any = "";
   countryName: any;
   
-  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
   }
 
@@ -143,6 +144,7 @@ export class LoginComponent implements OnInit {
           console.log("response--------",response)
           let responseData = JSON.parse(JSON.stringify(response));
           sessionStorage.setItem('userID', loginData.userId);
+          this.titleService.loading.next(true);
           if (loginData.userId.startsWith('RE')) {
             this.router.navigate(['/ref/rcs/kyc-details']);
           } else  if (loginData.userId.startsWith('BA')){
@@ -270,6 +272,7 @@ export class LoginComponent implements OnInit {
   public checkUserType(value: string) {
     // this.signupForm.get('termsAndcondition').clearValidators();
     // this.signupForm.get('termsAndcondition').updateValueAndValidity(); 
+    this.hasCountrycode=false;
     $('#checkboxError').hide();  
     this.clearSignupValidation();
     this.updateValidation();
@@ -294,6 +297,7 @@ export class LoginComponent implements OnInit {
     }
   }
   bankAsEvent(value: string) {
+    this.hasCountrycode=false;
     this.clearSignupValidation();
     this.updateValidation();
     if (value === 'c') {
@@ -611,6 +615,7 @@ export class LoginComponent implements OnInit {
   }
 
   callCustomerPopup(){
+    this.titleService.loading.next(false);
     const navigationExtras: NavigationExtras = {
       state: {
         parent: 'login'

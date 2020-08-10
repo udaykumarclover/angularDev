@@ -28,7 +28,8 @@ public isActiveQuote:boolean=false;
   public subURL: string = "";
   public selectNego:string="";
   public selectMature:String="";
-
+  charges1 :boolean=false;
+  charges2 :boolean=false;
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
     public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
@@ -223,10 +224,22 @@ this.dataViewEdit={
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-        setTimeout(() => {
-          $('input').attr('readonly', false);
-        }, 100);
         this.title = 'Edit';
+        if(data.confChgsIssuanceToMatur==='yes'){
+          this.charges2=true;
+          this.charges1=false;
+          data.confChgsIssuanceToMatur="";
+          data.confChgsIssuanceToNegot="";
+          this.selectMature='yes';
+          this.selectNego='no'; 
+        }else if(data.confChgsIssuanceToNegot==='yes'){
+          this.charges1=true;
+          this.charges2=false;
+          data.confChgsIssuanceToNegot="";
+          data.confChgsIssuanceToMatur="";
+          this.selectMature='no';
+          this.selectNego='yes'; 
+        }
       }
         break;
 
@@ -246,7 +259,16 @@ this.dataViewEdit={
             "userId": data.userId,
             "event": "QUOTE_ACCEPT"
             }
-        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+            let emailBankBody = {
+              
+              "event": "QUOTE_ACCEPT_ALERT_ToBanks",
+              "quotationId" : detail.quotationId,
+              "transactionId" : data.transactionId,
+              "bankEmail" : sessionStorage.getItem('custUserEmailId')
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
 
         },
         error => {

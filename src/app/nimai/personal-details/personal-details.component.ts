@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { signup } from 'src/app/beans/signup';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import * as $ from '../../../assets/js/jquery.min';
@@ -70,9 +70,11 @@ export class PersonalDetailsComponent implements OnInit {
       businessType: [''],
       countriesInt: [''],
       minLCVal: [''],
-      blacklistedGC: ['']
+      blacklistedGC: [''],
+      otherEmails: this.fb.array([this.getOtherMails()])
 
     })
+    
     this.titleService.changeTitle(this.title);
     this.dropdownSetting = {
       singleSelection: false,
@@ -91,6 +93,25 @@ export class PersonalDetailsComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
+  }
+
+  getOtherMails(){
+    return this.fb.group({
+    optionalEmail: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]
+  });
+  }
+
+  add(i: number) {
+    let items = this.personalDetailsForm.get('otherEmails') as FormArray;
+    if (items.length < 3)
+    {
+      items.push(this.getOtherMails());
+    }
+  }
+
+  remove(i: number) {
+    let items = this.personalDetailsForm.get('otherEmails') as FormArray;
+    items.removeAt(i);
   }
 
   get perDetails() {
@@ -149,7 +170,7 @@ export class PersonalDetailsComponent implements OnInit {
             state: {
               title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
-              parent: this.subURL + "/" + this.parentURL + '/personal-details'  // need to check
+              parent: this.subURL + '/' + this.parentURL + '/business-details'  // need to check
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)

@@ -29,6 +29,10 @@ export class BusinessDetailsComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
+    setTimeout(() => {
+      this.titleService.loading.next(false);
+      }, 2000);
+
     if(sessionStorage.getItem('userID'))
     {
       this.hasValue=true;
@@ -49,7 +53,7 @@ export class BusinessDetailsComponent implements OnInit {
       userId: [''],
       selector: ['', Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
-      bank_designation: ['', [Validators.required,Validators.minLength(3)]],
+      bank_designation: ['', [Validators.required,Validators.minLength(2)]],
       country: ['', Validators.required],
       provinceName: ['',Validators.required],
       city: ['', [Validators.required,Validators.minLength(2)]],
@@ -71,7 +75,7 @@ export class BusinessDetailsComponent implements OnInit {
     return this.fb.group({
     ownerFirstName: ['', Validators.required],
     ownerLastName: ['', Validators.required],
-    designation: ['', [Validators.required,Validators.minLength(3)]],
+    designation: ['', [Validators.required,Validators.minLength(2)]],
     ownerID: ['']
   });
   }
@@ -136,7 +140,7 @@ export class BusinessDetailsComponent implements OnInit {
     this.perDetailsSubmit = true;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     console.log("items",items.controls)
-    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
+    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
       return;
@@ -151,12 +155,11 @@ export class BusinessDetailsComponent implements OnInit {
           state: {
             title: 'Congratulations! Your Business Details has been successfully submitted!',
             message: '',
-            parent: this.subURL + '/' + this.parentURL + '/business-details'
+            parent: this.subURL + '/' + this.parentURL + '/subscription'
 
           }
         };
         
-        //this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
         this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
           .then(success => console.log('navigation success?', success))
           .catch(console.error);

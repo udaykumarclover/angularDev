@@ -35,19 +35,19 @@
                                                     <div class="tabbable-line">
                                                         <ul class="nav nav-tabs ">
                                                             <li class="active">
-                                                                <a href="#tab_default_1" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_1" data-toggle="tab">
                                                                     Applicant & Beneficiary </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#tab_default_2" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_2" data-toggle="tab">
                                                                     LC Details </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#tab_default_3" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_3" data-toggle="tab">
                                                                     Tenor </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#tab_default_4" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_4" data-toggle="tab">
                                                                     Other Details </a>
                                                             </li>
                                                         </ul>
@@ -364,33 +364,40 @@
                                     </div>                
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC Value</span>
+                                            <span class="customspan">Amount</span>
                                             <span class="labeltext">{{lc.lCValue}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCValue">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
+                                            <span class="customspan">Currency</span>
+                                            <span class="labeltext">{{lc.lCCurrency}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCCurrency">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
                                             <span class="customspan">LC Issuing Date</span>
-                                            <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</span>
+                                            <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lc.selector != 'Refinance'">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC Expiry Date</span>
-                                            <span class="labeltext">{{lc.lCExpiryDate | date : "dd-MM-y h:mm:ss z"}}</span>
-                                            <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
+                                            <span class="customspan">LC Negotiation Date</span>
+                                            <span class="labeltext">{{lc.negotiationDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.negotiationDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lc.selector != 'Refinance'">
                                         <div class="inputDiv">
-                                            <span class="customspan">Last Shipment Date(LSD)</span>
-                                            <span class="labeltext">{{lc.lastShipmentDate | date : "dd-MM-y h:mm:ss z"}}</span>
+                                            <span class="customspan">Last Shipment Date</span>
+                                            <span class="labeltext">{{lc.lastShipmentDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="inputDiv">
                                             <span class="customspan">Goods</span>
                                             <span class="labeltext">{{lc.goodsType}}</span>
@@ -399,40 +406,47 @@
                                     </div>
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
-                                <div class="row" [hidden]="!previewShow">
+                                <div class="row" [hidden]="!previewShow" *ngIf="lc.selector != 'Refinance'">
                                         <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
-                                        <div class="col-md-3" *ngIf="lc.selector == 'Discounting' || lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Banker'">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'Discounting'">
                                             <div class="inputDiv">
-                                               <span class="customspan">Period for which discounting is required(days)</span>
-                                               <span class="labeltext">{{lc.paymentPeriod}}</span>
-                                               <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                               <span class="customspan">Usance (Days)</span>
+                                               <span class="labeltext">{{lc.discountingPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
                                             </div>
                                          </div>
-                                        <div class="col-md-3" *ngIf="lc.selector != 'Discounting' || lc.selector != 'Banker'">
+                                         <div class="col-md-3" *ngIf="lc.selector == 'Banker'">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Period for which financing is required</span>
+                                               <span class="labeltext">{{lc.discountingPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
+                                            </div>
+                                         </div>
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'">
                                            <div class="inputDiv">
-                                              <span class="customspan">Period for which confirmation is required</span>
-                                              <span class="labeltext">{{lc.paymentPeriod}}</span>
-                                              <span class="labeltext" *ngIf="!lc.paymentPeriod">-</span>
+                                              <span class="customspan">Usance (Days)</span>
+                                              <span class="labeltext">{{lc.confirmationPeriod}}</span>
+                                              <span class="labeltext" *ngIf="!lc.confirmationPeriod">-</span>
                                            </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting'">
                                            <div class="inputDiv">
                                               <span class="customspan">Payments terms to be seller as per LC</span>
                                               <span class="labeltext">{{lc.paymentTerms}}</span>
                                               <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
                                            </div>
                                         </div>
-                                        <div *ngIf="lc.selector == 'Discounting' || lc.selector == 'Banker'" class="col-md-3">
+                                        <!-- <div *ngIf="lc.selector == 'Banker'" class="col-md-3">
                                             <div class="inputDiv">
                                                <span class="customspan">Remarks</span>
                                                <span class="labeltext">{{lc.remarks}}</span>
                                                <span class="labeltext" *ngIf="!lc.remarks">-</span>
                                             </div>
-                                         </div>
-                                        <div *ngIf="lc.selector != 'Discounting' || lc.selector != 'Banker'" class="col-md-3">
+                                         </div> -->
+                                        <div *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'" class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">Start Date</span>
-                                              <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</span>
+                                              <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
                                               <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                            </div>
                                         </div>
@@ -443,6 +457,61 @@
                                               <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
                                            </div>
                                         </div> -->
+                                </div>
+                                <div class="row" [hidden]="!previewShow" *ngIf="lc.selector == 'Refinance'">
+                                    <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Orignal Usance (Tenor) of LC </span>
+                                            <span class="labeltext">{{lc.originalTenorDays}}</span>
+                                            <span class="labeltext" *ngIf="!lc.originalTenorDays">-</span>                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Period for which refinancing is required </span>
+                                            <span class="labeltext">{{lc.refinancingPeriod}}</span>
+                                            <span class="labeltext" *ngIf="!lc.refinancingPeriod">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Maturity Date</span>
+                                            <span class="labeltext">{{lc.lcMaturityDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
+                                        </div>
+                                    </div>
+
+                                    <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+                                
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Number</span>
+                                            <span class="labeltext">{{lc.lcNumber}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lcNumber">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Beneficiary Bank Name</span>
+                                            <span class="labeltext">{{lc.lastBeneBank}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastBeneBank">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Swift Code</span>
+                                            <span class="labeltext">{{lc.lastBeneSwiftCode}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastBeneSwiftCode">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.lastBankCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastBankCountry">-</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">
@@ -485,14 +554,15 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Validity</span>
-                                            <span class="labeltext">{{lc.validity | date : "dd-MM-y h:mm:ss z"}}</span>
+                                            <span class="labeltext">{{lc.validity | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.validity">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Pro Forma</span>
-                                            <span class="labeltext">-</span>
+                                            <span class="labeltext" *ngIf="lc.lcProForma" style="cursor: pointer;" (click)="openDocument(lc.lcProForma)">View</span>
+                                            <span class="labeltext" *ngIf="!lc.lcProForma">-</span>
                                         </div>
                                     </div>
                                 </div>
@@ -519,6 +589,25 @@
             </div>
         </div>
     </div>
+
+    <div id="myModal7" class="modal3" style="display: none;">
+        <!-- <div class="modal-dialog modal-md emaildiv"> -->
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="col-md-12 arrow_box"><button type="button" class="close" (click)="close()">&times;</button></div>
+          <div class="modal-body" style="text-align:center">
+            <h4>Attached document</h4>
+            <div class="row">
+              <!--<p><strong>Enter Email ID here</strong></p> -->
+              <div class="col-md-12">
+               <img style="height: 100%; width: 100%;" *ngIf="document" [src]="document" />
+              </div>
+              <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
     <router-outlet></router-outlet>
 </body>
 

@@ -3,34 +3,31 @@
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="confirmationPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
-            <!--added by ashvini Label Change-->    
-            <label>Period for which Confirmation is required</label>
+            <label>Usance (Days)</label>
         </div>
     </div>
-    <div class="clearfix"></div>
+    <!-- <div class="clearfix"></div>
     <div class="col-md-4" [hidden]="!CandD">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="discountingPeriod"
                 (keypress)="validateRegexFields($event, 'number')">
-            <!--added by ashvini Label Change-->    
-            <label>Period for which discounting is required</label>
+            <label>Usance (Days)</label>
         </div>
-    </div>
+    </div> -->
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="300" formControlName="paymentTerms"
-                (keypress)="validateRegexFields($event, 'alphaNum')">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms" (keypress)="validateRegexFields($event, 'alphaNum')"></textarea>
             <label>Payment terms to seller as per LC</label>
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
             <label>Start Date</label>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="col-md-4 ">
         <div class="selection"><label class="customlabel">End Date</label>
         </div>
@@ -55,10 +52,16 @@
 </div>
 
 <div class="row" [hidden]="!discount" [formGroup]="LcDetail">
-    <div class="col-md-4">
+    <div class="col-md-4" [hidden]="bankerBool">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
-            <label>Period for which discounting is required (Days)</label>
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <div class="col-md-4" [hidden]="!bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which financing is required</label>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -68,12 +71,6 @@
             <label>Payment terms to seller as per LC</label>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="inputDiv">
-            <textarea maxlength="50" rows="4" formControlName="remarks"></textarea>
-            <label>Remarks</label>
-        </div>
-    </div>
 </div>
 
 <!-- refinancing -->
@@ -81,13 +78,13 @@
     <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
-            <label>Original Tenor of LC (Days)</label>
+            <label>Orignal Usance (Tenor) of LC</label>
         </div>
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
             <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
-            <label>Period for which refinancing is required (Days)</label>
+            <label>Period for which refinancing is required</label>
         </div>
     </div>
 
@@ -97,58 +94,30 @@
         <div class="selection maturitydate">
             <p><strong>LC Maturity Date <i class="fas fa-info-circle tooltip" aria-hidden="true"></i></strong></p>
         </div>
-        <ul class="list-unstyled list-inline">
-            <li>
-                <div class="radio">
-                    <label for="rdmaturity">
-                        <input type="radio" (change)="handleRadio($event)" value="rdmaturity" id="rdmaturity" name="optionsRadios"
-                            ><span class="circle"></span><span class="check"></span><span
-                            class="circle"></span><span class="check"></span>
-                            <mat-form-field>                                
-                            <input autocomplete="off" matInput
-                                [matDatepicker]="lcMaturity"
-                                formControlName="lcMaturityDate">
-                            <mat-datepicker-toggle matSuffix
-                                [for]="lcMaturity">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #lcMaturity>
-                            </mat-datepicker>
-                        </mat-form-field>
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="radio">
-                    <label for="rdNegotiation">
-                        <input checked="checked" type="radio" value="rdNegotiation" name="optionsRadios" id="rdNegotiation"><span
-                            class="circle"></span><span class="check"></span><span class="circle"></span><span
-                            class="check"></span>
-                        Multiple Dates
-                    </label>
-                </div>
-            </li>
-            <li class="multipledate" style="width: 400px; display: none;">
-                <label>Upload Document (only jpg, jpeg, png)</label>
+        <div class="col-md-4">
+                <mat-form-field>                                
+                <input autocomplete="off" matInput
+                    [matDatepicker]="lcMaturity"
+                    formControlName="lcMaturityDate">
+                <mat-datepicker-toggle matSuffix
+                    [for]="lcMaturity">
+                </mat-datepicker-toggle>
+                <mat-datepicker #lcMaturity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>  
+        <div class="col-md-4">       
+            <li class="multipledate" style="width: 400px;">
+                <label>Upload multiple maturity dates (Optional - only jpg, jpeg, png)</label>
                 <input (change)="handleFileInput($event)" type="file" placeholder="Document" class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
             </li>
-
-        </ul>
-
-
-        <style type="text/css">
-            .list-inline>li {
-                display: inline-block;
-                padding-right: 5px;
-                padding-left: 5px;
-                vertical-align: top;
-            }
-        </style>
+        </div>     
     </div>
 
     <div class="clearfix"></div>
     <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
     <div class="col-md-4">
-        <div class="inputDiv" (keypress)="validateRegexFields($event, 'alphaNum')">
+        <div class="inputDiv">
             <input type="text" maxlength="20" formControlName="lcNumber">
             <label>LC Number</label>
         </div>
@@ -168,14 +137,13 @@
     <div class="col-md-4">
         <div class="inputDiv selectdiv">
 
-            <select name="country" style="color: transparent;" formControlName="lastBankCountry">
-                <option value="" style="color: rgb(0, 0, 0);">Select</option>
-                <option value="1" style="color: rgb(0, 0, 0);">India</option>
-                <option value="2" style="color: rgb(0, 0, 0);">Bangladesh</option>
-                <option value="3" style="color: rgb(0, 0, 0);">Kenya</option>
-                <option value="4" style="color: rgb(0, 0, 0);">Nigeria</option>
-                <option value="5" style="color: rgb(0, 0, 0);">UAE </option>
-                <option value="6" style="color: rgb(0, 0, 0);">Qatar</option>
+            <select name="country" formControlName="lastBankCountry">
+                <option value="INDIA">India</option>
+                <option value="BANGLADESH">Bangladesh</option>
+                <option value="KENYA">Kenya</option>
+                <option value="NIGERIA">Nigeria</option>
+                <option value="UAE">UAE</option>
+                <option value="QATAR">Qatar</option>
             </select>
             <label>Country</label>
         </div>

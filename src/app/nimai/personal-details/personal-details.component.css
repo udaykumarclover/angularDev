@@ -27,3 +27,15 @@ select{
     padding: .5em!important;
     padding-right: 1.5em!important;
 }
+.field_wrapper a {
+    font-size: 11px !IMPORTANT;
+    display: inline-block;
+}
+
+.newh4{
+  padding: 5px 15px 10px 15px !important;font-size: 15px;font-weight: 500;
+}
+
+.newh4 span i{
+ font-size: 15px !important;
+}

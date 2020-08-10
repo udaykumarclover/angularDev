@@ -45,10 +45,13 @@ export class UploadLCComponent implements OnInit {
   draftData: any;
   cloneData: any;
   dateToPass: any;
+  document: any;
 
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+    this.checkLcCount();
+
     this.titleService.changeTitle(this.title);
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -356,27 +359,51 @@ export class UploadLCComponent implements OnInit {
     let emailBody = {
       "transactionid": sessionStorage.getItem("transactionID"),
       "userId": sessionStorage.getItem('userID'),
-      "event": "LC_Upload"
+      "event": "LC_UPLOAD"
+      }
+    
+    let emailBankBody = {
+      "transactionId": sessionStorage.getItem("transactionID"),
+      "customerUserId": sessionStorage.getItem('userID'),
+      "event": "LC_UPLOAD_ALERT_ToBanks"
       }
     this.upls.confirmLc(body)
       .subscribe(
         (response) => {
+          var resp = JSON.parse(JSON.stringify(response)).status;
+          if(resp == "Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Failed',
+                message: JSON.parse(JSON.stringify(response)).errMessage,
+                parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation error?', success))
+              .catch(console.error);
+          }
+          else{            
           this.setForm();
           this.edit();
           this.loading = false;
           this.titleService.loading.next(false);
-          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
+          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
+        
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
               message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
-              parent: this.subURL+"/"+this.parentURL + '/new-transaction'
+              parent: this.subURL+"/"+this.parentURL + '/active-transaction'
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           this.isUpdate = false;
+        }
 
         },
         (error) => {
@@ -720,4 +747,39 @@ export class UploadLCComponent implements OnInit {
     ) 
   }
 
+  openDocument(file){
+    $('#myModal7').show();
+    this.document = file;
+  }
+
+  close(){
+    $('.modal3').hide();
+  }
+
+  checkLcCount(){
+    var data = {
+      "userId": sessionStorage.getItem("userID")
+      }
+  
+      this.upls.checkLcCount(data).subscribe(
+        (response) => {
+          var resp = JSON.parse(JSON.stringify(response)).status;
+
+          if(resp == "Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Not Allowed !',
+                message: 'You had reached maximum LC Count ! Please Renew Your Subscribe Plan',
+                parent: this.subURL+"/"+this.parentURL + '/subscription',
+                redirectedFrom: "New-Transaction"
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation success?', success))
+              .catch(console.error);
+          }
+        },
+        (err) => {}
+      )
+  }
 }

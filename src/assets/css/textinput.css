@@ -918,9 +918,9 @@ color: #9c9c9c;
 .tabbable-line > .nav-tabs > li > a > i {
   color: #a6a6a6;
 }
-.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+/* .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
   border-bottom: 4px solid rgb(80,144,247);
-}
+} */
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;
@@ -1571,9 +1571,9 @@ vertical-align: top;
 .tabbable-line > .nav-tabs > li > a > i {
   color: #a6a6a6;
 }
-.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+/* .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
   border-bottom: 4px solid #06aabf;
-}
+} */
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;

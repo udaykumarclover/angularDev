@@ -20,13 +20,15 @@ export class ConfirmationComponent implements OnInit {
   public dataViewEdit:editViewQuotation;
   public title: string = "";
   public tab = 'tab1';
+  charges1 :boolean=false;
+  charges2 :boolean=false;
   getCurrentDate: any;
    detail: any;
    public parentURL: string = "";
    public subURL: string = "";
    public selectNego:string="";
    public selectMature:String="";
- 
+   public radioid:boolean=true;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService, 
      public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
@@ -114,6 +116,7 @@ this.dataViewEdit={
   
 
   onNegotChange(value){
+    
     this.selectMature='no';
     this.selectNego='yes';     
      }
@@ -137,13 +140,11 @@ this.dataViewEdit={
         this.dataViewEdit=data;
         $('input').attr('readonly', false);
       }else if (type === Tflag.PLACE_QUOTE){  
-        
-        console.log(data)
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-        $('#selectid1').attr('readonly', true);
-        $('#selectid2').attr('readonly', true);
+        // $('#selectid1').attr('readonly', true);
+        // $('#selectid2').attr('readonly', true);
       }
     } else {
       this.isActive = flag;
@@ -216,10 +217,22 @@ this.dataViewEdit={
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-        setTimeout(() => {
-          $('input').attr('readonly', false);
-        }, 100);
         this.title = 'Edit';
+if(data.confChgsIssuanceToMatur==='yes'){
+  this.charges2=true;
+  this.charges1=false;
+  data.confChgsIssuanceToMatur="";
+  data.confChgsIssuanceToNegot="";
+  this.selectMature='yes';
+  this.selectNego='no'; 
+}else if(data.confChgsIssuanceToNegot==='yes'){
+  this.charges1=true;
+  this.charges2=false;
+  data.confChgsIssuanceToNegot="";
+  data.confChgsIssuanceToMatur="";
+  this.selectMature='no';
+  this.selectNego='yes'; 
+}
       }
         break;
 
@@ -239,8 +252,16 @@ this.dataViewEdit={
             "userId": data.userId,
             "event": "QUOTE_ACCEPT"
             }
-        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
-
+            let emailBankBody = {
+              
+              "event": "QUOTE_ACCEPT_ALERT_ToBanks",
+              "quotationId" : detail.quotationId,
+              "transactionId" : data.transactionId,
+              "bankEmail" : sessionStorage.getItem('custUserEmailId')
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
           
         },
         error => {
