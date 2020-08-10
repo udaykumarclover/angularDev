@@ -11,13 +11,17 @@
               <div class="card-content">
                  <h4 class="card-title pull-left">Transaction Details</h4>
                  <form>
-                  <div class="row" *ngIf="hasNoRecord">
+                  <!-- <div class="row">
                     <div class="col-md-12">
                         No records available
                       </div>
-                  </div>
-                    <div class="row" *ngIf="!hasNoRecord">
+                  </div> -->
+                    <div class="row">
                        <div class="col-md-12">
+                        <mat-form-field id="transactionFilter" style="padding-left: 75%;">
+                           <mat-label>Filter</mat-label>
+                           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+                         </mat-form-field>
                           <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
                               <select (change)="changeStatusCall($event.target.value)" class="has-value"> 
@@ -25,47 +29,81 @@
                               <option value="Rejected">Rejected</option>
                               <option value="Expired">Expired</option>
                               </select>
-                              </div>
-                             <table class="table table-hover" id="datatables">
-                                <thead>
-                                   <tr>
-                                      <th class="disabled-sorting text-center">#</th>
-                                      <th style="min-width: 150px;">Transaction ID</th>
-                                      <th style="min-width: 120px;">Date & Time</th>
-                                      <th style="min-width: 150px;">LC Issuing Bank</th>
-                                      <th style="min-width: 150px;">Requirement</th>
-                                      <th style="min-width: 120px;">LC Value (USD)</th>
-                                      <th style="min-width: 100px;">Goods</th>
-                                      <th style="min-width: 150px;">Applicant's Name</th>
-                                      <th style="min-width: 150px;">Beneficiary Name</th>
-                                      <th class="disabled-sorting text-center" nowrap style="min-width: 150px;">Transaction Status</th>
-                                      <th class="disabled-sorting text-center">Actions</th>
-                                   </tr>
-                                </thead>
-                                <tbody>
-                                   <tr *ngFor="let record of data; let i = index">
-                                      <td>{{i+1}}</td>
-                                      <td>{{record.transactionId}}</td>
-                                      <td>{{record.insertedDate  | date : "dd-MM-y h:mm:ss z"}}</td>
-                                      <td>{{record.lCIssuanceBank}}</td>
-                                      <td>{{record.requirementType}}</td>
-                                      <td>{{record.lCValue}}</td>
-                                      <td>{{record.goodsType}}</td>
-                                      <td>{{record.applicantName}}</td>
-                                      <td>{{record.beneName}}</td>
-                                      <td>
-                                         <select>
-                                            <option value="Open">Open</option>
-                                            <option value="Close">Close</option>
-                                         </select>
-                                      </td>
-                                      <td> 
-                                         <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas();">Detail</a>
-                                         <a style="cursor: pointer;" (click)="cloneTransaction(record.transactionId)">Clone</a>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
+                           </div>
+                           <div [hidden]="dataSourceLength">
+                           <table mat-table [dataSource]="dataSource" matSort>
+
+                              <!-- ID Column -->
+                              <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
+                                <td style="padding-left:0px !important" mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="txnID" >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction ID </th>
+                                <td mat-cell *matCellDef="let row"> {{row.transactionId}} </td>
+                              </ng-container>
+                              <!-- Progress Column -->
+                              <ng-container matColumnDef="dateTime"  >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date & Time </th>
+                                <td mat-cell *matCellDef="let row"> {{row.insertedDate | date : "dd-MM-y"}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="lcBank" >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> LC Issuing Bank </th>
+                                <td mat-cell *matCellDef="let row"> {{row.lCIssuanceBank}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="requirement">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
+                                <td mat-cell *matCellDef="let row"> {{row.requirementType}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="lCValue">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> LC Value </th>
+                                <td mat-cell *matCellDef="let row"> {{row.lCValue}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="goods">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
+                                <td mat-cell *matCellDef="let row"> {{row.goodsType}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="applicantName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant's Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.applicantName}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="beneName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.beneName}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Status </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <select>
+                                        <option value="Open">Open</option>
+                                        <option value="Close">Close</option>
+                                     </select>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="detail1">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                                <td mat-cell *matCellDef="let row"> 
+                                    <a style="cursor: pointer;" (click)="getDetail(row);openNav3();openOffcanvas();">Detail</a>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="detail2">
+                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                                 <td mat-cell *matCellDef="let row"> 
+                                     <a style="cursor: pointer;" (click)="cloneTransaction(row.transactionId)">Clone</a>
+                                 </td>
+                               </ng-container>
+                              
+                        
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                              </tr>
+                            </table>
+                        
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                           </div>
+                           <div [hidden]="!dataSourceLength">
+                              No records found
+                           </div>
                           </div>
                        </div>
                     </div>

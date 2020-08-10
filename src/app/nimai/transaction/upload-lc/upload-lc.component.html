@@ -205,10 +205,8 @@
                                                                             class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType">
-                                                                                    <option value="Gold"> Gold</option>
-                                                                      
-                                                                                    <option value="Plastic">Plastic
-                                                                                    </option>
+                                                                                    <option value="Gold"> Gold</option>                                                                      
+                                                                                    <option value="Plastic">Plastic</option>
                                                                                     <option value="Drugs">Drugs</option>
                                                                                     <option value="Diamonds">Diamonds
                                                                                     </option>
@@ -256,14 +254,14 @@
                                           <span class="labeltext" *ngIf="!lc.applicantCountry">-</span>
                                        </div>
                                     </div>
-                                    <div *ngIf="userType == 'Applicant'" class="col-md-3">
+                                    <div *ngIf="lc.userType == 'Beneficiary'" class="col-md-3">
                                         <div class="inputDiv">
                                            <span class="customspan">Applicant Contact Person</span>
                                            <span class="labeltext">{{lc.applicantContactPerson}}</span>
                                            <span class="labeltext" *ngIf="!lc.applicantContactPerson">-</span>  
                                         </div>
                                      </div>
-                                     <div *ngIf="userType == 'Applicant'" class="col-md-3">
+                                     <div *ngIf="lc.userType == 'Beneficiary'" class="col-md-3">
                                         <div class="inputDiv">
                                            <span class="customspan">Applicant Email Id</span>
                                            <span class="labeltext">{{lc.applicantContactPersonEmail}}</span>
@@ -284,14 +282,14 @@
                                           <span class="labeltext" *ngIf="!lc.beneCountry">-</span>  
                                        </div>
                                     </div>
-                                    <div *ngIf="userType == 'Beneficiary'" class="col-md-3">
+                                    <div *ngIf="lc.userType == 'Applicant'" class="col-md-3">
                                         <div class="inputDiv">
                                            <span class="customspan">Beneficiary Contact Person</span>
                                            <span class="labeltext">{{lc.beneContactPerson}}</span>
                                            <span class="labeltext" *ngIf="!lc.beneContactPerson">-</span>  
                                         </div>
                                      </div>
-                                     <div *ngIf="userType == 'Beneficiary'" class="col-md-3">
+                                     <div *ngIf="lc.userType == 'Applicant'" class="col-md-3">
                                         <div class="inputDiv">
                                            <span class="customspan">Beneficiary Email Id</span>
                                            <span class="labeltext">{{lc.beneContactPersonEmail}}</span>
@@ -315,8 +313,8 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Bank Country</span>
-                                            <span class="labeltext">{{lc.beneCountry}}</span>
-                                            <span class="labeltext" *ngIf="!lc.beneCountry">-</span>
+                                            <span class="labeltext">{{lc.beneBankCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.beneBankCountry">-</span>
                                         </div>
                                     </div>
                                 </div>
@@ -443,13 +441,13 @@
                                                <span class="labeltext" *ngIf="!lc.remarks">-</span>
                                             </div>
                                          </div> -->
-                                        <div *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'" class="col-md-3">
+                                        <!-- <div *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'" class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">Start Date</span>
                                               <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
                                               <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                            </div>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="col-md-3">
                                            <div class="inputDiv">
                                               <span class="customspan">End Date</span>

@@ -40,26 +40,26 @@ export class ConfirmAndDiscountComponent implements OnInit {
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
-        $('input').attr('readonly', true);
+        // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';
         this.data = data;
-        $('input').attr('readonly', false);
+        // $('input').attr('readonly', false);
       }
     } else {
       this.isActive = flag;
       this.data = data;
       this.title = '';
-      $('input').attr('readonly', true);
+      // $('input').attr('readonly', true);
 
     }
   }
 
   public closed() {
     this.isActive = false;
-    this.titleService.quote.next(false);
+    // this.titleService.quote.next(false);
   }
 
 
@@ -69,7 +69,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
       case 'edit': {
         this.tab = 'tab1'
         setTimeout(() => {
-          $('input').attr('readonly', false);
+          // $('input').attr('readonly', false);
         }, 100);
         this.title = 'Edit';
       }
@@ -100,7 +100,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
       case 'preview': {
         this.tab = 'tab2';
         setTimeout(() => {
-          $('input').attr('readonly', true);
+          // $('input').attr('readonly', true);
         }, 200);
       }
         break;
