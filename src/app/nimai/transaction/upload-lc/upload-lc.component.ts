@@ -555,6 +555,7 @@ export class UploadLCComponent implements OnInit {
   }
 
   validateRegexFields(event, type){
+    var key = event.keyCode;
     if(type == "number"){
       ValidateRegex.validateNumber(event);
     }
@@ -563,7 +564,12 @@ export class UploadLCComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
+    }else if(type == "date_validation"){     
+      if (key!=191 && key!=189 && key > 31 && (key < 48 || key > 57)) {
+        event.preventDefault();
+      }
     }
+
   }
 
   callDraftTransaction(trnsactionID){

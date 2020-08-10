@@ -35,3 +35,6 @@ body {
   font-size: 36px !important;
   margin-left: 50px;
 } 
+::ng-deep div.dataTables_wrapper div.dataTables_length select{
+  padding-left: 33px!important;
+}

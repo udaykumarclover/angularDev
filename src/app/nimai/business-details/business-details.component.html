@@ -336,6 +336,9 @@
                                             <div *ngIf="perDetailsSubmit && busiDetails.telephone.errors?.required" class="invalid-feedback">
                                                 Telephone is required
                                             </div>
+                                            <div *ngIf="busiDetails.telephone.errors?.minlength" class="invalid-feedback">
+                                                Telephone atleast of 7 digits.
+                                            </div>
                                         </div>
                                     </div>
                                     <input type="hidden" formControlName="userId">
