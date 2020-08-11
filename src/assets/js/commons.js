@@ -150,6 +150,8 @@ export function loads() {
         $(this).parent().removeClass('is-focused');
     });
 
+    $("[data-toggle='tooltip']").tooltip();
+
 }
 
 export function errorPage404() {

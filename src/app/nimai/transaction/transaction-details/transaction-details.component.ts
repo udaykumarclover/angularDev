@@ -23,7 +23,7 @@ export class TransactionDetailsComponent {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
-  public specificDetail: any;
+  public specificDetail: any = "";
   quotationdata: any;
   document: any;
   public parentURL: string = "";
