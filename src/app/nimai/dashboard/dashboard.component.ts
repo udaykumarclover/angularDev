@@ -4,7 +4,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { load_dashboard } from '../../../assets/js/commons'
-
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -24,7 +24,9 @@ export class DashboardComponent implements OnInit {
   public isCollapsed:string="collapsed";
   public areaExpandedacc:boolean=false;
   public areaExpandedtra:boolean=false;
-  constructor(public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router) {
+  draftData: any;
+  draftcount:any;
+  constructor(public service: UploadLcService,public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
@@ -72,8 +74,31 @@ export class DashboardComponent implements OnInit {
     this.titleService.userMessage.subscribe(username => this.username = username);
     //this.titleService.loader.subscribe(flag => this.loading = flag);
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
+    this.callAllDraftTransaction();
   }
-
+  callAllDraftTransaction(){
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if(userIdDetail.startsWith('BC')){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
+    const param = {
+      userId: sessionStorage.getItem('userID'),
+      "branchUserEmail":emailId
+    }
+    
+    this.service.getCustDraftTransaction(param).subscribe(
+      (response) => {
+        this.draftData = JSON.parse(JSON.stringify(response)).data;
+        console.log("dashboard",this.draftData.length);
+        if(this.draftData.length>0){
+          this.draftcount=this.draftData.length;
+        }
+      },(error) =>{
+        
+      }
+      )
+  }
   search(): void {
 
   }

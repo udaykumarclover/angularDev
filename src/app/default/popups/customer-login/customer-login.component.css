@@ -81,3 +81,10 @@
 #success_msg{
 padding-top:0px!important;
 }
+.cust_email:hover{
+    color: gray;
+    cursor: pointer;
+}
+.renter_btn:hover{
+    color: teal;
+}

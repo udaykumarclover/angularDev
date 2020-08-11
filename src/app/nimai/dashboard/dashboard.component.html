@@ -43,7 +43,7 @@
                     <li >
                        <a data-toggle="collapse" href="#accountPages" [attr.aria-expanded]="areaExpandedacc" >
                           <i class="fa fa-address-book-o"></i>
-                          <p>Account Details 
+                          <p style="margin-top:3px!important;">Account Details 
                              <b class="caret"></b>
                           </p>
                        </a>
@@ -139,7 +139,7 @@
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
-                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge">4</span>
+                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge">{{draftcount}}</span>
                                       </span> 
                                    </p>
                                 </a>
