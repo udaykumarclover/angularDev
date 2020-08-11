@@ -8,6 +8,91 @@
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                <div class="tab-pane active" id="pill1" style="height: 530px;overflow: auto;padding-bottom: 30px;">
                   <table class="table table-bordered">
+                     <tbody>
+                        <tr>
+                           <th colspan="2">Applicant</th>
+                        </tr>
+                        <tr>
+                           <td>Name</td>
+                           <td><input type="text" [(ngModel)]="data.applicantName"></td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.applicantCountry">
+                                 <option value='India'>India</option>
+                                 <option value='Bangladesh'>Bangladesh</option>
+                                 <option value='Kenya'>Kenya</option>
+                                 <option value='Nigeria'>Nigeria</option>
+                                 <option value='UAE'>UAE </option>
+                                 <option value='Qatar'>Qatar</option>
+                             </select>
+                           </td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Beneficiary'">
+                           <td>Contact Person</td>
+                           <td><input type="text" [(ngModel)]="data.applicantContactPerson"></td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Beneficiary'">
+                           <td>Email Id</td>
+                           <td><input type="text" [(ngModel)]="data.applicantContactPersonEmail"></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="table table-bordered">
+                     <tbody>
+                        <tr>
+                           <th colspan="2">Beneficiary</th>
+                        </tr>
+                        <tr>
+                           <td>Name </td>
+                           <td><input type="text" [(ngModel)]="data.beneName"></td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.beneCountry">
+                                 <option value='India'>India</option>
+                                 <option value='Bangladesh'>Bangladesh</option>
+                                 <option value='Kenya'>Kenya</option>
+                                 <option value='Nigeria'>Nigeria</option>
+                                 <option value='UAE'>UAE </option>
+                                 <option value='Qatar'>Qatar</option>
+                             </select>
+                           </td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Applicant'">
+                           <td>Contact Person</td>
+                           <td><input type="text" [(ngModel)]="data.beneContactPerson"></td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Applicant'">
+                           <td>Email Id</td>
+                           <td><input type="text" [(ngModel)]="data.beneContactPersonEmail"></td>
+                        </tr>
+                        <tr>
+                           <td>Bank</td>
+                           <td><input type="text" [(ngModel)]="data.beneBankName"></td>
+                        </tr>
+                        <tr>
+                           <td>Swift Code</td>
+                           <td><input type="text" [(ngModel)]="data.beneSwiftCode"></td>
+                        </tr>
+                        <tr>
+                           <td>Bank Country</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.beneBankCountry">
+                                 <option value='India'>India</option>
+                                 <option value='Bangladesh'>Bangladesh</option>
+                                 <option value='Kenya'>Kenya</option>
+                                 <option value='Nigeria'>Nigeria</option>
+                                 <option value='UAE'>UAE </option>
+                                 <option value='Qatar'>Qatar</option>
+                             </select>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="table table-bordered">
                      <thead>
                         <tr>
                            <th colspan="2">LC Details</th>
@@ -28,7 +113,14 @@
                         </tr>
                         <tr>
                            <td>Country</td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuanceCountry"></td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.lCIssuanceCountry">
+                                 <option value="INDIA">India</option>
+                                 <option value="AUSTRALIA">Australia</option>
+                                 <option value="BANGLADESH">Bangladesh
+                                 </option>
+                             </select>
+                           </td>
                         </tr>
                         <tr>
                            <td>Requirement</td>
@@ -39,16 +131,41 @@
                            <td><input type="text" [(ngModel)]="data.lCValue"></td>
                         </tr>
                         <tr>
-                           <td>LC Issuing Date</td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuingDate"></td>
+                           <td>Currency</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.lCCurrency">
+                                 <option value="INR">INR</option>
+                                 <option value="USD">USD</option>
+                                 <option value="EURO">EURO</option>
+                             </select>
+                           </td>
                         </tr>
                         <tr>
-                           <td>LSD</td>
-                           <td><input type="text" [(ngModel)]="data.lastShipmentDate"></td>
+                           <td>LC Issuing Date</td>
+                           <td><input type="date"  [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.lCIssuingDate = $event"></td>
+                        </tr>
+                        <tr>
+                           <td>LC Negotiation Date</td>
+                           <td><input type="date"  [ngModel]="data.negotiationDate | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.negotiationDate = $event"></td>
+                        </tr>
+                        <tr>
+                           <td>Last Shipment Date</td>
+                           <td><input type="date"  [ngModel]="data.lastShipmentDate | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.lastShipmentDate = $event"></td>
                         </tr>
                         <tr>
                            <td>Goods</td>
-                           <td><input type="text" [(ngModel)]="data.goodsType"> </td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.goodsType">
+                                 <option value="Gold"> Gold</option>                                                                      
+                                 <option value="Plastic">Plastic</option>
+                                 <option value="Drugs">Drugs</option>
+                                 <option value="Diamonds">Diamonds
+                                 </option>
+                             </select>
+                           </td>
                         </tr>
                      </tbody>
                   </table>
@@ -59,79 +176,122 @@
                            <th colspan="2">Tenor of Deferred Payment </th>
                         </tr>
                         <tr>
-                           <td>Period for which confirmation is required</td>
-                           <td><input type="text" [(ngModel)]="data.paymentPeriod"></td>
+                           <td>Orignal Usance (Tenor) of LC</td>
+                           <td><input type="text" [(ngModel)]="data.originalTenorDays"></td>
                         </tr>
                         <tr>
-                           <td>Payments terms to seller as per LC </td>
-                           <td><textarea rows="5" [(ngModel)]="data.paymentTerms"></textarea></td>
+                           <td>Period for which refinancing is required</td>
+                           <td><input type="text" [(ngModel)]="data.refinancingPeriod"></td>
                         </tr>
                         <tr>
-                           <td>Start Date</td>
+                           <td>LC Maturity Date</td>
+                           <td><input type="date"  [ngModel]="data.lcMaturityDate | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.lcMaturityDate = $event"></td>
+                        </tr>
+                        <tr>
+                           <th colspan="2">Beneficiary Details of Last Transaction</th>
+                        </tr>
+                        <tr>
+                           <td>LC Number</td>
+                           <td><input type="text" [(ngModel)]="data.lcNumber"></td>
+                        </tr>
+                        <tr>
+                           <td>Beneficiary Bank Name</td>
+                           <td><input type="text" [(ngModel)]="data.lastBeneBank"></td>
+                        </tr>
+                        <tr>
+                           <td>Swift Code</td>
+                           <td><input type="text" [(ngModel)]="data.lastBeneSwiftCode"></td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
                            <td>
-                              <select style="color: rgb(51, 51, 51);">
-                                 <option value="data.startDate" style="color: rgb(0, 0, 0);">{{data.startDate}}
-                                 </option>
-                              </select>
+                              <select class="edit-selectColor" [(ngModel)]="data.lastBankCountry">
+                                 <option value="INDIA">India</option>
+                                 <option value="BANGLADESH">Bangladesh</option>
+                                 <option value="KENYA">Kenya</option>
+                                 <option value="NIGERIA">Nigeria</option>
+                                 <option value="UAE">UAE</option>
+                                 <option value="QATAR">Qatar</option>
+                             </select>
                            </td>
                         </tr>
-                        <!-- <tr>
-                           <td>End Date</td>
-                           <td><select style="color: rgb(51, 51, 51);">
-                                 <option value="data.endDate" style="color: rgb(0, 0, 0);">{{data.endDate}}
-                                 </option>
-                              </select></td>
-                        </tr> -->
                      </tbody>
-                  </table>
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th colspan="2">Applicant</th>
-                        </tr>
-                        <tr>
-                           <td>Applicant</td>
-                           <td><input type="text" [(ngModel)]="data.applicantName"></td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th colspan="2">Beneficiary</th>
-                        </tr>
-                        <tr>
-                           <td>Beneficiary </td>
-                           <td><input type="text" [(ngModel)]="data.beneName"></td>
-                        </tr>
-                        <tr>
-                           <td>Bank</td>
-                           <td><input type="text" [(ngModel)]="data.beneBankName"></td>
-                        </tr>
-                        <tr>
-                           <td>
-                              Swift Code
-                           </td>
-                           <td><input type="text" [(ngModel)]="data.beneSwiftCode"></td>
-                        </tr>
-                        <tr>
-                           <td>Bank Country</td>
-                           <td><input type="text" [(ngModel)]="data.beneBankCountry"></td>
-                        </tr>
-                     </tbody>
-                  </table>
+                  </table>                  
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
                            <th colspan="2">Others</th>
                         </tr>
                         <tr>
-                           <td>Port of Loading </td>
-                           <td><input type="text" [(ngModel)]="data.loadingPort"></td>
+                           <td>Country</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.loadingCountry">
+                                 <option value="INDIA">
+                                     India</option>
+                                 <option value="BANGLADESH">
+                                     Bangladesh</option>
+                                 <option value="KENYA">
+                                     Kenya</option>
+                                 <option value="NIGERIA">
+                                     Nigeria</option>
+                                 <option value="UAE">UAE
+                                 </option>
+                                 <option value="QATAR">
+                                     Qatar</option>
+                             </select>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>Port of Loading</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.loadingPort">
+                              <option value="Jawaharlal Nehru Port">
+                                  Jawaharlal Nehru Port</option>
+                              <option value="Mumbai Port">
+                                  Mumbai Port </option>
+                              <option value="GUJRAT Port">
+                                  GUJRAT Port </option>
+                              <option value="Dr. Syama Prasad Mukherjee Port">Dr.
+                                  Syama Prasad Mukherjee Port
+                              </option>
+                              <option value="Dr. Rama Prasad Mukherjee Port">Dr.
+                                  Rama Prasad Mukherjee Port
+                              </option>
+                          </select></td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.dischargeCountry">
+                              <option value="INDIA">
+                                  India</option>
+                              <option value="BANGLADESH">
+                                  Bangladesh</option>
+                              <option value="KENYA">
+                                  Kenya</option>
+                              <option value="NIGERIA">
+                                  Nigeria</option>
+                              <option value="UAE">UAE
+                              </option>
+                              <option value="QATAR">
+                                  Qatar</option>
+                          </select></td>
                         </tr>
                         <tr>
                            <td>Port of Discharge</td>
-                           <td><input type="text" [(ngModel)]="data.dischargePort"></td>
+                           <td>
+                              <select class="edit-selectColor" [(ngModel)]="data.dischargePort">
+                                 <option value="Port of Chittagong">
+                                     Port of Chittagong</option>
+                                 <option value="Port of Mongla">
+                                     Port of Mongla</option>
+                                 <option value="Port of Dhaka">
+                                     Port of Dhaka</option>
+                                 <option value="Port of Payra">
+                                     Port of Payra</option>
+                             </select>
+                           </td>
                         </tr>
                         <tr>
                            <td>
@@ -141,7 +301,8 @@
                         </tr>
                         <tr>
                            <td>Validity</td>
-                           <td><input [(ngModel)]="data.validity"></td>
+                           <td><input type="date"  [ngModel]="data.validity | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.validity = $event"></td>
                         </tr>
                         <tr>
                            <td>Pro Forma</td>
@@ -164,7 +325,65 @@
 
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                <div class="tab-pane active datadiv" id="pill1"
-                  style="    height: 530px;overflow: auto;padding-bottom: 30px;">
+                  style="height: 530px;overflow: auto;padding-bottom: 30px;">
+                  <table class="table table-bordered">
+                     <tbody>
+                        <tr>
+                           <th colspan="2">Applicant</th>
+                        </tr>
+                        <tr>
+                           <td>Name</td>
+                           <td>{{data.applicantName}}</td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>{{data.applicantCountry}}</td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Beneficiary'">
+                           <td>Contact Person</td>
+                           <td>{{data.applicantContactPerson}}</td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Beneficiary'">
+                           <td>Email Id</td>
+                           <td>{{data.applicantContactPersonEmail}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="table table-bordered">
+                     <tbody>
+                        <tr>
+                           <th colspan="2">Beneficiary</th>
+                        </tr>
+                        <tr>
+                           <td>Name </td>
+                           <td>{{data.beneName}}</td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>{{data.beneCountry}}</td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Applicant'">
+                           <td>Contact Person</td>
+                           <td>{{data.beneContactPerson}}</td>
+                        </tr>
+                        <tr *ngIf="data.userType == 'Applicant'">
+                           <td>Email Id</td>
+                           <td>{{data.beneContactPersonEmail}}</td>
+                        </tr>
+                        <tr>
+                           <td>Bank</td>
+                           <td>{{data.beneBankName}}</td>
+                        </tr>
+                        <tr>
+                           <td>Swift Code</td>
+                           <td>{{data.beneSwiftCode}}</td>
+                        </tr>
+                        <tr>
+                           <td>Bank Country</td>
+                           <td>{{data.beneBankCountry}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
                   <table class="table table-bordered">
                      <thead>
                         <tr>
@@ -174,39 +393,47 @@
                      <tbody>
                         <tr>
                            <td>LC Issuing Bank</td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuanceBank"></td>
+                           <td>{{data.lCIssuanceBank}}</td>
                         </tr>
                         <tr>
                            <td>Branch </td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuanceBranch"></td>
+                           <td>{{data.lCIssuanceBranch}}</td>
                         </tr>
                         <tr>
                            <td>Swift Code</td>
-                           <td><input type="text" [(ngModel)]="data.swiftCode"></td>
+                           <td>{{data.swiftCode}}</td>
                         </tr>
                         <tr>
                            <td>Country</td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuanceCountry"></td>
+                           <td>{{data.lCIssuanceCountry}}</td>
                         </tr>
                         <tr>
                            <td>Requirement</td>
-                           <td><input type="text" [(ngModel)]="data.requirementType"></td>
+                           <td>{{data.requirementType}}</td>
                         </tr>
                         <tr>
                            <td>Amount</td>
-                           <td><input type="text" [(ngModel)]="data.lCValue"></td>
+                           <td>{{data.lCValue}}</td>
+                        </tr>
+                        <tr>
+                           <td>Currency</td>
+                           <td>{{data.lCCurrency}}</td>
                         </tr>
                         <tr>
                            <td>LC Issuing Date</td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuingDate"></td>
+                           <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr>
-                           <td>LSD</td>
-                           <td><input type="text" [(ngModel)]="data.lastShipmentDate"></td>
+                           <td>LC Negotiation Date</td>
+                           <td>{{data.negotiationDate | date : 'dd-MM-y'}}</td>
+                        </tr>
+                        <tr>
+                           <td>Last Shipment Date</td>
+                           <td>{{data.lastShipmentDate | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr>
                            <td>Goods</td>
-                           <td><input type="text" [(ngModel)]="data.goodsType"> </td>
+                           <td>{{data.goodsType}}</td>
                         </tr>
                      </tbody>
                   </table>
@@ -217,97 +444,76 @@
                            <th colspan="2">Tenor of Deferred Payment </th>
                         </tr>
                         <tr>
-                           <td>Period for which confirmation is required</td>
-                           <td><input type="text" [(ngModel)]="data.paymentPeriod"></td>
+                           <td>Orignal Usance (Tenor) of LC</td>
+                           <td>{{data.originalTenorDays}}</td>
                         </tr>
                         <tr>
-                           <td>Payments terms to seller as per LC </td>
-                           <td><textarea rows="5" [(ngModel)]="data.paymentTerms"></textarea></td>
+                           <td>Period for which refinancing is required</td>
+                           <td>{{data.refinancingPeriod}}</td>
                         </tr>
                         <tr>
-                           <td>Start Date</td>
-                           <td>
-                              <select style="color: rgb(51, 51, 51);">
-                                 <option value="data.startDate" style="color: rgb(0, 0, 0);">{{data.startDate}}
-                                 </option>
-                              </select>
-                           </td>
-                        </tr>
-                        <!-- <tr>
-                           <td>End Date</td>
-                           <td><select style="color: rgb(51, 51, 51);">
-                                 <option value="data.endDate" style="color: rgb(0, 0, 0);">{{data.endDate}}
-                                 </option>
-                              </select></td>
-                        </tr> -->
-                     </tbody>
-                  </table>
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th colspan="2">Applicant</th>
+                           <td>LC Maturity Date</td>
+                           <td>{{data.lcMaturityDate | date : "dd-MM-y"}}</td>
                         </tr>
                         <tr>
-                           <td>Applicant</td>
-                           <td><input type="text" [(ngModel)]="data.applicantName"></td>
+                           <th colspan="2">Beneficiary Details of Last Transaction</th>
+                        </tr>
+                        <tr>
+                           <td>LC Number</td>
+                           <td>{{data.lcNumber}}</td>
+                        </tr>
+                        <tr>
+                           <td>Beneficiary Bank Name</td>
+                           <td>{{data.lastBeneBank}}</td>
+                        </tr>
+                        <tr>
+                           <td>Swift Code</td>
+                           <td>{{data.lastBeneSwiftCode}}</td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>{{data.lastBankCountry}}</td>
                         </tr>
                      </tbody>
-                  </table>
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th colspan="2">Beneficiary</th>
-                        </tr>
-                        <tr>
-                           <td>Beneficiary </td>
-                           <td><input type="text" [(ngModel)]="data.beneName"></td>
-                        </tr>
-                        <tr>
-                           <td>Bank</td>
-                           <td><input type="text" [(ngModel)]="data.beneBankName"></td>
-                        </tr>
-                        <tr>
-                           <td>
-                              Swift Code
-                           </td>
-                           <td><input type="text" [(ngModel)]="data.beneSwiftCode"></td>
-                        </tr>
-                        <tr>
-                           <td>Bank Country</td>
-                           <td><input type="text" [(ngModel)]="data.beneBankCountry"></td>
-                        </tr>
-                     </tbody>
-                  </table>
+                  </table>                  
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
                            <th colspan="2">Others</th>
                         </tr>
                         <tr>
-                           <td>Port of Loading </td>
-                           <td><input type="text" [(ngModel)]="data.loadingPort"></td>
+                           <td>Country</td>
+                           <td>{{data.loadingCountry}}</td>
+                        </tr>
+                        <tr>
+                           <td>Port of Loading</td>
+                           <td>{{data.loadingPort}}</td>
+                        </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>{{data.dischargeCountry}}</td>
                         </tr>
                         <tr>
                            <td>Port of Discharge</td>
-                           <td><input type="text" [(ngModel)]="data.dischargePort"></td>
+                           <td>{{data.dischargePort}}</td>
                         </tr>
                         <tr>
                            <td>
                               Charges are on
                            </td>
-                           <td><input type="text" [(ngModel)]="data.chargesType"></td>
+                           <td>{{data.chargesType}}</td>
                         </tr>
                         <tr>
                            <td>Validity</td>
-                           <td><input [(ngModel)]="data.validity"></td>
+                           <td>{{data.validity | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr>
                            <td>Pro Forma</td>
                            <td><a style="cursor: pointer;" (click)="openDocument(data.lcProForma)" class="">View</a>
                            </td>
                         </tr>
-               </tbody>
-               </table>
+                     </tbody>
+                  </table>
 
             </div>
             <div class="posfix">

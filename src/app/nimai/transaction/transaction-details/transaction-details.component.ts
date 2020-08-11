@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { custTrnsactionDetail } from 'src/assets/js/commons';
@@ -14,9 +14,11 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime','validity', 'ib','amount', 'ccy', 'goods', 'requirement','receivedQuotes','star'];
+  displayedColumns: string[] = ['id','txnID', 'dateTime', 'lcBank', 'requirement', 'lCValue', 'goods','applicantName', 'beneName', 'status', 'detail1', 'detail2'];
   dataSource: MatTableDataSource<any>;
-  public ntData: any[] = [];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
@@ -26,6 +28,7 @@ export class TransactionDetailsComponent {
   document: any;
   public parentURL: string = "";
   public subURL: string = "";
+  dataSourceLength: boolean = false;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService ) {
     this.titleService.quote.next(false);
@@ -58,16 +61,32 @@ export class TransactionDetailsComponent {
         this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
-        if (!this.data) {
-          // this.hasNoRecord = true;
+        
+        if(!this.data){
+          this.dataSourceLength = true;
         }
+        else{
+          this.dataSourceLength = false;
+          this.dataSource = new MatTableDataSource(this.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+        
       },
       (error) => {
-        this.data = null;
-        // this.hasNoRecord = true;
+        this.dataSourceLength = false;
 
       }
     )
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   getDetail(detail){

@@ -30,6 +30,7 @@ export class SubscriptionComponent implements OnInit {
   choosedPrice: any;
   addedAmount: any;
   showVASPlan = false;
+  custUserEmailId: string;
 
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
@@ -51,9 +52,10 @@ export class SubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.custUserEmailId = sessionStorage.getItem('custUserEmailId');
     loads();
     this.titleService.changeTitle(this.title);
-    this.getSubscriptionDetails();
+    // this.getSubscriptionDetails();
     this.getPlan(sessionStorage.getItem("userID"));
     var userid = sessionStorage.getItem("userID");
     if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
@@ -155,7 +157,10 @@ export class SubscriptionComponent implements OnInit {
         response => {
 
           this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];
-          console.log(this.choosedPlan)
+          console.log(this.choosedPlan);
+          if(this.choosedPlan.status.toLowerCase() != "active"){
+            this.getSubscriptionDetails();
+          }
 
           this.isNew = false;
           this.isOrder = false;
@@ -166,6 +171,7 @@ export class SubscriptionComponent implements OnInit {
         },
         (error) => {
           this.titleService.loading.next(false);
+          this.getSubscriptionDetails();
         }
       )
   }

@@ -2194,4 +2194,7 @@ margin: 0;
 .table td button{
     margin-left: 149px;
 }
+.edit-selectColor{
+  background-color:#fff;
+}
 }

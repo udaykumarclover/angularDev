@@ -43,8 +43,7 @@ export class ActiveTransactionComponent implements OnInit {
   public getAllnewTransactions() {
     const data={    
       "bankUserId":sessionStorage.getItem('userID'),
-      "quotationPlaced":"Yes",
-      "transactionStatus":"Active"
+      "quotationStatus":"Placed"
 
     }
     
