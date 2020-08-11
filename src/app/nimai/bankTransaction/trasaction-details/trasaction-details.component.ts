@@ -23,6 +23,7 @@ public data: any;
 public specificDetail: any;
 quotationdata: any;
 document: any;
+selectReason :any={};
 
 constructor(public titleService: TitleService, public nts: NewTransactionService) {
   
@@ -106,7 +107,13 @@ close(){
 $('#myModal9').hide();
 }
 
+
+
 rejectBankQuote(quoteId){
+ 
+  $('#myModal5').hide();
+$('.modal-backdrop').hide();
+
 let data = {
   "statusReason":"ABC"
   }
