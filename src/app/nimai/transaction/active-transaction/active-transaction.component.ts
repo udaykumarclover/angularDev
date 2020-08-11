@@ -95,6 +95,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.paginator._intl.itemsPerPageLabel="Transactions per page";
     custActiveTransaction();
       $('#TransactionDetailDiv').hide();
       $('#backbtn').hide();
