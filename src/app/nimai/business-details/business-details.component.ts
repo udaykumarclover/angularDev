@@ -61,7 +61,7 @@ export class BusinessDetailsComponent implements OnInit {
       addressLine2: ['', [Validators.required,Validators.minLength(2)]],
       addressLine3: ['',Validators.minLength(2)],
       pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
-      telephone: [''],
+      telephone: ['',Validators.minLength(7)],
       bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
       branchName: ['', [Validators.required,Validators.minLength(3)]],
       swiftCode: ['', [Validators.required,Validators.minLength(3)]],
@@ -106,7 +106,7 @@ export class BusinessDetailsComponent implements OnInit {
   });
  }
   setValidators() {
-
+  console.log("this.isCustomer",this.isCustomer)
     if (this.isCustomer == false) {
       this.businessDetailsForm.get("bankNbfcName").enable();
       this.businessDetailsForm.get("branchName").enable();
@@ -115,7 +115,7 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").disable();
       this.businessDetailsForm.get("selector").disable();
       this.businessDetailsForm.get("bank_designation").enable();
-      this.businessDetailsForm.get('telephone').setValidators(Validators.required);
+      this.businessDetailsForm.get('telephone').setValidators([Validators.required,Validators.minLength(7)]);
 
     } else {
       this.businessDetailsForm.get("bankNbfcName").disable();
@@ -125,7 +125,7 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").enable();
       this.businessDetailsForm.get("selector").enable();
       this.businessDetailsForm.get("bank_designation").disable();
-      this.businessDetailsForm.get('telephone').clearValidators();
+      this.businessDetailsForm.get('telephone').setValidators(Validators.minLength(7));
 
     }
 
