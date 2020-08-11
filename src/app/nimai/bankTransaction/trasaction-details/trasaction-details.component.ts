@@ -39,8 +39,9 @@ ngOnInit() {
 public getAllnewTransactions(status) {
   const data = {
     "bankUserId":sessionStorage.getItem('userID'),
-    "quotationPlaced":"Yes",
-    "transactionStatus":status
+    //"quotationPlaced":"Yes",
+   // "transactionStatus":status
+    "quotationStatus":status
 
   }
 
