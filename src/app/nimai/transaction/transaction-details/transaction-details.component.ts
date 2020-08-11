@@ -61,22 +61,20 @@ export class TransactionDetailsComponent {
         this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
-        this.dataSource = new MatTableDataSource(this.data);
-        if(!this.dataSource.data){
+        
+        if(!this.data){
           this.dataSourceLength = true;
         }
         else{
           this.dataSourceLength = false;
+          this.dataSource = new MatTableDataSource(this.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         }
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        if (!this.data) {
-          // this.hasNoRecord = true;
-        }
+        
       },
       (error) => {
-        this.data = null;
-        // this.hasNoRecord = true;
+        this.dataSourceLength = false;
 
       }
     )

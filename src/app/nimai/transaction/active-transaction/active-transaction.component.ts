@@ -71,9 +71,13 @@ export class ActiveTransactionComponent implements OnInit {
         if (!this.detail) {
           this.hasNoRecord = true;
         }
-        this.dataSource = new MatTableDataSource(this.detail);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        else{
+          this.hasNoRecord = false;
+          this.dataSource = new MatTableDataSource(this.detail);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+        
 
       },(error) =>{
         this.hasNoRecord = true;
