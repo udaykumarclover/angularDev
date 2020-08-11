@@ -11,7 +11,7 @@ import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
 import { custActiveTransaction } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -42,6 +42,7 @@ export class ActiveTransactionComponent implements OnInit {
   acceptedDetails: any = "";
   public parentURL: string = "";
   public subURL: string = "";
+  acceptedErrorDetail: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
@@ -97,6 +98,8 @@ export class ActiveTransactionComponent implements OnInit {
   ngOnInit() {
     custActiveTransaction();
       $('#TransactionDetailDiv').hide();
+      $('.acceptedPopupDetails').hide();
+      $('.acceptedErrorDetails').hide();
       $('#backbtn').hide();
 
       $('#backbtn').click(function () {
@@ -218,10 +221,19 @@ export class ActiveTransactionComponent implements OnInit {
   index = index + 1;
 
       this.acceptedDetails = quotationDetails;
-      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ' - ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.countryName);
-      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
+      
       this.nts.acceptBankQuote(req).subscribe(
         (response) => {
+          var acceptQuoteResp = JSON.parse(JSON.stringify(response));
+          if(acceptQuoteResp.status.toLowerCase() == "failure"){
+            $('.acceptedErrorDetails').show();
+            this.acceptedErrorDetail = acceptQuoteResp.errMessage;
+          }
+          else{
+            $('.acceptedPopupDetails').show();
+            $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ' - ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.countryName);
+            $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
+          }
           console.log("quote Accepted");
         },
         (err) => {

@@ -248,15 +248,15 @@
                               </tr>
                               <tr>
                                  <td>LC Issuing Date</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.lCIssuingDate | date : "dd-MM-y h:mm:ss z"}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.lCIssuingDate | date : "dd-MM-y"}}</th>
                               </tr>
                               <tr>
                                  <td>LC Expiry Date</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.lCExpiryDate | date : "dd-MM-y h:mm:ss z"}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.lCExpiryDate | date : "dd-MM-y"}}</th>
                               </tr>
                               <tr>
                                  <td>Last Shipment Date(LSD)</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.lastShipmentDate | date : "dd-MM-y h:mm:ss z"}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.lastShipmentDate | date : "dd-MM-y"}}</th>
                               </tr>
                               <tr>
                                  <td>Goods</td>
@@ -276,10 +276,10 @@
                                  <td>Payment terms to seller as per LC</td>
                                  <th *ngIf="specificDetail">{{specificDetail.paymentTerms}}</th>
                               </tr>
-                              <tr>
+                              <!-- <tr>
                                  <td>Start Date</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.startDate | date : "dd-MM-y h:mm:ss z"}}</th>
-                              </tr>
+                                 <th *ngIf="specificDetail">{{specificDetail.startDate | date : "dd-MM-y"}}</th>
+                              </tr> -->
                               <!-- <tr>
                                  <td>End Date</td>
                                  <th *ngIf="specificDetail">{{specificDetail.endDate}}</th>
@@ -341,7 +341,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <th *ngIf="specificDetail">{{specificDetail.validity | date : "dd-MM-y h:mm:ss z"}}</th>
+                                 <th *ngIf="specificDetail">{{specificDetail.validity | date : "dd-MM-y"}}</th>
                               </tr>
                               <tr>
                                  <td>Pro Forma</td>
@@ -453,7 +453,7 @@
                               </tr>
                               <tr>
                                  <td>Libor</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <td>Negotiation Charges p.a.</td>
@@ -473,7 +473,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
                                  <th>Total Quote</th>

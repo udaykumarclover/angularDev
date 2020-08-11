@@ -155,7 +155,7 @@
                                   <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                                   <td>USD</td>
                                   <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" data-target="#myModal4">Accept</button></td>
+                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>
                                 </tr>                          
                               </tbody>
                             </table>
@@ -269,7 +269,7 @@
   </div>
 </div>
 
-<div id="myModal4" class="popupnew modal fade in" role="dialog">
+<div id="myModal4" class="popupnew modal fade in acceptedPopupDetails" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
     <!-- Modal content-->
     <div class="modal-content">
@@ -294,6 +294,35 @@
                 </ul>
                 <p>Details are saved in the Transaction Details section.</p>
                 <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">Ok<div
+                    class="ripple-container">
+                    <div class="ripple ripple-on ripple-out"
+                      style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
+                    </div>
+                  </div></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="myModal4" class="popupnew modal fade in acceptedErrorDetails" role="dialog">
+  <div class="modal-dialog modal-md emaildiv">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2>Quote Accepted Error</h2>
+        <div class="padnew">
+          <!--<p><strong>Enter Email ID here</strong></p> -->
+          <div class="">
+            <div class="row">
+              <div class="col-md-12">                
+                <p>{{acceptedErrorDetail}}</p>
+                <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div
                     class="ripple-container">
                     <div class="ripple ripple-on ripple-out"
                       style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
