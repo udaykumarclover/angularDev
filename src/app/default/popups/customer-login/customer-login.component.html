@@ -82,8 +82,8 @@
         <div class="col-md-12">
           <div class="text-center">
             <p><strong>Thank you for sharing access details!</strong></p>
-            <p class="ptext">We have sent a 5-digit passcode to your registered email address <b>{{emailAddress}}</b>. Check your
-              spam folder just in case our email has skipped your inbox.</p>
+            <p class="ptext">We have sent a 5-digit passcode to your registered email address <span class="cust_email">{{emailAddress}}</span>. Check your
+              spam folder just in case our email has skipped your inbox.</p> 
             <div class="form-group"></div>
             <div class="col-md-4 col-md-offset-4">
               <div class="inputDiv">
@@ -115,14 +115,14 @@
           <div class="text-center">
             <p>Oops! We can't find association of entered email address with any account on
               TradeEnabler. Kindly contact <a
-                href="mailto:support.contactsupport@tradeenabler.com">support.contactsupport@tradeenabler.com</a> or
-              re-enter the email id.</p>
+                href="mailto:support.contactsupport@tradeenabler.com" class="cust_email">support.contactsupport@tradeenabler.com</a> or
+              re-enter the email id.</p>  
 
             <div class="form-group"></div>
 
             <div class="clearfix"></div>
           </div>
-          <button type="submit" (click)="reenterCustLoginDetails()" class="btn btn-info pull-right">Re-enter
+          <button type="submit" (click)="reenterCustLoginDetails()" class="btn btn-info pull-right renter_btn">Re-enter
             Details</button>
         </div>
         <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->

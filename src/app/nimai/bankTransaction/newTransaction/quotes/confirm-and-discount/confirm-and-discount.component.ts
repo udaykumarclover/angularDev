@@ -18,6 +18,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
 public isActiveQuote:boolean=false;
   public data: PlaceQuote;
   public dataViewEdit:editViewQuotation;
+  public errmessage:string="";
 
   public title: string = "";
   public tab = 'tab1';
@@ -218,6 +219,19 @@ this.dataViewEdit={
     }
   }
   
+  redirectToactive(){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        redirectedFrom: "confirmation",
+        trnsactionID: "data.transactionId"
+      }
+    };
+     this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+     .then(success => console.log('navigation success?', success))
+     .catch(console.error);
+  }
+
+  
   
   public transactionForQuotes(act: string,data:any,detail:any) {
 
@@ -321,14 +335,23 @@ this.dataViewEdit={
           this.tab = 'tab2';
           this.data.confChgsIssuanceToNegot=this.selectNego;
           this.data.confChgsIssuanceToMatur=this.selectMature;
-          console.log(this.data)
+         
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
+              if(JSON.parse(JSON.stringify(response)).status==='Failure'){
+                this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
+                console.log(this.errmessage)
+                $("#labConDis").text(this.errmessage);
+                document.getElementById("myModalConDis").style.display = "block";    
+              }
+              else{    
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
               this.data.TotalQuote=this.detail.TotalQuote;
               this.data.confChgsMatur=this.detail.confChgsMatur;
               this.data.confChgsNegot=this.detail.confChgsNegot;
+            
+              }           
             },
             error => {
               alert('error')

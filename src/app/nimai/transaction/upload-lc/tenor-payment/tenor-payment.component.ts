@@ -34,6 +34,7 @@ export class TenorPaymentComponent implements OnInit {
           $('.multipledate').show();
       } 
     });
+    this.selectors('Confirmation');
 
   }
 

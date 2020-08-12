@@ -253,7 +253,7 @@
                      </table>
                 
                      <div>
-                        <button type="submit" class="btn btn-info pull-right" >
+                        <button type="submit"  class="btn btn-info pull-right" >
                            Save/Generate Quote
                            <div class="ripple-container" ></div>
                         </button>
@@ -378,3 +378,27 @@
       </div>
    </div>
 </div>
+
+  
+<div id="myModalConfirm" style="display: none;" class="popupnew modal">
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2> Trasaction Fail</h2>
+            <div class="padnew">
+               <!--<p><strong>Enter Email ID here</strong></p> -->
+               <div class="">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <label id="labConfirm"></label> 
+                        <div class="form-group"></div>
+                     </div>
+                     <button type="submit" class="btn btn-info pull-right" (click)="redirectToactive()" data-dismiss="modal">Ok</button> 
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+ </div>

@@ -23,7 +23,7 @@ export class TransactionDetailsComponent {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
-  public specificDetail: any;
+  public specificDetail: any = "";
   quotationdata: any;
   document: any;
   public parentURL: string = "";
@@ -90,7 +90,8 @@ export class TransactionDetailsComponent {
   }
 
   getDetail(detail){
-
+    // $("#menu-barnew li").removeClass("active");
+    // $("#menu-barnew li:first").addClass("active");
     console.log(detail);
     this.specificDetail = detail;
     
