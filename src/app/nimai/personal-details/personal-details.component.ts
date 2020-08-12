@@ -62,8 +62,8 @@ export class PersonalDetailsComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
-      mobileNo: ['', [Validators.required,Validators.minLength(12)]],
-      landLineNo: ['',Validators.minLength(12)],
+      mobileNo: ['', [Validators.required,Validators.minLength(7)]],
+      landLineNo: ['',Validators.minLength(7)],
       country: ['', Validators.required],
       companyName: [''],
       designation: [''],
@@ -134,9 +134,6 @@ export class PersonalDetailsComponent implements OnInit {
     });
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-    console.log(JSON.parse(sessionStorage.getItem('countryData')));
-    
-
   }
   setReferrerValidators(){
     this.personalDetailsForm.get('companyName').setValidators([Validators.required])
@@ -170,9 +167,10 @@ export class PersonalDetailsComponent implements OnInit {
             state: {
               title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
-              parent: this.subURL + '/' + this.parentURL + '/business-details'  // need to check
+              parent: this.subURL + '/' + this.parentURL + '/personal-details'  // need to check
             }
           };
+          
           this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
@@ -202,7 +200,6 @@ export class PersonalDetailsComponent implements OnInit {
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
           this.personalDetails = responseData.data;
-          console.log(responseData);
           this.username = this.personalDetails.firstName + " " + this.personalDetails.lastName;
           this.titleService.changeUserName(this.username);
           this.personalDetailsForm.patchValue({

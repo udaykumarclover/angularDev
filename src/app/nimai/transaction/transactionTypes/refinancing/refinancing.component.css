@@ -37,13 +37,15 @@
 
 /* The Close Button */
 
+
 .close {
-    color: #aaa;
+    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
     position: absolute;
     z-index: 9;
+    margin-left: 50%;
 }
 
 .close:hover,
