@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   public areaExpandedtra:boolean=false;
   draftData: any;
   draftcount:any;
-  nimaiCount: any;
+  nimaiCount: any = "";
   constructor(public service: UploadLcService,public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
@@ -77,6 +77,7 @@ export class DashboardComponent implements OnInit {
     //this.titleService.loader.subscribe(flag => this.loading = flag);
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
     this.callAllDraftTransaction();
+    this.getNimaiCount();
   }
   callAllDraftTransaction(){
     var userIdDetail = sessionStorage.getItem('userID');

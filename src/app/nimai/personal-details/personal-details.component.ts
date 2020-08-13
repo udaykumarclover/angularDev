@@ -96,6 +96,14 @@ export class PersonalDetailsComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
+    let navigation = this.router.getCurrentNavigation();
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "MyProfile"){
+        let parentRedirection = "";
+      }
+    }
+
   }
 
   getOtherMails(){

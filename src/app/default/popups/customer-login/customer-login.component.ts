@@ -128,7 +128,7 @@ export class CustomerLoginComponent implements OnInit {
         var response = JSON.parse(JSON.stringify(response));
 
         if(response.flag == 1){
-          this.router.navigate(['/cst/dsb/business-details']);   
+          this.router.navigate(['/cst/dsb/dashboard-details']);   
           $('.modal2').hide();
         } else{
           this.errMessage = response.message;

@@ -146,11 +146,11 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('userID', loginData.userId);
           this.titleService.loading.next(true);
           if (loginData.userId.startsWith('RE')) {
-            this.router.navigate(['/ref/rcs/personal-details']);
+            this.router.navigate(['/ref/rcs/dashboard-details']);
           } else  if (loginData.userId.startsWith('BA')){
-            this.router.navigate(['/bcst/dsb/personal-details']);       
+            this.router.navigate(['/bcst/dsb/dashboard-details']);       
           } else if(loginData.userId.startsWith('CU')){
-             this.router.navigate(['/cst/dsb/personal-details']); 
+             this.router.navigate(['/cst/dsb/dashboard-details']); 
           }   else if(loginData.userId.startsWith('BC')){
              this.callCustomerPopup();  
            

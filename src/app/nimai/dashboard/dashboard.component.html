@@ -27,7 +27,7 @@
          Tip 3: you can change the color of the sidebar with data-background-color="white | black"
          -->
          <!--added by ashvini - removes redirection code-->
-      <div class="logo">
+      <div class="logo" [routerLink]="['dashboard-details']">
         <a href="javascript:void(0)" class="simple-text logo-mini">
           <i class="fas fa-industry"></i>
         </a>
@@ -40,7 +40,7 @@
            <li>
               <div class="collapse in" id="pagesExamples">
                  <ul class="nav">
-                    <li >
+                    <li *ngIf="nimaiCount.kycstatus != 'APPROVED'">
                        <a data-toggle="collapse" href="#accountPages" [attr.aria-expanded]="areaExpandedacc" >
                           <i class="fa fa-address-book-o"></i>
                           <p style="margin-top:3px!important;">Account Details 
@@ -76,10 +76,10 @@
                            </ul>
                        </div>
                     </li>
-                    <li *ngIf="isCustomer || isBank">
+                    <li *ngIf="((isCustomer || isBank) && (nimaiCount.kycstatus == 'APPROVED'))">
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
                           <i class="fa fa-book fa-fw"></i>
-                          <p>Transaction 
+                          <p>Transactilion 
                              <b class="caret"></b>
                           </p>
                        </a>
