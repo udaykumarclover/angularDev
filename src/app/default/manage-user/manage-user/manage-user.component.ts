@@ -178,6 +178,9 @@ export class ManageUserComponent implements OnInit {
       account_status: "ACTIVE",
       account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
       regCurrency: "",
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
 
     }
 

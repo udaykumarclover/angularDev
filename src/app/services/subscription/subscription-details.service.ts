@@ -30,4 +30,8 @@ export class SubscriptionDetailsService {
   public viewAdvisory(): Observable<Subscription> {
     return this.httpClient.get<Subscription>(`${environment.domain}/nimaiSPlan/viewAdvisory` , { headers: { 'content-type': 'application/json' } })
   }
+
+  public getTotalCount(data): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getCount` + data, { headers: { 'content-type': 'application/json' } })
+  }
 }

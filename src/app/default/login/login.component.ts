@@ -515,6 +515,9 @@ export class LoginComponent implements OnInit {
       account_status: "ACTIVE",
       account_created_date: this.todaysDate,
       regCurrency: this.signupForm.get('regCurrency').value,
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
 
     }
     return data;

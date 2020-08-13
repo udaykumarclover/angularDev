@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { load_dashboard } from '../../../assets/js/commons'
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,7 +27,8 @@ export class DashboardComponent implements OnInit {
   public areaExpandedtra:boolean=false;
   draftData: any;
   draftcount:any;
-  constructor(public service: UploadLcService,public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router) {
+  nimaiCount: any;
+  constructor(public service: UploadLcService,public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
@@ -120,5 +122,19 @@ export class DashboardComponent implements OnInit {
         }
       )
   }  
+
+  getNimaiCount(){
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+      },
+      error => {}
+    )
+  }
 
 }
