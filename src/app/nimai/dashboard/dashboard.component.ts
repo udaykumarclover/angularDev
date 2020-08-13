@@ -91,8 +91,8 @@ export class DashboardComponent implements OnInit {
     
     this.service.getCustDraftTransaction(param).subscribe(
       (response) => {
-        this.draftData = JSON.parse(JSON.stringify(response)).data;
-        console.log("dashboard",this.draftData.length);
+        this.draftData = JSON.parse(JSON.stringify(response)).data;  
+        if(this.draftData)      
         if(this.draftData.length>0){
           this.draftcount=this.draftData.length;
         }

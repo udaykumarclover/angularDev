@@ -62,7 +62,12 @@ export class ConfirmAndDiscountComponent implements OnInit {
     // this.titleService.quote.next(false);
   }
 
-
+ closed_div(){
+  this.isActive = false;
+  document.getElementById("menu-barnew").style.width = "0%"; 
+  document.getElementById("myCanvasNav").style.width = "0%";
+  document.getElementById("myCanvasNav").style.opacity = "0"; 
+ }
   public transaction(act: string) {
 
     switch (act) {

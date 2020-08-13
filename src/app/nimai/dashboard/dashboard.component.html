@@ -114,7 +114,7 @@
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
-                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge">{{draftcount}}</span>
+                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge" *ngIf="draftcount">{{draftcount}}</span>
                                       </span> 
                                    </p>
                                 </a>
