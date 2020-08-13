@@ -46,6 +46,7 @@ export class PersonalDetailsComponent implements OnInit {
   public subURL: string = "";
   public hasValue=false;
   resp: any;
+  parentRedirection: string = "business-details";
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     if(sessionStorage.getItem('userID'))
@@ -100,7 +101,7 @@ export class PersonalDetailsComponent implements OnInit {
     console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "MyProfile"){
-        let parentRedirection = "";
+        this.parentRedirection = "my-profile";
       }
     }
 
@@ -172,10 +173,10 @@ export class PersonalDetailsComponent implements OnInit {
     this.submitted = false;
     this.titleService.loading.next(true);
     let userID: string = this.personalDetailsForm.get('userId').value;
-    let parent_route: string="/business-details"
-    if (userID.startsWith('RE')) {
-      parent_route="/kyc-details"
-    }
+    // let parent_route: string="/business-details"
+    // if (userID.startsWith('RE')) {
+    //   parent_route="/kyc-details"
+    // }
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)
       .subscribe(
         (response) => {
@@ -184,7 +185,7 @@ export class PersonalDetailsComponent implements OnInit {
             state: {
               title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
-              parent: this.subURL + '/' + this.parentURL + '/'+parent_route  // need to check
+              parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection  // need to check
             }
           };
 

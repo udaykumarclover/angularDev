@@ -26,6 +26,7 @@ export class BusinessDetailsComponent implements OnInit {
   public perDetailsSubmit = false;
   public hasValue=false;
   resp: any;
+  parentRedirection: string = "subscription";
 
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
@@ -48,6 +49,13 @@ export class BusinessDetailsComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "MyProfile"){
+        this.parentRedirection = "my-profile";
+      }
+    }
 
     this.businessDetailsForm = this.fb.group({
       userId: [''],
@@ -146,7 +154,6 @@ export class BusinessDetailsComponent implements OnInit {
       return;
     }
     this.perDetailsSubmit = false;
-    let parentredirection: string;
 
     this.bds.updateBusinessDetails(this.getBusinessData(), this.businessDetailsForm.get('userId').value).subscribe(
       (response) => {
@@ -155,7 +162,7 @@ export class BusinessDetailsComponent implements OnInit {
           state: {
             title: 'Congratulations! Your Business Details has been successfully submitted!',
             message: '',
-            parent: this.subURL + '/' + this.parentURL + '/subscription'
+            parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
 
           }
         };
