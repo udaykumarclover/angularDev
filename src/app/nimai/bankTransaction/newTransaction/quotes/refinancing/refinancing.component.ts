@@ -20,6 +20,8 @@ export class RefinancingComponent implements OnInit {
   public dataViewEdit:editViewQuotation;
   public title: string = "";
   public tab = 'tab1';
+  public errmessage:string="";
+
   detail:any;
   val:any;
   public parentURL: string = "";
@@ -183,6 +185,18 @@ this.dataViewEdit={
     }
   }
   
+    
+  redirectToactive(){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        redirectedFrom: "confirmation",
+        trnsactionID: "data.transactionId"
+      }
+    };
+     this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+     .then(success => console.log('navigation success?', success))
+     .catch(console.error);
+  }
   public transactionForQuotes(act: string,data:any,detail:any) {
     switch (act) {
       case 'edit': {
@@ -267,13 +281,23 @@ case 'calculateQuote':{
 }break;
 case 'generateQuote': { 
   this.tab = 'tab2';
-    this.ts.saveQuotationToDraft(this.data).subscribe(
-    (response) => {
-      this.detail = JSON.parse(JSON.stringify(response)).data;
-      this.data=data;
-      this.data.TotalQuote=this.detail.TotalQuote;
-    //  this.data.quotationId=this.detail.quotationId;
-    },
+          this.ts.saveQuotationToDraft(this.data).subscribe(
+            (response) => {
+              if(JSON.parse(JSON.stringify(response)).status==='Failure'){
+                this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
+                console.log(this.errmessage)
+                $("#labRef").text(this.errmessage);
+                document.getElementById("myModalRef").style.display = "block";    
+              }
+              else{    
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              this.data=data;
+              this.data.TotalQuote=this.detail.TotalQuote;
+              this.data.confChgsMatur=this.detail.confChgsMatur;
+              this.data.confChgsNegot=this.detail.confChgsNegot;
+            
+              }           
+            },
     error => {
       alert('error')
       this.closedQuote();

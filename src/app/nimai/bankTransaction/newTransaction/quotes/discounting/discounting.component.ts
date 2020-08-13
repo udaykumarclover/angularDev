@@ -23,6 +23,7 @@ export class DiscountingComponent implements OnInit {
   detail:any;
   public parentURL: string = "";
   public subURL: string = "";
+  public errmessage:string="";
 
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
@@ -181,6 +182,20 @@ this.dataViewEdit={
         break;
     }
   }
+
+  
+  redirectToactive(){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        redirectedFrom: "confirmation",
+        trnsactionID: "data.transactionId"
+      }
+    };
+     this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+     .then(success => console.log('navigation success?', success))
+     .catch(console.error);
+  }
+
   
   public transactionForQuotes(act: string,data:any,detail:any) {
 
@@ -267,12 +282,24 @@ this.dataViewEdit={
         }break;
 
         case 'generateQuote': {
+         
           this.tab = 'tab2';
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
+              if(JSON.parse(JSON.stringify(response)).status==='Failure'){
+                this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
+                console.log(this.errmessage)
+                $("#labDis").text(this.errmessage);
+                document.getElementById("myModalDis").style.display = "block";    
+              }
+              else{    
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
               this.data.TotalQuote=this.detail.TotalQuote;
+              this.data.confChgsMatur=this.detail.confChgsMatur;
+              this.data.confChgsNegot=this.detail.confChgsNegot;
+            
+              }           
             },
             error => {
               alert('error')
