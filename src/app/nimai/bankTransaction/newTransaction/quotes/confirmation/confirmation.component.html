@@ -12,19 +12,20 @@
                                  <td>Confirmation Charges p.a.</td>
                                  <td><input type="text"  [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
                               </tr>
+                            
                               <tr>
-                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                  <td><select readonly="readonly" >
-                                       <option value="dataViewEdit.confChgsIssuanceToNegot" >{{dataViewEdit.confChgsIssuanceToNegot}}</option>
-                                    </select></td>
+                                 <td>
+                                    <input [checked]="chargesEdit1" type="radio"  id="optn2"  name="chargesEdit1" [disabled]="radioid"
+                                    (change)="onNegotChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEdit1"  [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
                               </tr>
-                               
                               <tr>
-                                 <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                                  <td><select readonly="readonly" >
-                                       <option value="dataViewEdit.confChgsIssuanceToMatur">{{dataViewEdit.confChgsIssuanceToMatur}}</option>
-                                    </select></td>
-                              </tr>
+                                 <td>
+                                    <input [checked]="chargesEdit2" type="radio"  id="optn2" name="chargesEdit1"  [disabled]="radioid"
+                                    (change)="onMatureChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEdit2" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                               </tr>
+
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
@@ -53,13 +54,13 @@
                                  <th><input type="text" [(ngModel)]="dataViewEdit.totalQuoteValue"></th>
                               </tr> -->
                               <tr>
-                                 <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr>
                            </tbody>
                         </table>
                         <div>
                            <button type="submit" class="btn btn-info pull-right"  id="btnpreview"
-                           (click)="transaction('preview')">
+                           (click)="transaction('preview',dataViewEdit)">
                               Preview
                               <div class="ripple-container" ></div>
                            </button>
@@ -109,7 +110,7 @@
                                  <th *ngIf="detail">{{dataViewEdit.totalQuoteValue}}</th>
                               </tr>
                               <tr>
-                                 <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr>
                            </tbody>
                         </table>
@@ -338,7 +339,7 @@
                            </tr> 
                            
                            <tr>
-                              <td colspan="2"><small>Disclaimer:Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                              <td colspan="2"><small>Disclaimer:Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                            </tr> 
                         </tbody>
                      </table>

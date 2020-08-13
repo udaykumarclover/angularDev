@@ -73,32 +73,7 @@
                                    <p> KYC Details </p>
                                 </a>
                              </li>
-                             <!-- <li *ngIf="isCustomer">
-                  <a [routerLink]="['new-transaction']">
-                    <i class="fas fa-concierge-bell"></i>
-                    <p> New Transaction </p>
-                  </a>
-                </li>
-                <li *ngIf="isCustomer">
-                  <a [routerLink]="['active-transaction']">
-                    <i class="fas fa-exchange-alt"></i>
-                    <p> Active Transaction </p>
-                  </a>
-                </li>
-                <li *ngIf="isCustomer">
-                  <a [routerLink]="['transaction-details']">
-                    <i class="fas fa-tasks"></i>
-                    <p> Transaction Details </p>
-                  </a>
-                </li>
-                <li *ngIf="isCustomer">
-                  <a [routerLink]="['inbox']">
-                    <i class="fas fa-folder-open"></i>
-                    <p> <span class="sidebar-normal"> Drafts <span class="badge">4</span>
-                      </span> </p>
-                  </a>
-                </li> -->
-                          </ul>
+                           </ul>
                        </div>
                     </li>
                     <li *ngIf="isCustomer || isBank">
@@ -139,7 +114,7 @@
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
-                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge">{{draftcount}}</span>
+                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge" *ngIf="draftcount">{{draftcount}}</span>
                                       </span> 
                                    </p>
                                 </a>

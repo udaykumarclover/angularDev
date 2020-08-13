@@ -26,11 +26,13 @@ public isActiveQuote:boolean=false;
   public radioSelected:boolean=false;
   radioStatus: boolean;
   public parentURL: string = "";
-  public subURL: string = "";
-  public selectNego:string="";
-  public selectMature:String="";
-  charges1 :boolean=false;
-  charges2 :boolean=false;
+  public subURL: string = "";chargesEdit1: boolean = false;
+  chargesEdit2: boolean = false;
+  charges1: boolean = false;
+  charges2: boolean = false;
+  public selectNego: string = "";
+  public selectMature: String = "";
+  public radioid: boolean = true;
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
     public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
@@ -121,12 +123,7 @@ this.dataViewEdit={
   this.selectNego='no';     
    }
 
-   onNegoEdit(){
-    this.dataViewEdit.confChgsIssuanceToNegot=$( "#selectid3 option:selected" ).text();   
-  }
-  onMaturEdit(){
-    this.dataViewEdit.confChgsIssuanceToMatur=$( "#selectid4 option:selected" ).text();   
-     }
+
 
   public action(flag: boolean, type: Tflag, data: any) {
     if (flag) {
@@ -134,18 +131,33 @@ this.dataViewEdit={
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
-        this.dataViewEdit = data;   
+        this.radioid = true;
+        this.dataViewEdit = data; 
+        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+          this.chargesEdit2 = true;
+          this.chargesEdit1 = false;
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+          this.chargesEdit1 = true;
+          this.chargesEdit2 = false;
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
+
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
         this.dataViewEdit = data;       
-        $('input').attr('readonly', false);
       }else if(type===Tflag.PLACE_QUOTE){
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-        $('#selectid1').attr('readonly', true);
-        $('#selectid2').attr('readonly', true);
+      
       }
     } else {
       this.isActive = flag;
@@ -167,25 +179,32 @@ this.dataViewEdit={
   }
 
 
-  public transaction(act: string) {
-
+  public transaction(act: string,dataViewEdit: any) {
+   
+    this.dataViewEdit.confChgsIssuanceToNegot = this.selectNego;
+    this.dataViewEdit.confChgsIssuanceToMatur = this.selectMature;
+    console.log(this.dataViewEdit)
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-        setTimeout(() => {
-          if($( "#selectid3 option:selected" ).text()==='yes'){
-            $("#selectid3").append(new Option("no", "value"));
-          }else if($( "#selectid3 option:selected" ).text()==='no'){
-            $("#selectid3").append(new Option("yes", "value"));
-          }
-          if($( "#selectid4 option:selected" ).text()==='yes'){
-            $("#selectid4").append(new Option("no", "value"));
-          }else if($("#selectid4 option:selected" ).text()==='no'){
-            $("#selectid4").append(new Option("yes", "value"));
-          }     
-          $('input').attr('readonly', false);
-        }, 100);
         this.title = 'Edit';
+        this.radioid = false;
+        $('input').attr('readonly', false);
+        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+          this.chargesEdit2 = true;
+          this.chargesEdit1 = false;
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+          this.chargesEdit1 = true;
+          this.chargesEdit2 = false;
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
       }
         break;
 
@@ -214,6 +233,23 @@ this.dataViewEdit={
         setTimeout(() => {
           $('input').attr('readonly', true);
         }, 200);
+        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+          this.chargesEdit2 = true;
+          this.chargesEdit1 = false;
+          this.dataViewEdit.confChgsIssuanceToMatur = "yes";
+          this.dataViewEdit.confChgsIssuanceToNegot = "no";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+          this.chargesEdit1 = true;
+          this.chargesEdit2 = false;
+          this.dataViewEdit.confChgsIssuanceToNegot = "yes";
+          this.dataViewEdit.confChgsIssuanceToMatur = "no";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
+
+
           }
         break;
     }

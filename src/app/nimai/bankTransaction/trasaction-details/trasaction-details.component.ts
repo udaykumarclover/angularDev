@@ -51,7 +51,7 @@ public getAllnewTransactions(status) {
       custTrnsactionDetail();
         this.data = [];
       this.data = JSON.parse(JSON.stringify(response)).data;
-      
+      this.getDetail(this.data)
       if (!this.data) {
          this.hasNoRecord = true;
       }
@@ -67,7 +67,7 @@ public getAllnewTransactions(status) {
 getDetail(detail){
   this.quotationdata = detail;
   this.specificDetail = detail;
-   
+   console.log(this.specificDetail)
 }
 
 changeStatusCall(status){

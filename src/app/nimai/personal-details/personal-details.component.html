@@ -65,11 +65,16 @@
                                     <!--added by ashvini - validation added for mobile number and landline number-->
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
+                                            <input type="text" formControlName="mobileNo" maxlength="15" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Mobile No.</label>
                                             <div *ngIf="submitted && perDetails.mobileNo.errors" class="invalid-feedback">
                                                 <div *ngIf="submitted && perDetails.mobileNo.errors?.required">
                                                     Mobile No is required
+                                                </div>
+                                            </div>
+                                            <div *ngIf="submitted && perDetails.mobileNo.errors" class="invalid-feedback">       
+                                                <div *ngIf="perDetails.mobileNo.errors?.minlength">
+                                                    Mobile No atleast of 7 digits.
                                                 </div>
                                             </div>
                                         </div>
@@ -80,7 +85,7 @@
                                             <label>Landline No.</label>
                                             <div *ngIf="submitted && perDetails.landLineNo.errors" class="invalid-feedback">       
                                                 <div *ngIf="perDetails.landLineNo.errors?.minlength">
-                                                    Landline No must of 12 digits.
+                                                    Landline No atleast of 7 digits.
                                                 </div>
                                             </div>
                                         </div>
@@ -178,18 +183,38 @@
                                         Additional Email IDs <span data-toggle="tooltip" data-placement="auto" title="Along with your primary email id Subscription, Payment and Monthly reports will be delivered on this email IDs as well"> &nbsp;<i class="fas fa-question-circle"></i></span>
                                      </h4>
                                           <div class="field_wrapper col-md-12">
-                                        <div formArrayName="otherEmails" *ngFor="let item of personalDetailsForm.get('otherEmails').controls; let i = index;">
-                                           <div class="row" [formGroupName]="i">
+                                        <!-- <div formArrayName="otherEmails" *ngFor="let item of personalDetailsForm.get('otherEmails').controls; let i = index;"> -->
+                                           <!-- <div class="row" [formGroupName]="i"> -->
+                                           <div class="row">                            
                                               <div class="col-md-4">
                                                  <div class="inputDiv">
-                                                    <input type="text" maxlength="70" formControlName="optionalEmail" oninput="this.value = this.value.toLowerCase()">
-                                                    <label>Email ID</label>
-                                                    <div *ngIf="item.controls.optionalEmail.errors?.pattern" class="invalid-feedback">
-                                                        Invalid Email id
+                                                    <input type="text" maxlength="70" formControlName="emailAddress1" oninput="this.value = this.value.toLowerCase()">
+                                                    <label> Email Id 1</label>
+                                                    <!-- <div *ngIf="item.controls.emailAddress1.errors?.pattern" class="invalid-feedback"> -->
+                                                    <div *ngIf="perDetails.emailAddress1.errors?.pattern" class="invalid-feedback">
+                                                        Invalid Email Id
                                                     </div>
                                                  </div>
                                               </div> 
-                                              <div class="col-md-3">
+                                              <div class="col-md-4">
+                                                <div class="inputDiv">
+                                                   <input type="text" maxlength="70" formControlName="emailAddress2" oninput="this.value = this.value.toLowerCase()">
+                                                   <label> Email Id 2</label>
+                                                   <div *ngIf="perDetails.emailAddress2.errors?.pattern" class="invalid-feedback">
+                                                       Invalid Email Id
+                                                   </div>
+                                                </div>
+                                             </div> 
+                                             <div class="col-md-4">
+                                                <div class="inputDiv">
+                                                   <input type="text" maxlength="70" formControlName="emailAddress3" oninput="this.value = this.value.toLowerCase()">
+                                                   <label> Email Id 3</label>
+                                                   <div *ngIf="perDetails.emailAddress3.errors?.pattern" class="invalid-feedback">
+                                                       Invalid Email Id
+                                                   </div>
+                                                </div>
+                                             </div> 
+                                              <!-- <div class="col-md-3">
                                                 <div class="inputDiv" *ngIf="i==0">
                                                     <button type="button" class="btn btn-info btn-xs add_button"
                                                         (click)="add(i)" title="Add field">Add More</button>
@@ -198,9 +223,9 @@
                                                     <button type="button"
                                                         class="btn btn-info btn-xs add_button" (click)="remove(i)" title="Remove field">Remove</button>
                                                 </div>
-                                                </div>
+                                                </div> -->
                                            </div>
-                                        </div>
+                                        <!-- </div> -->
                                      </div>
                                 </div>
                                 <button type="submit" class="btn btn-info pull-right">Update Profile</button>

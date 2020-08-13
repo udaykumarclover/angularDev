@@ -106,7 +106,7 @@ this.dataViewEdit={
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-    if (flag) {
+       if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
@@ -288,7 +288,7 @@ this.dataViewEdit={
             (response) => {
               if(JSON.parse(JSON.stringify(response)).status==='Failure'){
                 this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
-                console.log(this.errmessage)
+            
                 $("#labDis").text(this.errmessage);
                 document.getElementById("myModalDis").style.display = "block";    
               }

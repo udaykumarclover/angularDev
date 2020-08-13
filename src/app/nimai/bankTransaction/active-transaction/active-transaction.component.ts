@@ -104,7 +104,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,data);
       this.banker.isActive = false;
-    } else if (pagename === 'banker') {
+    } else if (pagename === 'banker' || pagename === 'Banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

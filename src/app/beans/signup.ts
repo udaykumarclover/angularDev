@@ -21,4 +21,8 @@ export interface signup {
 	 interestedCountry:InterestedCountry[];
 	 blacklistedGoods:BlackListedGoods[];
 
+	 emailAddress1:string;
+	 emailAddress2:string;
+	 emailAddress3:string;
+
 }

@@ -6,18 +6,20 @@
                <div class="card-content">
                   <h4>{{title}}</h4>
                   <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                     <form name="form" (ngSubmit)="f.form.valid && transaction('preview')" #f="ngForm" novalidate>
+
                      <div class="tab-pane active" id="pill1">
                         <table class="table">
                            <tbody>
                               <tr>
                                  <td>Banker's Acceptance Charges p.a.</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.bankerAcceptCharges" placeholder="0.00" weightDirective><span class="pull-right percent">%</span></td>
+                                 <td><input type="text" name="bankerAcceptCharges" [(ngModel)]="dataViewEdit.bankerAcceptCharges" placeholder="0.00" weightDirective><span class="pull-right percent">%</span></td>
                               </tr>
                               <tr>
                                  <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
                                     
                                  </td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" readonly placeholder="2.4780" weightDirective>
+                                 <td><input type="text" name="applicableBenchmark" [(ngModel)]="dataViewEdit.applicableBenchmark" readonly placeholder="2.4780" weightDirective>
                                     <span class="pull-right percent">%</span>
                                  <textarea rows="3" placeholder="Comments for Applicable Benchmark"></textarea></td>
                               </tr>
@@ -30,11 +32,8 @@
                                  </td>
                                  <td>
                                     
-                          <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
- 
-                                   <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
+                          <input type="text" name="negotiationChargesFixed" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
+                    
                                  </td>
                               </tr>
                               <tr>
@@ -46,7 +45,7 @@
                                  </td>
                                  <td>
                                   
-                 <input class="" type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
+                 <input class="" type="text" name="negotiationChargesPerct" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
  
                           <span class="pull-right percent">%</span>
                                  </td>
@@ -55,22 +54,16 @@
                                  <td>Document Handling Charges</td>
                                  <td>
                                    
-                      <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="0.00" weightDirective/>
- 
-                       <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
+                      <input type="text" name="docHandlingCharges" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="0.00" weightDirective/>
+
                                  </td>
                               </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
                                    
-                     <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00" weightDirective/>
-                     
-                     <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
+                     <input type="text" name="minTransactionCharges" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00" weightDirective/>
+                    
                                  </td>
                               </tr>
                               <tr>
@@ -79,34 +72,35 @@
                                  </td>
                                  <td>
                                    
-               <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective/>
-               
-               <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
-                                     <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+               <input type="text" name="otherCharges" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective/>
+                                                    <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
                                  </td>
                               </tr>
+                             
                               <tr>
-                                 <td>Validity</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.validityDate" placeholder="28/03/2020"></td>
-                              </tr> 
+                                 <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                                 <td><input type="date" name="validityDate" [(ngModel)]="dataViewEdit.validityDate" 
+                                    #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
+                                    <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
+                                       <div *ngIf="validityDate.errors.required">Validity date is required</div>
+                                   </div>
+                                 </td>
+                              </tr>
+
                                 <tr>
-                                 <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</td>
+                                 <td colspan="2">Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</td>
                               </tr>
                            </tbody>
                         </table>
                          <div>
-                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview" (click)="transaction('preview')">
+                           <button type="submit" class="btn btn-info pull-right"  >
                               Preview
                               <div class="ripple-container" ></div>
                            </button>
-                           <!-- <button class="btn btn-info" (click)="transaction('ok')">
-                              Save
-                              <div class="ripple-container"></div>
-                           </button> -->
+                           
                         </div>
                      </div>
+                  </form>
                   </div>
                   <div class="tab-content" id="tab2"  *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
                      <div class="tab-pane active" id="pill1">
@@ -161,7 +155,7 @@
                                  <th>{{dataViewEdit.totalQuoteValue}}</th>
                               </tr>
                               <tr>
-                                 <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr> 
                            </tbody>
                         </table>
