@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import {bankNewTransaction,custActiveTransaction} from 'src/assets/js/commons'
+import { bankNewTransaction, custActiveTransaction } from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -43,9 +43,9 @@ export class NewTransactionComponent implements OnInit {
 
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
-   
+
     this.titleService.quote.next(false);
-   
+
     this.data = {
       transactionId: "",
       userId: "",
@@ -113,17 +113,17 @@ export class NewTransactionComponent implements OnInit {
 
   public getNewRequestsForBank() {
     const data = {
-     "userId":sessionStorage.getItem('userID')
-     }
-   
-  this.nts.getAllNewBankRequest(data).subscribe(
-          (response) => {
-             this.detail = JSON.parse(JSON.stringify(response)).data;
-             bankNewTransaction();
-          if (!this.detail) {
+      "userId": sessionStorage.getItem('userID')
+    }
+
+    this.nts.getAllNewBankRequest(data).subscribe(
+      (response) => {
+        this.detail = JSON.parse(JSON.stringify(response)).data;
+        bankNewTransaction();
+        if (!this.detail) {
           this.hasNoRecord = true;
         }
-      },(error) =>{
+      }, (error) => {
         this.hasNoRecord = true;
       }
     )
@@ -131,77 +131,78 @@ export class NewTransactionComponent implements OnInit {
 
   ngAfterViewInit() {
     this.getNewRequestsForBank();
-    this.confirmation.isActive = false;
-    this.confirmAndDiscount.isActive = false;
-    this.discounting.isActive = false;
-    this.refinancing.isActive = false;
-    this.banker.isActive = false;
+    this.confirmation.isActiveQuote = false;
+    this.confirmAndDiscount.isActiveQuote = false;
+    this.discounting.isActiveQuote = false;
+    this.refinancing.isActiveQuote = false;
+    this.banker.isActiveQuote = false;
   }
-  showDetail(data:any){
-    this.isActive=true;
+  showDetail(data: any) {
+    this.isActive = true;
     this.data = data;
-   this.titleService.quote.next(true);
-   
+    this.titleService.quote.next(true);
+
   }
-  showQuotePage(pagename: string,action:Tflag,val:any) {
-  
+  showQuotePage(pagename: string, action: Tflag, val: any) {
+
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-   
+
     const data = {
-      "bankUserId":sessionStorage.getItem('userID'),
-      "userId":val.userId,
-      "transactionId":val.transactionId,
-      "requirementType":val.requirementType,
-      "lCIssuanceBank":val.lCIssuanceBank,
-      "lCValue":val.lCValue,
-      "lCCurrency":val.lCCurrency,
-      "usanceDays":val.usanceDays,
-       "insertedDate":this.date,
-      "insertedBy":sessionStorage.getItem('userID'),
-      "modifiedDate":this.date,
-      "modifiedBy":sessionStorage.getItem('userID'),
-      "quotationId":val.quotationId,
-      "confirmationPeriod":val.confirmationPeriod,
-      "discountingPeriod":val.discountingPeriod,
-      "refinancingPeriod":val.refinancingPeriod,
+      "bankUserId": sessionStorage.getItem('userID'),
+      "userId": val.userId,
+      "transactionId": val.transactionId,
+      "requirementType": val.requirementType,
+      "lCIssuanceBank": val.lCIssuanceBank,
+      "lCValue": val.lCValue,
+      "lCCurrency": val.lCCurrency,
+      "usanceDays": val.usanceDays,
+      "insertedDate": this.date,
+      "insertedBy": sessionStorage.getItem('userID'),
+      "modifiedDate": this.date,
+      "modifiedBy": sessionStorage.getItem('userID'),
+      "quotationId": val.quotationId,
+      "confirmationPeriod": val.confirmationPeriod,
+      "discountingPeriod": val.discountingPeriod,
+      "refinancingPeriod": val.refinancingPeriod,
 
-      
-  }
-  //pagename='discounting';
 
-    if (pagename == 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,data);
-      this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.isActive = false;
+    }
+    //pagename='discounting';
+   
+    if (pagename == 'confirmation' || pagename === 'Confirmation') {
+      this.confirmation.action(true, action, data);
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
-      this.confirmation.isActive = false;
-      this.discounting.action(true,action,data);
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {    
-      this.confirmAndDiscount.action(true,action,data);
-      this.confirmation.isActive = false;
-      this.discounting.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.isActive = false;
-    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename==='refinance') {
-      this.confirmation.isActive = false;
-      this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.action(true,action,data);
-      this.banker.isActive = false;
+     
+      this.confirmation.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
+      this.discounting.action(true, action, data);
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
+      this.confirmAndDiscount.action(true, action, data);
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
+    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
+      this.refinancing.action(true, action, data);
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
     } else if (pagename === 'banker' || pagename === "Banker") {
-      this.confirmation.isActive = false;
-      this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.action(true,action,data);
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.action(true, action, data);
     }
   }
 
-  
+
 }

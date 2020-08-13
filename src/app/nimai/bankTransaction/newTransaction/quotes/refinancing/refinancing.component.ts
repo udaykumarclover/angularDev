@@ -285,7 +285,6 @@ case 'generateQuote': {
             (response) => {
               if(JSON.parse(JSON.stringify(response)).status==='Failure'){
                 this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
-                console.log(this.errmessage)
                 $("#labRef").text(this.errmessage);
                 document.getElementById("myModalRef").style.display = "block";    
               }
