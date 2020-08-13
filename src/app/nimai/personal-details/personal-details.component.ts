@@ -152,28 +152,33 @@ export class PersonalDetailsComponent implements OnInit {
    }
   submit(): void {
     this.submitted = true;
-    console.log("this.personalDetailsForm-----",this.personalDetailsForm)
     if(this.personalDetailsForm.invalid) {
       return;
     }
     this.submitted = false;
     this.titleService.loading.next(true);
     let userID: string = this.personalDetailsForm.get('userId').value;
+    let parent_route: string="/business-details"
+    if (userID.startsWith('RE')) {
+      parent_route="/kyc-details"
+    }
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)
       .subscribe(
         (response) => {
-          this.titleService.loading.next(false);
+         this.titleService.loading.next(false);
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
-              parent: this.subURL + '/' + this.parentURL + '/personal-details'  // need to check
+              parent: this.subURL + '/' + this.parentURL + '/'+parent_route  // need to check
             }
           };
-          
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
+
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+           }); 
         },
         (error) => {
           this.titleService.loading.next(false);

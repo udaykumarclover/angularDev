@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras,NavigationEnd  } from '@angular/router';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { load_dashboard } from '../../../assets/js/commons'
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -47,6 +48,24 @@ export class DashboardComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd)  
+    ).subscribe((event: NavigationEnd) => {
+      if (event.url===`/${this.parentURL}/dsb/personal-details` || event.url===`/${this.parentURL}/dsb/business-details` || event.url===`/${this.parentURL}/dsb/subscription` || event.url===`/${this.parentURL}/dsb/kyc-details`)
+      {      
+        this.accountPages="in"
+        this.isCollapsed=""
+        this.areaExpandedacc=!this.areaExpandedacc
+      }else if (event.url===`/${this.parentURL}/dsb/new-transaction` || event.url===`/${this.parentURL}/dsb/active-transaction` || event.url===`/${this.parentURL}/dsb/transaction-details` || event.url===`/${this.parentURL}/dsb/draft-transaction`){
+        this.transactionpages="in"
+        this.isCollapsed=""
+        this.areaExpandedtra=!this.areaExpandedtra
+      }else if(event.url===`/${this.parentURL}/rcs/kyc-details` || event.url===`/${this.parentURL}/rcs/personal-details` ){
+        this.accountPages="in"
+        this.isCollapsed=""
+        this.areaExpandedtra=!this.areaExpandedtra
+      }
+    });
   }
 
   ngOnInit() {
