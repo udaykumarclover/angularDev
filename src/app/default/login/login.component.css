@@ -204,3 +204,11 @@ select.currency {
     width: 64% !important;
     float: left;
     }
+.passicon{
+    position: absolute;
+     left: 0;
+     width: 13px;
+     top: 14px;
+     color: #00bcd4;
+     font-size: 13px !important;
+ }
