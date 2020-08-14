@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  domain:'http://136.232.244.190:8081'
-  //  domain:'http://203.115.123.93:8080'
+  //domain:'http://136.232.244.190:8081'
+    production: false,
+    domain:'http://203.115.123.93:8080'
 
   // domain:'http://localhost:8080'
 
