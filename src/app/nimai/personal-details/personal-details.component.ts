@@ -172,11 +172,11 @@ export class PersonalDetailsComponent implements OnInit {
     }
     this.submitted = false;
     this.titleService.loading.next(true);
-    let userID: string = this.personalDetailsForm.get('userId').value;
-    // let parent_route: string="/business-details"
-    // if (userID.startsWith('RE')) {
-    //   parent_route="/kyc-details"
-    // }
+    let userID = this.personalDetailsForm.get('userId').value;
+
+    if (userID.startsWith('RE')) {
+      this.parentRedirection = "kyc-details"
+    }
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)
       .subscribe(
         (response) => {

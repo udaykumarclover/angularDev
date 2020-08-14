@@ -76,7 +76,7 @@
                            </ul>
                        </div>
                     </li>
-                    <li *ngIf="((isCustomer || isBank) && (nimaiCount.kycstatus == 'APPROVED'))">
+                    <li *ngIf="((isCustomer || isBank) && (nimaiCount.kycstatus = 'APPROVED'))">
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
                           <i class="fa fa-book fa-fw"></i>
                           <p>Transactilion 
