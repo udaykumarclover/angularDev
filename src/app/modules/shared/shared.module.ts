@@ -25,6 +25,7 @@ import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-trans
 import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/manage-user.component';
 import { SupportComponent } from 'src/app/default/support/support/support.component';
 import { weightDirective } from './directive/weight.directive';
+import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 
 
 
@@ -47,7 +48,8 @@ import { weightDirective } from './directive/weight.directive';
     CreditAndTransactionsComponent,
     ManageUserComponent,
     SupportComponent,
-    weightDirective
+    weightDirective,
+    DasboardDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,8 @@ import { weightDirective } from './directive/weight.directive';
     ReferComponent,
     CreditAndTransactionsComponent,
     SupportComponent,
-    weightDirective
+    weightDirective,
+    DasboardDetailsComponent
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,

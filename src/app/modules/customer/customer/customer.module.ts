@@ -35,6 +35,7 @@ import { DraftTransactionComponent } from 'src/app/nimai/transaction/draft-trans
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 import { SupportComponent } from 'src/app/default/support/support/support.component';
 import { UploadLcNewComponent } from 'src/app/nimai/transaction/upload-lc/upload-lc-new/upload-lc-new/upload-lc-new.component';
+import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 
 
 const routes: Routes = [
@@ -138,6 +139,12 @@ const routes: Routes = [
       },
       {
         path: "support", component: SupportComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "dashboard-details", component: DasboardDetailsComponent, children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]

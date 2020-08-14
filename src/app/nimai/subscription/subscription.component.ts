@@ -15,7 +15,7 @@ import { loads } from '../../../assets/js/commons';
 })
 export class SubscriptionComponent implements OnInit {
   public loading = true;
-  public isNew = true;
+  public isNew = false;
   public isOrder = false;
   public isPayment = false;
   public isPaymentSuccess = false;
@@ -67,6 +67,7 @@ export class SubscriptionComponent implements OnInit {
   getSubscriptionDetails() {
     this.titleService.loading.next(true);
     this.subscriptionService.getSubscriptionDetails().subscribe(data => {
+      this.isNew = true;
       this.subscriptionDetails = data.data;
       this.loading = false;
     }

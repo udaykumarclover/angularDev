@@ -199,8 +199,7 @@ export class MyProfileComponent implements OnInit {
     
     const navigationExtras: NavigationExtras = {
       state: {
-        parent: this.parentURL + '/my-profile',
-        value: '/my-profile'
+        redirectedFrom: "MyProfile"
       }
     };
     this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/"+redirectVal], navigationExtras);

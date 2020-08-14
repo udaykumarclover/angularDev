@@ -32,6 +32,6 @@ export class SubscriptionDetailsService {
   }
 
   public getTotalCount(data): Observable<any> {
-    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getCount` + data, { headers: { 'content-type': 'application/json' } })
+    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getCount`, data, { headers: { 'content-type': 'application/json' } })
   }
 }

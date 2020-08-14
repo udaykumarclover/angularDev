@@ -26,21 +26,15 @@
                               <tr>
                                  <td>Document Transaction Charges</td>
                                  <td>
-                                  <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="200.00" weightDirective/>
- 
-                               <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
+                                  <input type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="200.00" weightDirective/>
+
                                  </td>
                               </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="500.00" weightDirective/>
+                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="500.00" weightDirective/>
  
-  <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
                                  </td>
                               </tr>
                               <tr>
@@ -48,11 +42,8 @@
                                    
                                  </td>
                                  <td>
-                                   <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="50.00" weightDirective/>
+                                   <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="50.00" weightDirective/>
  
-  <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
                                      <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
                                  </td>
                               </tr>

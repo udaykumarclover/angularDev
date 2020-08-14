@@ -36,20 +36,6 @@ export class SuccessPopupComponent implements OnInit {
       $('#container').removeClass('right-panel-active');
     } else if(this.parent === "accountactivation"){
       this.router.navigate(['/login']);
-    // } else if(this.parent==="cst/dsb/business-details"){
-    //   this.router.navigate(['/cst/dsb/subscription']);/ref/rcs/personal-details
-    }else if(this.parent==="cst/dsb/personal-details"){
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([`/cst/dsb/business-details`]);
-    });
-    }else if(this.parent==="bcst/dsb/personal-details"){
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([`/bcst/dsb/business-details`]);
-    });
-    }else if(this.parent==="ref/rcs/personal-details"){
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([`/ref/rcs/kyc-details`]);
-    });
     }else if(this.parent==="forgetpassword"){
       this.router.navigate(['/login']);
     }else{

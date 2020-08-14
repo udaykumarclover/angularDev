@@ -27,22 +27,19 @@
                                </tr>
 
                               <tr>
-                                 <td>Minimum Transaction Charges</td>
-                                 <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" class="halfleft" weightDirective placeholder="0.00" style="width:50%;" />
-                                    <select class="halfright" style="color: #333 !important;">
-                                       <option value="USD">USD</option>
-                                    </select>
-                                 </td>
-                              </tr>
-                              <tr>
                                  <td>Other Charges</td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" class="halfleft" placeholder="0.00" weightDirective style="width:50%;" />
-                                    <select class="halfright" style="color: #333 !important;">
-                                       <option value="USD">USD</option>
-                                    </select>
+                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective  />
+                                  
                                     <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
+                                 </td>
+                              </tr>
+                              
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" weightDirective placeholder="0.00"  />
+                                   
                                  </td>
                               </tr>
                               <tr>

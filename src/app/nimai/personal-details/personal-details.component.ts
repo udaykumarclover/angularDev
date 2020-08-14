@@ -46,6 +46,7 @@ export class PersonalDetailsComponent implements OnInit {
   public subURL: string = "";
   public hasValue=false;
   resp: any;
+  parentRedirection: string = "business-details";
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     if(sessionStorage.getItem('userID'))
@@ -95,6 +96,14 @@ export class PersonalDetailsComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+
+    let navigation = this.router.getCurrentNavigation();
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "MyProfile"){
+        this.parentRedirection = "my-profile";
+      }
+    }
 
   }
 
@@ -158,28 +167,33 @@ export class PersonalDetailsComponent implements OnInit {
     // let items = this.personalDetailsForm.get('otherEmails') as FormArray;
     // console.log("items",items.controls)
     this.submitted = true;
-    console.log("this.personalDetailsForm-----",this.personalDetailsForm)
     if(this.personalDetailsForm.invalid) {
       return;
     }
     this.submitted = false;
     this.titleService.loading.next(true);
-    let userID: string = this.personalDetailsForm.get('userId').value;
+    let userID = this.personalDetailsForm.get('userId').value;
+
+    if (userID.startsWith('RE')) {
+      this.parentRedirection = "kyc-details"
+    }
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)
       .subscribe(
         (response) => {
-          this.titleService.loading.next(false);
+         this.titleService.loading.next(false);
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
-              parent: this.subURL + '/' + this.parentURL + '/personal-details'  // need to check
+              parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection  // need to check
             }
           };
-          
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
+
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+           }); 
         },
         (error) => {
           this.titleService.loading.next(false);

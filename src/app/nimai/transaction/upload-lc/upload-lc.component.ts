@@ -257,7 +257,7 @@ export class UploadLCComponent implements OnInit {
       .subscribe(
         (response) => {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
-          sessionStorage.setItem("transactionID",this.transactionID);
+          // sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
           this.lc = this.lcDetailForm.value;
           this.previewShow = true;
@@ -352,18 +352,18 @@ export class UploadLCComponent implements OnInit {
     this.titleService.loading.next(true);
     this.loading = true;
     let body = {
-      transactionId: sessionStorage.getItem("transactionID"),
+      transactionId: this.transactionID,
       userId: sessionStorage.getItem('userID')
     }
 
     let emailBody = {
-      "transactionid": sessionStorage.getItem("transactionID"),
+      "transactionid": this.transactionID,
       "userId": sessionStorage.getItem('userID'),
       "event": "LC_UPLOAD"
       }
     
     let emailBankBody = {
-      "transactionId": sessionStorage.getItem("transactionID"),
+      "transactionId": this.transactionID,
       "customerUserId": sessionStorage.getItem('userID'),
       "event": "LC_UPLOAD_ALERT_ToBanks"
       }
@@ -669,6 +669,7 @@ export class UploadLCComponent implements OnInit {
   }
 
   callCloneTransaction(trnsactionID){
+    this.transactionID = trnsactionID;
     var data = {
       "transactionId":trnsactionID
       }

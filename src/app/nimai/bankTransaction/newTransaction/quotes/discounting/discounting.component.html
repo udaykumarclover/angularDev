@@ -29,18 +29,15 @@
                                     </select>
                                  </td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed"  placeholder="0.00" class="halfleft" weightDirective/>
-                                    <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
-                                 </td>
+                                    <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed"  placeholder="0.00"   weightDirective/>
+                                    </td>
                               </tr>
                               <tr>
                                  <td>
                                     Negotiation Charges 
-                                    <select class="halfauto halfwidthdiv">
-                                       <option value="Fixed">%</option>
-                                    </select>
+                                    <select class="halfautoc halfwidthdiv">
+                                 <option value="%">%</option>
+                              </select>
                                  </td>
                                  <td>
                                     <input type="text" class="" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
@@ -48,33 +45,24 @@
                                  </td>
                               </tr>
                               <tr>
-                                 <td>Discounting Handling Charges</td>
+                                 <td>Document Handling Charges</td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="0.00" class="halfleft" weightDirective/>
-                                    <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
-                                 </td>
+                                    <input type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="0.00"   weightDirective/>
+                                    </td>
                               </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00"  class="halfleft" weightDirective/>
-                                    <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
-                                 </td>
+                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00"    weightDirective/>
+                                   </td>
                               </tr>
                               <tr>
                                  <td>Other Charges<br>
                                   
                                  </td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" class="halfleft" weightDirective/>
-                                    <select class="halfright">
-                                       <option value="USD">USD</option>
-                                    </select>
-                                     <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
+                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective/>
+                                      <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
                                  </td>
                               </tr>
                               <tr>
@@ -121,7 +109,7 @@
                               <tr>
                                  <td>Negotiation Charges (Fixed)</td>
                                  <td>
-                                    USD ${{dataViewEdit.negotiationChargesFixed}}
+                                      ${{dataViewEdit.negotiationChargesFixed}}
                                  </td>
                               </tr>
                               <tr>
@@ -133,20 +121,20 @@
                               <tr>
                                  <td>Document Handling Charges</td>
                                  <td>
-                                    USD ${{dataViewEdit.docHandlingCharges}}
+                                      ${{dataViewEdit.docHandlingCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Minimum Handling Charges</td>
                                  <td>
-                                    USD ${{dataViewEdit.minTransactionCharges}}
+                                      ${{dataViewEdit.minTransactionCharges}}
                                  </td>
                               </tr>
                               <tr>
                                  <td>Other Charges<br>
                                  </td>
                                  <td>
-                                    USD ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                      ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
                                  </td>
                               </tr>
                               <tr>
