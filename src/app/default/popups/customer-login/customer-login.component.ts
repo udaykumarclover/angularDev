@@ -130,7 +130,7 @@ export class CustomerLoginComponent implements OnInit {
         if(response.flag == 1){
           this.titleService.loading.next(false);
           this.router.navigate(['/cst/dsb/dashboard-details']);   
-         // $('.modal2').hide();
+          $('.modal2').hide();
         } else{
           this.errMessage = response.message;
         }

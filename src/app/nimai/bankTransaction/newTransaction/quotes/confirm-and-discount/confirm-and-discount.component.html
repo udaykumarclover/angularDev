@@ -55,11 +55,9 @@
                               </select>
                            </td>
                            <td>
-                              <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed"
+                              <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed"
                                  weightDirective placeholder="0.00" />
-                              <select class="halfright">
-                                 <option value="USD">USD</option>
-                              </select>
+                             
                            </td>
                         </tr>
                         <tr>
@@ -71,31 +69,24 @@
                            </td>
                            <td>
                               <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00"
-                                 weightDirective class="halfleft" />
-                              <select class="halfright">
-                                 <option value="USD">USD</option>
-                              </select>
+                                 weightDirective />
+                             
                            </td>
                         </tr>
                         <tr>
                            <td>Document Handling Charges</td>
                            <td>
-                              <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.docHandlingCharges"
+                              <input  type="text" [(ngModel)]="dataViewEdit.docHandlingCharges"
                                  placeholder="0.00" weightDirective />
-                              <select class="halfright">
-                                 <option value="USD">USD</option>
-                              </select>
+                             
                            </td>
                         </tr>
                         <tr>
                            <td>Minimum Transaction Charges</td>
                            <td>
-                              <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.minTransactionCharges"
+                              <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges"
                                  placeholder="0.00" weightDirective />
 
-                              <select class="halfright">
-                                 <option value="USD">USD</option>
-                              </select>
                            </td>
                         </tr>
                         <tr>
@@ -104,12 +95,9 @@
                            </td>
                            <td>
 
-                              <input class="halfleft" type="text" [(ngModel)]="dataViewEdit.otherCharges"
+                              <input type="text" [(ngModel)]="dataViewEdit.otherCharges"
                                  placeholder="0.00" weightDirective />
 
-                              <select class="halfright">
-                                 <option value="USD">USD</option>
-                              </select>
                               <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
                            </td>
                         </tr>

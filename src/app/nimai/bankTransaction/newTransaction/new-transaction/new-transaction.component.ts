@@ -168,7 +168,7 @@ export class NewTransactionComponent implements OnInit {
 
 
     }
-    //pagename='discounting';
+    //pagename='Banker';
    
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);
