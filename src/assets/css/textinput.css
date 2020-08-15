@@ -145,7 +145,7 @@ dl {
   overflow: hidden;
 }
 
-.plan {  
+.plan-old {  
   padding: 15px 18px;
   text-align: center;
   background: white; 
@@ -154,14 +154,14 @@ dl {
   border-radius: 5px;
 }
 
-.plan-title {
+.plan-title-old {
     margin-bottom: 12px;
     font-size: 16px;
     color: #060606;
     font-weight: 500;
     letter-spacing: 0.2px;
 }
-.plan-price {
+.plan-price-old {
   margin-bottom: 20px;
   line-height: 1;
   font-size: 28px;
@@ -260,14 +260,14 @@ dl {
 
 
 
-.plan-success {
+.plan-success-old {
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 15px;
   padding-right: 15px; 
   border: 4px solid #4caf50;
 }
-.plan-success .plan-button {
+.plan-success-old .plan-button {
   font-size: 18px;
   line-height: 49px;
   background: #37bce5;
