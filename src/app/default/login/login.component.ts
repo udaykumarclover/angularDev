@@ -179,7 +179,6 @@ export class LoginComponent implements OnInit {
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
-    console.log("selector----",selector)
     if (subscriptionType == 'referrer') {
       this.validateCommons();
       this.validateReferrerForm();
