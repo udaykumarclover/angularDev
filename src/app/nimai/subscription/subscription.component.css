@@ -11,9 +11,10 @@
     .boxline p{
     font-size: 13px;
     }
-    .card .card-header.card-header-icon + .card-content .card-title {
-    padding-bottom: 5px;
-    }
+    
+.card .card-header.card-header-icon + .card-content .card-title {
+    padding-bottom: 10px;
+}
     .boxline ul{
     margin-top: 0;
     margin-bottom: 0;
@@ -61,7 +62,7 @@
 }
 .divplan{
     padding: 11px 13px;
-background: #EEEEEE;
+background: #00bcd4;
 border-radius: 20px 20px 20px 20px;
 display: block;
 box-shadow: 2px 7px 7px 0px rgb(220 220 220);
@@ -82,14 +83,6 @@ border: 1px solid #e5ded6;
 border-color: rgba(0, 0, 0, 0.1);
 border-radius: 20px;
 margin: 0 0 25px;
-}
-
-.plan-features {
-margin: 12px auto 15px;
-padding: 20px 30px 0;
-border-top: 1px solid #e5ded6;
-text-align: left;
-list-style-image: url(../images/check.svg);
 }
 
 .plan-button {
@@ -136,10 +129,10 @@ color: #ffffff;
 }
 
 .silverbox{
-background: silver;
+background: #aba6a6;
 } 
 .goldbox{
-background: #ffd700;
+background: #e2c111;
 } 
 .platinumbox{
 background: slategray;
