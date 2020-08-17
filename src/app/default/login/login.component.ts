@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
       minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: [''],
-      termsAndcondition: [false, Validators.requiredTrue],
+      termsAndcondition: ['', Validators.requiredTrue],
       regCurrency:['']
     });
     this.forgotPasswordForm = this.fb.group({
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
     this.getCountryData();
   }
 
-  ngAfterViewInit() {    
+  ngAfterViewInit() {     
     const first_input = this.el.nativeElement.querySelector('.first_input');
     first_input.focus();
     const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
@@ -141,7 +141,6 @@ export class LoginComponent implements OnInit {
       subscribe(
         (response) => {
           this.Removevalidate();
-          console.log("response--------",response)
           let responseData = JSON.parse(JSON.stringify(response));
           sessionStorage.setItem('userID', loginData.userId);
           this.titleService.loading.next(true);
@@ -189,7 +188,12 @@ export class LoginComponent implements OnInit {
     } else {
       if (subscriptionType == 'bank' && selector == 'underwriter') {
         this.validateCommons();
-        this.validateBank();
+        this.validateBank();        
+        if (this.signupForm.invalid) {
+          return;
+        }
+      }else if((subscriptionType == 'bank' && selector == 'customer')){
+        this.validateBankAsCustomer();
         if (this.signupForm.invalid) {
           return;
         }
@@ -265,13 +269,12 @@ export class LoginComponent implements OnInit {
   }
 
   public sugnUpView() {
+    this.hasCountrycode=false;
     this.clearSignupValidation();
     this.updateValidation();
     this.resetLoginForm();
   }
   public checkUserType(value: string) {
-    // this.signupForm.get('termsAndcondition').clearValidators();
-    // this.signupForm.get('termsAndcondition').updateValueAndValidity(); 
     this.hasCountrycode=false;
     $('#checkboxError').hide();  
     this.clearSignupValidation();
@@ -368,7 +371,18 @@ export class LoginComponent implements OnInit {
       )
 
   }
-
+  validateBankAsCustomer(){
+    $('#checkboxError').show();
+    this.signupForm.get('firstName').setValidators(Validators.required);
+    this.signupForm.get('lastName').setValidators(Validators.required);
+    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('country').setValidators(Validators.required);
+    this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);
+    this.removeBankValidation();
+    this.removeReferrerValidation();
+    this.updateValidation();
+  }
   validateCommons() {
     $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
@@ -441,6 +455,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('mobileNo').clearValidators();
     this.signupForm.get('landlineNo').clearValidators();
     this.signupForm.get('country').clearValidators();
+    $("#checkboxError").hide();
   }
 
   updateValidation() {

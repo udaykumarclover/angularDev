@@ -377,6 +377,7 @@
                                     <div class="inputDiv">
                                        <input [type]="isTextFieldType ? 'text' : 'password'" class="has-value" maxlength="20"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" (input)="validate()" autocomplete="off"> 
                                        <label>Password</label>
+                                       <i class="fas fa-unlock-alt passicon" aria-hidden="true"></i>
                                        <i (click)="togglePasswordFieldType()" [ngClass]="isTextFieldType ? 'fa fa-eye' : 'fa fa-eye-slash'" class="eye_icon"></i>
                                        <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
                                        <div *ngIf="lf.password.errors.required">Password field is required</div>

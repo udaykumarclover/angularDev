@@ -15,7 +15,7 @@
     <!-- <div class="main-panel"> -->
 
     <div class="content" [hidden]="!isNew">
-        <div class="container-fluid container-scroll plans">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -23,38 +23,46 @@
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <div class="card-content">
-                            <h4 class="card-title">Subscription Details</h4>
-                            <div class="plans">
-                                <div class="col-md-3 subplan" *ngFor="let plan of subscriptionDetails">
-                                    <div class="plan">
-                                        <h3 class="plan-title">{{plan.subscriptionName}} </h3>
-                                        <p class="plan-price">${{plan.subscriptionAmount}} </p>
-                                        <ul class="plan-features">
-                                            <li class="plan-feature">{{plan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
-                                            <li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
-                                            <li class="plan-feature">{{plan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
-                                            <li class="plan-feature">{{plan.subscriptionValidity}} <span class="plan-feature-name">Year Validity</span></li>
-                                            <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - {{plan.relationshipManager}}</span></li>  
-                                        </ul>
-                                        <a href="javascript:void()" (click)="choosePlan(plan)" class="plan-button">Choose Plan</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 subplan">
-                                    <div class="plan">
-                                        <h3 class="plan-title">Platinum ++ </h3>
-                                        <p class="plan-price">$99</p>
-                                        <ul class="plan-features">
-                                            <li class="plan-feature">Unlimited <span class="plan-feature-name">Transaction Credits</span></li>
-                                            <li class="plan-feature">Unlimited <span class="plan-feature-name">Branches</span></li>
-                                            <li class="plan-feature">24X7 <span class="plan-feature-name">Customer Support</span></li>
-                                            <li class="plan-feature">1 <span class="plan-feature-name">Year Validity</span></li>
-                                            <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - Yes</span></li>  
-                                        </ul>
-                                        <a href="javascript:void()" (click)="payNow('unlimited')" class="plan-button">Choose Plan</a>
-                                    </div>
-                                </div>
+                            <h4 class="card-title">Subscription Plans</h4>
 
+                            <div class="col-md-4" *ngFor="let plan of subscriptionDetails">
+                                <div class="plan">
+                                    <div class="divplan" [ngClass] = "{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}">
+                                        <h3 class="plan-title">{{plan.subscriptionName}} &nbsp;|&nbsp; ${{plan.subscriptionAmount}}</h3>                            
+                                    </div>
+                                    <ul class="plan-features">
+                                        <li class="plan-feature">{{plan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
+                                        <li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
+                                        <li class="plan-feature">{{plan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
+                                        <li class="plan-feature">{{plan.subscriptionValidity}} <span class="plan-feature-name">Year Validity</span></li>
+                                        <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{plan.relationshipManager}}</span></li>
+                                    </ul>
+                                    <div class="text-right">
+                                        <a href="javascript:void()" (click)="choosePlan(plan)"
+                                        [ngClass] = "{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}" class="plan-button">Buy Now</a>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="plan">
+                                    <div class="divplan unlimitedbox">
+                                        <h3 class="plan-title">Platinum ++ </h3>
+                                        <p class="plan-price"> </p>
+                                    </div>
+                                    <ul class="plan-features">
+                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Transaction
+                                                Credits</span></li>
+                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Branches</span></li>
+                                        <li class="plan-feature">24X7 <span class="plan-feature-name">Customer Support</span></li>
+                                        <li class="plan-feature">1 <span class="plan-feature-name">Year Validity</span></li>
+                                        <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - Yes</span></li>
+                                    </ul>
+                                    <div class="text-right">
+                                        <a href="javascript:void()" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
@@ -79,6 +87,24 @@
                             </h4>
                             <div class="plans">
                                 <div class="col-md-4">
+                                    <div class="plan">
+                                        <div class="divplan" [ngClass] = "{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}">
+                                            <h3 class="plan-title">{{choosedPlan.subscriptionName}} &nbsp;|&nbsp; ${{choosedPlan.subscriptionAmount}}</h3>                            
+                                        </div>
+                                        <ul class="plan-features">
+                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
+                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year Validity</span></li>
+                                            <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>
+                                        </ul>
+                                        <!-- <div class="text-right">
+                                            <a href="javascript:void()" (click)="choosePlan(plan)"
+                                            [ngClass] = "{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}" class="plan-button">Buy Now</a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
                                     <div class="plan plan-highlight">
                                         <p class="plan-recommended">Selected</p>
                                         <h3 class="plan-title">{{choosedPlan.subscriptionName}}</h3>
@@ -96,7 +122,7 @@
                                             <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>          
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-1"></div>
                                 <div class="col-md-4">
                                     <div class="boxline" *ngIf="showVASPlan">
@@ -261,10 +287,10 @@
                             </h4>
                             <div class="plans">
                                 <div class="col-md-4">
-                                    <div class="plan plan-success">
+                                    <div class="plan-old plan-success-old">
                                         <p class="plan-success-recommended">Purchased</p>
-                                        <h3 class="plan-title">{{choosedPlan.subscriptionName}}</h3>
-                                        <p class="plan-price">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
+                                        <h3 class="plan-title-old">{{choosedPlan.subscriptionName}}</h3>
+                                        <p class="plan-price-old">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
                                         <ul class="plan-features">
                                             <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC
                                                     Credits</span></li>
