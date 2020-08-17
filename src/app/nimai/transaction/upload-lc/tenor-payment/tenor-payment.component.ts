@@ -4,8 +4,6 @@ import { DataServiceService } from 'src/app/services/upload-lc/data-service.serv
 import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
-
-
 @Component({
   selector: 'app-tenor-payment',
   templateUrl: './tenor-payment.component.html',
@@ -19,7 +17,7 @@ export class TenorPaymentComponent implements OnInit {
   public discount: boolean = false;
   public refinancing: boolean = false;
   public confirmation: boolean = true;
-  public CandD: boolean = false;
+  public bankerBool: boolean = false;
   fileToUpload: File = null;
   private imageSrc: string = '';
 
@@ -36,35 +34,42 @@ export class TenorPaymentComponent implements OnInit {
           $('.multipledate').show();
       } 
     });
+    this.selectors('Confirmation');
 
   }
 
 
   public selectors(selector: string) {
     this.selector = selector;
-    if (this.selector === 'Discounting' || this.selector === 'Banker') {
+    if (this.selector === 'Discounting') {
       this.discount = true;
       this.confirmation = false;
       this.refinancing = false;
-      this.CandD = false;
+      this.bankerBool = false;
+      this.rds.refinance.next(this.refinancing);
+    } else if(this.selector === 'Banker'){
+      this.discount = true;
+      this.confirmation = false;
+      this.refinancing = false;
+      this.bankerBool = true;
       this.rds.refinance.next(this.refinancing);
     } else if (this.selector === 'Refinance') {
       this.discount = false;
       this.confirmation = false;
       this.refinancing = true;
-      this.CandD = false;
+      this.bankerBool = false;
       this.rds.refinance.next(this.refinancing);
     } else if(this.selector === "ConfirmAndDiscount"){
       this.discount = false;
       this.confirmation = true;
       this.refinancing = false;
-      this.CandD = true;
+      this.bankerBool = false;
       this.rds.refinance.next(this.refinancing);
     } else {
       this.discount = false;
       this.confirmation = true;
       this.refinancing = false;
-      this.CandD = false;
+      this.bankerBool = false;
       this.rds.refinance.next(this.refinancing);
     }
 
@@ -114,7 +119,7 @@ export class TenorPaymentComponent implements OnInit {
 
     }
     else{
-      this.LcDetail.get('lcMaturityDate').setValue(this.LcDetail.get('lCIssuingDate').value);
+      // this.LcDetail.get('lcMaturityDate').setValue(this.LcDetail.get('lCIssuingDate').value);
     }
   }
 

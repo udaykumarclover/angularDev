@@ -57,6 +57,21 @@ export function selectpickercall() {
     }
 
 }
+export function load_dashboard() {
+    var sidebar_mini=false
+    if($('body').hasClass('sidebar-mini')){
+        sidebar_mini = true;
+    }
+    $("#minimizeSidebar").click(function(){
+       if(sidebar_mini==true){
+        $('body').removeClass('sidebar-mini');
+        sidebar_mini=false;
+       }else{
+        $('body').addClass('sidebar-mini');
+        sidebar_mini=true;
+       }
+    })
+}
 export function loads() {
     const inputs = $('.inputDiv').find('input');
     for (let input of inputs) {
@@ -134,6 +149,8 @@ export function loads() {
     $('.inputDiv input, .inputDiv select, .inputDiv textarea').focusout(function () {
         $(this).parent().removeClass('is-focused');
     });
+
+    $("[data-toggle='tooltip']").tooltip();
 
 }
 
@@ -331,94 +348,104 @@ export function bankNewTransaction(){
     $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
     });
     
-    setTimeout(() => {
     $(function(){
-    // prettyPrint();
-    
-    var slider = $("#menu-bar").slideReveal({
-    // width: 100,
-    push: false,
-    position: "right",
-    // speed: 600,
-    trigger: $(".handle"),
-    // autoEscape: false,
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-     $(function(){
   
-    var slider1 = $("#menubarConfDis").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-    
-     $(function(){
-    var slider2 = $("#menubarDiscounting").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-    
-     $(function(){    
-    var slider3 = $("#menubarRefinancing").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-    
-     
+        var slider1 = $("#menubarConfirmQuote").slideReveal({
+        push: false,
+        width: 510,
+        position: "right",
+        trigger: $(".handle"),
+        shown: function(obj){
+        obj.find(".handle").html('<span class="fas fa-times"></span>');
+        obj.addClass("left-shadow-overlay");
+        },
+        hidden: function(obj){
+        obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+        obj.removeClass("left-shadow-overlay");
+        }
+        });
+        });
+        
+        
     $(function(){
-    var slider4 = $("#menubarBanker").slideReveal({
-    push: false,
-    position: "right",
-    trigger: $(".handle"),
-    shown: function(obj){
-    obj.find(".handle").html('<span class="fas fa-times"></span>');
-    obj.addClass("left-shadow-overlay");
-    },
-    hidden: function(obj){
-    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-    obj.removeClass("left-shadow-overlay");
-    }
-    });
-    });
-     
+  
+        var slider1 = $("#menubarBankerQuote").slideReveal({
+        push: false,
+        width: 510,
+        position: "right",
+        trigger: $(".handle"),
+        shown: function(obj){
+        obj.find(".handle").html('<span class="fas fa-times"></span>');
+        obj.addClass("left-shadow-overlay");
+        },
+        hidden: function(obj){
+        obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+        obj.removeClass("left-shadow-overlay");
+        }
+        });
+        });
     
+
+
+        $(function(){
+  
+            var slider1 = $("#menubarDiscountQuote").slideReveal({
+            push: false,
+            width: 510,
+            position: "right",
+            trigger: $(".handle"),
+            shown: function(obj){
+            obj.find(".handle").html('<span class="fas fa-times"></span>');
+            obj.addClass("left-shadow-overlay");
+            },
+            hidden: function(obj){
+            obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+            obj.removeClass("left-shadow-overlay");
+            }
+            });
+            });
+
+
+
+            $(function(){
+  
+                var slider1 = $("#menubarConDisQuote").slideReveal({
+                push: false,
+                width: 510,
+                position: "right",
+                trigger: $(".handle"),
+                shown: function(obj){
+                obj.find(".handle").html('<span class="fas fa-times"></span>');
+                obj.addClass("left-shadow-overlay");
+                },
+                hidden: function(obj){
+                obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                obj.removeClass("left-shadow-overlay");
+                }
+                });
+                });
+
+
+
+                $(function(){
+  
+                    var slider1 = $("#menubarRefinanceQuote").slideReveal({
+                    push: false,
+                    width: 510,
+                    position: "right",
+                    trigger: $(".handle"),
+                    shown: function(obj){
+                    obj.find(".handle").html('<span class="fas fa-times"></span>');
+                    obj.addClass("left-shadow-overlay");
+                    },
+                    hidden: function(obj){
+                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                    obj.removeClass("left-shadow-overlay");
+                    }
+                    });
+                    });
+
+     
      
     $(function(){    
     var slider4 = $("#menubarDetail").slideReveal({
@@ -481,8 +508,6 @@ export function bankNewTransaction(){
     
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();   
-    
-    
       $('#menu-bar #tab2').hide();
       $('#menu-bar #tab3').hide();
       $('#menu-bar #btnpreview').click(function(){
@@ -501,6 +526,27 @@ export function bankNewTransaction(){
           $('#menu-bar #tab1').slideUp();
            $('#menu-bar #tab3').slideDown();
       });
+
+
+      $('#menubarConfirmQuote #tab2').hide();
+      $('#menubarConfirmQuote #tab3').hide();
+      $('#menubarConfirmQuote #btnpreview').click(function(){
+          $('#menubarConfirmQuote #tab1').slideUp();
+           $('#menubarConfirmQuote #tab2').slideDown();
+      });
+    
+      $('#menubarConfirmQuote #btnEdit').click(function(){
+          $('#menubarConfirmQuote #tab1').slideDown();
+           $('#menubarConfirmQuote #tab2').slideUp();
+      });
+    
+    
+      $('#menubarConfirmQuote #btnSubmit').click(function(){
+          $('#menubarConfirmQuote #tab2').slideUp();
+          $('#menubarConfirmQuote #tab1').slideUp();
+           $('#menubarConfirmQuote #tab3').slideDown();
+      });
+
 
       $('#menubarDiscounting #tab2').hide();
       $('#menubarDiscounting #tab3').hide();
@@ -641,7 +687,6 @@ export function bankNewTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 5000);
 }
 
 
@@ -654,7 +699,7 @@ export function bankActiveTransaction(){
     $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
     });
     
-    setTimeout(() => {
+  //  setTimeout(() => {
     $(function(){
     // prettyPrint();
     
@@ -964,7 +1009,7 @@ export function bankActiveTransaction(){
       demo.initFormExtendedDatetimepickers();
     });
 
-}, 1000);
+//}, 1000);
 }
 
 export function loadLogin() {
@@ -1458,97 +1503,9 @@ export function bankRequest(){
 }
 
 export function custTrnsactionDetail() {
-    setTimeout(() => {
-    // $(function () {
-        
-        $('#datatables select').css('color', '#333');
-        // prettyPrint();
-        $("#menu-bar").click(function () {
-            var id = $(this).attr("href").substring(1);
-            $("html, body").animate({ scrollTop: $("#" + id).offset().top }, 200, function () {
-                $("#menu-bar").slideReveal("hide");
-            });
-        });
-        var slider6 = $("#menu-bar").slideReveal({
-            // width: 100,
-            push: false,
-            position: "right",
-            // speed: 600,
-            trigger: $(".handle"),
-            // autoEscape: false,
-            shown: function (obj) {
-                obj.find(".handle").html('<span class="fas fa-times"></span>');
-                obj.addClass("left-shadow-overlay");
-            },
-            hidden: function (obj) {
-                obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                obj.removeClass("left-shadow-overlay");
-            }
-        });
-
-        $(function () {
-            // prettyPrint();
-
-            var slider7 = $("#menubarDetail").slideReveal({
-                width: 450,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handleDetail"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-        });
-
-        $(function () {
-            // prettyPrint();
-
-            var slider8 = $("#menubarDetailreject").slideReveal({
-                width: 450,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handleDetailreject"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-        });
-
-        $(function () {
-            // prettyPrint();
-
-            var slider9 = $("#menubarDetailexpired").slideReveal({
-                width: 450,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handleexpire"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-        });
-    },500);
+    
+    $('#datatables select').css('color', '#333');
+      
     $('#datatables').DataTable().destroy();
         setTimeout(() => {
             
@@ -1573,161 +1530,8 @@ export function custTrnsactionDetail() {
 }
 
 export function custActiveTransaction() {
-    setTimeout(() => {
-        $(function () {
-            // prettyPrint();
-
-            var slider0 = $("#menu-bar-banker").slideReveal({
-                // width: 100,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handle"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-
-            var slider1 = $("#menu-bar-confirmation").slideReveal({
-                // width: 100,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handle"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-
-            var slider2 = $("#menu-bar-discounting").slideReveal({
-                // width: 100,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handle"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-
-            var slider3 = $("#menu-bar-confirmAndDiscount").slideReveal({
-                // width: 100,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handle"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-
-            var slider4 = $("#menu-bar-refinancing").slideReveal({
-                // width: 100,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handle"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-
-            var slider5 = $("#menu-bar1").slideReveal({
-                // width: 100,
-                push: false,
-                position: "right",
-                // speed: 600,
-                trigger: $(".handle1"),
-                // autoEscape: false,
-                shown: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-times"></span>');
-                    obj.addClass("left-shadow-overlay");
-                },
-                hidden: function (obj) {
-                    obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
-                    obj.removeClass("left-shadow-overlay");
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $('#TransactionDetailDiv').hide();
-            $('#backbtn').hide();
-            $('.transactionDiv').click(function () {
-                $('#changetext').html('Bank Quotes');
-                $('#transactionID').slideUp();
-                $('#TransactionDetailDiv').slideDown();
-                $('#backbtn').fadeIn();
-            });
-
-            $('#backbtn').click(function () {
-                $('#changetext').html('Active Transactions');
-                $('#TransactionDetailDiv').slideUp();
-                $('#transactionID').slideDown();
-                $('#TransactionDetailDiv').hide();
-                $('#backbtn').fadeOut();
-            });
-
-            $('#menu-bar1 #tab3').hide();
-
-            $('#menu-bar1 #btnSubmit').click(function () {
-                $('#menu-bar1 #tab2').slideUp();
-                $('#menu-bar1 #tab1').slideUp();
-                $('#menu-bar1 #tab3').slideDown();
-            });
-
-
-
-            $('.popupcontent select').css('color', '#333');
-    }, 500);
-
-        setTimeout(() => {
-            $('#datatables').DataTable({
-                "pagingType": "full_numbers", "scrollX": true,
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                responsive: false, //scrollX: true,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                }
-
-            });
-
-            $('.card .material-datatables label').addClass('form-group');
-
-            //   $('table.dataTable > tbody > tr > th').css('padding','0 5px !important');
-        });
-    }, 1000);
+    $('.popupcontent select').css('color', '#333');
+    $('.card .material-datatables label').addClass('form-group');        
 }
 
 
@@ -2144,4 +1948,111 @@ export function creditTransaction(){
                 }
             });
         });
+}
+
+export function newLCUpload(){
+
+    $(document).ready(function() { 
+      
+        demo.initFormExtendedDatetimepickers(); 
+              
+       //code for tooltip text changes as per country selection
+        $('.textddlV').hide();      
+        $('.countryddl').change(function() {
+       $('.textddlV').show();
+        var textddl = ($(this).val());
+            if (textddl == "India") { 
+       
+              $('.textddlV').attr('data-original-title','32 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Bangladesh") { 
+              $('.textddlV').attr('data-original-title','28 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Kenya") { 
+              $('.textddlV').attr('data-original-title','52 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Nigeria") { 
+              $('.textddlV').attr('data-original-title','54 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "UAE") { 
+              $('.textddlV').attr('data-original-title','44 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+       
+            else if (textddl == "Qatar") { 
+              $('.textddlV').attr('data-original-title','12 Banks are listed in this country to fund LCs');
+               $("[data-toggle='tooltip']").tooltip('show'); 
+            }  
+            else{
+             $('.textddlV').hide();
+            }
+        });
+       
+              
+       //code for hide show according to applicant and beneficiary selection 
+            $('#divBene').hide();
+            $("input[name='userType']").click(function () {
+                
+                var radioValue = $("input[name='userType']:checked").val();
+                if (radioValue == "Beneficiary") {
+                $('#divApplicant').hide();
+                $('#divBene').show();
+                }
+                else if (radioValue == "Applicant") {
+                $('#divApplicant').show();
+                $('#divBene').hide();
+                }
+            });
+        //   $("#filestyle-0").filestyle('placeholder', 'Upload Document (only pdf, jpeg, png)');
+          //  md.initSliders()
+            demo.initFormExtendedDatetimepickers();
+             $("[data-toggle='tooltip']").tooltip(); 
+             $('.all, .alltenor').hide();
+             $('.ChkConfirmation, .chkconfirmTenor').show();
+
+             
+        //code for Requirement textbox selection  
+        $(".radio-tile-group input[name='selector']").click(function() {
+             debugger;
+             var radioValue = $("input[name='selector']:checked").val();
+             if (radioValue == "Confirmation") {
+                 $('.all, .alltenor').hide();
+                 $('.ChkConfirmation, .chkconfirmTenor').show();
+             }
+             else if(radioValue == "Discounting"){
+               $('.all, .alltenor').hide();
+                 $('.discounting, .chkDiscountTenor').show();
+             }
+             else if(radioValue == "ConfirmAndDiscount"){
+               $('.all, .alltenor').hide();
+                 $('.confDiscounting, .chkConfDiscTenor').show();
+             }
+             else if(radioValue == "Refinance"){
+               $('.all, .alltenor').hide();
+                 $('.Refinancing, .chkRefinaceTenor').show();
+             }
+             else if(radioValue == "Banker"){
+               $('.all, .alltenor').hide();
+                 $('.Bankers, .chkBankerTenor').show();
+             }
+         });
+
+         $("input[name='optionsRadios']").click(function() {
+            var radioValue1 = $("input[name='optionsRadios']:checked").val();
+            if (radioValue1 == "rdmaturity") {
+                 $('.multipledate').hide();
+            } else {
+                $('.multipledate').show();
+            } 
+          });
+
+    });
 }

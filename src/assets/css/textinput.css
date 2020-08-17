@@ -145,7 +145,7 @@ dl {
   overflow: hidden;
 }
 
-.plan {  
+.plan-old {  
   padding: 15px 18px;
   text-align: center;
   background: white; 
@@ -154,14 +154,14 @@ dl {
   border-radius: 5px;
 }
 
-.plan-title {
+.plan-title-old {
     margin-bottom: 12px;
     font-size: 16px;
     color: #060606;
     font-weight: 500;
     letter-spacing: 0.2px;
 }
-.plan-price {
+.plan-price-old {
   margin-bottom: 20px;
   line-height: 1;
   font-size: 28px;
@@ -176,13 +176,13 @@ dl {
   font-weight: normal;
   color: #aaa;
 }
-.plan-features { 
-  margin: 20px auto 15px;
-  padding: 15px 0 0 10px;
+.plan-features {
+  margin: 12px auto 15px;
+  padding: 20px 30px 0;
   border-top: 1px solid #e5ded6;
   text-align: left;
   list-style-image: url('../images/check.svg');
-}
+  }
 
 .plan-feature {
   line-height: 20px;
@@ -260,14 +260,14 @@ dl {
 
 
 
-.plan-success {
+.plan-success-old {
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 15px;
   padding-right: 15px; 
   border: 4px solid #4caf50;
 }
-.plan-success .plan-button {
+.plan-success-old .plan-button {
   font-size: 18px;
   line-height: 49px;
   background: #37bce5;
@@ -825,6 +825,7 @@ color: #9c9c9c;
   background-color: #fff;height: 100%;
 }
 
+
  .popupcontent th{
   font-size: 14px !important;
   font-weight:600 !important;
@@ -917,9 +918,9 @@ color: #9c9c9c;
 .tabbable-line > .nav-tabs > li > a > i {
   color: #a6a6a6;
 }
-.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+/* .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
   border-bottom: 4px solid rgb(80,144,247);
-}
+} */
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;
@@ -1570,9 +1571,9 @@ vertical-align: top;
 .tabbable-line > .nav-tabs > li > a > i {
   color: #a6a6a6;
 }
-.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+/* .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
   border-bottom: 4px solid #06aabf;
-}
+} */
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;
@@ -2192,5 +2193,8 @@ margin: 0;
 }
 .table td button{
     margin-left: 149px;
+}
+.edit-selectColor{
+  background-color:#fff;
 }
 }

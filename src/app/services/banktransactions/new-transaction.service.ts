@@ -31,7 +31,7 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/saveQuotationToDraft`, data, { headers: { 'content-types': 'application/json' } })
   }
 
-  public updateCustomerTransaction(data: TransactionBean): Observable<any> {
+  public updateCustomerTransaction(data: any): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
   }
 
@@ -70,6 +70,10 @@ export class NewTransactionService {
 
   public custRejectBankQuote(data, quoteId): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/rejectQuote/`+ quoteId, data , { headers: { 'content-types': 'application/json' } });
+  }
+
+  public custCloneTransaction(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/cloneLC`, data , { headers: { 'content-types': 'application/json' } });
   }
 
 }

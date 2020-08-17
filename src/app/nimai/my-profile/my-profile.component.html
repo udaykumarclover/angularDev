@@ -18,45 +18,57 @@
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">First Name</span>
-                              <span class="labeltext">{{this.personalDetails.firstName}}</span>
+                              <span class="labeltext">{{personalDetails.firstName}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Last Name</span>
-                              <span class="labeltext">{{this.personalDetails.lastName}}</span>
+                              <span class="labeltext">{{personalDetails.lastName}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Email ID</span>
-                              <span class="labeltext">{{this.personalDetails.emailAddress}}</span>
+                              <span class="labeltext">{{personalDetails.emailAddress}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Mobile No.</span>
-                              <span class="labeltext">{{this.personalDetails.mobileNum}}</span>
+                              <span class="labeltext">{{personalDetails.mobileNum}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Landline No.</span>
-                              <span class="labeltext">{{this.personalDetails.landLinenumber}}</span>
-                              <span class="labeltext" *ngIf="!this.personalDetails.landLinenumber">-</span>
+                              <span class="labeltext">{{personalDetails.landLinenumber}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.landLinenumber">-</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Country</span>
-                              <span class="labeltext">{{this.personalDetails.countryName}}</span>
+                              <span class="labeltext">{{personalDetails.countryName}}</span>
                            </div>
                         </div>
+                        <div class="col-md-3" *ngIf="isReferrer">
+                              <div class="inputDiv">
+                                 <span class="customspan">Company Name</span>
+                                 <span class="labeltext">{{personalDetails.companyName}}</span>
+                              </div>
+                           </div>
+                           <div class="col-md-3" *ngIf="isReferrer">
+                              <div class="inputDiv">
+                                 <span class="customspan">Designation</span>
+                                 <span class="labeltext">{{personalDetails.designation}}</span>
+                              </div>
+                           </div>
                         <div class="col-md-3" *ngIf="isBank">
                            <div class="inputDiv">
                               <span class="customspan">Minimum Value of LC (USD)</span>
-                              <span class="labeltext">{{this.personalDetails.minLCValue}}</span>
-                              <span class="labeltext" *ngIf="!this.personalDetails.minLCValue">-</span>
+                              <span class="labeltext">{{personalDetails.minLCValue}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.minLCValue">-</span>
                            </div>
                         </div>
                       
@@ -64,7 +76,7 @@
                            <div class="inputDiv">
                               <span class="customspan">Black Listed Goods</span>
                               <ul class="list-unstyled list-inline">
-                                 <li *ngFor="let valuebe of this.personalDetails.blacklistedGoods">
+                                 <li *ngFor="let valuebe of personalDetails.blacklistedGoods">
                                     <span class="labeltext" >
                                        {{valuebe.blackListGoods}}
                                     </span>
@@ -79,7 +91,7 @@
                            <div class="inputDiv">
                               <span class="customspan">Countries Interested</span>
                               <ul class="list-unstyled list-inline">
-                                 <li *ngFor="let valuebe1 of this.personalDetails.interestedCountry">
+                                 <li *ngFor="let valuebe1 of personalDetails.interestedCountry">
                                     <span class="labeltext" >
                                        {{valuebe1.countriesIntrested}}
                                     </span>
@@ -88,22 +100,34 @@
                               
                            </div>
                         </div>
-                        <div class="col-md-3" *ngIf="isReferrer">
-                           <div class="inputDiv">
-                              <span class="customspan">Company Name</span>
-                              <span class="labeltext">{{this.personalDetails.companyName}}</span>
-                           </div>
-                        </div>
-                        <div class="col-md-3" *ngIf="isReferrer">
-                           <div class="inputDiv">
-                              <span class="customspan">Designation</span>
-                              <span class="labeltext">{{this.personalDetails.designation}}</span>
-                           </div>
-                        </div>
+                        
                         <div class="col-md-3" *ngIf="isReferrer">
                            <div class="inputDiv">
                               <span class="customspan">Business Type</span>
-                              <span class="labeltext">{{this.personalDetails.businessType}}</span>
+                              <span class="labeltext">{{personalDetails.businessType}}</span>
+                           </div>
+                        </div>
+                        
+                        <p class="col-md-12"><strong>Additional Email IDs</strong><small></small></p>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email Id 1</span>
+                              <span class="labeltext">{{personalDetails.emailAddress1}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.emailAddress1">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email Id 2</span>
+                              <span class="labeltext">{{personalDetails.emailAddress2}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.emailAddress2">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email Id 3</span>
+                              <span class="labeltext">{{personalDetails.emailAddress3}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.emailAddress3">-</span>
                            </div>
                         </div>
                      </div>
@@ -115,13 +139,13 @@
                         <div class="col-md-3" *ngIf="isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Registration Type</span>
-                              <span class="labeltext">{{this.bd.registrationType}}</span>
+                              <span class="labeltext">{{bd.registrationType}}</span>
                            </div>
                         </div>
                         <div class="col-md-3" *ngIf="isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Company Name</span>
-                              <span class="labeltext">{{this.bd.comapanyName}}</span>
+                              <span class="labeltext">{{bd.comapanyName}}</span>
                            </div>
                         </div>
                         <div class="clearfix"></div>
@@ -133,7 +157,7 @@
                                  <th>MD/CEO/Owner’s Last Name</th>
                                  <th>Designation</th>
                               </tr>
-                              <tr *ngFor="let detail of this.bd.ownerMasterBean">
+                              <tr *ngFor="let detail of bd.ownerMasterBean">
                                  <td>
                                     {{detail.ownerFirstName}}
                                  </td>
@@ -150,25 +174,25 @@
                         <div class="col-md-3" *ngIf="!isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Bank Name</span>
-                              <span class="labeltext">{{this.bd.bankName}}</span>
+                              <span class="labeltext">{{bd.bankName}}</span>
                            </div>
                         </div>
                         <div class="col-md-3" *ngIf="!isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Branch Name</span>
-                              <span class="labeltext">{{this.bd.branchName}}</span>
+                              <span class="labeltext">{{bd.branchName}}</span>
                            </div>
                         </div>
                         <div class="col-md-3" *ngIf="!isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Swift Code</span>
-                              <span class="labeltext">{{this.bd.swiftCode}}</span>
+                              <span class="labeltext">{{bd.swiftCode}}</span>
                            </div>
                         </div>
                         <div class="col-md-3" *ngIf="!isCustomer">
                            <div class="inputDiv">
                               <span class="customspan">Designation</span>
-                              <span class="labeltext">{{this.bd.designation}}</span>
+                              <span class="labeltext">{{bd.designation}}</span>
                            </div>
                         </div>
                         <div class="clearfix"></div>
@@ -179,49 +203,49 @@
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Country</span>
-                              <span class="labeltext">{{this.bd.registeredCountry}}</span>
+                              <span class="labeltext">{{bd.registeredCountry}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">State</span>
-                              <span class="labeltext">{{this.bd.provinceName}}</span>
+                              <span class="labeltext">{{bd.provinceName}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">City</span>
-                              <span class="labeltext">{{this.bd.city}}</span>
+                              <span class="labeltext">{{bd.city}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Address Line 1</span>
-                              <span class="labeltext">{{this.bd.address1}}</span>
+                              <span class="labeltext">{{bd.address1}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Address Line 2</span>
-                              <span class="labeltext">{{this.bd.address2}}</span>
+                              <span class="labeltext">{{bd.address2}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Address Line 3/ Landmark</span>
-                              <span class="labeltext">{{this.bd.address3}}</span>
+                              <span class="labeltext">{{bd.address3}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Pincode</span>
-                              <span class="labeltext">{{this.bd.pincode}}</span>
+                              <span class="labeltext">{{bd.pincode}}</span>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="inputDiv">
                               <span class="customspan">Telephone</span>
-                              <span class="labeltext">{{this.bd.telephone}}</span>
+                              <span class="labeltext">{{bd.telephone}}</span>
                            </div>
                         </div>
                      </div>

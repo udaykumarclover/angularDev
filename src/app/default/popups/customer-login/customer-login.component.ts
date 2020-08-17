@@ -7,7 +7,7 @@ import  { ValidateRegex } from '../../../beans/Validations';
 import { SignupService } from 'src/app/services/signup/signup.service';
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { loads } from '../../../../assets/js/commons'
-
+import { TitleService } from 'src/app/services/titleservice/title.service';
 @Component({
   selector: 'app-customer-login',
   templateUrl: './customer-login.component.html',
@@ -21,7 +21,7 @@ export class CustomerLoginComponent implements OnInit {
   passValue: any;
   errMessage: any;
 
-  constructor(public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
+  constructor(public titleService: TitleService,public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation)
@@ -34,7 +34,7 @@ export class CustomerLoginComponent implements OnInit {
   customerLoginForm = new FormGroup({
     batch_id: new FormControl('', [Validators.required,Validators.minLength(3)]),
     employee_id: new FormControl('', [Validators.required,Validators.minLength(3)]),
-    email_id: new FormControl('', [Validators.required, Validators.email]),
+    email_id: new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     employee_name: new FormControl('', [Validators.required,Validators.minLength(2)])
   })
 
@@ -59,7 +59,7 @@ export class CustomerLoginComponent implements OnInit {
     }
   }
 
-  onCustLoginClick() {
+  onCustLoginClick() {    
     this.submitted = true;
     if (this.customerLoginForm.invalid) {
       return;
@@ -67,8 +67,6 @@ export class CustomerLoginComponent implements OnInit {
     this.submitted = false;
 
     this.emailAddress = this.customerLoginForm.get('email_id').value;
-    console.log(this.customerLoginForm.value);
-    console.log("sessionStorage.getItem",sessionStorage.getItem("userID"))
     let userID: string = sessionStorage.getItem('userID');
     this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {
@@ -114,7 +112,7 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   onOTPClick() {
-
+    this.titleService.loading.next(true);
     if(!this.passValue){
       this.errMessage = "Kindly enter code!";
       return;
@@ -128,9 +126,10 @@ export class CustomerLoginComponent implements OnInit {
     this.fps.branchUserOTP(data).subscribe(
       (response) => {
         var response = JSON.parse(JSON.stringify(response));
-
+        console.log("response--",response.flag)
         if(response.flag == 1){
-          this.router.navigate(['/cst/dsb/business-details']);   
+          this.titleService.loading.next(false);
+          this.router.navigate(['/cst/dsb/dashboard-details']);   
           $('.modal2').hide();
         } else{
           this.errMessage = response.message;
@@ -154,10 +153,9 @@ export class CustomerLoginComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
-    }
-    else if(type=="name_validation"){
+    }else if(type=="namewithspace"){
       var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/ || (event.shiftKey && key === 55) || key===190 /* . key*/)) {
           event.preventDefault();
       }    
     }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>NIMAI</title>
+  <title>NIMAITRADE</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
   <meta name="viewport" content="width=device-width" />
 </head>
@@ -27,12 +27,12 @@
          Tip 3: you can change the color of the sidebar with data-background-color="white | black"
          -->
          <!--added by ashvini - removes redirection code-->
-      <div class="logo">
+      <div class="logo" [routerLink]="['dashboard-details']">
         <a href="javascript:void(0)" class="simple-text logo-mini">
           <i class="fas fa-industry"></i>
         </a>
         <a href="javascript:void(0)"  class="simple-text logo-normal">
-          NIMAI
+          NIMAITRADE
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -40,10 +40,10 @@
            <li>
               <div class="collapse in" id="pagesExamples">
                  <ul class="nav">
-                    <li >
+                    <li *ngIf="nimaiCount.kycstatus != 'APPROVED'">
                        <a data-toggle="collapse" href="#accountPages" [attr.aria-expanded]="areaExpandedacc" >
                           <i class="fa fa-address-book-o"></i>
-                          <p>Account Details 
+                          <p style="margin-top:3px!important;">Account Details 
                              <b class="caret"></b>
                           </p>
                        </a>
@@ -73,35 +73,10 @@
                                    <p> KYC Details </p>
                                 </a>
                              </li>
-                             <!-- <li *ngIf="isCustomer">
-                  <a [routerLink]="['new-transaction']">
-                    <i class="fas fa-concierge-bell"></i>
-                    <p> New Transaction </p>
-                  </a>
-                </li>
-                <li *ngIf="isCustomer">
-                  <a [routerLink]="['active-transaction']">
-                    <i class="fas fa-exchange-alt"></i>
-                    <p> Active Transaction </p>
-                  </a>
-                </li>
-                <li *ngIf="isCustomer">
-                  <a [routerLink]="['transaction-details']">
-                    <i class="fas fa-tasks"></i>
-                    <p> Transaction Details </p>
-                  </a>
-                </li>
-                <li *ngIf="isCustomer">
-                  <a [routerLink]="['inbox']">
-                    <i class="fas fa-folder-open"></i>
-                    <p> <span class="sidebar-normal"> Drafts <span class="badge">4</span>
-                      </span> </p>
-                  </a>
-                </li> -->
-                          </ul>
+                           </ul>
                        </div>
                     </li>
-                    <li *ngIf="isCustomer || isBank">
+                    <li *ngIf="((isCustomer || isBank) && (nimaiCount.kycstatus != 'APPROVED'))">
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
                           <i class="fa fa-book fa-fw"></i>
                           <p>Transaction 
@@ -139,7 +114,7 @@
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
-                                   <p> <span class="sidebar-normal"> Saved Transactions <span class="badge">4</span>
+                                   <p> <span class="sidebar-normal"> Saved Transactions <span *ngIf="draftcount" class="badge">{{draftcount}}</span>
                                       </span> 
                                    </p>
                                 </a>
@@ -156,6 +131,20 @@
     <div class="main-panel">
       <nav class="navbar navbar-transparent navbar-absolute">
         <div class="container-fluid">
+            <div class="navbar-minimize">
+                <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                <i class="visible-on-sidebar-regular fas fa-ellipsis-v"></i>
+                <i class="material-icons visible-on-sidebar-mini fas fa-bars"></i>
+                </button>
+              </div>
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+              </div>
            <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown dduser">
@@ -171,7 +160,7 @@
                   <li><a *ngIf="isBank" [routerLink]="['manage-user']">Manage User</a></li>
                   <li><a [routerLink]="['refer']">Refer</a></li>
                   <li><a [routerLink]="['change-password']">Change Password</a></li>
-                  <li><a href="preComingSoon.html">Support</a></li>
+                  <li><a [routerLink]="['support']">Support</a></li>
                   <li><a [routerLink]="['/']" id="btnLogin">Logout</a></li>
                 </ul>   
               </li>
@@ -193,73 +182,7 @@
     </div>
   </div>
 
-  <div id="myModal4" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md emaildiv">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-body">
-
-          <div class="text-center innerSuccessdiv">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="45px" height="45px" fill="#ccc">
-              <path
-                d="M467 61H45C20.218 61 0 81.196 0 106v300c0 24.72 20.128 45 45 45h422c24.72 0 45-20.128 45-45V106c0-24.72-20.128-45-45-45zm-6.214 30L256.954 294.833 51.359 91h409.427zM30 399.788V112.069l144.479 143.24L30 399.788zM51.213 421l144.57-144.57 50.657 50.222c5.864 5.814 15.327 5.795 21.167-.046L317 277.213 460.787 421H51.213zM482 399.787L338.213 256 482 112.212v287.575z" />
-            </svg>
-            <div class="form-group"></div>
-            <!--<p><strong>Enter Email ID here</strong></p> -->
-            <div class="inputDiv">
-              <input type="text">
-              <label>Enter Subscriber's Email ID</label>
-            </div>
-            <button type="submit" class="btn btn-info">Submit</button>
-            <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="enteraccessdetails" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md emaildiv">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-body">
-          <h2>Enter Access Details</h2>
-          <div class="row">
-            <!--<p><strong>Enter Email ID here</strong></p> -->
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="inputDiv">
-                    <input type="text">
-                    <label>Batch ID</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="inputDiv">
-                    <input type="text">
-                    <label>Employee ID</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="inputDiv">
-                    <input type="text">
-                    <label>Email ID</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="inputDiv">
-                    <input type="text">
-                    <label>Name</label>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-info pull-right">Submit</button>
-            </div>
-            <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 </body>
 
 

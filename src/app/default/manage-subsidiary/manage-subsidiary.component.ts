@@ -8,6 +8,7 @@ import { loads } from '../../../assets/js/commons';
 import { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
 import { SignupService } from 'src/app/services/signup/signup.service';
+import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 
 @Component({
   selector: 'app-manage-subsidiary',
@@ -23,7 +24,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   respMessage: any;
   resp: any;
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -96,6 +97,9 @@ export class ManageSubsidiaryComponent implements OnInit {
       account_status: "ACTIVE",
       account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
       regCurrency: "",
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
 
     }
 
@@ -106,12 +110,13 @@ export class ManageSubsidiaryComponent implements OnInit {
     this.submitted = false;
 
     const fg = {
-      "emailId": this.manageSubForm.get('emailId').value,
-      "event": 'ADD_SUBSIDIARY',
-      "userId": sessionStorage.getItem('userID')
+      event: 'ACCOUNT_ACTIVATE',
+      email: this.manageSubForm.get('emailId').value,
     }
+    this.signUpService.signUp(data).subscribe((response) => {
+      this.respMessage = JSON.parse(JSON.stringify(response)).message;
 
-    this.fps.sendEmailReferSubsidiary(fg)
+    this.fps.sendRegistrationEmail(fg)
       .subscribe(
         (response) => {
           this.respMessage = JSON.parse(JSON.stringify(response)).message;
@@ -121,9 +126,7 @@ export class ManageSubsidiaryComponent implements OnInit {
           }
           else{
             this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."
-            this.signUpService.signUp(data).subscribe((response) => {},
-            (err) =>{}
-            )
+            
 
           }
           $('#authemaildiv').slideUp();
@@ -141,6 +144,17 @@ export class ManageSubsidiaryComponent implements OnInit {
           this.respMessage = "Service not working! Please try again later."
         }
       )
+    },
+    (err) =>{
+      $('#authemaildiv').slideUp();
+          $('#paradiv').slideDown();
+          $('#okbtn').show();
+          $('#btninvite').hide();
+          this.manageSubForm.reset();
+      this.respMessage = JSON.parse(JSON.stringify(err.error)).errMessage;
+
+    }
+    )
     
   }
 

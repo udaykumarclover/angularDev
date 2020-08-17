@@ -13,87 +13,90 @@ import * as $ from 'src/assets/js/jquery.min';
 })
 export class TrasactionDetailsComponent {
   
-dataSource: MatTableDataSource<any>;
 public ntData: any[] = [];
-
+public accepted: boolean = false;
+public rejected: boolean = false;
+public expired:boolean=false;
 public whoIsActive: string = "";
 public hasNoRecord: boolean = false;
 public data: any;
 public specificDetail: any;
 quotationdata: any;
 document: any;
+selectReason :any={};
 
 constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  
   this.titleService.quote.next(false);
 }
 
 ngOnInit() {
-  custTrnsactionDetail();
+ 
   this.getAllnewTransactions('Accepted');
+  
 }
 
 public getAllnewTransactions(status) {
-  
   const data = {
     "bankUserId":sessionStorage.getItem('userID'),
-    "quotationPlaced":"Yes",
-    "transactionStatus":status
+    //"quotationPlaced":"Yes",
+   // "transactionStatus":status
+    "quotationStatus":status
 
   }
 
   this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
     (response) => {
-      this.data = [];
+     
+      custTrnsactionDetail();
+        this.data = [];
       this.data = JSON.parse(JSON.stringify(response)).data;
-      console.log(this.data);
+      this.getDetail(this.data)
       if (!this.data) {
-        // this.hasNoRecord = true;
+         this.hasNoRecord = true;
       }
     },
     (error) => {
       this.data = null;
-      // this.hasNoRecord = true;
+       this.hasNoRecord = true;
 
     }
   )
 }
 
 getDetail(detail){
-
-  console.log(detail);
+  this.quotationdata = detail;
   this.specificDetail = detail;
-  
+   console.log(this.specificDetail)
 }
 
 changeStatusCall(status){
-  this.getAllnewTransactions(status);
-  custTrnsactionDetail();
-}
-
-displayQuoteDetails(transactionId){
-  let data = {
-    "userId": sessionStorage.getItem('userID'),
-    "transactionId": transactionId
-  }
   
-  this.nts.getQuotationDetails(data).subscribe(
-      (response) => {
-        this.quotationdata = JSON.parse(JSON.stringify(response)).data;
-      console.log(this.quotationdata);
-      },
-      (error) => {}
-  )
+  this.getAllnewTransactions(status);
+ 
+  
 }
 
-openOffcanvas() {
-  document.getElementById("menu-barnew").style.width = "450px"; 
+
+openOffcanvas(status) {
+  if(status==="Accepted"){
+        document.getElementById("menu-barnew").style.width = "450px"; 
+      }else if(status==="Rejected"){
+        document.getElementById("menubarDetailreject").style.width = "450px"; 
+      }else if(status==="Expired"){
+        document.getElementById("menuDetailexpired").style.width = "450px"; 
+      }
+
 }
 openNav3() {
+ 
   document.getElementById("myCanvasNav").style.width = "100%";
   document.getElementById("myCanvasNav").style.opacity = "0.6";  
 }
 closeOffcanvas() {
   document.getElementById("menu-barnew").style.width = "0%"; 
+  document.getElementById("menuDetailexpired").style.width = "0%"; 
+  document.getElementById("menubarDetailreject").style.width = "0%";
   document.getElementById("myCanvasNav").style.width = "0%";
   document.getElementById("myCanvasNav").style.opacity = "0"; 
 } 
@@ -105,13 +108,24 @@ close(){
 $('#myModal9').hide();
 }
 
+
+
 rejectBankQuote(quoteId){
+ 
+  $('#myModal5').hide();
+$('.modal-backdrop').hide();
+
 let data = {
   "statusReason":"ABC"
   }
 
 this.nts.custRejectBankQuote(data, quoteId).subscribe(
-    (response) => {},
+    (response) => {
+      this.closeOffcanvas();
+      this.getAllnewTransactions('Rejected');
+      $('#addOptions select').val('Rejected').change();
+      
+    },
     (err) => {}
 )
 }

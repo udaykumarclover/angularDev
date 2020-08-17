@@ -16,6 +16,7 @@ import  { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { TermAndConditionsComponent } from '../term-and-conditions/term-and-conditions.component';
+import { TitleService } from 'src/app/services/titleservice/title.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,15 +36,17 @@ export class LoginComponent implements OnInit {
   interestedCountryList = this.countryService();
   blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
-
+  public hasCountrycode=false;
   public submitted = false;
   public submittedSignup = false;
   public forgPassSubmitted: boolean = false;
   resp: any;
   isTextFieldType: boolean;
   todaysDate: any;
+  countryCode: any = "";
+  countryName: any;
   
-  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
   }
 
@@ -70,7 +73,8 @@ export class LoginComponent implements OnInit {
       minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: [''],
-      termsAndcondition: [false, Validators.requiredTrue]
+      termsAndcondition: ['', Validators.requiredTrue],
+      regCurrency:['']
     });
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
@@ -87,7 +91,7 @@ export class LoginComponent implements OnInit {
     this.getCountryData();
   }
 
-  ngAfterViewInit() {    
+  ngAfterViewInit() {     
     const first_input = this.el.nativeElement.querySelector('.first_input');
     first_input.focus();
     const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
@@ -139,12 +143,13 @@ export class LoginComponent implements OnInit {
           this.Removevalidate();
           let responseData = JSON.parse(JSON.stringify(response));
           sessionStorage.setItem('userID', loginData.userId);
+          this.titleService.loading.next(true);
           if (loginData.userId.startsWith('RE')) {
-            this.router.navigate(['/ref/rcs/kyc-details']);
+            this.router.navigate(['/ref/rcs/dashboard-details']);
           } else  if (loginData.userId.startsWith('BA')){
-            this.router.navigate(['/bcst/dsb/business-details']);       
+            this.router.navigate(['/bcst/dsb/dashboard-details']);       
           } else if(loginData.userId.startsWith('CU')){
-             this.router.navigate(['/cst/dsb/business-details']); 
+             this.router.navigate(['/cst/dsb/dashboard-details']); 
           }   else if(loginData.userId.startsWith('BC')){
              this.callCustomerPopup();  
            
@@ -162,13 +167,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/login/error'], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+           // this.resetLoginForm();
         }
       )
   }
 
   signUp() {
-    let planYearTextString =`<b>AShvini</b>`
-    console.log("planYearTextString---",planYearTextString)
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
     var isChecked = element.checked;
     //$('#checkboxError').hide();
@@ -184,7 +188,12 @@ export class LoginComponent implements OnInit {
     } else {
       if (subscriptionType == 'bank' && selector == 'underwriter') {
         this.validateCommons();
-        this.validateBank();
+        this.validateBank();        
+        if (this.signupForm.invalid) {
+          return;
+        }
+      }else if((subscriptionType == 'bank' && selector == 'customer')){
+        this.validateBankAsCustomer();
         if (this.signupForm.invalid) {
           return;
         }
@@ -260,11 +269,14 @@ export class LoginComponent implements OnInit {
   }
 
   public sugnUpView() {
+    this.hasCountrycode=false;
     this.clearSignupValidation();
     this.updateValidation();
     this.resetLoginForm();
   }
   public checkUserType(value: string) {
+    this.hasCountrycode=false;
+    $('#checkboxError').hide();  
     this.clearSignupValidation();
     this.updateValidation();
     if (value === 'customer') {
@@ -288,6 +300,7 @@ export class LoginComponent implements OnInit {
     }
   }
   bankAsEvent(value: string) {
+    this.hasCountrycode=false;
     this.clearSignupValidation();
     this.updateValidation();
     if (value === 'c') {
@@ -308,7 +321,6 @@ export class LoginComponent implements OnInit {
 
   togglePasswordFieldType(){
     this.isTextFieldType = !this.isTextFieldType;
-    console.log("this.isTextFieldType",this.isTextFieldType)
   }
 
   forgotPassword(): void {
@@ -359,8 +371,20 @@ export class LoginComponent implements OnInit {
       )
 
   }
-
+  validateBankAsCustomer(){
+    $('#checkboxError').show();
+    this.signupForm.get('firstName').setValidators(Validators.required);
+    this.signupForm.get('lastName').setValidators(Validators.required);
+    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('country').setValidators(Validators.required);
+    this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);
+    this.removeBankValidation();
+    this.removeReferrerValidation();
+    this.updateValidation();
+  }
   validateCommons() {
+    $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
@@ -374,6 +398,7 @@ export class LoginComponent implements OnInit {
 
   validateBank() {
     // this.signupForm.get('minLCValue').setValidators(Validators.required);
+    $('#checkboxError').show();
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
     this.signupForm.get('mobileNo').clearValidators();
@@ -388,8 +413,9 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('businessType').clearValidators();
     this.updateValidation();
 
-  }
+  }e
   validateReferrerForm() {
+    $('#checkboxError').show();
     this.signupForm.get('designation').setValidators(Validators.required);
     this.signupForm.get('companyName').setValidators(Validators.required);
     this.signupForm.get('businessType').setValidators(Validators.required);
@@ -398,8 +424,8 @@ export class LoginComponent implements OnInit {
   }
   openTermAndServiceDialog(title): void {
     const dialogRef = this.dialog.open(TermAndConditionsComponent, {
-      width: '60%',
-      height: '70%',
+      height: '90%',
+      width: '88%',
       data: { title: title },
       disableClose: true
     });
@@ -429,6 +455,7 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('mobileNo').clearValidators();
     this.signupForm.get('landlineNo').clearValidators();
     this.signupForm.get('country').clearValidators();
+    $("#checkboxError").hide();
   }
 
   updateValidation() {
@@ -485,8 +512,8 @@ export class LoginComponent implements OnInit {
       firstName: this.signupForm.get('firstName').value,
       lastName: this.signupForm.get('lastName').value,
       emailAddress: this.signupForm.get('officialMailId').value,
-      mobileNum: this.signupForm.get('mobileNo').value,
-      countryName: this.signupForm.get('country').value,
+      mobileNum: this.countryCode+this.signupForm.get('mobileNo').value,
+      countryName: this.countryName,
       landLinenumber: this.signupForm.get('landlineNo').value,
       companyName: this.signupForm.get('companyName').value,
       designation: this.signupForm.get('designation').value,
@@ -502,7 +529,10 @@ export class LoginComponent implements OnInit {
       account_type: "MASTER",
       account_status: "ACTIVE",
       account_created_date: this.todaysDate,
-      regCurrency: "",
+      regCurrency: this.signupForm.get('regCurrency').value,
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
 
     }
     return data;
@@ -510,7 +540,7 @@ export class LoginComponent implements OnInit {
 
 
   goodsService() {
-    return [{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+    return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
   }
 
 
@@ -559,7 +589,8 @@ export class LoginComponent implements OnInit {
       countriesInt: '',
       minLCValue: '',
       blacklistedGC: '',
-      companyName: ''
+      companyName: '',
+      regCurrency:''
     })
     $("#isCheckedForTerms"). prop("checked", false);
   }
@@ -581,6 +612,7 @@ export class LoginComponent implements OnInit {
 
 
   validateRegexFields(event, type){
+    var key = event.keyCode;
     if(type == "number"){
       ValidateRegex.validateNumber(event);
     }
@@ -590,14 +622,18 @@ export class LoginComponent implements OnInit {
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
     }else if(type=="name_validation"){
-      var key = event.keyCode;
       if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
           event.preventDefault();
       }    
+    }else if(type=="mobile_number_validations"){
+      if (key!= 43 && key > 31 && (key < 48 || key > 57)) {
+        event.preventDefault();
+    }
     }
   }
 
   callCustomerPopup(){
+    this.titleService.loading.next(false);
     const navigationExtras: NavigationExtras = {
       state: {
         parent: 'login'
@@ -625,7 +661,6 @@ export class LoginComponent implements OnInit {
       subscribe(
         (response) => {
           this.resp = JSON.parse(JSON.stringify(response));
-          console.log(this.resp);
           sessionStorage.setItem('countryData', JSON.stringify(response));
           
         },
@@ -635,6 +670,14 @@ export class LoginComponent implements OnInit {
 
   acceptTerms(){
     // $('#checkboxError').hide();
+  }
+
+  showCountryCode(data){
+    this.countryName = data.country;
+    this.countryCode = data.code;
+    if(this.countryCode){
+      this.hasCountrycode=true;
+    }
   }
 
 }

@@ -18,6 +18,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
 public isActiveQuote:boolean=false;
   public data: PlaceQuote;
   public dataViewEdit:editViewQuotation;
+  public errmessage:string="";
 
   public title: string = "";
   public tab = 'tab1';
@@ -25,8 +26,13 @@ public isActiveQuote:boolean=false;
   public radioSelected:boolean=false;
   radioStatus: boolean;
   public parentURL: string = "";
-  public subURL: string = "";
-
+  public subURL: string = "";chargesEdit1: boolean = false;
+  chargesEdit2: boolean = false;
+  charges1: boolean = false;
+  charges2: boolean = false;
+  public selectNego: string = "";
+  public selectMature: String = "";
+  public radioid: boolean = true;
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
     public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
@@ -77,10 +83,10 @@ this.dataViewEdit={
 		bankerAcceptCharges: 0,
 		beneName:"",
 		chargesType:"",
-		commentsBenchmark:"",
-		confChgsIssuanceToExp: 0,
-		confChgsIssuanceToMatur: 0,
-		confChgsIssuanceToNegot: 0,
+    commentsBenchmark:"",	
+    confChgsIssuanceToExp: "",
+		confChgsIssuanceToMatur:"",
+		confChgsIssuanceToNegot: "",
 		confirmationCharges: 0,
 		discountingCharges: 0,
 		docHandlingCharges: 0,
@@ -108,14 +114,16 @@ this.dataViewEdit={
   }
 
   onNegotChange(value){
-    this.data.confChgsIssuanceToMatur='';
-    this.data.confChgsIssuanceToNegot='yes';     
+    this.selectMature='no';
+    this.selectNego='yes';     
      }
  
  onMatureChange(value){
-  this.data.confChgsIssuanceToNegot='';
-  this.data.confChgsIssuanceToMatur='yes';
+  this.selectMature='yes';
+  this.selectNego='no';     
    }
+
+
 
   public action(flag: boolean, type: Tflag, data: any) {
     if (flag) {
@@ -123,18 +131,33 @@ this.dataViewEdit={
         this.isActive = flag;
         $('input').attr('readonly', true);
         this.title = 'View';
-        this.dataViewEdit = data;
+        this.radioid = true;
+        this.dataViewEdit = data; 
+        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+          this.chargesEdit2 = true;
+          this.chargesEdit1 = false;
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+          this.chargesEdit1 = true;
+          this.chargesEdit2 = false;
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
+
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
-        this.dataViewEdit = data;
-        $('input').attr('readonly', false);
+        this.dataViewEdit = data;       
       }else if(type===Tflag.PLACE_QUOTE){
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-        console.log(this.data)
-        $('input').attr('readonly', false);
+      
       }
     } else {
       this.isActive = flag;
@@ -156,20 +179,36 @@ this.dataViewEdit={
   }
 
 
-  public transaction(act: string) {
-
+  public transaction(act: string,dataViewEdit: any) {
+   
+    this.dataViewEdit.confChgsIssuanceToNegot = this.selectNego;
+    this.dataViewEdit.confChgsIssuanceToMatur = this.selectMature;
+    console.log(this.dataViewEdit)
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-        setTimeout(() => {
-          $('input').attr('readonly', false);
-        }, 100);
         this.title = 'Edit';
+        this.radioid = false;
+        $('input').attr('readonly', false);
+        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+          this.chargesEdit2 = true;
+          this.chargesEdit1 = false;
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+          this.chargesEdit1 = true;
+          this.chargesEdit2 = false;
+          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
       }
         break;
 
       case 'submit': {
-        console.log(this.data)
         this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -194,27 +233,40 @@ this.dataViewEdit={
         setTimeout(() => {
           $('input').attr('readonly', true);
         }, 200);
-        this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
-          (response) => {
-           
-            this.detail = JSON.parse(JSON.stringify(response)).data;
-            //this.data=data;
-            // this.data.TotalQuote=this.detail.TotalQuote;
-            // this.data.confChgsMatur=this.detail.confChgsMatur;
-            // this.data.confChgsNegot=this.detail.confChgsNegot;
+        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+          this.chargesEdit2 = true;
+          this.chargesEdit1 = false;
+          this.dataViewEdit.confChgsIssuanceToMatur = "yes";
+          this.dataViewEdit.confChgsIssuanceToNegot = "no";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+          this.chargesEdit1 = true;
+          this.chargesEdit2 = false;
+          this.dataViewEdit.confChgsIssuanceToNegot = "yes";
+          this.dataViewEdit.confChgsIssuanceToMatur = "no";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
 
-          },
-          error => {
-            alert('error')
-            this.closed();
-            this.tab = 'tab1';
+
           }
-        )
-
-      }
         break;
     }
   }
+  
+  redirectToactive(){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        redirectedFrom: "confirmation",
+        trnsactionID: "data.transactionId"
+      }
+    };
+     this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+     .then(success => console.log('navigation success?', success))
+     .catch(console.error);
+  }
+
   
   
   public transactionForQuotes(act: string,data:any,detail:any) {
@@ -222,14 +274,27 @@ this.dataViewEdit={
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-        setTimeout(() => {
-          $('input').attr('readonly', false);
-        }, 100);
         this.title = 'Edit';
+        if(data.confChgsIssuanceToMatur==='yes'){
+          this.charges2=true;
+          this.charges1=false;
+          data.confChgsIssuanceToMatur="";
+          data.confChgsIssuanceToNegot="";
+          this.selectMature='yes';
+          this.selectNego='no'; 
+        }else if(data.confChgsIssuanceToNegot==='yes'){
+          this.charges1=true;
+          this.charges2=false;
+          data.confChgsIssuanceToNegot="";
+          data.confChgsIssuanceToMatur="";
+          this.selectMature='no';
+          this.selectNego='yes'; 
+        }
       }
         break;
 
       case 'confirm': {
+        console.log(data)
         const param = {
                       "quotationId":detail.quotationId,
                       "transactionId":data.transactionId,
@@ -244,7 +309,16 @@ this.dataViewEdit={
             "userId": data.userId,
             "event": "QUOTE_ACCEPT"
             }
-        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+            let emailBankBody = {
+              
+              "event": "QUOTE_ACCEPT_ALERT_ToBanks",
+              "quotationId" : detail.quotationId,
+              "transactionId" : data.transactionId,
+              "bankEmail" : sessionStorage.getItem('custUserEmailId')
+              }
+          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
 
         },
         error => {
@@ -295,13 +369,25 @@ this.dataViewEdit={
         }break;
         case 'generateQuote': {
           this.tab = 'tab2';
+          this.data.confChgsIssuanceToNegot=this.selectNego;
+          this.data.confChgsIssuanceToMatur=this.selectMature;
+         
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
+              if(JSON.parse(JSON.stringify(response)).status==='Failure'){
+                this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
+                console.log(this.errmessage)
+                $("#labConDis").text(this.errmessage);
+                document.getElementById("myModalConDis").style.display = "block";    
+              }
+              else{    
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
               this.data.TotalQuote=this.detail.TotalQuote;
               this.data.confChgsMatur=this.detail.confChgsMatur;
               this.data.confChgsNegot=this.detail.confChgsNegot;
+            
+              }           
             },
             error => {
               alert('error')

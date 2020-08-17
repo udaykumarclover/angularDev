@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { custTrnsactionDetail } from 'src/assets/js/commons';
 import * as $ from 'src/assets/js/jquery.min';
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 
 @Component({
@@ -12,19 +14,30 @@ import * as $ from 'src/assets/js/jquery.min';
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime','validity', 'ib','amount', 'ccy', 'goods', 'requirement','receivedQuotes','star'];
+  displayedColumns: string[] = ['id','txnID', 'dateTime', 'lcBank', 'requirement', 'lCValue', 'goods','applicantName', 'beneName', 'status', 'detail1', 'detail2'];
   dataSource: MatTableDataSource<any>;
-  public ntData: any[] = [];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
-  public specificDetail: any;
+  public specificDetail: any = "";
   quotationdata: any;
   document: any;
+  public parentURL: string = "";
+  public subURL: string = "";
+  dataSourceLength: boolean = false;
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService ) {
     this.titleService.quote.next(false);
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
   }
 
   ngOnInit() {
@@ -48,20 +61,37 @@ export class TransactionDetailsComponent {
         this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         console.log(this.data);
-        if (!this.data) {
-          // this.hasNoRecord = true;
+        
+        if(!this.data){
+          this.dataSourceLength = true;
         }
+        else{
+          this.dataSourceLength = false;
+          this.dataSource = new MatTableDataSource(this.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+        
       },
       (error) => {
-        this.data = null;
-        // this.hasNoRecord = true;
+        this.dataSourceLength = false;
 
       }
     )
   }
 
-  getDetail(detail){
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getDetail(detail){
+    // $("#menu-barnew li").removeClass("active");
+    // $("#menu-barnew li:first").addClass("active");
     console.log(detail);
     this.specificDetail = detail;
     
@@ -78,9 +108,9 @@ export class TransactionDetailsComponent {
       "transactionId": transactionId
     }
     
-    this.nts.getQuotationDetails(data).subscribe(
+    this.nts.getAllQuotationDetails(data).subscribe(
         (response) => {
-          this.quotationdata = JSON.parse(JSON.stringify(response)).data;
+          this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
         console.log(this.quotationdata);
         },
         (error) => {}
@@ -107,15 +137,41 @@ close(){
   $('#myModal9').hide();
 }
 
-rejectBankQuote(quoteId){
+rejectBankQuote(quoteId, transactionID){
+  var statusReason = $("#rejectReason option:selected").text();
   let data = {
-    "statusReason":"ABC"
+    "statusReason" : statusReason
+    }
+  let emailBody = {
+    "transactionid": transactionID,
+    "userId": sessionStorage.getItem('userID'),
+    "event": "LC_REJECT"
     }
   
   this.nts.custRejectBankQuote(data, quoteId).subscribe(
-      (response) => {},
+      (response) => {
+        this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
+
+        this.getAllnewTransactions('Rejected');
+        custTrnsactionDetail();
+        this.closeOffcanvas();
+        $('#addOptions select').val('Rejected').change();
+      },
       (err) => {}
   )
+}
+
+cloneTransaction(transactionId){
+  
+  const navigationExtras: NavigationExtras = {
+    state: {
+      redirectedFrom: "cloneTransaction",
+      trnsactionID: transactionId
+    }
+  };
+  this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
+    .then(success => console.log('navigation success?', success))
+    .catch(console.error);   
 }
 
 

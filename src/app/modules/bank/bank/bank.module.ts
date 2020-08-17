@@ -31,6 +31,8 @@ import { TrasactionDetailsComponent } from 'src/app/nimai/bankTransaction/trasac
 import { RefinancingComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/refinancing/refinancing.component';
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/manage-user.component';
+import { SupportComponent } from 'src/app/default/support/support/support.component';
+import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 
 
 const routes: Routes = [
@@ -128,6 +130,18 @@ const routes: Routes = [
       },
       {
         path: "manage-user", component: ManageUserComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "support", component: SupportComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "dashboard-details", component: DasboardDetailsComponent, children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]

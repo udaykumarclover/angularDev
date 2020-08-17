@@ -19,7 +19,7 @@
                            <div class="">
                               <div class="">
                                  <div>
-                                    <h2> <span style="position: absolute;font-size: 27px;top: 14px;font-weight: 500;background: #fff;color: #00bcd4;display: inline-block;left: 14px;border-radius: 5px;padding: 10px;">NIMAI</span>Sign Up!<br> <small>Create your account</small></h2>
+                                    <h2> <span style="position: absolute;font-size: 15px;top: 14px;font-weight: 500;background: #fff;color: #00bcd4;display: inline-block;left: 14px;border-radius: 5px;padding: 10px;">NIMAITRADE</span>Sign Up!<br> <small>Create your account</small></h2>
                                     <div class="col-md-2 heightdiv" style="position: relative;">
                                        <div class="row">
                                           <div class="radio-tile-group">
@@ -102,7 +102,7 @@
                                        </div> -->
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                             <input type="text" maxlength="20" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>First Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.firstName.errors" class="invalid-feedback">
@@ -114,7 +114,7 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                             <input type="text" maxlength="20" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>Last Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.lastName.errors" class="invalid-feedback">
@@ -141,11 +141,9 @@
                                        </div>
                                        <div class="col-md-4">
                                           <div class="inputDiv selectdiv">
-                                             
-                                             <select formControlName="country" class="countryddl">
+                                             <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
                                                 <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>
-                                                
+                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>
                                              </select>
                                              <label>Select Country</label>
                                              <img src="assets/images/world.png" />
@@ -158,8 +156,10 @@
                     
                                        </div>
                                        <div class="col-md-4">
-                                          <div class="inputDiv">
-                                             <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                                          <div class="inputDiv divmob">
+                                             <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
+                                             <ng-template #other_content></ng-template>
+                                             <input type="text" formControlName="mobileNo" maxlength="13" [ngClass]="hasCountrycode ? 'has-value' : ''" (keypress)="validateRegexFields($event,'mobile_number_validations')">
                                              <label>Mobile No.</label>
                                              <img src="assets/images/mobile.png" style="width: 10px;height: 15px;" />
                                              <div *ngIf="submittedSignup && suf.mobileNo.errors" class="invalid-feedback">
@@ -228,14 +228,18 @@
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
-                                             <label>Minimum Value of LC</label>
+                                             <input type="text" class="currencyleft" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
+                                             <label>Min LC Value</label>
                                              <img src="assets/images/cash.png" style="height: 14px;width: 10px;" />
                                              <!-- <div *ngIf="submittedSignup && suf.minLCValue.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.minLCValue.errors.required">
                                                    Minimum LC value is required
                                                 </div>
                                              </div> -->
+                                             <select class="currency" formControlName="regCurrency">
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
+                                             </select>
                                           </div>
                                        </div>
                                        <div class="col-md-4 bankfields" *ngIf="isBank">
@@ -343,7 +347,7 @@
                                        </div>
                     
                                        <button type="submit" class="btnclass" style="margin: 5px 0px 0px;">Sign Up</button>
-                                       <p style="font-size: 12px;font-weight: 400;">Already have an account? 
+                                       <p style="font-size: 12px;font-weight: 400;">Already have an account ? 
                                           <a (click)="clearInvalidationText();" class="ghost" style="display: inline-block;cursor: pointer;" id="signIn">Login</a>
                                        </p>
                                     </div>
@@ -373,6 +377,7 @@
                                     <div class="inputDiv">
                                        <input [type]="isTextFieldType ? 'text' : 'password'" class="has-value" maxlength="20"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" (input)="validate()" autocomplete="off"> 
                                        <label>Password</label>
+                                       <i class="fas fa-unlock-alt passicon" aria-hidden="true"></i>
                                        <i (click)="togglePasswordFieldType()" [ngClass]="isTextFieldType ? 'fa fa-eye' : 'fa fa-eye-slash'" class="eye_icon"></i>
                                        <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
                                        <div *ngIf="lf.password.errors.required">Password field is required</div>

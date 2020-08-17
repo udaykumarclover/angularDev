@@ -15,7 +15,7 @@ export class ConfirmationComponent implements OnInit {
   @ViewChild(ActiveTransactionComponent, { static: true }) activeTransaction: ActiveTransactionComponent;
 
   public isActive: boolean = false;
-  public data: TransactionBean;
+  public data = {};
   public title: string = "";
   public tab = 'tab2';
   document: any;
@@ -30,66 +30,7 @@ export class ConfirmationComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
-    this.data = {
-      transactionId: "",
-      userId: "",
-      requirementType: "",
-      lCIssuanceBank: "",
-      lCIssuanceBranch: "",
-      swiftCode: 0,
-      lCIssuanceCountry: "",
-      lCIssuingDate: null,
-      lCExpiryDate: null,
-      lCValue: null,
-      lCCurrency: "",
-      lastShipmentDate: null,
-      negotiationDate: null,
-      paymentPeriod: 0,
-      paymentTerms: "",
-      // tenorEndDate: null,
-      applicantName: "",
-      applicantCountry: "",
-      beneName: "",
-      beneBankCountry: "",
-      beneBankName: "",
-      beneSwiftCode: "",
-      beneCountry: "",
-      loadingCountry: "",
-      loadingPort: "",
-      dischargeCountry: "",
-      dischargePort: null,
-      chargesType: "",
-      validity: null,
-      insertedDate: null,
-      insertedBy: "",
-      modifiedDate: null,
-      modifiedBy: "",
-      transactionflag: null,
-      transactionStatus: "",
-      branchUserId: null,
-      branchUserEmail: null,
-      goodsType: "",
-      usanceDays: null,
-      startDate: null,
-      endDate: null,
-      originalTenorDays: null,
-      refinancingPeriod: "",
-      lcMaturityDate: null,
-      lcNumber: '',
-      lastBeneBank: "",
-      lastBeneSwiftCode: "",
-      lastBankCountry: "",
-      remarks: "",
-      discountingPeriod: "",
-      confirmationPeriod: null,
-      financingPeriod: null,
-      lcProForma: "",
-      tenorFile: null,
-      lccountry: [],
-      lcgoods: [],
-      lcbanks: [],
-      lcbranch: []
-    }
+    
   }
 
   ngOnInit() {
@@ -100,36 +41,41 @@ export class ConfirmationComponent implements OnInit {
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
-        $('input').attr('readonly', true);
+        // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';
         this.data = data;
-        $('input').attr('readonly', false);
+        // $('input').attr('readonly', false);
       }
     } else {
       this.isActive = flag;
       this.data = data;
       this.title = '';
-      $('input').attr('readonly', true);
+      // $('input').attr('readonly', true);
 
     }
   }
 
   public closed() {
     this.isActive = false;
-    this.titleService.quote.next(false);
+    // this.titleService.quote.next(false);
   }
 
-
+  closed_div(){
+    this.isActive = false;
+    document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+   }
   public transaction(act: string) {
 
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
         setTimeout(() => {
-          $('input').attr('readonly', false);
+          // $('input').attr('readonly', false);
         }, 100);
         this.title = 'Edit';
       }
@@ -161,7 +107,7 @@ export class ConfirmationComponent implements OnInit {
       case 'preview': {
         this.tab = 'tab2';
         setTimeout(() => {
-          $('input').attr('readonly', true);
+          // $('input').attr('readonly', true);
         }, 200);
       }
         break;
@@ -174,7 +120,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   openDocument(file){
-    $('#myModal7').show();
+    $('#myModalC').show();
     this.document = file;
   }
 

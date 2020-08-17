@@ -34,10 +34,22 @@ export class UploadLcService {
   
 
   public getCustspecificDraftTransaction(data:any): Observable<any> {
-    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getSpecificDraftTransactionDetail`,data, { headers: { 'content-type': 'application/json' } });
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getSpecificDraftTxnDetailByTxnId`,data, { headers: { 'content-type': 'application/json' } });
   }
 
   public confirmLcMailSent(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiEmail/sendTransactionStatus`, body,{headers:{'content-type':'application/json'}})
+  }
+
+  public custCloneTransaction(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/cloneLC`, data , { headers: { 'content-types': 'application/json' } });
+  }
+
+  public confirmLcMailSentToBank(body:any):Observable<any>{
+    return this.httpClient.post(`${environment.domain}/nimaiEmail/getEligibleEmails`, body,{headers:{'content-type':'application/json'}})
+  }
+
+  public checkLcCount(body:any):Observable<any>{
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/checkLCCount`, body,{headers:{'content-type':'application/json'}})
   }
 }

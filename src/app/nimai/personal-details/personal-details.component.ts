@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { signup } from 'src/app/beans/signup';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import * as $ from '../../../assets/js/jquery.min';
@@ -46,6 +46,7 @@ export class PersonalDetailsComponent implements OnInit {
   public subURL: string = "";
   public hasValue=false;
   resp: any;
+  parentRedirection: string = "business-details";
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     if(sessionStorage.getItem('userID'))
@@ -62,17 +63,22 @@ export class PersonalDetailsComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
-      mobileNo: ['', [Validators.required,Validators.minLength(12)]],
-      landLineNo: ['',Validators.minLength(12)],
+      mobileNo: ['', [Validators.required,Validators.minLength(7)]],
+      landLineNo: ['',Validators.minLength(7)],
       country: ['', Validators.required],
       companyName: [''],
       designation: [''],
       businessType: [''],
       countriesInt: [''],
       minLCVal: [''],
-      blacklistedGC: ['']
+      blacklistedGC: [''],
+      // otherEmails: this.fb.array([this.getOtherMails()])
+      emailAddress1: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')],
+      emailAddress2: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')],
+      emailAddress3: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]
 
     })
+    
     this.titleService.changeTitle(this.title);
     this.dropdownSetting = {
       singleSelection: false,
@@ -91,6 +97,34 @@ export class PersonalDetailsComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
+    let navigation = this.router.getCurrentNavigation();
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "MyProfile"){
+        this.parentRedirection = "my-profile";
+      }
+    }
+
+  }
+
+  getOtherMails(){
+    var count = 0;
+    return this.fb.group({
+      emailAddress: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]
+  });
+  }
+
+  add(i: number) {
+    let items = this.personalDetailsForm.get('otherEmails') as FormArray;
+    if (items.length < 3)
+    {
+      items.push(this.getOtherMails());
+    }
+  }
+
+  remove(i: number) {
+    let items = this.personalDetailsForm.get('otherEmails') as FormArray;
+    items.removeAt(i);
   }
 
   get perDetails() {
@@ -113,44 +147,53 @@ export class PersonalDetailsComponent implements OnInit {
     });
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-    console.log(JSON.parse(sessionStorage.getItem('countryData')));
-    
-
   }
   setReferrerValidators(){
     this.personalDetailsForm.get('companyName').setValidators([Validators.required])
     this.personalDetailsForm.get('companyName').updateValueAndValidity();
     this.personalDetailsForm.get('businessType').setValidators([Validators.required])
     this.personalDetailsForm.get('businessType').updateValueAndValidity();
+    this.personalDetailsForm.get('designation').setValidators([Validators.required])
+    this.personalDetailsForm.get('designation').updateValueAndValidity();
   }
   setBankValidators(){
     this.personalDetailsForm.get('blacklistedGC').setValidators([Validators.required])
     this.personalDetailsForm.get('blacklistedGC').updateValueAndValidity();
     this.personalDetailsForm.get('countriesInt').setValidators([Validators.required])
     this.personalDetailsForm.get('countriesInt').updateValueAndValidity();
+    this.personalDetailsForm.get('mobileNo').clearValidators();
    }
   submit(): void {
+    // let items = this.personalDetailsForm.get('otherEmails') as FormArray;
+    // console.log("items",items.controls)
     this.submitted = true;
     if(this.personalDetailsForm.invalid) {
       return;
     }
     this.submitted = false;
     this.titleService.loading.next(true);
-    let userID: string = this.personalDetailsForm.get('userId').value;
+    let userID = this.personalDetailsForm.get('userId').value;
+
+    if (userID.startsWith('RE')) {
+      this.parentRedirection = "kyc-details"
+    }
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)
       .subscribe(
         (response) => {
-          this.titleService.loading.next(false);
+         this.titleService.loading.next(false);
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Congratulations! Your Personal Details has been successfully submitted!',
               message: '',
-              parent: this.subURL + "/" + this.parentURL + '/personal-details'  // need to check
+              parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection  // need to check
             }
           };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
+
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/personal-details/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+           }); 
         },
         (error) => {
           this.titleService.loading.next(false);
@@ -177,7 +220,6 @@ export class PersonalDetailsComponent implements OnInit {
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
           this.personalDetails = responseData.data;
-          console.log(responseData);
           this.username = this.personalDetails.firstName + " " + this.personalDetails.lastName;
           this.titleService.changeUserName(this.username);
           this.personalDetailsForm.patchValue({
@@ -195,7 +237,10 @@ export class PersonalDetailsComponent implements OnInit {
             bankType: this.personalDetails.bankType,
             countriesInt: this.filterInterestedCountry(this.personalDetails.interestedCountry),
             minLCVal: this.personalDetails.minLCValue,
-            blacklistedGC: this.filterBlackListGoods(this.personalDetails.blacklistedGoods)
+            blacklistedGC: this.filterBlackListGoods(this.personalDetails.blacklistedGoods),
+            emailAddress1: this.personalDetails.emailAddress1,
+            emailAddress2: this.personalDetails.emailAddress2,
+            emailAddress3: this.personalDetails.emailAddress3,
 
           })
           sessionStorage.setItem('custUserEmailId',this.personalDetails.emailAddress);
@@ -276,7 +321,11 @@ export class PersonalDetailsComponent implements OnInit {
       bankType: this.personalDetailsForm.get('bankType').value,
       minLCValue: this.personalDetailsForm.get('minLCVal').value,
       interestedCountry: this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value),
-      blacklistedGoods: this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value)
+      blacklistedGoods: this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value),
+      emailAddress1: this.personalDetailsForm.get('emailAddress1').value,
+      emailAddress2: this.personalDetailsForm.get('emailAddress2').value,
+      emailAddress3: this.personalDetailsForm.get('emailAddress3').value,
+
     }
     return data;
   }
@@ -284,7 +333,7 @@ export class PersonalDetailsComponent implements OnInit {
 
 
   goodsService() {
-    return [{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+    return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
   }
 
 

@@ -16,7 +16,6 @@ import { ValidateRegex } from '../../beans/Validations';
   styleUrls: ['./business-details.component.css']
 })
 export class BusinessDetailsComponent implements OnInit {
-
   public loading = true;
   public businessDetailsForm: FormGroup;
   public bd: Business = null;
@@ -27,9 +26,14 @@ export class BusinessDetailsComponent implements OnInit {
   public perDetailsSubmit = false;
   public hasValue=false;
   resp: any;
+  parentRedirection: string = "subscription";
 
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
+    setTimeout(() => {
+      this.titleService.loading.next(false);
+      }, 2000);
+
     if(sessionStorage.getItem('userID'))
     {
       this.hasValue=true;
@@ -46,11 +50,18 @@ export class BusinessDetailsComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "MyProfile"){
+        this.parentRedirection = "my-profile";
+      }
+    }
+
     this.businessDetailsForm = this.fb.group({
       userId: [''],
       selector: ['', Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
-      bank_designation: ['', [Validators.required,Validators.minLength(3)]],
+      bank_designation: ['', [Validators.required,Validators.minLength(2)]],
       country: ['', Validators.required],
       provinceName: ['',Validators.required],
       city: ['', [Validators.required,Validators.minLength(2)]],
@@ -58,7 +69,7 @@ export class BusinessDetailsComponent implements OnInit {
       addressLine2: ['', [Validators.required,Validators.minLength(2)]],
       addressLine3: ['',Validators.minLength(2)],
       pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
-      telephone: [''],
+      telephone: ['',Validators.minLength(7)],
       bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
       branchName: ['', [Validators.required,Validators.minLength(3)]],
       swiftCode: ['', [Validators.required,Validators.minLength(3)]],
@@ -72,7 +83,7 @@ export class BusinessDetailsComponent implements OnInit {
     return this.fb.group({
     ownerFirstName: ['', Validators.required],
     ownerLastName: ['', Validators.required],
-    designation: ['', [Validators.required,Validators.minLength(3)]],
+    designation: ['', [Validators.required,Validators.minLength(2)]],
     ownerID: ['']
   });
   }
@@ -103,7 +114,7 @@ export class BusinessDetailsComponent implements OnInit {
   });
  }
   setValidators() {
-
+  console.log("this.isCustomer",this.isCustomer)
     if (this.isCustomer == false) {
       this.businessDetailsForm.get("bankNbfcName").enable();
       this.businessDetailsForm.get("branchName").enable();
@@ -112,7 +123,7 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").disable();
       this.businessDetailsForm.get("selector").disable();
       this.businessDetailsForm.get("bank_designation").enable();
-      this.businessDetailsForm.get('telephone').setValidators(Validators.required);
+      this.businessDetailsForm.get('telephone').setValidators([Validators.required,Validators.minLength(7)]);
 
     } else {
       this.businessDetailsForm.get("bankNbfcName").disable();
@@ -122,7 +133,7 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").enable();
       this.businessDetailsForm.get("selector").enable();
       this.businessDetailsForm.get("bank_designation").disable();
-      this.businessDetailsForm.get('telephone').clearValidators();
+      this.businessDetailsForm.get('telephone').setValidators(Validators.minLength(7));
 
     }
 
@@ -137,13 +148,12 @@ export class BusinessDetailsComponent implements OnInit {
     this.perDetailsSubmit = true;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     console.log("items",items.controls)
-    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm.invalid)
+    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
       return;
     }
     this.perDetailsSubmit = false;
-    let parentredirection: string;
 
     this.bds.updateBusinessDetails(this.getBusinessData(), this.businessDetailsForm.get('userId').value).subscribe(
       (response) => {
@@ -152,12 +162,11 @@ export class BusinessDetailsComponent implements OnInit {
           state: {
             title: 'Congratulations! Your Business Details has been successfully submitted!',
             message: '',
-            parent: this.subURL + '/' + this.parentURL + '/business-details'
+            parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
 
           }
         };
         
-        //this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
         this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
           .then(success => console.log('navigation success?', success))
           .catch(console.error);

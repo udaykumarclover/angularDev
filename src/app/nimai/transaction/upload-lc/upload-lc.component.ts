@@ -43,11 +43,15 @@ export class UploadLCComponent implements OnInit {
   showUpdateButton: boolean = false;
   isUpdate: boolean = false;
   draftData: any;
+  cloneData: any;
   dateToPass: any;
+  document: any;
 
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+    this.checkLcCount();
+
     this.titleService.changeTitle(this.title);
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -60,9 +64,15 @@ export class UploadLCComponent implements OnInit {
     let navigation = this.router.getCurrentNavigation();
     console.log(navigation);
     if(navigation.extras.state){
-      console.log("..."+ navigation.extras.state.redirectedFrom);
-      var trnsactionID = navigation.extras.state.trnsactionID;
-      this.callDraftTransaction(trnsactionID);
+      if(navigation.extras.state.redirectedFrom == "draftTransaction"){
+        console.log("..."+ navigation.extras.state.redirectedFrom);
+        var trnsactionID = navigation.extras.state.trnsactionID;
+        this.callDraftTransaction(trnsactionID);
+      }
+      else if(navigation.extras.state.redirectedFrom == "cloneTransaction"){
+        var trnsactionID = navigation.extras.state.trnsactionID;
+        this.callCloneTransaction(trnsactionID);
+      }
     }
 
     this.setForm();
@@ -247,7 +257,7 @@ export class UploadLCComponent implements OnInit {
       .subscribe(
         (response) => {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
-          sessionStorage.setItem("transactionID",this.transactionID);
+          // sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
           this.lc = this.lcDetailForm.value;
           this.previewShow = true;
@@ -342,34 +352,58 @@ export class UploadLCComponent implements OnInit {
     this.titleService.loading.next(true);
     this.loading = true;
     let body = {
-      transactionId: sessionStorage.getItem("transactionID"),
+      transactionId: this.transactionID,
       userId: sessionStorage.getItem('userID')
     }
 
     let emailBody = {
-      "transactionid": sessionStorage.getItem("transactionID"),
+      "transactionid": this.transactionID,
       "userId": sessionStorage.getItem('userID'),
-      "event": "LC_Upload"
+      "event": "LC_UPLOAD"
+      }
+    
+    let emailBankBody = {
+      "transactionId": this.transactionID,
+      "customerUserId": sessionStorage.getItem('userID'),
+      "event": "LC_UPLOAD_ALERT_ToBanks"
       }
     this.upls.confirmLc(body)
       .subscribe(
         (response) => {
+          var resp = JSON.parse(JSON.stringify(response)).status;
+          if(resp == "Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Failed',
+                message: JSON.parse(JSON.stringify(response)).errMessage,
+                parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation error?', success))
+              .catch(console.error);
+          }
+          else{            
           this.setForm();
           this.edit();
           this.loading = false;
           this.titleService.loading.next(false);
-          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
+          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+          
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
+        
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
               message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
-              parent: this.subURL+"/"+this.parentURL + '/new-transaction'
+              parent: this.subURL+"/"+this.parentURL + '/active-transaction'
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           this.isUpdate = false;
+        }
 
         },
         (error) => {
@@ -461,7 +495,7 @@ export class UploadLCComponent implements OnInit {
   
   
       // For Confirmation 
-      paymentPeriod: [''],
+      confirmationPeriod: [''],
       paymentTerms: [''],
       startDate:[''],
       // tenorEndDate: [''],
@@ -521,6 +555,7 @@ export class UploadLCComponent implements OnInit {
   }
 
   validateRegexFields(event, type){
+    var key = event.keyCode;
     if(type == "number"){
       ValidateRegex.validateNumber(event);
     }
@@ -529,7 +564,12 @@ export class UploadLCComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
+    }else if(type == "date_validation"){     
+      if (key!=191 && key!=189 && key > 31 && (key < 48 || key > 57)) {
+        event.preventDefault();
+      }
     }
+
   }
 
   callDraftTransaction(trnsactionID){
@@ -552,8 +592,7 @@ export class UploadLCComponent implements OnInit {
 
          this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);
-        this.dateToPass = new Date(this.draftData.lCIssuingDate);
-         
+        this.dateToPass = new Date(this.draftData.lCIssuingDate); 
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
@@ -571,7 +610,7 @@ export class UploadLCComponent implements OnInit {
       
       
           // For Confirmation 
-          paymentPeriod: this.draftData.paymentPeriod,
+          confirmationPeriod: this.draftData.confirmationPeriod,
           paymentTerms: this.draftData.paymentTerms,
           startDate:this.draftData.startDate,
           // tenorEndDate: this.draftData.tenorEndDate,
@@ -629,4 +668,125 @@ export class UploadLCComponent implements OnInit {
       )
   }
 
+  callCloneTransaction(trnsactionID){
+    this.transactionID = trnsactionID;
+    var data = {
+      "transactionId":trnsactionID
+      }
+  
+      this.upls.custCloneTransaction(data).subscribe(
+        (response) => {
+
+          this.cloneData = JSON.parse(JSON.stringify(response)).data;
+          console.log(this.cloneData);
+         
+        this.lcDetailForm.patchValue({
+          userId: this.cloneData.userId,
+          selector: this.cloneData.requirementType,
+          lCIssuanceBank: this.cloneData.lCIssuanceBank,
+          lCIssuanceBranch: this.cloneData.lCIssuanceBranch,
+          swiftCode: this.cloneData.swiftCode,
+          lCIssuanceCountry: this.cloneData.lCIssuanceCountry,
+      
+          lCValue: this.cloneData.lCValue,
+          lCCurrency: this.cloneData.lCCurrency,
+          lCIssuingDate: this.cloneData.lCIssuingDate,
+          lastShipmentDate: this.cloneData.lastShipmentDate,
+          negotiationDate: this.cloneData.negotiationDate,
+          goodsType:this.cloneData.goodsType,
+      
+      
+          // For Confirmation 
+          confirmationPeriod: this.cloneData.confirmationPeriod,
+          paymentTerms: this.cloneData.paymentTerms,
+          startDate:this.cloneData.startDate,
+          // tenorEndDate: this.cloneData.tenorEndDate,
+      
+          // For Discounting 
+          discountingPeriod:this.cloneData.discountingPeriod,
+          remarks:this.cloneData.remarks,
+      
+          //For Refinancing
+          originalTenorDays:this.cloneData.originalTenorDays,
+          refinancingPeriod:this.cloneData.refinancingPeriod,
+          lcMaturityDate:this.cloneData.lcMaturityDate,
+          lcNumber:this.cloneData.lcNumber,
+          lastBeneBank:this.cloneData.lastBeneBank,
+          lastBeneSwiftCode:this.cloneData.lastBeneSwiftCode,
+          lastBankCountry:this.cloneData.lastBankCountry,
+      
+          
+          applicantName:this.cloneData.applicantName,
+          applicantCountry:this.cloneData.applicantCountry,
+      
+          beneName:this.cloneData.beneName,
+          beneBankCountry:this.cloneData.beneBankCountry,
+          beneBankName:this.cloneData.beneBankName,
+          beneSwiftCode:this.cloneData.beneSwiftCode,
+          beneCountry:this.cloneData.beneCountry,
+          
+         
+          loadingCountry:this.cloneData.loadingCountry,
+          loadingPort:this.cloneData.loadingPort,
+          dischargeCountry:this.cloneData.dischargeCountry,
+          dischargePort:this.cloneData.dischargePort,
+      
+          chargesType: this.cloneData.chargesType,
+          validity:this.cloneData.validity,
+          lcProForma:this.cloneData.lcProForma,
+      
+          lCExpiryDate:this.cloneData.lCExpiryDate,    
+          
+          insertedDate: this.cloneData.insertedDate,
+          insertedBy: this.cloneData.insertedBy,
+          modifiedDate: this.cloneData.modifiedDate,
+          modifiedBy: this.cloneData.modifiedBy,
+          transactionflag: this.cloneData.transactionflag,
+          transactionStatus: this.cloneData.transactionStatus,
+          userType:this.cloneData.userType,
+          applicantContactPerson:this.cloneData.applicantContactPerson,
+          applicantContactPersonEmail:this.cloneData.applicantContactPersonEmail,
+          beneContactPerson:this.cloneData.beneContactPerson,
+          beneContactPersonEmail:this.cloneData.beneContactPersonEmail,
+        });
+        },
+        (err) => {}
+    ) 
+  }
+
+  openDocument(file){
+    $('#myModal7').show();
+    this.document = file;
+  }
+
+  close(){
+    $('.modal3').hide();
+  }
+
+  checkLcCount(){
+    var data = {
+      "userId": sessionStorage.getItem("userID")
+      }
+  
+      this.upls.checkLcCount(data).subscribe(
+        (response) => {
+          var resp = JSON.parse(JSON.stringify(response)).status;
+
+          if(resp == "Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Not Allowed !',
+                message: 'You had reached maximum LC Count ! Please Renew Your Subscribe Plan',
+                parent: this.subURL+"/"+this.parentURL + '/subscription',
+                redirectedFrom: "New-Transaction"
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation success?', success))
+              .catch(console.error);
+          }
+        },
+        (err) => {}
+      )
+  }
 }

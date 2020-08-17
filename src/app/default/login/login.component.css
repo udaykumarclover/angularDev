@@ -178,4 +178,37 @@ select option{
     width: 20px!important;
     top: 11px!important;
     cursor: pointer;
+    color: #009dc7!important;
 }
+.divmob input[type=text] {
+    padding-left: 55px !IMPORTANT;
+    }
+.countrycode {
+    position: absolute;
+    left: 15px;
+    top: 11px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #545454;
+    /* display: none; */
+    }
+select.currency {
+    width: 35% !important;
+    padding: 11px 5px !important;
+    float: right;
+    font-size: 10px !important;
+    color: #333 !important;
+    }
+.currencyleft{
+    width: 64% !important;
+    float: left;
+    }
+.passicon{
+    position: absolute;
+        left: 0;
+        width: 13px;
+        top: 14px;
+        color: #00bcd4;
+        font-size: 13px !important;
+    } 

@@ -17,7 +17,8 @@ export class ResetPasswordComponent implements OnInit {
   public key: string;
   public resetForm: FormGroup;
   submitted: boolean = false;
-
+  isTextFieldType: boolean;
+  isreTextFieldType: boolean;
   constructor(public router: ActivatedRoute, public route: Router,public lgsc:LoginService, public rsc: ResetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
@@ -56,7 +57,12 @@ export class ResetPasswordComponent implements OnInit {
     }
     )
   }
-
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
+  }
+  togglerePasswordFieldType(){
+    this.isreTextFieldType = !this.isreTextFieldType;
+  }
   get resetFormDetails() {
     return this.resetForm.controls;
   }

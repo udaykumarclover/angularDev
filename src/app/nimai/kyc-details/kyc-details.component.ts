@@ -19,10 +19,15 @@ export class KycDetailsComponent implements OnInit {
   public title: string = "KYC Details";
   public subURL: string = "";
   public parentURL: string = "";
+  parentRedirection: string = "account-review";
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
-    loadFilestyle()
+    loadFilestyle();
+
+    setTimeout(() => {
+      this.titleService.loading.next(false);
+      }, 2000);
 
     let navigation = this.router.getCurrentNavigation();
 
@@ -32,6 +37,13 @@ export class KycDetailsComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "MyProfile"){
+        this.parentRedirection = "my-profile";
+      }
+    }
 
 
   }
@@ -74,7 +86,7 @@ export class KycDetailsComponent implements OnInit {
             state: {
               title: 'Thank you for submitting the KYC documents.',
               message: 'Currently we are reviewing your account. You will be notified on registered email address once we complete the review.',
-              parent: this.subURL + '/' + this.parentURL + '/account-review'
+              parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)

@@ -28,19 +28,16 @@
                                   <thead>
                                     <tr>
                                       <th class="disabled-sorting text-center">#</th> 
-                                      <th style="min-width: 150px;">Beneficiary</th>
-                                      <th>Country</th>
-                                      <th style="min-width: 150px;">Applicant</th>
-                                      <th nowrap>Country</th>
-                                      <th nowrap>Txn ID</th>
-                                      <th style="min-width: 100px;width: 100px !important;">Date & Time</th>
-                                      <th style="min-width: 100px;width: 100px !important;">Quote Validity</th>
-                                      <th nowrap>IB</th>
-                                      <th style="min-width: 80px;">Amount</th>
-                                      <th style="min-width: 60px;">Ccy</th>
-                                      <th style="min-width: 80px;">Quote</th>
+                                      <th nowrap>LC Issuing Bank</th>
+                                      <th nowrap>Transaction ID</th>
                                       <th style="min-width: 80px;">Goods</th>
-                                   <th style="min-width: 130px;">Requirement</th>
+                                      <th style="min-width: 150px;">Applicant Name</th>
+                                      <th style="min-width: 150px;">Beneficiary Name</th>
+                                      <th style="min-width: 80px;">LC Value</th>
+                                      <th style="min-width: 80px;">Quote</th>
+                                      <th style="min-width: 80px;">Transaction Valid Till</th>
+                                      <th style="min-width: 80px;">Quote Valid Till</th>
+                                      <th style="min-width: 130px;">Requirement</th>
                                       <th style="min-width: 130px;">Quotes Rank</th>
                                       <th style="min-width: 130px;">Action</th>
                                    </tr>
@@ -48,18 +45,15 @@
                                   <tbody>
                                     <tr *ngFor="let record of detail; let i = index">
                                       <td>{{i+1}}</td>
-                                      <td>{{record.beneName}}</td>
-                                      <td>{{record.beneCountry}}</td>
-                                      <td>{{record.applicantName}}</td>
-                                      <td>{{record.applicantCountry}}</td>
-                                      <td>{{record.transactionId}}</td>
-                                      <td nowrap>{{record.acceptedOn}}</td>
-                                      <td nowrap>{{record.validityDate}}</td>
                                       <td>{{record.lCIssuanceBank}}</td>
-                                      <td>{{record.lCCurrency}}</td>
-                                       <td>{{record.lCValue}}</td>
-                                       <td></td>
+                                      <td>{{record.transactionId}}</td>
                                       <td>{{record.goodsType}}</td>
+                                      <td>{{record.applicantName}}</td>
+                                      <td>{{record.beneName}}</td>
+                                      <td>{{record.lCValue}}</td>
+                                      <td>{{record.totalQuoteValue}}</td>
+                                      <td nowrap>{{record.validity| date : "dd-MM-y"}}</td>
+                                      <td nowrap>{{record.validityDate| date : "dd-MM-y"}}</td>
                                       <td>{{record.requirementType}}</td>
                                       <td><span id="transactionDiv" style="cursor: pointer;" class="transactionDiv">{{record.quotationReceived}}</span></td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"

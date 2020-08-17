@@ -3,7 +3,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction ,bankActiveTransaction} from 'src/assets/js/commons';
+import { custActiveTransaction ,bankActiveTransaction,bankNewTransaction} from 'src/assets/js/commons';
 import { ConfirmationComponent } from '../newTransaction/quotes/confirmation/confirmation.component';
 import { ConfirmAndDiscountComponent } from '../newTransaction/quotes/confirm-and-discount/confirm-and-discount.component';
 import { RefinancingComponent } from '../newTransaction/quotes/refinancing/refinancing.component';
@@ -37,20 +37,19 @@ export class ActiveTransactionComponent implements OnInit {
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
    
     this.titleService.quote.next(false);
-    bankActiveTransaction();
+   
   }
 
   public getAllnewTransactions() {
     const data={    
       "bankUserId":sessionStorage.getItem('userID'),
-      "quotationPlaced":"Yes",
-      "transactionStatus":"Active"
+      "quotationStatus":"Placed"
 
     }
     
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
-     
+        bankActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
         if (!this.detail) {
           this.hasNoRecord = true;
@@ -79,7 +78,8 @@ export class ActiveTransactionComponent implements OnInit {
   showQuotePage(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-
+   
+   
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
       this.confirmation.action(true,action,data);
       this.discounting.isActive = false;
@@ -92,19 +92,19 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount') {      
+    } else if (pagename === 'confirmAndDiscount'||pagename === 'ConfirmAndDiscount') {      
       this.confirmAndDiscount.action(true,action,data);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinancing') {
+    } else if (pagename === 'refinancing'||pagename==='Refinance' ||pagename==='refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,data);
       this.banker.isActive = false;
-    } else if (pagename === 'banker') {
+    } else if (pagename === 'banker' || pagename === 'Banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

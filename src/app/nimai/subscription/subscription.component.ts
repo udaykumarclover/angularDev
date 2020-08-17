@@ -15,7 +15,7 @@ import { loads } from '../../../assets/js/commons';
 })
 export class SubscriptionComponent implements OnInit {
   public loading = true;
-  public isNew = true;
+  public isNew = false;
   public isOrder = false;
   public isPayment = false;
   public isPaymentSuccess = false;
@@ -25,6 +25,12 @@ export class SubscriptionComponent implements OnInit {
   public timeStamp = new Date();
   public parentURL: string = "";
   public subURL: string = "";
+  advDetails: any = "";
+  advPrice: any;
+  choosedPrice: any;
+  addedAmount: any;
+  showVASPlan = false;
+  custUserEmailId: string;
 
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
@@ -33,34 +39,55 @@ export class SubscriptionComponent implements OnInit {
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
-    })
+    });
+
+    let navigation = this.router.getCurrentNavigation();
+    console.log(navigation);
+    if(navigation.extras.state){
+      if(navigation.extras.state.redirectedFrom == "New-Transaction"){
+        console.log("..."+ navigation.extras.state.redirectedFrom);
+        this.getSubscriptionDetails();
+      }
+    }
   }
 
   ngOnInit() {
+    this.custUserEmailId = sessionStorage.getItem('custUserEmailId');
     loads();
     this.titleService.changeTitle(this.title);
-    this.getSubscriptionDetails();
+    // this.getSubscriptionDetails();
     this.getPlan(sessionStorage.getItem("userID"));
+    var userid = sessionStorage.getItem("userID");
+    if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
+      this.showVASPlan = true;
+    }
   }
   subscriptionDetails = [];
 
   getSubscriptionDetails() {
     this.titleService.loading.next(true);
     this.subscriptionService.getSubscriptionDetails().subscribe(data => {
+      this.isNew = true;
       this.subscriptionDetails = data.data;
       this.loading = false;
     }
     )
   }
-  //added by ashvini -  “Next” button in the payment successful  page
+  //added by ashvini -  â€œNextâ€ button in the payment successful  page
   gotokyc(){
      this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`])
    }
   public choosePlan(plan: Subscription) {
     this.choosedPlan = plan;
+    this.choosedPrice = this.choosedPlan.subscriptionAmount;
+    this.addedAmount = this.choosedPrice;
     this.choosedPlan.userId = sessionStorage.getItem('userID');
     this.isNew = false;
     this.isOrder = true;
+    this.subscriptionService.viewAdvisory().subscribe(response => {
+      this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
+      this.advPrice = this.advDetails.pricing;
+    })
   }
 
   public payNow(planType) {
@@ -131,7 +158,10 @@ export class SubscriptionComponent implements OnInit {
         response => {
 
           this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];
-          console.log(this.choosedPlan)
+          console.log(this.choosedPlan);
+          if(this.choosedPlan.status.toLowerCase() != "active"){
+            this.getSubscriptionDetails();
+          }
 
           this.isNew = false;
           this.isOrder = false;
@@ -142,6 +172,7 @@ export class SubscriptionComponent implements OnInit {
         },
         (error) => {
           this.titleService.loading.next(false);
+          this.getSubscriptionDetails();
         }
       )
   }
@@ -151,9 +182,11 @@ export class SubscriptionComponent implements OnInit {
 
   addAdvService(event){
     if (event.target.value === "Add") {
+      this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
       event.target.value = "Remove";
       } else {
       event.target.value = "Add";
+      this.addedAmount = this.choosedPrice;
       }
   }
 

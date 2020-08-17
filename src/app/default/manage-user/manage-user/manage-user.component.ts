@@ -10,6 +10,7 @@ import { SignupService } from 'src/app/services/signup/signup.service';
 import { InterestedCountry } from 'src/app/beans/interestedcountry';
 import { BlackListedGoods } from 'src/app/beans/blacklistedgoods';
 import { ValidateRegex } from 'src/app/beans/Validations';
+import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class ManageUserComponent implements OnInit {
 
 
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -177,6 +178,9 @@ export class ManageUserComponent implements OnInit {
       account_status: "ACTIVE",
       account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
       regCurrency: "",
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
 
     }
 
@@ -185,14 +189,13 @@ export class ManageUserComponent implements OnInit {
       return;
     }
     this.submitted = false;
-    //need to change event as ADD_USER
     const fg = {
-      "emailId": this.manageSubForm.get('emailId').value,
-      "event": 'ADD_SUBSIDIARY',
-      "userId": sessionStorage.getItem('userID')
+      event: 'ACCOUNT_ACTIVATE',
+      email: this.manageSubForm.get('emailId').value,
     }
-
-    this.fps.sendEmailReferSubsidiary(fg)
+    this.signUpService.signUp(data).subscribe((response) => {
+      this.respMessage = JSON.parse(JSON.stringify(response)).message;
+    this.fps.sendRegistrationEmail(fg)
       .subscribe(
         (response) => {
           this.respMessage = JSON.parse(JSON.stringify(response)).message;
@@ -202,9 +205,7 @@ export class ManageUserComponent implements OnInit {
           }
           else{
             this.respMessage = "You've been successfully invited as a user for " + "Clover Infotech" + " to join TradeEnabler."
-            this.signUpService.signUp(data).subscribe((response) => {},
-            (err) =>{}
-            )
+            
           }
           $('#authemaildiv').slideUp();
           $('#paradiv').slideDown();
@@ -221,6 +222,16 @@ export class ManageUserComponent implements OnInit {
           this.respMessage = "Service not working! Please try again later."
         }
       )
+    },
+    (err) =>{
+      $('#authemaildiv').slideUp();
+          $('#paradiv').slideDown();
+          $('#okbtn').show();
+          $('#btninvite').hide();
+          this.manageSubForm.reset();
+      this.respMessage = JSON.parse(JSON.stringify(err.error)).errMessage;
+    }
+    )
   }
 
   validateRegexFields(event, type){

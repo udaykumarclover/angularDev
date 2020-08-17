@@ -11,7 +11,7 @@ import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
 import { custActiveTransaction } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -20,7 +20,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
+  // displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goods', 'requirement', 'receivedQuotes', 'star'];
+  displayedColumns: string[] = ['id','txnID', 'beneficiary', 'applicant', 'amount', 'requirement', 'receivedQuotes','validity', 'star'];
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
 
@@ -41,6 +42,7 @@ export class ActiveTransactionComponent implements OnInit {
   acceptedDetails: any = "";
   public parentURL: string = "";
   public subURL: string = "";
+  acceptedErrorDetail: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
@@ -70,6 +72,13 @@ export class ActiveTransactionComponent implements OnInit {
         if (!this.detail) {
           this.hasNoRecord = true;
         }
+        else{
+          this.hasNoRecord = false;
+          this.dataSource = new MatTableDataSource(this.detail);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+        
 
       },(error) =>{
         this.hasNoRecord = true;
@@ -77,8 +86,31 @@ export class ActiveTransactionComponent implements OnInit {
     )
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   ngOnInit() {
+    this.paginator._intl.itemsPerPageLabel="Transactions per page";
     custActiveTransaction();
+      $('#TransactionDetailDiv').hide();
+      $('.acceptedPopupDetails').hide();
+      $('.acceptedErrorDetails').hide();
+      $('#backbtn').hide();
+
+      $('#backbtn').click(function () {
+          $('#changetext').html('Active Transactions');
+          $('#TransactionDetailDiv').slideUp();
+          $('#transactionID').slideDown();
+          $('#TransactionDetailDiv').hide();
+          $('#transactionFilter').show();
+          $('#backbtn').fadeOut();
+  });
   }
 
   ngAfterViewInit() {
@@ -99,34 +131,44 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menu-bar-con").style.width = "450px"; 
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
       this.discounting.action(true,action,data);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menu-bar-dis").style.width = "450px"; 
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.action(true,action,data);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menu-bar-conAndDis").style.width = "450px"; 
     } else if (pagename === 'refinance' || pagename === 'Refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,data);
       this.banker.isActive = false;
+      document.getElementById("menu-bar-ref").style.width = "450px"; 
     } else if (pagename === 'banker' || pagename === 'Banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.action(true,action,data);
+      document.getElementById("menu-bar-bank").style.width = "450px";  
     }
   }
 
   showQuoteDetail(transactionId){
+    $('#changetext').html('Bank Quotes');
+    $('#transactionID').slideUp();
+    $('#TransactionDetailDiv').slideDown();
+    $('#transactionFilter').hide();
+    $('#backbtn').fadeIn();
     this.noQRdetail = false;
 
     let data = {
@@ -150,7 +192,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   openOffcanvas() {
-    document.getElementById("menu-barnew").style.width = "450px"; 
+    document.getElementById("menu-barnew").style.width = "450px";
  }
  openNav3() {
     document.getElementById("myCanvasNav").style.width = "100%";
@@ -158,6 +200,11 @@ export class ActiveTransactionComponent implements OnInit {
  }
  closeOffcanvas() {
     document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("menu-bar-con").style.width = "0%"; 
+    document.getElementById("menu-bar-dis").style.width = "0%"; 
+    document.getElementById("menu-bar-conAndDis").style.width = "0%"; 
+    document.getElementById("menu-bar-ref").style.width = "0%"; 
+    document.getElementById("menu-bar-bank").style.width = "0%";  
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
  } 
@@ -166,7 +213,7 @@ export class ActiveTransactionComponent implements OnInit {
     this.getSpecificDetail = detail;
  }
 
- showAcceptedDetails(index,qId, tId, userID,sel){
+ showAcceptedDetails(index,qId, tId, quotationDetails){
   let req = {
     "quotationId": qId,
 	  "transactionId": tId
@@ -174,22 +221,27 @@ export class ActiveTransactionComponent implements OnInit {
 
   index = index + 1;
 
-  this.bds.viewBusinessDetails(userID).subscribe(
-    (response) => {
-      let responseData = JSON.parse(JSON.stringify(response));
-      this.acceptedDetails = responseData.data;
-      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ', ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.registeredCountry);
-      $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
+      this.acceptedDetails = quotationDetails;
+      
       this.nts.acceptBankQuote(req).subscribe(
         (response) => {
+          var acceptQuoteResp = JSON.parse(JSON.stringify(response));
+          if(acceptQuoteResp.status.toLowerCase() == "failure"){
+            $('.acceptedErrorDetails').show();
+            this.acceptedErrorDetail = acceptQuoteResp.errMessage;
+          }
+          else{
+            $('.acceptedPopupDetails').show();
+            $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ' - ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.countryName);
+            $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
+          }
           console.log("quote Accepted");
         },
         (err) => {
           console.log("Failure");
         }
       )
-    },
-    (err) => {})
+    
  }
 
  redirectAsAccepted(){

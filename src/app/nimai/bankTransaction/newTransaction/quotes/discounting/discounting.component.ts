@@ -23,6 +23,7 @@ export class DiscountingComponent implements OnInit {
   detail:any;
   public parentURL: string = "";
   public subURL: string = "";
+  public errmessage:string="";
 
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
@@ -75,9 +76,9 @@ this.dataViewEdit={
 		beneName:"",
 		chargesType:"",
 		commentsBenchmark:"",
-		confChgsIssuanceToExp: 0,
-		confChgsIssuanceToMatur: 0,
-		confChgsIssuanceToNegot: 0,
+		confChgsIssuanceToExp: "",
+		confChgsIssuanceToMatur: "",
+		confChgsIssuanceToNegot: "",
 		confirmationCharges: 0,
 		discountingCharges: 0,
 		docHandlingCharges: 0,
@@ -105,7 +106,7 @@ this.dataViewEdit={
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-    if (flag) {
+       if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
@@ -176,26 +177,25 @@ this.dataViewEdit={
         setTimeout(() => {
           $('input').attr('readonly', true);
         }, 200);
-        this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
-          (response) => {
-           
-            this.detail = JSON.parse(JSON.stringify(response)).data;
-            //this.data=data;
-            // this.data.TotalQuote=this.detail.TotalQuote;
-            // this.data.confChgsMatur=this.detail.confChgsMatur;
-            // this.data.confChgsNegot=this.detail.confChgsNegot;
-
-          },
-          error => {
-            alert('error')
-            this.closed();
-            this.tab = 'tab1';
-          }
-        )
+        
       }
         break;
     }
   }
+
+  
+  redirectToactive(){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        redirectedFrom: "confirmation",
+        trnsactionID: "data.transactionId"
+      }
+    };
+     this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+     .then(success => console.log('navigation success?', success))
+     .catch(console.error);
+  }
+
   
   public transactionForQuotes(act: string,data:any,detail:any) {
 
@@ -223,8 +223,17 @@ this.dataViewEdit={
               "userId": data.userId,
               "event": "QUOTE_ACCEPT"
               }
-          this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
-  
+              let emailBankBody = {
+              
+                "event": "QUOTE_ACCEPT_ALERT_ToBanks",
+                "quotationId" : detail.quotationId,
+                "transactionId" : data.transactionId,
+                "bankEmail" : sessionStorage.getItem('custUserEmailId')
+                }
+            this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+            
+            this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
+   
           },
           error => {
             alert('error')
@@ -273,12 +282,24 @@ this.dataViewEdit={
         }break;
 
         case 'generateQuote': {
+         
           this.tab = 'tab2';
           this.ts.saveQuotationToDraft(this.data).subscribe(
             (response) => {
+              if(JSON.parse(JSON.stringify(response)).status==='Failure'){
+                this.errmessage=`Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
+            
+                $("#labDis").text(this.errmessage);
+                document.getElementById("myModalDis").style.display = "block";    
+              }
+              else{    
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data=data;
               this.data.TotalQuote=this.detail.TotalQuote;
+              this.data.confChgsMatur=this.detail.confChgsMatur;
+              this.data.confChgsNegot=this.detail.confChgsNegot;
+            
+              }           
             },
             error => {
               alert('error')

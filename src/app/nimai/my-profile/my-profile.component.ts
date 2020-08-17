@@ -17,13 +17,13 @@ import { Business } from 'src/app/beans/business';
 })
 export class MyProfileComponent implements OnInit {
   public title: string = "My Profile";
-  personalDetails: any;
+  personalDetails: any = "";
   submitted: boolean = false;
   public parentURL: string = "";
   public subURL: string = "";
   isReferrer: boolean = false;
   isBank: boolean = false;
-  public bd: any = null;
+  public bd: any = "";
   public isCustomer = false;
 
 
@@ -136,7 +136,10 @@ export class MyProfileComponent implements OnInit {
       bankType: "",
       minLCValue: "",
       interestedCountry: [],
-      blacklistedGoods:[]
+      blacklistedGoods:[],
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
     }
     return data;
   }
@@ -196,8 +199,7 @@ export class MyProfileComponent implements OnInit {
     
     const navigationExtras: NavigationExtras = {
       state: {
-        parent: this.parentURL + '/my-profile',
-        value: '/my-profile'
+        redirectedFrom: "MyProfile"
       }
     };
     this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/"+redirectVal], navigationExtras);

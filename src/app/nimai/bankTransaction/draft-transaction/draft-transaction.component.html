@@ -21,21 +21,14 @@
                                     <tbody>
                                     <tr *ngFor="let list of draftData; let i = index">
                                         <td>{{i+1}}</td>
-                                        <!-- <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                <input type="checkbox" name="optionsCheckboxes">
-                                                </label>
-                                            </div>
-                                        </td> -->
                                         <td>Draft</td>
                                         <td>{{list.requirementType}}</td>
                                         <td>{{list.transactionId}}</td>
-                                        <td>{{list.modifiedDate}}</td>
-                                        <!-- <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="editDraft(list.transactionId)">Edit</button></td> -->
-                               
-                                        <td><a href="javascript:void()" (click)="showQuotePage(list.requirementType,2,list)"
-                                            class="handle btn btn-info btn-round">Edit<div class="ripple-container"></div></a></td>
+                                        <td>{{list.insertedDate  | date : "dd-MM-y h:mm:ss z"}}</td>
+                                        <td><button style="margin: 0;" type="button" class="handle btn btn-info" (click)="editDraft(list.requirementType,2,list)">Edit</button></td>
+                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft(list)">Delete</button></td>
+                                   
+                                    
                                     </tr>
 
                                     </tbody>
