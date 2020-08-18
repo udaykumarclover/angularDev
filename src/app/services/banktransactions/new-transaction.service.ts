@@ -76,4 +76,8 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/cloneLC`, data , { headers: { 'content-types': 'application/json' } });
   }
 
+  public custReopenTransaction(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/reopenTransactionByTxnIdUserId`, data , { headers: { 'content-types': 'application/json' } });
+  }
+
 }

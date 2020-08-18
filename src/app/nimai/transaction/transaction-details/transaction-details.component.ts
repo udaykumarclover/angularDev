@@ -71,6 +71,8 @@ export class TransactionDetailsComponent {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
+
+        
         
       },
       (error) => {
@@ -100,6 +102,12 @@ export class TransactionDetailsComponent {
   changeStatusCall(status){
     this.getAllnewTransactions(status);
     custTrnsactionDetail();
+    setTimeout(() => {
+      if(status == "Rejected"){
+        $('#changeStatus').val('Close').change();
+      }
+    }, 800);
+    
   }
 
   displayQuoteDetails(transactionId){
@@ -173,6 +181,29 @@ cloneTransaction(transactionId){
     .then(success => console.log('navigation success?', success))
     .catch(console.error);   
 }
+
+reOpenTransaction(transactionId){
+  if($('#addOptions select').val() == "Rejected"){
+  var data = {
+    "transactionId":transactionId,
+    "userId":"CU1313"
+    }
+    this.nts.custReopenTransaction(data).subscribe(
+      (response) => {
+        this.openNav3();
+        $('#reOpenPopup').show();
+
+      },
+      (err) => {}
+  )
+  }
+}
+
+redirectAsReopen(){
+  $('#reOpenPopup').hide();
+  this.closeOffcanvas();
+  this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/active-transaction"]);
+ }
 
 
 }

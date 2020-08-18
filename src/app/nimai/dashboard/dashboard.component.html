@@ -79,13 +79,13 @@
                     <li *ngIf="((isCustomer || isBank) && (nimaiCount.kycstatus != 'APPROVED'))">
                        <a data-toggle="collapse" href="#transactionPages" [attr.aria-expanded]="areaExpandedtra" >
                           <i class="fa fa-book fa-fw"></i>
-                          <p>Transactilion 
+                          <p>Transaction 
                              <b class="caret"></b>
                           </p>
                        </a>
                        <div class="collapse" id="transactionPages" [ngClass]="transactionpages">
                           <ul class="nav">
-                             <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
+                             <!-- <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['new-transaction']">
                                   <i class="fas fa-concierge-bell"></i>
                                   <ng-template
@@ -98,7 +98,24 @@
                                       <p> New Request </p>
                                   </ng-template>
                                 </a>
-                             </li>
+                             </li> -->
+
+                             <li *ngIf="isCustomer" [routerLinkActive]="['active']">
+                              <a [routerLink]="['new-transaction']">
+                                 <i class="fa fa-check-square-o"></i>
+                                 <p>  New Transaction </p>
+                              </a>
+                           </li>
+                           <li *ngIf="isBank" [routerLinkActive]="['active']">
+                              <a [routerLink]="['new-request']">
+                                 <i class="fa fa-check-square-o"></i>
+                                 <p> New Request </p>
+                              </a>
+                           </li>
+
+
+
+
                              <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
                                 <a [routerLink]="['active-transaction']">
                                    <i class="fa fa-check-square-o"></i>

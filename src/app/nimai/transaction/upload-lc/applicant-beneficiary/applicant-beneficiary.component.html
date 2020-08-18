@@ -34,7 +34,7 @@
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
 
-                <select name='country' formControlName="applicantCountry">
+                <!-- <select name='country' formControlName="applicantCountry" [disabled]="true">
                     <option [ngValue]="null" selected>Select</option>
                     <option value='India'>India</option>
                     <option value='Bangladesh'>Bangladesh</option>
@@ -42,13 +42,14 @@
                     <option value='Nigeria'>Nigeria</option>
                     <option value='UAE'>UAE </option>
                     <option value='Qatar'>Qatar</option>
-                </select>
+                </select> -->
+                <input type="text" maxlength="50" formControlName="applicantCountry" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Country</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="50" formControlName="applicantName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <input type="text" maxlength="50" formControlName="applicantName" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Applicant's Name </label>
             </div>
         </div>
@@ -130,7 +131,7 @@
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
-                <select name='country' formControlName="beneCountry">
+                <!-- <select name='country' formControlName="beneCountry">
                     <option [ngValue]="null" selected>Select</option>
                     <option value='India'>India</option>
                     <option value='Bangladesh'>Bangladesh</option>
@@ -138,13 +139,14 @@
                     <option value='Nigeria'>Nigeria</option>
                     <option value='UAE'>UAE </option>
                     <option value='Qatar'>Qatar</option>
-                </select>
+                </select> -->
+                <input type="text" maxlength="50" formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Country</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <input type="text" maxlength="50" formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Beneficiary's Name </label>
             </div>
         </div>
