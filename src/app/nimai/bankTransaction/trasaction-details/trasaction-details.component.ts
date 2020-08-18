@@ -67,7 +67,6 @@ public getAllnewTransactions(status) {
 getDetail(detail){
   this.quotationdata = detail;
   this.specificDetail = detail;
-   console.log(this.specificDetail)
 }
 
 changeStatusCall(status){
