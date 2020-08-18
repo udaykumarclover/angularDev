@@ -12,6 +12,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Tflag } from 'src/app/beans/Tflag';
 import { newTransactionBean } from 'src/app/beans/BankNewTransaction';
 import { formatDate } from '@angular/common';
+import * as $ from 'src/assets/js/jquery.min';
+
 
 
 @Component({
@@ -26,6 +28,7 @@ export class NewTransactionComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   public ntData: any[] = [];
   public isActive: boolean = false;
+  document: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -141,8 +144,17 @@ export class NewTransactionComponent implements OnInit {
     this.isActive = true;
     this.data = data;
     this.titleService.quote.next(true);
-
   }
+
+  showProForma(file){
+    $('#myModalAttach').show();
+    this.document = file;
+    }
+
+    close(){
+      $('#myModalAttach').hide();
+      }
+
   showQuotePage(pagename: string, action: Tflag, val: any) {
 
     this.titleService.quote.next(true);
@@ -168,7 +180,7 @@ export class NewTransactionComponent implements OnInit {
 
 
     }
-    //pagename='Banker';
+    //pagename='discounting';
    
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);

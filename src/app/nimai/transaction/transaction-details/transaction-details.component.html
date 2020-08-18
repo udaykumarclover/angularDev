@@ -74,8 +74,8 @@
                               <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Status </th>
                                 <td mat-cell *matCellDef="let row">
-                                    <select>
-                                        <option value="Open">Open</option>
+                                    <select id="changeStatus" (change)="reOpenTransaction(row.transactionId)">
+                                        <option value="Open">Re-open</option>
                                         <option value="Close">Close</option>
                                      </select>
                                 </td>
@@ -1118,7 +1118,7 @@
      </div>
   </div>
 </div>
-<div id="myModal6" style="display: none;" class="popupnew modal fade" role="dialog">
+<div id="reOpenPopup" style="display: none;opacity: 1;top: 20%;z-index: 9999;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -1132,7 +1132,7 @@
                        <label>Your transaction has been reopened. Check the active transacion section for more details.</label> 
                        <div class="form-group"></div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Ok</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="redirectAsReopen()">Ok</button> 
                  </div>
               </div>
            </div>

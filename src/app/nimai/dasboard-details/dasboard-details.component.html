@@ -12,7 +12,9 @@
                            <!--<p>Nimai User Details page is coming soon !!!!!</p> --> 
                            <div class="col-md-12">
                             
-                            <img src="assets/images/bank.png" height="320px"  />
+                            <img src="assets/images/customer.png" height="320px" *ngIf="isCustomer" />
+                            <img src="assets/images/bank.png" height="320px" *ngIf="isBank" />
+
                            
                           
                 </div>

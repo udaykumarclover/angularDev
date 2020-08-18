@@ -153,6 +153,9 @@ export class BusinessDetailsComponent implements OnInit {
       // ignore: ['#hidden',':not(:visible)']
       return;
     }
+    sessionStorage.setItem('companyName',this.businessDetailsForm.get('companyName').value);
+    sessionStorage.setItem('registeredCountry',this.businessDetailsForm.get('country').value);
+
     this.perDetailsSubmit = false;
 
     this.bds.updateBusinessDetails(this.getBusinessData(), this.businessDetailsForm.get('userId').value).subscribe(
@@ -233,6 +236,9 @@ export class BusinessDetailsComponent implements OnInit {
           bd.loading = false;
           this.titleService.loading.next(false);
         }, 1000);
+
+        sessionStorage.setItem('companyName',this.bd.comapanyName);
+        sessionStorage.setItem('registeredCountry',this.bd.registeredCountry);
       },
       (error) => {
         this.titleService.loading.next(false);

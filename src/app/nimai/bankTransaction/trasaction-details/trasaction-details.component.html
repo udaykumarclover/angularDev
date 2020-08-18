@@ -315,10 +315,8 @@
                      </div>
                   </div>
                </div>
-                <div class="tab-pane" id="tab2">
-                 
-                  <div class="form-group clearfix"></div>
-                                   
+                <div class="tab-pane" id="tab2">                 
+                  <div class="form-group clearfix"></div>                                 
                   
                   <div class="row" > 
                      <div class="col-md-12">
@@ -328,36 +326,47 @@
                                  <td style="width: 50%;">Date & Time</td>
                                  <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y h:mm:ss z"}}</td>
                               </tr>
-                               <tr>
-                                 <td>Confirmation Charges</td>
+                              <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
+                                 <td>Applicable Benchmark , if any</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}</td>
+                              </tr>
+                               <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
+                                 <td>Confirmation Charges p.a.</td>
                                  <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}</td>
                               </tr>
-                              <tr>
-                                 <td>Confirmation Charges from Date of Issuance till date of discounting</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToExp}}</td>
-                              </tr>
-                              <tr>
-                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
-                              </tr>
-                              <tr>
-                                 <td>Confirmation Charges from Date of Issuance till date of maturity</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
-                              </tr>
-                              <tr>
+                             
+                              <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
                                  <td>Discounting Charges p.a.</td>
                                  <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}</td>
                               </tr>
-                              <tr>
-                                 <td>Libor</td>
-                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y"}}</td>
+                              <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
+                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
                               </tr>
-                              <tr>
-                                 <td>Negotiation Charges p.a.</td>
+                              <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
+                                 <td>
+                                    Confirmation Charges from Date of Issuance till date of maturity</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
+                              </tr>
+                             
+                              <tr *ngIf="quotationdata.requirementType == 'Banker'">
+                                 <td>Banker's Acceptance interest p.a.</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}}</td>
+                              </tr>
+                              <tr *ngIf="quotationdata.requirementType == 'Refinance'">
+                                 <td>Refinancing interest p.a.</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}}</td>
+                              </tr>
+                              <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
+                                 <td>Negotiation Charges p.a. </td>
                                  <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
                               </tr>
+                              <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
+                                 <td>Negotiation Charges p.a.(%)</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}}</td>
+                              </tr>
                               <tr>
-                                 <td>Document Handling Charges (USD)</td>
+                                 <td>Document Handling Charges</td>
                                  <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
                               </tr>
                               <tr>
@@ -365,7 +374,7 @@
                                  <td *ngIf="quotationdata">{{quotationdata.otherCharges}}</td>
                               </tr>
                               <tr>
-                                 <td>Min.Trancation Charges (USD)</td>
+                                 <td>Min.Trancation Charges </td>
                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
@@ -980,21 +989,16 @@
   </div>
 </div>
 <div id="myModal9" class="modal3" style="display: none;">
-   <!-- <div class="modal-dialog modal-md emaildiv"> -->
-   <!-- Modal content-->
    <div class="modal-content-image">
      <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
      <div class="modal-body" style="text-align:center">
        <h4>Attached document</h4>
        <div class="row">
-         <!--<p><strong>Enter Email ID here</strong></p> -->
          <div class="col-md-12">
           <img [src]="document" />
          </div>
-         <!-- <button type="submit" class="btn btn-info"  data-dismiss="modal">Close</button>-->
        </div>
      </div>
    </div>
-   <!-- </div> -->
  </div>
  

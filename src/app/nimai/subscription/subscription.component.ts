@@ -49,6 +49,9 @@ export class SubscriptionComponent implements OnInit {
         this.getSubscriptionDetails();
       }
     }
+    else{
+      this.getPlan(sessionStorage.getItem("userID"));
+    }
   }
 
   ngOnInit() {
@@ -56,7 +59,7 @@ export class SubscriptionComponent implements OnInit {
     loads();
     this.titleService.changeTitle(this.title);
     // this.getSubscriptionDetails();
-    this.getPlan(sessionStorage.getItem("userID"));
+    // this.getPlan(sessionStorage.getItem("userID"));
     var userid = sessionStorage.getItem("userID");
     if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
       this.showVASPlan = true;
