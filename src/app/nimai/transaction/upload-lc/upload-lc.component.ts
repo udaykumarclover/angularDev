@@ -9,6 +9,7 @@ import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import  { ValidateRegex } from '../../../beans/Validations';
 import { call } from 'src/assets/js/bootstrap-filestyle.min'
+import { loads } from 'src/assets/js/commons'
 
 
 
@@ -88,7 +89,9 @@ export class UploadLCComponent implements OnInit {
 
     })
     call();
-
+    setTimeout(() => {
+      loads();
+    }, 500);
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -513,14 +516,14 @@ export class UploadLCComponent implements OnInit {
       lastBeneSwiftCode:[''],
       lastBankCountry:[''],  
       
-      applicantName:[''],
-      applicantCountry:[''],
+      applicantName:sessionStorage.getItem('companyName'),
+      applicantCountry:sessionStorage.getItem('registeredCountry'),
   
-      beneName:[''],
+      beneName:sessionStorage.getItem('companyName'),
       beneBankCountry:[''],
       beneBankName:[''],
       beneSwiftCode:[''],
-      beneCountry:[''],
+      beneCountry:sessionStorage.getItem('registeredCountry'),
       
      
       loadingCountry:[''],
@@ -781,7 +784,7 @@ export class UploadLCComponent implements OnInit {
                 redirectedFrom: "New-Transaction"
               }
             };
-            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
               .then(success => console.log('navigation success?', success))
               .catch(console.error);
           }
